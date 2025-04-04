@@ -40,6 +40,15 @@ To see MCP logs, check https://code.visualstudio.com/docs/copilot/chat/mcp-serve
 - Select the MCP server you want to see logs for
 - Select the option to view logs in the output panel
 
+### Debugging
+
+We can use @modelcontextprotocol/inspector to debug the server - https://github.com/modelcontextprotocol/inspector
+
+From the root of this repository, run: 
+```shell
+npx @modelcontextprotocol/inspector dist/index.js
+```
+
 ## Supported tools
 
 ### VSCode
