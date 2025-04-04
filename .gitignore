@@ -1,6 +1,6 @@
 node_modules
 .vscode/mcp.json
-.vscode/prompts/*
+.github/prompts/*
 
 # Environment variables
 .env
