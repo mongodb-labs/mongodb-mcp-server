@@ -14,8 +14,15 @@ npm install
 npm run build
 ```
 
-## Troubleshooting
+## Troubleshooting (Via VSCode Insiders)
 
+### Restart server
+- Run `npm run build` to re-build the server if you made changes to the code
+- Press `Cmd + Shift + P` and type List MCP Servers
+- Select the MCP server you want to restart
+- Select the option to restart the server
+
+### Logs
 To see MCP logs, check https://code.visualstudio.com/docs/copilot/chat/mcp-servers.
 
 - Press `Cmd + Shift + P` and type List MCP Servers

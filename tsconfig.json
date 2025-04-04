@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "node",
     "rootDir": "./src",
     "outDir": "./dist",
-    "strict": true
+    "strict": true,
+    "esModuleInterop": true
   }
 }

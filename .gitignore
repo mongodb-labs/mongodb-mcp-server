@@ -1,2 +1,5 @@
 node_modules
 .vscode/mcp.json
+
+# Environment variables
+.env
