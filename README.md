@@ -2,6 +2,17 @@
 
 - Uses the official MCP SDK https://github.com/modelcontextprotocol/typescript-sdk 
 
+## Table of Contents
+- [Setting up your environment](#setting-up-your-environment)
+- [Running the MCP Server](#running-the-mcp-server)
+- [Troubleshooting (Via VSCode Insiders)](#troubleshooting-via-vscode-insiders)
+  - [Restart server](#restart-server)
+  - [Logs](#logs)
+- [Supported tools](#supported-tools)
+  - [VSCode](#vscode)
+  - [Claude](#claude)
+
+
 ## Setting up your environment
 
 ```shell
