@@ -14,6 +14,14 @@ npm install
 npm run build
 ```
 
+## Troubleshooting
+
+To see MCP logs, check https://code.visualstudio.com/docs/copilot/chat/mcp-servers.
+
+- Press `Cmd + Shift + P` and type List MCP Servers
+- Select the MCP server you want to see logs for
+- Select the option to view logs in the output panel
+
 ## Supported tools
 
 ### VSCode
@@ -48,7 +56,6 @@ Step 3: Open the copilot chat and check that the toolbox icon is visible and has
 Step 4: Try running a command
 
 - Can you list my clusters?
-
 
 
 ### Claude
