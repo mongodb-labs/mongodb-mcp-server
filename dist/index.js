@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import express from "express"; // Fixing type imports
+import express from "express";
+// Import the necessary modules
+import { loadToken, pollToken, authenticate, isAuthenticated } from "./auth.js";
 import dotenv from "dotenv";
 dotenv.config();
-// Replace require() with dynamic import for node-fetch
-const fetchDynamic = async () => (await import("node-fetch")).default;
 function wait(milliseconds) {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
@@ -13,140 +13,65 @@ const server = new McpServer({
     name: "MongoDB Atlas",
     version: "1.0.0"
 });
-// Move clientId to a state variable
-var state = {
-    auth: false,
-    token: "", // Added token property
-    deviceCode: "",
-    verificationUri: "",
-    userCode: "",
-    clientId: process.env.CLIENT_ID || "0oabtxactgS3gHIR0297", // Moved clientId to state
-};
 const app = express();
 let authCode = "";
 app.get("/callback", (req, res) => {
     authCode = req.query.code;
     res.send("Authentication successful! You can close this tab.");
 });
-// Update the device code request to align with the Atlas Go SDK
+// Update globalState to use the GlobalState interface
+export const globalState = {
+    auth: false,
+};
+// Update imports to include globalState
+// Load token on server start
+loadToken();
+// Update references to state in the server tools
 server.tool("auth", "Authenticate to Atlas", async ({}) => {
-    console.log("Starting authentication process...");
-    const authUrl = "https://cloud.mongodb.com/api/private/unauth/account/device/authorize"; // Updated endpoint
-    console.log("Client ID:", state.clientId);
-    // Step 1: Request a device code
-    const deviceCodeResponse = await (await fetchDynamic())(authUrl, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-            client_id: state.clientId, // Use state.clientId
-            scope: "openid",
-        }).toString(),
-    });
-    const responseText = await deviceCodeResponse.text(); // Capture the full response body
-    console.log("Device Code Response Body:", responseText);
-    if (!deviceCodeResponse.ok) {
-        console.error("Failed to initiate authentication:", deviceCodeResponse.statusText);
+    const authResult = await isAuthenticated();
+    if (authResult) {
+        console.log("Already authenticated!");
         return {
-            content: [{ type: "text", text: `Failed to initiate authentication: ${deviceCodeResponse.statusText}` }],
+            content: [{ type: "text", text: "You are already authenticated!" }],
         };
     }
-    const deviceCodeData = JSON.parse(responseText); // Parse the response body
-    console.log(`Please authenticate by visiting the following URL: ${deviceCodeData.verification_uri}`);
-    console.log(`Enter the code: ${deviceCodeData.user_code}`);
-    // Store the device code data for further use
-    state.deviceCode = deviceCodeData.device_code;
-    state.verificationUri = deviceCodeData.verification_uri;
-    state.userCode = deviceCodeData.user_code;
-    return {
-        content: [
-            { type: "text", text: `Please authenticate by visiting ${deviceCodeData.verification_uri} and entering the code ${deviceCodeData.user_code}` },
-        ],
-    };
-});
-// Add PollToken functionality to the auth tool
-server.tool("poll-token", "Poll for Access Token", async ({}) => {
-    console.log("Starting token polling process...");
-    if (!state.deviceCode) {
-        console.error("Device code not found. Please initiate authentication first.");
-        return {
-            content: [{ type: "text", text: "Device code not found. Please initiate authentication first." }],
+    try {
+        // Step 1: Generate the device code
+        const { verificationUri, userCode } = await authenticate();
+        // Inform the user to authenticate
+        const initialResponse = {
+            content: [
+                { type: "text", text: `Please authenticate by visiting ${verificationUri} and entering the code ${userCode}` },
+                { type: "text", text: "Polling for token..." }
+            ], // Explicitly typed to match the expected structure
         };
+        // Start polling for the token asynchronously
+        pollToken().then(_ => {
+            globalState.auth = true;
+            console.log("Authentication successful!");
+        }).catch(error => {
+            console.error("Token polling failed:", error);
+        });
+        return initialResponse;
     }
-    const tokenEndpoint = "https://cloud.mongodb.com/api/private/unauth/account/device/token";
-    const interval = 5 * 1000; // Default polling interval in milliseconds
-    const expiresAt = Date.now() + 15 * 60 * 1000; // Assume 15 minutes expiration for the device code
-    while (Date.now() < expiresAt) {
-        await wait(interval);
-        try {
-            const tokenResponse = await (await fetchDynamic())(tokenEndpoint, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: new URLSearchParams({
-                    client_id: state.clientId, // Use state.clientId
-                    device_code: state.deviceCode,
-                    grant_type: "urn:ietf:params:oauth:grant-type:device_code",
-                }).toString(),
-            });
-            const responseText = await tokenResponse.text();
-            console.log("Token Response Body:", responseText);
-            if (tokenResponse.ok) {
-                const tokenData = JSON.parse(responseText);
-                console.log("Authentication successful. Token received:", tokenData.access_token);
-                // Store the token
-                state.auth = true;
-                state.token = tokenData.access_token;
-                return {
-                    content: [{ type: "text", text: "Authentication successful! You are now logged in." }],
-                };
-            }
-            else {
-                console.error("Token Response Error:", responseText);
-                const errorResponse = JSON.parse(responseText);
-                if (errorResponse.error === "authorization_pending") {
-                    console.log("Authorization pending. Retrying...");
-                    continue;
-                }
-                else if (errorResponse.error === "expired_token") {
-                    console.error("Device code expired. Please restart the authentication process.");
-                    return {
-                        content: [{ type: "text", text: "Device code expired. Please restart the authentication process." }],
-                    };
-                }
-                else {
-                    console.error("Failed to authenticate:", errorResponse.error_description || "Unknown error");
-                    return {
-                        content: [{ type: "text", text: `Failed to authenticate: ${errorResponse.error_description || "Unknown error"}` }],
-                    };
-                }
-            }
+    catch (error) {
+        if (error instanceof Error) {
+            console.error("Authentication error:", error);
+            return {
+                content: [{ type: "text", text: `Authentication failed: ${error.message}` }],
+            };
         }
-        catch (error) {
-            if (error instanceof Error) {
-                console.error("Unexpected error during token polling:", error);
-                return {
-                    content: [{ type: "text", text: `Unexpected error during token polling: ${error.message}` }],
-                };
-            }
-            else {
-                console.error("Unexpected non-Error object during token polling:", error);
-                return {
-                    content: [{ type: "text", text: "Unexpected error during token polling." }],
-                };
-            }
+        else {
+            console.error("Unknown authentication error:", error);
+            return {
+                content: [{ type: "text", text: "Authentication failed due to an unknown error." }],
+            };
         }
     }
-    console.error("Authentication timed out. Please restart the process.");
-    return {
-        content: [{ type: "text", text: "Authentication timed out. Please restart the process." }],
-    };
 });
 server.tool("list-clusters", "Lists clusters", async ({}) => {
     await wait(1000);
-    if (!state.auth) {
+    if (!globalState.auth) {
         return {
             content: [{ type: "text", text: "Not authenticated" }],
         };

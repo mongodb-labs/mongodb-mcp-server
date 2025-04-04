@@ -15,6 +15,7 @@
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.8.0",
     "@types/node": "^22.14.0",
+    "@types/simple-oauth2": "^5.0.7",
     "typescript": "^5.8.2",
     "zod": "^3.24.2"
   },
