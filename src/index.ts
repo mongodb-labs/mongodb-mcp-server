@@ -1,103 +1,65 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"; 
-import express, { Request, Response } from "express"; 
-
-
-// Import the necessary modules
-import { loadToken, pollToken, authenticate, authState, isAuthenticated, AuthState } from "./auth.js";
-
 import dotenv from "dotenv";
-dotenv.config();
+import { defineTools } from "./tools.js";
 
+dotenv.config();
 
 function wait(milliseconds: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
+// Set process env version
+process.env.VERSION = "1.0.0";
+
+// Initialize server with logging capability
 const server = new McpServer({
     name: "MongoDB Atlas",
-    version: "1.0.0"
+    version: process.env.VERSION,
+    capabilities: {
+        logging: { enabled: true },
+        tools: { listChanged: false }
+    }
 });
 
+// Explicitly register capabilities on the underlying server
+server.server.registerCapabilities({
+    logging: { enabled: true },
+    tools: { enabled: true },
+});
+
+export function log(targetLevel: "info" | "debug" | "error", data: string | unknown) {
+    // Convert objects to string for better logging
+    const message = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+    
+    // Always log to console as a fallback
+    console[targetLevel === "debug" ? "log" : targetLevel](message);
+    
+    // Only attempt MCP logging after the server is connected
+    if (server.server && server.server.transport) {
+        try {
+            // Use the underlying Server instance which has the sendLoggingMessage method
+            server.server.sendLoggingMessage({
+                level: targetLevel,
+                data: message,
+            });
+        } catch (e) {
+            // Just use console logging if MCP logging fails
+            console.error("MCP logging failed, using console logging instead");
+        }
+    }
+}
 
 export interface GlobalState {
     auth: boolean;
-    
 }
 
 export const globalState: GlobalState = {
     auth: false,
 };
 
-// Update references to state in the server tools
-server.tool("auth", "Authenticate to Atlas", async ({}) => {
-    const authResult = await isAuthenticated()
-    if (authResult) {
-        console.log("Already authenticated!");
-        return {
-            content: [{ type: "text", text: "You are already authenticated!" }],
-        };
-    }
-
-    try {
-        // Step 1: Generate the device code
-        const { verificationUri, userCode } = await authenticate();
-
-        // Inform the user to authenticate
-        const initialResponse = {
-            content: [
-                { type: "text", text: `Please authenticate by visiting ${verificationUri} and entering the code ${userCode}` },
-                { type: "text", text: "Polling for token..." }
-            ] as Array<{ type: "text"; text: string }>, // Explicitly typed to match the expected structure
-        };
-
-        // Start polling for the token asynchronously
-        pollToken().then(_ => {
-            globalState.auth = true;
-            console.log("Authentication successful!");
-        }).catch(error => {
-            console.error("Token polling failed:", error);
-        });
-
-        return initialResponse;
-    } catch (error: unknown) {
-        if (error instanceof Error) {
-            console.error("Authentication error:", error);
-            return {
-                content: [{ type: "text", text: `Authentication failed: ${error.message}` }],
-            };
-        } else {
-            console.error("Unknown authentication error:", error);
-            return {
-                content: [{ type: "text", text: "Authentication failed due to an unknown error." }],
-            };
-        }
-    }
-});
-
-server.tool("list-clusters", "Lists clusters", async ({}) => {
-    await wait(1000);
-
-    if (!globalState.auth) {
-        return {
-            content: [{ type: "text", text: "Not authenticated" }],
-        }
-    }
-
-    const clusters = [
-        { name: "Cluster0", state: "IDLE", connectionString: "mongodb+srv://<username>:<password>@cluster0.mongodb.net/test" },
-        { name: "Cluster1", state: "IDLE", connectionString: "mongodb+srv://<username>:<password>@cluster1.mongodb.net/test" },
-        { name: "Cluster2", state: "IDLE", connectionString: "mongodb+srv://<username>:<password>@cluster2.mongodb.net/test" },
-    ];
-
-    const text = `Cluster Name | State | Connection String
-----------------|----------------|----------------
-` + clusters.map(cluster => `${cluster.name} | ${cluster.state} | ${cluster.connectionString}`).join("\n");
-
-    return {
-        content: [{ type: "text", text }],
-    };
-});
+// Register tools defined in tools.ts
+defineTools(server, globalState);
 
 async function runServer() {
     const transport = new StdioServerTransport();
@@ -105,6 +67,6 @@ async function runServer() {
 }
 
 runServer().catch((error) => {
-    console.error("Fatal error running server:", error);
+    console.error(`Fatal error running server:`, error);
     process.exit(1);
 });

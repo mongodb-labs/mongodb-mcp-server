@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { globalState, log } from "./index.js";
 
 // Replace __dirname with import.meta.url
 const __filename = fileURLToPath(import.meta.url);
@@ -41,31 +42,31 @@ export const authState: AuthState = {
     clientId: process.env.CLIENT_ID || "0oabtxactgS3gHIR0297",
 };
 
-// Update functions to use authState and globalState
-import { globalState } from "./index.js";
-
 export async function authenticate() {
-    console.log("Starting authentication process...");
+    log("info", "Starting authentication process...");
     const authUrl = "https://cloud.mongodb.com/api/private/unauth/account/device/authorize";
 
-    console.log("Client ID:", authState.clientId);
+    log("info", `Client ID: ${authState.clientId}`);
 
     const deviceCodeResponse = await (await fetchDynamic())(authUrl, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "application/json",
+            "User-Agent": `AtlasMCP/${process.env.VERSION} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
         },
         body: new URLSearchParams({
             client_id: authState.clientId,
-            scope: "openid",
+            scope:"openid profile offline_access",
+            grant_type: "urn:ietf:params:oauth:grant-type:device_code",
         }).toString(),
     });
 
     const responseText = await deviceCodeResponse.text();
-    console.log("Device Code Response Body:", responseText);
+    log("info", `Device Code Response Body: ${responseText}`);
 
     if (!deviceCodeResponse.ok) {
-        console.error("Failed to initiate authentication:", deviceCodeResponse.statusText);
+        log("error", `Failed to initiate authentication: ${deviceCodeResponse.statusText}`);
         throw new Error(`Failed to initiate authentication: ${deviceCodeResponse.statusText}`);
     }
 
@@ -81,7 +82,7 @@ export async function authenticate() {
 }
 
 export async function pollToken() {
-    console.log("Starting token polling process...");
+    log("info", "Starting token polling process...");
 
     if (!authState.deviceCode) {
         throw new Error("Device code not found. Please initiate authentication first.");
@@ -107,7 +108,7 @@ export async function pollToken() {
         });
 
         const responseText = await OAuthToken.text();
-        console.log("Token Response Body:", responseText);
+        log("info", `Token Response Body: ${responseText}`);
 
         if (OAuthToken.ok) {
             const tokenData = JSON.parse(responseText);
@@ -116,9 +117,9 @@ export async function pollToken() {
             return tokenData.access_token;
         } else {
             const errorResponse = JSON.parse(responseText);
-            console.error("Token polling error:", errorResponse.error);
+            log("error", `Token polling error: ${errorResponse.error}`);
             if (errorResponse.errorCode === "DEVICE_AUTHORIZATION_PENDING") {
-                console.log("Device authorization is pending. Please try again later.");
+                log("info", "Device authorization is pending. Please try again later.");
                 continue;
             } else if (errorResponse.error === "expired_token") {
                 throw new Error("Device code expired. Please restart the authentication process.");
@@ -133,21 +134,28 @@ export async function pollToken() {
 
 export function saveToken(token: OAuthToken) {
     fs.writeFileSync(TOKEN_FILE, JSON.stringify({ token }));
-    console.log("Token saved to file.");
+    log("info", "Token saved to file.");
 }
 
-export function loadToken() {
+export function getToken(): OAuthToken | undefined {
+    if (!authState.token) {loadToken();}
+    return authState.token;
+}
+
+function loadToken(): { token?: OAuthToken } | undefined {    
     if (fs.existsSync(TOKEN_FILE)) {
         const data = JSON.parse(fs.readFileSync(TOKEN_FILE, "utf-8"));
-        authState.token = data;
+        authState.token = data.token;
         globalState.auth = true;
-        console.log("Token loaded from file.");
+        log("info", "Token loaded from file.");
+        return data;
     }
+    return undefined;
 }
 
 // Check if token exists, if it's valid and refreshes it if necessary
 export async function isAuthenticated(): Promise<boolean> {
-    console.log("Checking authentication status...");
+    log("info", "Checking authentication status...");
     if (globalState.auth) {
         return true;
     }
@@ -177,7 +185,7 @@ export async function isAuthenticated(): Promise<boolean> {
             return true;
         }
     } catch (error) {
-        console.error("Error during token validation or refresh:", error);
+        log("error", `Error during token validation or refresh: ${error}`);
     }
 
 
@@ -190,7 +198,7 @@ async function validateToken(tokenData: OAuthToken): Promise<boolean> {
         const expiryDate = new Date(tokenData.expiry);
         return expiryDate > new Date(); // Token is valid if expiry is in the future
     } catch (error) {
-        console.error("Error validating token:", error);
+        log("error", `Error validating token: ${error}`);
         return false;
     }
 }
@@ -201,20 +209,47 @@ async function refreshToken(token: string): Promise<OAuthToken | null> {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/json",
+                "User-Agent": `AtlasMCP/${process.env.VERSION} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
             },
             body: new URLSearchParams({
                 client_id: authState.clientId,
                 refresh_token: token,
                 grant_type: "refresh_token",
+                scope: "openid profile offline_access",
             }).toString(),
         });
 
         if (response.ok) {
-            const data = (await response.json()) as OAuthToken; // Explicit cast here
+            const data = (await response.json()) as OAuthToken;
             return data;
         }
     } catch (error) {
-        console.error("Error refreshing token:", error);
+        log("error", `Error refreshing token: ${error}`);
     }
     return null;
+}
+
+async function revokeToken(token: string): Promise<void> {
+    try {
+        const response = await (await fetchDynamic())("https://cloud.mongodb.com/api/private/unauth/account/device/revoke", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/json",
+                "User-Agent": `AtlasMCP/${process.env.VERSION} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
+            },
+            body: new URLSearchParams({
+                client_id: authState.clientId,
+                token,
+                token_type_hint: "refresh_token",
+            }).toString(),
+        });
+
+        if (!response.ok) {
+            log("error", `Failed to revoke token: ${response.statusText}`);
+        }
+    } catch (error) {
+        log("error", `Error revoking token: ${error}`);
+    }
 }
