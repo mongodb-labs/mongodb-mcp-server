@@ -1,6 +1,9 @@
 node_modules
 .vscode/mcp.json
+.vscode/prompts/*
 
 # Environment variables
 .env
+
+# Sensitive
 dist/token.json
