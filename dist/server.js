@@ -27,7 +27,7 @@ export class Server {
                 this.state.auth.token = token;
                 this.state.auth.status = "issued";
                 saveState(this.state);
-            }
+            },
         });
         this.initiated = true;
     }
@@ -71,7 +71,10 @@ export class Server {
             await saveState(this.state);
             return {
                 content: [
-                    { type: "text", text: `Please authenticate by visiting ${code.verification_uri} and entering the code ${code.user_code}` },
+                    {
+                        type: "text",
+                        text: `Please authenticate by visiting ${code.verification_uri} and entering the code ${code.user_code}`,
+                    },
                 ],
             };
         }
@@ -118,17 +121,19 @@ export class Server {
             }
             if (clusters.length === 0) {
                 return {
-                    content: [{
+                    content: [
+                        {
                             type: "text",
-                            text: "No clusters found. You may need to create a cluster in your MongoDB Atlas account."
-                        }],
+                            text: "No clusters found. You may need to create a cluster in your MongoDB Atlas account.",
+                        },
+                    ],
                 };
             }
             const formattedClusters = formatClustersTable(clusters);
             return {
                 content: [
                     { type: "text", text: introText },
-                    { type: "text", text: formattedClusters }
+                    { type: "text", text: formattedClusters },
                 ],
             };
         }
@@ -139,15 +144,17 @@ export class Server {
                 return {
                     content: [
                         { type: "text", text: "You need to authenticate before listing clusters." },
-                        { type: "text", text: "Please use the 'auth' tool to log in to your MongoDB Atlas account." }
+                        { type: "text", text: "Please use the 'auth' tool to log in to your MongoDB Atlas account." },
                     ],
                 };
             }
             return {
-                content: [{
+                content: [
+                    {
                         type: "text",
-                        text: `Error listing clusters: ${error instanceof Error ? error.message : String(error)}`
-                    }],
+                        text: `Error listing clusters: ${error instanceof Error ? error.message : String(error)}`,
+                    },
+                ],
             };
         }
     }
@@ -170,15 +177,17 @@ export class Server {
             // Format projects as a table
             const header = `Project Name | Project ID | Created At
 ----------------|----------------|----------------`;
-            const rows = projects.map((project) => {
-                const createdAt = project.created ? new Date(project.created.$date).toLocaleString() : 'N/A';
+            const rows = projects
+                .map((project) => {
+                const createdAt = project.created ? new Date(project.created.$date).toLocaleString() : "N/A";
                 return `${project.name} | ${project.id} | ${createdAt}`;
-            }).join("\n");
+            })
+                .join("\n");
             const formattedProjects = `${header}\n${rows}`;
             return {
                 content: [
                     { type: "text", text: "Here are your MongoDB Atlas projects:" },
-                    { type: "text", text: formattedProjects }
+                    { type: "text", text: formattedProjects },
                 ],
             };
         }
@@ -189,15 +198,17 @@ export class Server {
                 return {
                     content: [
                         { type: "text", text: "You need to authenticate before listing projects." },
-                        { type: "text", text: "Please use the 'auth' tool to log in to your MongoDB Atlas account." }
+                        { type: "text", text: "Please use the 'auth' tool to log in to your MongoDB Atlas account." },
                     ],
                 };
             }
             return {
-                content: [{
+                content: [
+                    {
                         type: "text",
-                        text: `Error listing projects: ${error instanceof Error ? error.message : String(error)}`
-                    }],
+                        text: `Error listing projects: ${error instanceof Error ? error.message : String(error)}`,
+                    },
+                ],
             };
         }
     }
@@ -223,18 +234,19 @@ export class Server {
         await server.connect(transport);
     }
 }
-;
 function formatClustersTable(clusters) {
     if (clusters.length === 0) {
         return "No clusters found.";
     }
     const header = `Cluster Name | State | MongoDB Version | Region | Connection String
 ----------------|----------------|----------------|----------------|----------------|----------------`;
-    const rows = clusters.map(cluster => {
-        const region = cluster.providerSettings?.regionName || 'N/A';
-        const connectionString = cluster.connectionStrings?.standard || 'N/A';
-        const mongoDBVersion = cluster.mongoDBVersion || 'N/A';
+    const rows = clusters
+        .map((cluster) => {
+        const region = cluster.providerSettings?.regionName || "N/A";
+        const connectionString = cluster.connectionStrings?.standard || "N/A";
+        const mongoDBVersion = cluster.mongoDBVersion || "N/A";
         return `${cluster.name} | ${cluster.stateName} | ${mongoDBVersion} | ${region} | ${connectionString}`;
-    }).join("\n");
+    })
+        .join("\n");
     return `${header}\n${rows}`;
 }

@@ -34,12 +34,12 @@ export interface AtlasCluster {
 }
 
 export interface OauthDeviceCode {
-	user_code:   string;
-	verification_uri: string;
-	device_code: string;
-	expires_in: string;
-	interval: string;
-};
+    user_code: string;
+    verification_uri: string;
+    device_code: string;
+    expires_in: string;
+    interval: string;
+}
 
 export interface AtlasResponse<T> {
     results: T[];
@@ -75,19 +75,21 @@ export class ApiClient {
     }
 
     private defaultOptions(): RequestInit {
-        const authHeaders =  (!this.token?.access_token) ? null : {
-            "Authorization": `Bearer ${this.token.access_token}`
-        };
+        const authHeaders = !this.token?.access_token
+            ? null
+            : {
+                  Authorization: `Bearer ${this.token.access_token}`,
+              };
 
         return {
             method: "GET",
-            credentials: (!this.token?.access_token) ? undefined : "include",
+            credentials: !this.token?.access_token ? undefined : "include",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "application/vnd.atlas.2025-04-07+json",
+                Accept: "application/vnd.atlas.2025-04-07+json",
                 "User-Agent": `AtlasMCP/${config.version} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
-                ...authHeaders
-            }
+                ...authHeaders,
+            },
         };
     }
 
@@ -119,7 +121,7 @@ export class ApiClient {
             headers: {
                 ...defaultOpt.headers,
                 ...options?.headers,
-            }
+            },
         };
         const response = await fetch(url, opt);
 
@@ -127,7 +129,7 @@ export class ApiClient {
             throw new ApiClientError(`Error calling Atlas API: ${response.statusText}`, response);
         }
 
-        return await response.json() as T;
+        return (await response.json()) as T;
     }
 
     async authenticate(): Promise<OauthDeviceCode> {
@@ -139,7 +141,7 @@ export class ApiClient {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Accept": "application/json",
+                Accept: "application/json",
             },
             body: new URLSearchParams({
                 client_id: config.clientID,
@@ -152,7 +154,7 @@ export class ApiClient {
             throw new ApiClientError(`Failed to initiate authentication: ${response.statusText}`, response);
         }
 
-        return await response.json() as OauthDeviceCode;
+        return (await response.json()) as OauthDeviceCode;
     }
 
     async retrieveToken(device_code: string): Promise<OAuthToken> {
@@ -172,10 +174,10 @@ export class ApiClient {
 
         if (response.ok) {
             const tokenData = await response.json();
-            const buf = Buffer.from(tokenData.access_token.split('.')[1], 'base64').toString()
+            const buf = Buffer.from(tokenData.access_token.split(".")[1], "base64").toString();
             const jwt = JSON.parse(buf);
             const expiry = new Date(jwt.exp * 1000);
-            return await this.storeToken({...tokenData, expiry});
+            return await this.storeToken({ ...tokenData, expiry });
         }
         try {
             const errorResponse = await response.json();
@@ -198,7 +200,7 @@ export class ApiClient {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Accept": "application/json",
+                Accept: "application/json",
             },
             body: new URLSearchParams({
                 client_id: config.clientID,
@@ -213,7 +215,7 @@ export class ApiClient {
         }
         const data = await response.json();
 
-        const buf = Buffer.from(data.access_token.split('.')[1], 'base64').toString()
+        const buf = Buffer.from(data.access_token.split(".")[1], "base64").toString();
         const jwt = JSON.parse(buf);
         const expiry = new Date(jwt.exp * 1000);
 
@@ -232,7 +234,7 @@ export class ApiClient {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Accept": "application/json",
+                Accept: "application/json",
                 "User-Agent": `AtlasMCP/${process.env.VERSION} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
             },
             body: new URLSearchParams({
@@ -263,15 +265,12 @@ export class ApiClient {
                 return false;
             }
             const expiryDelta = 10 * 1000; // 10 seconds in milliseconds
-            const expiryWithDelta = new Date(
-                token.expiry.getTime() - expiryDelta
-            );
+            const expiryWithDelta = new Date(token.expiry.getTime() - expiryDelta);
             return expiryWithDelta.getTime() > Date.now();
         } catch (error) {
             return false;
         }
     }
-
 
     async validateToken(token?: OAuthToken): Promise<boolean> {
         if (this.checkTokenExpiry(token)) {
@@ -290,16 +289,16 @@ export class ApiClient {
      * Get all projects for the authenticated user
      */
     async listProjects(): Promise<AtlasResponse<AtlasProject>> {
-        return await this.do<AtlasResponse<AtlasProject>>('/groups');
+        return await this.do<AtlasResponse<AtlasProject>>("/groups");
     }
-    
+
     /**
      * Get a specific project by ID
      */
     async getProject(projectId: string): Promise<AtlasProject> {
         return await this.do<AtlasProject>(`/groups/${projectId}`);
     }
-    
+
     /**
      * Get clusters for a specific project
      */

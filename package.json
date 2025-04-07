@@ -10,13 +10,16 @@
     "build:addshebang": "echo '#!/usr/bin/env node' > dist/index2.js && cat dist/index.js >> dist/index2.js && mv dist/index2.js dist/index.js",
     "build:chmod": "chmod +x dist/index.js",
     "build": "npm run build:clean && npm run build:compile && npm run build:addshebang && npm run build:chmod",
-    "inspect": "npm run build && npx @modelcontextprotocol/inspector -- dist/index.js"
+    "inspect": "npm run build && npx @modelcontextprotocol/inspector -- dist/index.js",
+    "prettier": "prettier",
+    "reformat": "npm run prettier -- --write ."
   },
   "license": "MIT",
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.8.0",
     "@types/node": "^22.14.0",
     "@types/simple-oauth2": "^5.0.7",
+    "prettier": "^3.5.3",
     "typescript": "^5.8.2",
     "zod": "^3.24.2"
   },
