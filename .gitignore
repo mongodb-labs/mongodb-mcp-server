@@ -6,4 +6,4 @@ node_modules
 .env
 
 # Sensitive
-dist/token.json
+state.json
