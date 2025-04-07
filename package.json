@@ -9,7 +9,7 @@
     "build:addshebang": "echo '#!/usr/bin/env node' > dist/index2.js && cat dist/index.js >> dist/index2.js && mv dist/index2.js dist/index.js",
     "build:chmod": "chmod +x dist/index.js",
     "build": "npm run build:compile && npm run build:addshebang && npm run build:chmod",
-    "inspect": "npm run build && npx @modelcontextprotocol/inspector -- node dist/index.js"
+    "inspect": "npm run build && npx @modelcontextprotocol/inspector -- dist/index.js"
   },
   "license": "MIT",
   "devDependencies": {
@@ -21,5 +21,8 @@
   },
   "dependencies": {
     "@types/express": "^5.0.1"
+  },
+  "engines": {
+    "node": ">=23.0.0"
   }
 }

@@ -64,7 +64,8 @@ export async function callAtlasAPI<T = any>(endpoint: string, method: string = '
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
-                'Accept': 'application/vnd.atlas.2025-04-07+json'
+                'Accept': 'application/vnd.atlas.2025-04-07+json',
+                credentials: 'include',
             },
             body: body ? JSON.stringify(body) : undefined,
         });

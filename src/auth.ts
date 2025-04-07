@@ -12,7 +12,9 @@ const wait = (milliseconds: number): Promise<void> => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
 
-const TOKEN_FILE = path.resolve(__dirname, "token.json");
+
+
+const TOKEN_FILE = process.env.TOKEN_FILE || path.resolve(__dirname, "token.json");
 
 export interface AuthState {
     deviceCode: string;
@@ -131,13 +133,10 @@ export async function pollToken() {
 }
 
 export function saveToken(token: OAuthToken) {
+    globalState.auth = true;
+    authState.token = token;
     fs.writeFileSync(TOKEN_FILE, JSON.stringify({ token }));
     log("info", "Token saved to file.");
-}
-
-export function getToken(): OAuthToken | undefined {
-    if (!authState.token) {loadToken();}
-    return authState.token;
 }
 
 function loadToken(): { token?: OAuthToken } | undefined {    
@@ -152,6 +151,7 @@ function loadToken(): { token?: OAuthToken } | undefined {
                 return data;
             }
             log("info", "Token file exists but doesn't contain a valid token structure");
+            
         } catch (error) {
             log("error", `Error parsing token file: ${error}`);
         }
@@ -165,22 +165,29 @@ export async function isAuthenticated(): Promise<boolean> {
     if (globalState.auth) {
         return true;
     }
+    
+    const token = await getToken();
+    return globalState.auth;
+}
 
+export async function getToken(): Promise<OAuthToken | null> {
     // Try to load token from file if not already loaded
     if (!authState.token) {
         loadToken();
     }
 
     if (!authState.token) {
+        globalState.auth = false;
         log("info", "No token found after loading");
-        return false;
+        return null;
     }
 
     // Validate the existing token
     try {
         log("info", "Validating token...");
         if (validateToken(authState.token)) {
-            return true;
+            globalState.auth = true;
+            return authState.token;
         }
 
         // If the token is invalid, attempt to refresh it
@@ -191,7 +198,7 @@ export async function isAuthenticated(): Promise<boolean> {
             globalState.auth = true;
             log("info", "Token refreshed successfully.");
             saveToken(refreshedToken);
-            return true;
+            return refreshedToken;
         }
         log("error", "Failed to refresh token.");
     } catch (error) {
@@ -199,7 +206,7 @@ export async function isAuthenticated(): Promise<boolean> {
     }
 
     globalState.auth = false;
-    return false;
+    return null;
 }
 
 function validateToken(tokenData: OAuthToken): boolean {
@@ -211,7 +218,7 @@ function validateToken(tokenData: OAuthToken): boolean {
         
         // If expiry is zero value (not set), consider token not expired (like in Go)
         if (!tokenData.expiry) {
-            return true;
+            return false;
         }
         
         // Match the Go code's expiryDelta concept (10 seconds)
@@ -254,7 +261,12 @@ async function refreshToken(token: string): Promise<OAuthToken | null> {
 
         if (response.ok) {
             const data = await response.json() as OAuthToken;
-            return data;
+            
+            const buf = Buffer.from(data.access_token.split('.')[1], 'base64').toString()
+            const jwt = JSON.parse(buf);
+            const expiry = new Date(jwt.exp * 1000);
+
+            return {...data, expiry};
         }
     } catch (error) {
         log("info", `Error refreshing token: ${error}`);

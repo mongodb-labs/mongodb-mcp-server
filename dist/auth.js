@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const wait = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
-const TOKEN_FILE = path.resolve(__dirname, "token.json");
+const TOKEN_FILE = process.env.TOKEN_FILE || path.resolve(__dirname, "token.json");
 export const authState = {
     deviceCode: "",
     verificationUri: "",
@@ -95,14 +95,10 @@ export async function pollToken() {
     throw new Error("Authentication timed out. Please restart the process.");
 }
 export function saveToken(token) {
+    globalState.auth = true;
+    authState.token = token;
     fs.writeFileSync(TOKEN_FILE, JSON.stringify({ token }));
     log("info", "Token saved to file.");
-}
-export function getToken() {
-    if (!authState.token) {
-        loadToken();
-    }
-    return authState.token;
 }
 function loadToken() {
     if (fs.existsSync(TOKEN_FILE)) {
@@ -129,19 +125,25 @@ export async function isAuthenticated() {
     if (globalState.auth) {
         return true;
     }
+    const token = await getToken();
+    return globalState.auth;
+}
+export async function getToken() {
     // Try to load token from file if not already loaded
     if (!authState.token) {
         loadToken();
     }
     if (!authState.token) {
+        globalState.auth = false;
         log("info", "No token found after loading");
-        return false;
+        return null;
     }
     // Validate the existing token
     try {
         log("info", "Validating token...");
         if (validateToken(authState.token)) {
-            return true;
+            globalState.auth = true;
+            return authState.token;
         }
         // If the token is invalid, attempt to refresh it
         log("info", "Token is invalid, refreshing...");
@@ -151,7 +153,7 @@ export async function isAuthenticated() {
             globalState.auth = true;
             log("info", "Token refreshed successfully.");
             saveToken(refreshedToken);
-            return true;
+            return refreshedToken;
         }
         log("error", "Failed to refresh token.");
     }
@@ -159,7 +161,7 @@ export async function isAuthenticated() {
         log("error", `Error during token validation or refresh: ${error}`);
     }
     globalState.auth = false;
-    return false;
+    return null;
 }
 function validateToken(tokenData) {
     try {
@@ -169,7 +171,7 @@ function validateToken(tokenData) {
         }
         // If expiry is zero value (not set), consider token not expired (like in Go)
         if (!tokenData.expiry) {
-            return true;
+            return false;
         }
         // Match the Go code's expiryDelta concept (10 seconds)
         const expiryDelta = 10 * 1000; // 10 seconds in milliseconds
@@ -206,7 +208,10 @@ async function refreshToken(token) {
         });
         if (response.ok) {
             const data = await response.json();
-            return data;
+            const buf = Buffer.from(data.access_token.split('.')[1], 'base64').toString();
+            const jwt = JSON.parse(buf);
+            const expiry = new Date(jwt.exp * 1000);
+            return { ...data, expiry };
         }
     }
     catch (error) {
