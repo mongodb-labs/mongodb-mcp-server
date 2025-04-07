@@ -107,11 +107,20 @@ export function getToken() {
 }
 function loadToken() {
     if (fs.existsSync(TOKEN_FILE)) {
-        const data = JSON.parse(fs.readFileSync(TOKEN_FILE, "utf-8"));
-        authState.token = data.token;
-        globalState.auth = true;
-        log("info", "Token loaded from file.");
-        return data;
+        try {
+            const data = JSON.parse(fs.readFileSync(TOKEN_FILE, "utf-8"));
+            // Extract the token property from the data object
+            if (data && data.token) {
+                authState.token = data.token;
+                globalState.auth = true;
+                log("info", "Token loaded from file.");
+                return data;
+            }
+            log("info", "Token file exists but doesn't contain a valid token structure");
+        }
+        catch (error) {
+            log("error", `Error parsing token file: ${error}`);
+        }
     }
     return undefined;
 }
@@ -126,22 +135,26 @@ export async function isAuthenticated() {
         loadToken();
     }
     if (!authState.token) {
+        log("info", "No token found after loading");
         return false;
     }
     // Validate the existing token
     try {
-        const isValid = await validateToken(authState.token);
-        if (isValid) {
+        log("info", "Validating token...");
+        if (validateToken(authState.token)) {
             return true;
         }
         // If the token is invalid, attempt to refresh it
-        const refreshedToken = await refreshToken(authState.token.access_token);
+        log("info", "Token is invalid, refreshing...");
+        const refreshedToken = await refreshToken(authState.token.refresh_token);
         if (refreshedToken) {
             authState.token = refreshedToken;
             globalState.auth = true;
+            log("info", "Token refreshed successfully.");
             saveToken(refreshedToken);
             return true;
         }
+        log("error", "Failed to refresh token.");
     }
     catch (error) {
         log("error", `Error during token validation or refresh: ${error}`);
@@ -149,10 +162,27 @@ export async function isAuthenticated() {
     globalState.auth = false;
     return false;
 }
-async function validateToken(tokenData) {
+function validateToken(tokenData) {
     try {
-        const expiryDate = new Date(tokenData.expiry);
-        return expiryDate > new Date(); // Token is valid if expiry is in the future
+        // First check if token exists and has an access token (similar to Go's Valid() function)
+        if (!tokenData || !tokenData.access_token) {
+            return false;
+        }
+        // If expiry is zero value (not set), consider token not expired (like in Go)
+        if (!tokenData.expiry) {
+            return true;
+        }
+        // Match the Go code's expiryDelta concept (10 seconds)
+        const expiryDelta = 10 * 1000; // 10 seconds in milliseconds
+        // Calculate if token is expired using the same logic as Go code:
+        // return t.Expiry.Round(0).Add(-expiryDelta).Before(time.Now())
+        const expiryWithDelta = new Date(new Date(tokenData.expiry).getTime() - expiryDelta);
+        // Token is valid if expiry time minus delta is after current time
+        // log to debug
+        log("info", `Token expiry time: ${expiryWithDelta}`);
+        log("info", `Current time: ${Date.now()}`);
+        log("info", `Token is valid: ${expiryWithDelta.getTime() > Date.now()}`);
+        return expiryWithDelta.getTime() > Date.now();
     }
     catch (error) {
         log("error", `Error validating token: ${error}`);
@@ -176,12 +206,12 @@ async function refreshToken(token) {
             }).toString(),
         });
         if (response.ok) {
-            const data = (await response.json());
+            const data = await response.json();
             return data;
         }
     }
     catch (error) {
-        log("error", `Error refreshing token: ${error}`);
+        log("info", `Error refreshing token: ${error}`);
     }
     return null;
 }

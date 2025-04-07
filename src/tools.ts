@@ -17,7 +17,6 @@ async function ensureAuthenticated() {
 export function defineTools(server: any, globalState: GlobalState) {
     server.tool("auth", "Authenticate to Atlas", async ({}) => {
         const authResult = await isAuthenticated();
-        
         if (authResult) {
             log("info", "Already authenticated!");
             return {
@@ -26,7 +25,6 @@ export function defineTools(server: any, globalState: GlobalState) {
         }
 
         try {
-            // Step 1: Generate the device code
             const { verificationUri, userCode } = await authenticate();
 
             // Inform the user to authenticate

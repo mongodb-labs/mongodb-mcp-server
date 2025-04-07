@@ -20,7 +20,6 @@ export function defineTools(server, globalState) {
             };
         }
         try {
-            // Step 1: Generate the device code
             const { verificationUri, userCode } = await authenticate();
             // Inform the user to authenticate
             const initialResponse = {
