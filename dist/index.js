@@ -1,18 +1,13 @@
 #!/usr/bin/env node
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import dotenv from "dotenv";
 import { defineTools } from "./tools.js";
-dotenv.config();
-function wait(milliseconds) {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
 // Set process env version
 process.env.VERSION = "1.0.0";
 // Initialize server with logging capability
 const server = new McpServer({
     name: "MongoDB Atlas",
-    version: process.env.VERSION,
+    version: process.env.VERSION || "1.0.0",
     capabilities: {
         logging: { enabled: true },
         tools: { listChanged: false }

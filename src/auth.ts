@@ -12,8 +12,6 @@ const wait = (milliseconds: number): Promise<void> => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
 
-const fetchDynamic = async () => (await import("node-fetch")).default;
-
 const TOKEN_FILE = path.resolve(__dirname, "token.json");
 
 export interface AuthState {
@@ -48,7 +46,7 @@ export async function authenticate() {
 
     log("info", `Client ID: ${authState.clientId}`);
 
-    const deviceCodeResponse = await (await fetchDynamic())(authUrl, {
+    const deviceCodeResponse = await fetch(authUrl, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -95,7 +93,7 @@ export async function pollToken() {
     while (Date.now() < expiresAt) {
         await wait(interval);
 
-        const OAuthToken = await (await fetchDynamic())(tokenEndpoint, {
+        const OAuthToken = await fetch(tokenEndpoint, {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -239,7 +237,7 @@ function validateToken(tokenData: OAuthToken): boolean {
 
 async function refreshToken(token: string): Promise<OAuthToken | null> {
     try {
-        const response = await (await fetchDynamic())("https://cloud.mongodb.com/api/private/unauth/account/device/token", {
+        const response = await fetch("https://cloud.mongodb.com/api/private/unauth/account/device/token", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -266,7 +264,7 @@ async function refreshToken(token: string): Promise<OAuthToken | null> {
 
 async function revokeToken(token: string): Promise<void> {
     try {
-        const response = await (await fetchDynamic())("https://cloud.mongodb.com/api/private/unauth/account/device/revoke", {
+        const response = await fetch("https://cloud.mongodb.com/api/private/unauth/account/device/revoke", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

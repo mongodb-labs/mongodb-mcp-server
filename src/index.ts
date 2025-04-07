@@ -1,13 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"; 
-import dotenv from "dotenv";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { defineTools } from "./tools.js";
-
-dotenv.config();
-
-function wait(milliseconds: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
 
 // Set process env version
 process.env.VERSION = "1.0.0";

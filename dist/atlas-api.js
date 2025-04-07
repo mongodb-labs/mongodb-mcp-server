@@ -1,7 +1,5 @@
 import { getToken } from "./auth.js";
 import { log } from "./index.js";
-// Fetch polyfill for Node.js
-const fetchDynamic = async () => (await import("node-fetch")).default;
 // Base URL for Atlas API
 const BASE_URL = "https://cloud.mongodb.com/api/atlas/v2";
 // Get project ID from environment variables or use a default value
@@ -24,13 +22,12 @@ export async function callAtlasAPI(endpoint, method = 'GET', body) {
     const url = `${BASE_URL}${endpoint}`;
     try {
         log("info", `Calling Atlas API: ${method} ${url}`);
-        const fetch = await fetchDynamic();
         const response = await fetch(url, {
             method,
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/vnd.atlas.2025-04-07+json'
             },
             body: body ? JSON.stringify(body) : undefined,
         });

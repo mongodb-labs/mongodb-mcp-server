@@ -9,7 +9,6 @@ const __dirname = path.dirname(__filename);
 const wait = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
-const fetchDynamic = async () => (await import("node-fetch")).default;
 const TOKEN_FILE = path.resolve(__dirname, "token.json");
 export const authState = {
     deviceCode: "",
@@ -21,7 +20,7 @@ export async function authenticate() {
     log("info", "Starting authentication process...");
     const authUrl = "https://cloud.mongodb.com/api/private/unauth/account/device/authorize";
     log("info", `Client ID: ${authState.clientId}`);
-    const deviceCodeResponse = await (await fetchDynamic())(authUrl, {
+    const deviceCodeResponse = await fetch(authUrl, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -59,7 +58,7 @@ export async function pollToken() {
     const expiresAt = Date.now() + 2 * 60 * 1000;
     while (Date.now() < expiresAt) {
         await wait(interval);
-        const OAuthToken = await (await fetchDynamic())(tokenEndpoint, {
+        const OAuthToken = await fetch(tokenEndpoint, {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -191,7 +190,7 @@ function validateToken(tokenData) {
 }
 async function refreshToken(token) {
     try {
-        const response = await (await fetchDynamic())("https://cloud.mongodb.com/api/private/unauth/account/device/token", {
+        const response = await fetch("https://cloud.mongodb.com/api/private/unauth/account/device/token", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -217,7 +216,7 @@ async function refreshToken(token) {
 }
 async function revokeToken(token) {
     try {
-        const response = await (await fetchDynamic())("https://cloud.mongodb.com/api/private/unauth/account/device/revoke", {
+        const response = await fetch("https://cloud.mongodb.com/api/private/unauth/account/device/revoke", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

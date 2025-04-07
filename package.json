@@ -20,8 +20,6 @@
     "zod": "^3.24.2"
   },
   "dependencies": {
-    "@types/express": "^5.0.1",
-    "dotenv": "^16.4.7",
-    "node-fetch": "^3.3.2"
+    "@types/express": "^5.0.1"
   }
 }
