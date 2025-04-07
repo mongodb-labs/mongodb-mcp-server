@@ -1,39 +1,51 @@
 # Atlas MCP Server PoC
 
-- Uses the official MCP SDK https://github.com/modelcontextprotocol/typescript-sdk 
+A Model Context Protocol server for interacting with MongoDB Atlas.
 
-## Table of Contents
-- [Setting up your environment](#setting-up-your-environment)
-- [Running the MCP Server](#running-the-mcp-server)
-- [Troubleshooting (Via VSCode Insiders)](#troubleshooting-via-vscode-insiders)
-  - [Restart server](#restart-server)
-  - [Logs](#logs)
-- [Supported tools](#supported-tools)
+Developed using the official MCP SDK https://github.com/modelcontextprotocol/typescript-sdk 
+
+## 📚 Table of Contents
+- [🚀 Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the MCP Server](#running-the-mcp-server)
+- [🔧 Troubleshooting](#troubleshooting)
+  - [Restart Server](#restart-server)
+  - [View Logs](#view-logs)
+  - [Debugging](#debugging)
+- [🛠️ Supported Tools](#supported-tools)
+  - [Tool List](#tool-list)
+- [👩‍💻 Client Integration](#client-integration)
   - [VSCode](#vscode)
   - [Claude](#claude)
 
+## 🚀 Getting Started
 
-## Setting up your environment
+### Prerequisites
+- Node.js installed
+- MongoDB Atlas account
+
+### Installation
 
 ```shell
 npm install
 ```
 
-## Running the MCP Server
+### Running the MCP Server
 
 ```shell
 npm run build
 ```
 
-## Troubleshooting (Via VSCode Insiders)
+## 🔧 Troubleshooting
 
-### Restart server
+### Restart Server
 - Run `npm run build` to re-build the server if you made changes to the code
 - Press `Cmd + Shift + P` and type List MCP Servers
 - Select the MCP server you want to restart
 - Select the option to restart the server
 
-### Logs
+### View Logs
 To see MCP logs, check https://code.visualstudio.com/docs/copilot/chat/mcp-servers.
 
 - Press `Cmd + Shift + P` and type List MCP Servers
@@ -46,10 +58,22 @@ We can use @modelcontextprotocol/inspector to debug the server - https://github.
 
 From the root of this repository, run: 
 ```shell
-npx @modelcontextprotocol/inspector dist/index.js
+npx @modelcontextprotocol/inspector -- node dist/index.js
 ```
 
-## Supported tools
+Or use the npm script:
+```shell
+npm run inspect
+```
+
+## 🛠️ Supported Tools
+
+### Tool List
+- `auth` - Authenticate to MongoDB Atlas
+- `list-clusters` - Lists MongoDB Atlas clusters
+- `list-projects` - Lists MongoDB Atlas projects
+
+## 👩‍💻 Client Integration (Use the server!)
 
 ### VSCode
 
