@@ -3,6 +3,7 @@ import { z } from "zod";
 import { ApiClient } from "./client.js";
 import { saveState, loadState } from "./state.js";
 import { config } from "./config.js";
+import { registerDataAccessEndpoints } from "./data-access/index.js";
 function log(level, message) {
     console.error(`[${level.toUpperCase()}] ${message}`);
 }
@@ -226,6 +227,7 @@ export class Server {
             projectId: projectIdFilter,
         }, async ({ projectId }) => this.listClustersTool(projectId));
         server.tool("list-projects", "Lists MongoDB Atlas projects", async () => this.listProjectsTool());
+        registerDataAccessEndpoints(server, this.state);
         return server;
     }
     async connect(transport) {

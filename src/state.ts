@@ -1,6 +1,7 @@
 import fs from "fs";
 import config from "./config.js";
 import { OauthDeviceCode, OAuthToken } from "./client.js";
+import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
 
 export interface State {
     auth: {
@@ -8,6 +9,7 @@ export interface State {
         code?: OauthDeviceCode;
         token?: OAuthToken;
     };
+    serviceProvider: NodeDriverServiceProvider | undefined;
 }
 
 export async function saveState(state: State): Promise<void> {
@@ -32,6 +34,7 @@ export async function loadState() {
                         auth: {
                             status: "not_auth",
                         },
+                        serviceProvider: undefined,
                     };
                     return resolve(defaultState);
                 } else {

@@ -20,6 +20,7 @@ export async function loadState() {
                         auth: {
                             status: "not_auth",
                         },
+                        serviceProvider: undefined,
                     };
                     return resolve(defaultState);
                 }

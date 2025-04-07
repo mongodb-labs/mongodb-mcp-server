@@ -4,6 +4,8 @@ import { z } from "zod";
 import { ApiClient, AtlasCluster, AtlasResponse } from "./client.js";
 import { State, saveState, loadState } from "./state.js";
 import { config } from "./config.js";
+import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
+import { registerDataAccessEndpoints } from "./data-access/index.js";
 
 function log(level: string, message: string) {
     console.error(`[${level.toUpperCase()}] ${message}`);
@@ -14,7 +16,7 @@ export class Server {
     apiClient: ApiClient | undefined = undefined;
     initiated: boolean = false;
 
-    private async init() {
+    private async init(): Promise<void> {
         if (this.initiated) {
             return;
         }
@@ -36,7 +38,7 @@ export class Server {
         this.initiated = true;
     }
 
-    private async ensureAuthenticated() {
+    public async ensureAuthenticated(): Promise<boolean> {
         switch (this.state!.auth.status) {
             case "not_auth":
                 return false;
@@ -254,10 +256,12 @@ export class Server {
         );
         server.tool("list-projects", "Lists MongoDB Atlas projects", async () => this.listProjectsTool());
 
+        registerDataAccessEndpoints(server, this.state!);
+
         return server;
     }
 
-    async connect(transport: any) {
+    async connect(transport: Transport): Promise<void> {
         await this.init();
         const server = this.mcpServer();
         await server.connect(transport);
