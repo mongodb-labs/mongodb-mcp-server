@@ -1,5 +1,4 @@
 import config from "./config.js";
-;
 export class ApiClientError extends Error {
     constructor(message, response = undefined) {
         super(message);
@@ -14,18 +13,20 @@ export class ApiClient {
         this.saveToken = saveToken;
     }
     defaultOptions() {
-        const authHeaders = (!this.token?.access_token) ? null : {
-            "Authorization": `Bearer ${this.token.access_token}`
-        };
+        const authHeaders = !this.token?.access_token
+            ? null
+            : {
+                Authorization: `Bearer ${this.token.access_token}`,
+            };
         return {
             method: "GET",
-            credentials: (!this.token?.access_token) ? undefined : "include",
+            credentials: !this.token?.access_token ? undefined : "include",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "application/vnd.atlas.2025-04-07+json",
+                Accept: "application/vnd.atlas.2025-04-07+json",
                 "User-Agent": `AtlasMCP/${config.version} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
-                ...authHeaders
-            }
+                ...authHeaders,
+            },
         };
     }
     async storeToken(token) {
@@ -50,13 +51,13 @@ export class ApiClient {
             headers: {
                 ...defaultOpt.headers,
                 ...options?.headers,
-            }
+            },
         };
         const response = await fetch(url, opt);
         if (!response.ok) {
             throw new ApiClientError(`Error calling Atlas API: ${response.statusText}`, response);
         }
-        return await response.json();
+        return (await response.json());
     }
     async authenticate() {
         const endpoint = "api/private/unauth/account/device/authorize";
@@ -65,7 +66,7 @@ export class ApiClient {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Accept": "application/json",
+                Accept: "application/json",
             },
             body: new URLSearchParams({
                 client_id: config.clientID,
@@ -76,7 +77,7 @@ export class ApiClient {
         if (!response.ok) {
             throw new ApiClientError(`Failed to initiate authentication: ${response.statusText}`, response);
         }
-        return await response.json();
+        return (await response.json());
     }
     async retrieveToken(device_code) {
         const endpoint = "api/private/unauth/account/device/token";
@@ -94,7 +95,7 @@ export class ApiClient {
         });
         if (response.ok) {
             const tokenData = await response.json();
-            const buf = Buffer.from(tokenData.access_token.split('.')[1], 'base64').toString();
+            const buf = Buffer.from(tokenData.access_token.split(".")[1], "base64").toString();
             const jwt = JSON.parse(buf);
             const expiry = new Date(jwt.exp * 1000);
             return await this.storeToken({ ...tokenData, expiry });
@@ -122,7 +123,7 @@ export class ApiClient {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Accept": "application/json",
+                Accept: "application/json",
             },
             body: new URLSearchParams({
                 client_id: config.clientID,
@@ -135,7 +136,7 @@ export class ApiClient {
             throw new ApiClientError(`Failed to refresh token: ${response.statusText}`, response);
         }
         const data = await response.json();
-        const buf = Buffer.from(data.access_token.split('.')[1], 'base64').toString();
+        const buf = Buffer.from(data.access_token.split(".")[1], "base64").toString();
         const jwt = JSON.parse(buf);
         const expiry = new Date(jwt.exp * 1000);
         const tokenToStore = {
@@ -151,7 +152,7 @@ export class ApiClient {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Accept": "application/json",
+                Accept: "application/json",
                 "User-Agent": `AtlasMCP/${process.env.VERSION} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
             },
             body: new URLSearchParams({
@@ -201,7 +202,7 @@ export class ApiClient {
      * Get all projects for the authenticated user
      */
     async listProjects() {
-        return await this.do('/groups');
+        return await this.do("/groups");
     }
     /**
      * Get a specific project by ID

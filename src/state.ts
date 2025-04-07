@@ -7,9 +7,8 @@ export interface State {
         status: "not_auth" | "requested" | "issued";
         code?: OauthDeviceCode;
         token?: OAuthToken;
-    }
+    };
 }
-
 
 export async function saveState(state: State): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -17,7 +16,7 @@ export async function saveState(state: State): Promise<void> {
             if (err) {
                 return reject(err);
             }
-            
+
             return resolve();
         });
     });
