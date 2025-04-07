@@ -27,10 +27,11 @@ export async function callAtlasAPI(endpoint, method = 'GET', body) {
         const fetch = await fetchDynamic();
         const response = await fetch(url, {
             method,
+            credentials: 'include',
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/vnd.atlas.2025-04-07+json'
             },
             body: body ? JSON.stringify(body) : undefined,
         });
