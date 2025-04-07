@@ -7,3 +7,4 @@
 - [ ] Create a DBUser
 - [ ] Delete a DBUser
 - [ ] Connect to a cluster
+- [ ] Emit telemetry events on MCP usage
