@@ -36,7 +36,7 @@ export class Server {
         this.initiated = true;
     }
     
-    async ensureAuthenticated() {
+    private async ensureAuthenticated() {
         switch (this.state!.auth.status) {
             case "not_auth":
                 return false;
@@ -221,7 +221,7 @@ export class Server {
         }
     }
 
-    mcpServer(): McpServer {
+    private mcpServer(): McpServer {
         const server = new McpServer({
             name: "MongoDB Atlas",
             version: process.env.VERSION || "1.0.0",
