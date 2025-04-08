@@ -39,15 +39,17 @@ export abstract class ToolBase<Args extends ZodRawShape> {
                     };
                 }
 
-                return {
-                    content: [
-                        {
-                            type: "text",
-                            text: `Error running ${this.name}: ${error instanceof Error ? error.message : String(error)}`,
-                        },
-                    ],
-                    isError: true,
-                };
+                return (
+                    this.handleError(error) || {
+                        content: [
+                            {
+                                type: "text",
+                                text: `Error running ${this.name}: ${error instanceof Error ? error.message : String(error)}`,
+                            },
+                        ],
+                        isError: true,
+                    }
+                );
             }
         };
 
@@ -59,5 +61,9 @@ export abstract class ToolBase<Args extends ZodRawShape> {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             server.tool(this.name, this.description, callback as any);
         }
+    }
+
+    protected handleError(error: unknown): CallToolResult | undefined {
+        return undefined;
     }
 }

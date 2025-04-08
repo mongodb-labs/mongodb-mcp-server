@@ -2,7 +2,7 @@ import { ZodRawShape } from "zod";
 import { ToolBase } from "../tool.js";
 import { State } from "../../state.js";
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
-import { McpError } from "@modelcontextprotocol/sdk/types.js";
+import { CallToolResult, McpError } from "@modelcontextprotocol/sdk/types.js";
 import { ErrorCodes } from "../../errors.js";
 
 export type MongoDBToolState = { serviceProvider?: NodeDriverServiceProvider };
@@ -18,9 +18,28 @@ export abstract class MongoDBToolBase<Args extends ZodRawShape = ZodRawShape> ex
     protected ensureConnected(): NodeDriverServiceProvider {
         const provider = this.mongodbState.serviceProvider;
         if (!provider) {
-            throw new McpError(ErrorCodes.NotConnectedToMongoDB, `Not connected to MongoDB instance with name ${name}`);
+            throw new McpError(ErrorCodes.NotConnectedToMongoDB, "Not connected to MongoDB");
         }
 
         return provider;
+    }
+
+    protected handleError(error: unknown): CallToolResult | undefined {
+        if (error instanceof McpError && error.code === ErrorCodes.NotConnectedToMongoDB) {
+            return {
+                content: [
+                    {
+                        type: "text",
+                        text: "You need to connect to a MongoDB instance before you can access its data.",
+                    },
+                    {
+                        type: "text",
+                        text: "Please use the 'connect' tool to connect to a MongoDB instance.",
+                    },
+                ],
+            };
+        }
+
+        return undefined;
     }
 }
