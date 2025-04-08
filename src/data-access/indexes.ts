@@ -3,7 +3,7 @@ import { State } from "../state.js";
 import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { ensureConnected } from "./connect.js";
-import { IndexDescription, IndexDirection } from "mongodb";
+import { IndexDirection } from "mongodb";
 
 export function registerIndexesTools(server: McpServer, globalState: State) {
     server.tool(

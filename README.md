@@ -99,7 +99,7 @@ Step 2: Verify the created mcp file
 
 It should look like this
 
-```shell
+```json
 {
     "servers": {
         "demo-atlas-server": {
