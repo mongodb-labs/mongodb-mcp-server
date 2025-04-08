@@ -28,10 +28,10 @@ export class Server {
         });
         this.initialized = true;
     }
-    mcpServer() {
+    createMcpServer() {
         const server = new McpServer({
             name: "MongoDB Atlas",
-            version: process.env.VERSION || "1.0.0",
+            version: config.version,
         });
         registerAtlasTools(server, this.state, this.apiClient);
         registerMongoDBTools(server, this.state);
@@ -39,7 +39,7 @@ export class Server {
     }
     async connect(transport) {
         await this.init();
-        const server = this.mcpServer();
+        const server = this.createMcpServer();
         await server.connect(transport);
     }
 }

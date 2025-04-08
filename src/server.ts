@@ -4,6 +4,7 @@ import { State, saveState, loadState } from "./state.js";
 import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { registerAtlasTools } from "./tools/atlas/index.js";
 import { registerMongoDBTools } from "./tools/mongodb/index.js";
+import { config } from "./config.js";
 
 export class Server {
     state: State | undefined = undefined;
@@ -32,10 +33,10 @@ export class Server {
         this.initialized = true;
     }
 
-    private mcpServer(): McpServer {
+    private createMcpServer(): McpServer {
         const server = new McpServer({
             name: "MongoDB Atlas",
-            version: process.env.VERSION || "1.0.0",
+            version: config.version,
         });
 
         registerAtlasTools(server, this.state!, this.apiClient!);
@@ -46,8 +47,7 @@ export class Server {
 
     async connect(transport: Transport) {
         await this.init();
-        const server = this.mcpServer();
-
+        const server = this.createMcpServer();
         await server.connect(transport);
     }
 }

@@ -87,7 +87,7 @@ export class ApiClient {
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/vnd.atlas.2025-04-07+json",
-                "User-Agent": `AtlasMCP/${config.version} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
+                "User-Agent": config.userAgent,
                 ...authHeaders,
             },
         };
@@ -235,7 +235,7 @@ export class ApiClient {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
                 Accept: "application/json",
-                "User-Agent": `AtlasMCP/${process.env.VERSION} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
+                "User-Agent": config.userAgent,
             },
             body: new URLSearchParams({
                 client_id: config.clientID,
