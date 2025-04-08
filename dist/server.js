@@ -212,7 +212,7 @@ export class Server {
             };
         }
     }
-    mcpServer() {
+    createMcpServer() {
         const server = new McpServer({
             name: "MongoDB Atlas",
             version: config.version,
@@ -230,7 +230,7 @@ export class Server {
     }
     async connect(transport) {
         await this.init();
-        const server = this.mcpServer();
+        const server = this.createMcpServer();
         await server.connect(transport);
     }
 }
