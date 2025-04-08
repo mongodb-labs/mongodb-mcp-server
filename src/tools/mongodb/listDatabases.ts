@@ -1,9 +1,8 @@
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { MongoDBToolBase } from "./mongodbTool.js";
-import { ToolArgs } from "../tool.js";
 import * as bson from "bson";
 
-export class ListDatabasesTool extends MongoDBToolBase<{}> {
+export class ListDatabasesTool extends MongoDBToolBase {
     protected name = "list-databases";
     protected description = "List all databases for a MongoDB connection";
     protected argsShape = {};

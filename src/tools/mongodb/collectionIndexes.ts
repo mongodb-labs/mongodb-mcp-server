@@ -1,19 +1,13 @@
-import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { MongoDBToolBase } from "./mongodbTool.js";
+import { DbOperationArgs, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 
-const argsShape = {
-    database: z.string().describe("Database name"),
-    collection: z.string().describe("Collection name"),
-};
-
-export class CollectionIndexesTool extends MongoDBToolBase<typeof argsShape> {
+export class CollectionIndexesTool extends MongoDBToolBase<typeof DbOperationArgs> {
     protected name = "collection-indexes";
     protected description = "Describe the indexes for a collection";
-    protected argsShape = argsShape;
+    protected argsShape = DbOperationArgs;
 
-    protected async execute({ database, collection }: ToolArgs<typeof argsShape>): Promise<CallToolResult> {
+    protected async execute({ database, collection }: ToolArgs<typeof DbOperationArgs>): Promise<CallToolResult> {
         const provider = this.ensureConnected();
         const indexes = await provider.getIndexes(database, collection);
 

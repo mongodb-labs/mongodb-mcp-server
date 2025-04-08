@@ -34,21 +34,21 @@ export class FindTool extends MongoDBToolBase<typeof argsShape> {
         const provider = this.ensureConnected();
         const documents = await provider.find(database, collection, filter, { projection, limit }).toArray();
 
-        const content: Array<{ text: string; type: string }> = [
+        const content: Array<{ text: string; type: "text" }> = [
             {
-                text: `Found ${documents.length} documents in the collection \`${collection}\``,
+                text: `Found ${documents.length} documents in the collection \`${collection}\`:`,
                 type: "text",
             },
             ...documents.map((doc) => {
                 return {
-                    text: `Document: \`${JSON.stringify(doc)}\``,
+                    text: JSON.stringify(doc),
                     type: "text",
-                };
+                } as { text: string; type: "text" };
             }),
         ];
 
         return {
-            content: content as any,
+            content,
         };
     }
 }

@@ -1,10 +1,9 @@
-import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { MongoDBToolBase } from "./mongodbTool.js";
+import { DbOperationArgs, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 
 const argsShape = {
-    database: z.string().describe("Database name"),
+    database: DbOperationArgs.database,
 };
 
 export class ListCollectionsTool extends MongoDBToolBase<typeof argsShape> {

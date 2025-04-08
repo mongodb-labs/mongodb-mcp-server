@@ -1,4 +1,4 @@
-import { ZodRawShape } from "zod";
+import { z, ZodRawShape } from "zod";
 import { ToolBase } from "../tool.js";
 import { State } from "../../state.js";
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
@@ -6,6 +6,11 @@ import { CallToolResult, McpError } from "@modelcontextprotocol/sdk/types.js";
 import { ErrorCodes } from "../../errors.js";
 
 export type MongoDBToolState = { serviceProvider?: NodeDriverServiceProvider };
+
+export const DbOperationArgs = {
+    database: z.string().describe("Database name"),
+    collection: z.string().describe("Collection name"),
+};
 
 export abstract class MongoDBToolBase<Args extends ZodRawShape = ZodRawShape> extends ToolBase<Args> {
     constructor(

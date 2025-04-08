@@ -1,12 +1,11 @@
 import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { MongoDBToolBase } from "./mongodbTool.js";
+import { DbOperationArgs, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 import { IndexDirection } from "mongodb";
 
 const argsShape = {
-    database: z.string().describe("Database name"),
-    collection: z.string().describe("Collection name"),
+    ...DbOperationArgs,
     keys: z.record(z.string(), z.custom<IndexDirection>()).describe("The index definition"),
 };
 

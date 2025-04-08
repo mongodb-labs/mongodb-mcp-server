@@ -1,20 +1,14 @@
-import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { MongoDBToolBase } from "./mongodbTool.js";
+import { DbOperationArgs, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 import { parseSchema, SchemaField } from "mongodb-schema";
 
-const argsShape = {
-    database: z.string().describe("Database name"),
-    collection: z.string().describe("Collection name"),
-};
-
-export class CollectionSchemaTool extends MongoDBToolBase<typeof argsShape> {
+export class CollectionSchemaTool extends MongoDBToolBase<typeof DbOperationArgs> {
     protected name = "collection-schema";
     protected description = "Describe the schema for a collection";
-    protected argsShape = argsShape;
+    protected argsShape = DbOperationArgs;
 
-    protected async execute({ database, collection }: ToolArgs<typeof argsShape>): Promise<CallToolResult> {
+    protected async execute({ database, collection }: ToolArgs<typeof DbOperationArgs>): Promise<CallToolResult> {
         const provider = this.ensureConnected();
         const documents = await provider.find(database, collection, {}, { limit: 5 }).toArray();
         const schema = await parseSchema(documents);

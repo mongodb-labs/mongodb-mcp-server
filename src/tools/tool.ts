@@ -63,6 +63,8 @@ export abstract class ToolBase<Args extends ZodRawShape> {
         }
     }
 
+    // This method is intended to be overridden by subclasses to handle errors
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected handleError(error: unknown): CallToolResult | undefined {
         return undefined;
     }
