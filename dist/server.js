@@ -43,7 +43,7 @@ export class Server {
                     await this.apiClient.retrieveToken(this.state.auth.code.device_code);
                     return !!this.state.auth.token;
                 }
-                catch (error) {
+                catch {
                     return false;
                 }
             case "issued":
@@ -178,7 +178,7 @@ export class Server {
             const header = `Project Name | Project ID | Created At
 ----------------|----------------|----------------`;
             const rows = projects
-                .map((project) => {
+                .map(project => {
                 const createdAt = project.created ? new Date(project.created.$date).toLocaleString() : "N/A";
                 return `${project.name} | ${project.id} | ${createdAt}`;
             })
@@ -217,7 +217,7 @@ export class Server {
             name: "MongoDB Atlas",
             version: config.version,
         });
-        server.tool("auth", "Authenticate to Atlas", async ({}) => this.authTool());
+        server.tool("auth", "Authenticate to Atlas", async () => this.authTool());
         let projectIdFilter = z.string().describe("Optional Atlas project ID to filter clusters");
         if (config.projectID) {
             projectIdFilter = projectIdFilter.optional();

@@ -16,7 +16,6 @@ export interface AtlasProject {
     created?: {
         $date: string;
     };
-    [key: string]: any;
 }
 
 export interface AtlasCluster {
@@ -30,7 +29,6 @@ export interface AtlasCluster {
     connectionStrings?: {
         standard?: string;
     };
-    [key: string]: any;
 }
 
 export interface OauthDeviceCode {
@@ -44,7 +42,6 @@ export interface OauthDeviceCode {
 export interface AtlasResponse<T> {
     results: T[];
     totalCount?: number;
-    [key: string]: any;
 }
 
 export type saveTokenFunction = (token: OAuthToken) => void | Promise<void>;
@@ -103,7 +100,7 @@ export class ApiClient {
         return token;
     }
 
-    async do<T = any>(endpoint: string, options?: RequestInit): Promise<T> {
+    async do<T>(endpoint: string, options?: RequestInit): Promise<T> {
         if (!this.token || !this.token.access_token) {
             throw new Error("Not authenticated. Please run the auth tool first.");
         }
@@ -188,7 +185,7 @@ export class ApiClient {
             } else {
                 throw new ApiClientError("Device code expired. Please restart the authentication process.", response);
             }
-        } catch (error) {
+        } catch {
             throw new ApiClientError("Failed to retrieve token. Please check your device code.", response);
         }
     }
@@ -267,7 +264,7 @@ export class ApiClient {
             const expiryDelta = 10 * 1000; // 10 seconds in milliseconds
             const expiryWithDelta = new Date(token.expiry.getTime() - expiryDelta);
             return expiryWithDelta.getTime() > Date.now();
-        } catch (error) {
+        } catch {
             return false;
         }
     }
@@ -280,7 +277,7 @@ export class ApiClient {
         try {
             await this.refreshToken(token);
             return true;
-        } catch (error) {
+        } catch {
             return false;
         }
     }

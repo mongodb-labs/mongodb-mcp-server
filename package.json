@@ -12,15 +12,21 @@
     "build": "npm run build:clean && npm run build:compile && npm run build:addshebang && npm run build:chmod",
     "inspect": "npm run build && npx @modelcontextprotocol/inspector -- dist/index.js",
     "prettier": "prettier",
+    "lint": "npx eslint .",
     "reformat": "npm run prettier -- --write ."
   },
   "license": "Apache-2.0",
   "devDependencies": {
+    "@eslint/js": "^9.24.0",
     "@modelcontextprotocol/sdk": "^1.8.0",
     "@types/node": "^22.14.0",
     "@types/simple-oauth2": "^5.0.7",
+    "eslint": "^9.24.0",
+    "eslint-config-prettier": "^10.1.1",
+    "globals": "^16.0.0",
     "prettier": "^3.5.3",
     "typescript": "^5.8.2",
+    "typescript-eslint": "^8.29.1",
     "zod": "^3.24.2"
   },
   "dependencies": {

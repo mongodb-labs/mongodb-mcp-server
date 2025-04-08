@@ -1,7 +1,8 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { z } from "zod";
-import { ApiClient, AtlasCluster, AtlasResponse } from "./client.js";
+import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
+import { z, ZodOptional, ZodString } from "zod";
+import { ApiClient, AtlasCluster } from "./client.js";
 import { State, saveState, loadState } from "./state.js";
 import { config } from "./config.js";
 
@@ -47,7 +48,7 @@ export class Server {
                     }
                     await this.apiClient!.retrieveToken(this.state!.auth.code.device_code);
                     return !!this.state!.auth.token;
-                } catch (error) {
+                } catch {
                     return false;
                 }
             case "issued":
@@ -195,7 +196,7 @@ export class Server {
             const header = `Project Name | Project ID | Created At
 ----------------|----------------|----------------`;
             const rows = projects
-                .map((project: any) => {
+                .map((project) => {
                     const createdAt = project.created ? new Date(project.created.$date).toLocaleString() : "N/A";
                     return `${project.name} | ${project.id} | ${createdAt}`;
                 })
@@ -237,9 +238,11 @@ export class Server {
             version: config.version,
         });
 
-        server.tool("auth", "Authenticate to Atlas", async ({}) => this.authTool());
+        server.tool("auth", "Authenticate to Atlas", async () => this.authTool());
 
-        let projectIdFilter: any = z.string().describe("Optional Atlas project ID to filter clusters");
+        let projectIdFilter: ZodString | ZodOptional<ZodString> = z
+            .string()
+            .describe("Optional Atlas project ID to filter clusters");
         if (config.projectID) {
             projectIdFilter = projectIdFilter.optional();
         }
@@ -257,7 +260,7 @@ export class Server {
         return server;
     }
 
-    async connect(transport: any) {
+    async connect(transport: Transport) {
         await this.init();
         const server = this.createMcpServer();
         await server.connect(transport);

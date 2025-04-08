@@ -112,7 +112,7 @@ export class ApiClient {
                 throw new ApiClientError("Device code expired. Please restart the authentication process.", response);
             }
         }
-        catch (error) {
+        catch {
             throw new ApiClientError("Failed to retrieve token. Please check your device code.", response);
         }
     }
@@ -182,7 +182,7 @@ export class ApiClient {
             const expiryWithDelta = new Date(token.expiry.getTime() - expiryDelta);
             return expiryWithDelta.getTime() > Date.now();
         }
-        catch (error) {
+        catch {
             return false;
         }
     }
@@ -194,7 +194,7 @@ export class ApiClient {
             await this.refreshToken(token);
             return true;
         }
-        catch (error) {
+        catch {
             return false;
         }
     }
