@@ -1,4 +1,4 @@
-import { z, ZodString } from "zod";
+import { z, ZodOptional, ZodString } from "zod";
 import { ApiClient, AtlasCluster } from "../../client.js";
 import { config } from "../../config.js";
 import { ensureAuthenticated } from "./auth.js";
@@ -6,7 +6,7 @@ import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { AtlasToolBase } from "./atlasTool.js";
 
 export class ListClustersTool extends AtlasToolBase<{
-    projectId: ZodString;
+    projectId: ZodString | ZodOptional<ZodString>;
 }> {
     protected name = "listClusters";
     protected description = "List MongoDB Atlas clusters";
@@ -15,7 +15,9 @@ export class ListClustersTool extends AtlasToolBase<{
     constructor(apiClient: ApiClient) {
         super(apiClient);
 
-        let projectIdFilter: any = z.string().describe("Optional Atlas project ID to filter clusters");
+        let projectIdFilter: ZodString | ZodOptional<ZodString> = z
+            .string()
+            .describe("Optional Atlas project ID to filter clusters");
 
         if (config.projectID) {
             projectIdFilter = projectIdFilter.optional();

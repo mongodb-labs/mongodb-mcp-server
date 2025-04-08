@@ -18,7 +18,7 @@ export async function isAuthenticated(state, apiClient) {
                 await apiClient.retrieveToken(state.auth.code.device_code);
                 return !!state.auth.token;
             }
-            catch (error) {
+            catch {
                 return false;
             }
         case "issued":

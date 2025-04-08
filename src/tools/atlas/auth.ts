@@ -22,7 +22,7 @@ export async function isAuthenticated(state: State, apiClient: ApiClient): Promi
                 }
                 await apiClient.retrieveToken(state.auth.code.device_code);
                 return !!state.auth.token;
-            } catch (error) {
+            } catch {
                 return false;
             }
         case "issued":
@@ -35,7 +35,7 @@ export async function isAuthenticated(state: State, apiClient: ApiClient): Promi
     }
 }
 
-export class AuthTool extends AtlasToolBase<{}> {
+export class AuthTool extends AtlasToolBase {
     protected name = "auth";
     protected description = "Authenticate to MongoDB Atlas";
     protected argsShape = {};

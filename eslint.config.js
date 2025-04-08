@@ -1,4 +1,4 @@
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
@@ -9,4 +9,5 @@ export default defineConfig([
     { files: ["src/**/*.ts"], languageOptions: { globals: globals.node } },
     tseslint.configs.recommended,
     eslintConfigPrettier,
+    globalIgnores(["node_modules", "dist"]),
 ]);

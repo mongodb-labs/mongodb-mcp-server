@@ -5,9 +5,10 @@ import { ToolBase } from "../tool.js";
 import { AuthTool } from "./auth.js";
 import { ListClustersTool } from "./listClusters.js";
 import { ListProjectsTool } from "./listProjects.js";
+import { ZodRawShape } from "zod";
 
 export function registerAtlasTools(server: McpServer, state: State, apiClient: ApiClient) {
-    const tools: ToolBase<any>[] = [
+    const tools: ToolBase<ZodRawShape>[] = [
         new AuthTool(apiClient),
         new ListClustersTool(apiClient),
         new ListProjectsTool(apiClient),

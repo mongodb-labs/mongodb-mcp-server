@@ -7,7 +7,9 @@ export class ListClustersTool extends AtlasToolBase {
         super(apiClient);
         this.name = "listClusters";
         this.description = "List MongoDB Atlas clusters";
-        let projectIdFilter = z.string().describe("Optional Atlas project ID to filter clusters");
+        let projectIdFilter = z
+            .string()
+            .describe("Optional Atlas project ID to filter clusters");
         if (config.projectID) {
             projectIdFilter = projectIdFilter.optional();
         }

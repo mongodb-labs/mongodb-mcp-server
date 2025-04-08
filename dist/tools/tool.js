@@ -37,9 +37,11 @@ export class ToolBase {
         };
         if (this.argsShape) {
             // Not sure why typescript doesn't like the type signature of callback.
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             server.tool(this.name, this.description, this.argsShape, callback);
         }
         else {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             server.tool(this.name, this.description, callback);
         }
     }

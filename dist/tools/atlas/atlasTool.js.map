@@ -1,1 +1,1 @@
-{"version":3,"file":"atlasTool.js","sourceRoot":"","sources":["../../../src/tools/atlas/atlasTool.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,QAAQ,EAAE,MAAM,YAAY,CAAC;AAGtC,MAAM,OAAgB,aAAwC,SAAQ,QAAc;IAChF,YAAsB,SAAoB;QACtC,KAAK,EAAE,CAAC;QADU,cAAS,GAAT,SAAS,CAAW;IAE1C,CAAC;CACJ"}
+{"version":3,"file":"atlasTool.js","sourceRoot":"","sources":["../../../src/tools/atlas/atlasTool.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,QAAQ,EAAE,MAAM,YAAY,CAAC;AAGtC,MAAM,OAAgB,aAAsD,SAAQ,QAAc;IAC9F,YAAsB,SAAoB;QACtC,KAAK,EAAE,CAAC;QADU,cAAS,GAAT,SAAS,CAAW;IAE1C,CAAC;CACJ"}
