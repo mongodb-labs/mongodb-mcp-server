@@ -14,9 +14,9 @@
     "inspect": "npm run build && npx @modelcontextprotocol/inspector -- dist/index.js",
     "prettier": "prettier",
     "check": "npm run check:lint && npm run check:format",
-    "check:lint": "npx eslint .",
-    "check:format": "npx prettier -c .",
-    "reformat": "npx prettier -- --write ."
+    "check:lint": "eslint .",
+    "check:format": "prettier -c .",
+    "reformat": "npx prettier --write ."
   },
   "license": "Apache-2.0",
   "devDependencies": {
