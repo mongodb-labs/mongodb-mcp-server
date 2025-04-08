@@ -47,7 +47,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Prettier
         id: prettier-run
-        uses: rutajdash/prettier-cli-action@v1.0.0
+        uses: rutajdash/prettier-cli-action@d42c4325a3b344f3bd4be482bc34de521998d557
         with:
           config_path: ./.prettierrc.yml
       - name: Prettier Output
