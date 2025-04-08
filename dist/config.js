@@ -7,3 +7,4 @@ export const config = {
     projectID: process.env.PROJECT_ID,
 };
 export default config;
+//# sourceMappingURL=config.js.map
