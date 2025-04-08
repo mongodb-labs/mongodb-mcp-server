@@ -8,8 +8,8 @@ const argsShape = {
     collection: z.string().describe("Collection name"),
 };
 
-export class ListIndexesTool extends MongoDBToolBase<typeof argsShape> {
-    protected name = "list-indexes";
+export class CollectionIndexesTool extends MongoDBToolBase<typeof argsShape> {
+    protected name = "collection-indexes";
     protected description = "Describe the indexes for a collection";
     protected argsShape = argsShape;
 

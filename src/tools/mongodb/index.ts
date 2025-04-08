@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { State } from "../../state.js";
 import { ConnectTool } from "./connect.js";
 import { ListCollectionsTool } from "./listCollections.js";
-import { ListIndexesTool } from "./listIndexes.js";
+import { CollectionIndexesTool } from "./collectionIndexes.js";
 import { ListDatabasesTool } from "./listDatabases.js";
 import { MongoDBToolState } from "./mongodbTool.js";
 import { CreateIndexTool } from "./createIndex.js";
@@ -17,7 +17,7 @@ export function registerMongoDBTools(server: McpServer, state: State) {
         ConnectTool,
         ListCollectionsTool,
         ListDatabasesTool,
-        ListIndexesTool,
+        CollectionIndexesTool,
         CreateIndexTool,
         CollectionSchemaTool,
         InsertOneTool,
