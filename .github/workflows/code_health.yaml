@@ -17,7 +17,8 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version-file: package.json
-            - name: install dependencies
+                  cache: "npm"
+            - name: Install dependencies
               run: |
                   npm ci
             - name: build
@@ -47,7 +48,8 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version-file: package.json
-            - name: install dependencies
+                  cache: "npm"
+            - name: Install dependencies
               run: |
                   npm ci
             - run: |
@@ -76,7 +78,8 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version-file: package.json
-            - name: install dependencies
+                  cache: "npm"
+            - name: Install dependencies
               run: |
                   npm ci
             - run: |
