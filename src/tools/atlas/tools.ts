@@ -9,12 +9,12 @@ import { ListProjectsTool } from "./listProjects.js";
 
 export function registerAtlasTools(server: McpServer, state: State, apiClient: ApiClient) {
     const tools: ToolBase<ZodRawShape>[] = [
-        new AuthTool(apiClient),
-        new ListClustersTool(apiClient),
-        new ListProjectsTool(apiClient),
+        new AuthTool(state, apiClient),
+        new ListClustersTool(state, apiClient),
+        new ListProjectsTool(state, apiClient),
     ];
 
     for (const tool of tools) {
-        tool.register(server, state);
+        tool.register(server);
     }
 }

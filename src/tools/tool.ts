@@ -5,7 +5,6 @@ import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { State } from "../state.js";
 
 export abstract class ToolBase<Args extends ZodRawShape> {
-    protected state: State = undefined!; // We should never use this before it's set
     protected abstract name: string;
 
     protected abstract description: string;
@@ -14,9 +13,9 @@ export abstract class ToolBase<Args extends ZodRawShape> {
 
     protected abstract execute(args: z.objectOutputType<Args, ZodTypeAny>): Promise<CallToolResult>;
 
-    public register(server: McpServer, state: State): void {
-        this.state = state;
+    protected constructor(protected state: State) {}
 
+    public register(server: McpServer): void {
         const callback = async (args: z.objectOutputType<Args, ZodTypeAny>): Promise<CallToolResult> => {
             try {
                 // TODO: add telemetry here
