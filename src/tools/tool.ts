@@ -1,8 +1,10 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { z, ZodRawShape, ZodTypeAny } from "zod";
+import { z, ZodNever, ZodRawShape } from "zod";
 import { log } from "../logger.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { State } from "../state.js";
+
+export type ToolArgs<Args extends ZodRawShape> = z.objectOutputType<Args, z.ZodNever>;
 
 export abstract class ToolBase<Args extends ZodRawShape> {
     protected abstract name: string;
@@ -11,12 +13,12 @@ export abstract class ToolBase<Args extends ZodRawShape> {
 
     protected abstract argsShape: Args;
 
-    protected abstract execute(args: z.objectOutputType<Args, ZodTypeAny>): Promise<CallToolResult>;
+    protected abstract execute(args: ToolArgs<Args>): Promise<CallToolResult>;
 
     protected constructor(protected state: State) {}
 
     public register(server: McpServer): void {
-        const callback = async (args: z.objectOutputType<Args, ZodTypeAny>): Promise<CallToolResult> => {
+        const callback = async (args: z.objectOutputType<Args, ZodNever>): Promise<CallToolResult> => {
             try {
                 // TODO: add telemetry here
 
