@@ -1,10 +1,10 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";;
 import { ApiClient } from "./client.js";
 import { State, saveState, loadState } from "./state.js";
-import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
-import { registerAtlasTools } from "./tools/atlas/tools.js";
-import { registerMongoDBTools } from "./tools/mongodb/index.js";
+import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";;
 import { config } from "./config.js";
+import { registerResources } from "./resources/register.js";
+import { registerTools } from "./tools/register.js";
 
 export class Server {
     state: State | undefined = undefined;
@@ -39,9 +39,10 @@ export class Server {
             version: config.version,
         });
 
-        registerAtlasTools(server, this.state!, this.apiClient!);
-        registerMongoDBTools(server, this.state!);
+        registerResources(server, this.state!, this.apiClient!);
+        registerTools(server, this.state!, this.apiClient!);
 
+        
         return server;
     }
 

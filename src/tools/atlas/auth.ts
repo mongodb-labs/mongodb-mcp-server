@@ -1,44 +1,20 @@
-import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { ApiClient } from "../../client.js";
+import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";;
 import { log } from "../../logger.js";
 import { saveState } from "../../state.js";
+import { isAuthenticated } from "../../common/atlas/auth.js";
+import { ToolBase } from "../base.js";
+import { ZodRawShape } from "zod";
+import { ApiClient } from "../../client.js";
 import { State } from "../../state.js";
-import { AtlasToolBase } from "./atlasTool.js";
 
-export async function ensureAuthenticated(state: State, apiClient: ApiClient): Promise<void> {
-    if (!(await isAuthenticated(state, apiClient))) {
-        throw new Error("Not authenticated");
-    }
-}
-
-export async function isAuthenticated(state: State, apiClient: ApiClient): Promise<boolean> {
-    switch (state.auth.status) {
-        case "not_auth":
-            return false;
-        case "requested":
-            try {
-                if (!state.auth.code) {
-                    return false;
-                }
-                await apiClient.retrieveToken(state.auth.code.device_code);
-                return !!state.auth.token;
-            } catch {
-                return false;
-            }
-        case "issued":
-            if (!state.auth.token) {
-                return false;
-            }
-            return await apiClient.validateToken();
-        default:
-            throw new Error("Unknown authentication status");
-    }
-}
-
-export class AuthTool extends AtlasToolBase {
+export class AuthTool extends ToolBase<ZodRawShape> {
     protected name = "auth";
     protected description = "Authenticate to MongoDB Atlas";
     protected argsShape = {};
+
+    constructor(state: State, private apiClient: ApiClient) {
+        super(state);
+    }
 
     private async isAuthenticated(): Promise<boolean> {
         return isAuthenticated(this.state!, this.apiClient);

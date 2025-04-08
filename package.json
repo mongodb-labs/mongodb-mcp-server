@@ -3,6 +3,7 @@
   "description": "MongoDB Model Context Protocol Server",
   "version": "0.0.0",
   "main": "dist/index.js",
+  "type": "module",
   "author": "MongoDB <info@mongodb.com>",
   "homepage": "https://github.com/mongodb-js/mongodb-mcp-server",
   "repository": {

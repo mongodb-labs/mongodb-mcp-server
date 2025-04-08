@@ -1,7 +1,7 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";;
 import { z, ZodRawShape, ZodTypeAny } from "zod";
 import { log } from "../logger.js";
-import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";;
 import { State } from "../state.js";
 
 export abstract class ToolBase<Args extends ZodRawShape> {
