@@ -1,4 +1,3 @@
-import { ZodRawShape } from "zod";
 import { ToolBase } from "../tool.js";
 import { ApiClient } from "../../client.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -8,7 +7,7 @@ import { ListClustersTool } from "./listClusters.js";
 import { ListProjectsTool } from "./listProjects.js";
 
 export function registerAtlasTools(server: McpServer, state: State, apiClient: ApiClient) {
-    const tools: ToolBase<ZodRawShape>[] = [
+    const tools: ToolBase[] = [
         new AuthTool(state, apiClient),
         new ListClustersTool(state, apiClient),
         new ListProjectsTool(state, apiClient),

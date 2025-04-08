@@ -3,7 +3,7 @@ import { DbOperationArgs, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 import { parseSchema, SchemaField } from "mongodb-schema";
 
-export class CollectionSchemaTool extends MongoDBToolBase<typeof DbOperationArgs> {
+export class CollectionSchemaTool extends MongoDBToolBase {
     protected name = "collection-schema";
     protected description = "Describe the schema for a collection";
     protected argsShape = DbOperationArgs;

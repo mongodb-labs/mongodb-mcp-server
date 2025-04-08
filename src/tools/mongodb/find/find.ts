@@ -3,26 +3,24 @@ import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { MongoDBToolBase } from "../mongodbTool.js";
 import { ToolArgs } from "../../tool.js";
 
-const argsShape = {
-    collection: z.string().describe("Collection name"),
-    database: z.string().describe("Database name"),
-    filter: z
-        .object({})
-        .passthrough()
-        .optional()
-        .describe("The query filter, matching the syntax of the query argument of db.collection.find()"),
-    projection: z
-        .object({})
-        .passthrough()
-        .optional()
-        .describe("The projection, matching the syntax of the projection argument of db.collection.find()"),
-    limit: z.number().optional().default(10).describe("The maximum number of documents to return"),
-};
-
-export class FindTool extends MongoDBToolBase<typeof argsShape> {
+export class FindTool extends MongoDBToolBase {
     protected name = "find";
     protected description = "Run a find query against a MongoDB collection";
-    protected argsShape = argsShape;
+    protected argsShape = {
+        collection: z.string().describe("Collection name"),
+        database: z.string().describe("Database name"),
+        filter: z
+            .object({})
+            .passthrough()
+            .optional()
+            .describe("The query filter, matching the syntax of the query argument of db.collection.find()"),
+        projection: z
+            .object({})
+            .passthrough()
+            .optional()
+            .describe("The projection, matching the syntax of the projection argument of db.collection.find()"),
+        limit: z.number().optional().default(10).describe("The maximum number of documents to return"),
+    };
 
     protected async execute({
         database,
@@ -30,7 +28,7 @@ export class FindTool extends MongoDBToolBase<typeof argsShape> {
         filter,
         projection,
         limit,
-    }: ToolArgs<typeof argsShape>): Promise<CallToolResult> {
+    }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         const provider = this.ensureConnected();
         const documents = await provider.find(database, collection, filter, { projection, limit }).toArray();
 

@@ -5,19 +5,19 @@ import { MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool";
 import { ErrorCodes } from "../../errors.js";
 
-const argsShape = {
-    connectionStringOrClusterName: z
-        .string()
-        .optional()
-        .describe("MongoDB connection string (in the mongodb:// or mongodb+srv:// format) or cluster name"),
-};
-
-export class ConnectTool extends MongoDBToolBase<typeof argsShape> {
+export class ConnectTool extends MongoDBToolBase {
     protected name = "connect";
     protected description = "Connect to a MongoDB instance";
-    protected argsShape = argsShape;
+    protected argsShape = {
+        connectionStringOrClusterName: z
+            .string()
+            .optional()
+            .describe("MongoDB connection string (in the mongodb:// or mongodb+srv:// format) or cluster name"),
+    };
 
-    protected async execute({ connectionStringOrClusterName }: ToolArgs<typeof argsShape>): Promise<CallToolResult> {
+    protected async execute({
+        connectionStringOrClusterName,
+    }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         if (!connectionStringOrClusterName) {
             // TODO: try reconnecting to the default connection
             return {

@@ -1,4 +1,4 @@
-import { z, ZodRawShape } from "zod";
+import { z } from "zod";
 import { ToolBase } from "../tool.js";
 import { State } from "../../state.js";
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
@@ -12,7 +12,7 @@ export const DbOperationArgs = {
     collection: z.string().describe("Collection name"),
 };
 
-export abstract class MongoDBToolBase<Args extends ZodRawShape = ZodRawShape> extends ToolBase<Args> {
+export abstract class MongoDBToolBase extends ToolBase {
     constructor(
         state: State,
         protected mongodbState: MongoDBToolState

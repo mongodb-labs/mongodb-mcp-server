@@ -4,21 +4,21 @@ import { log } from "../logger.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { State } from "../state.js";
 
-export type ToolArgs<Args extends ZodRawShape> = z.objectOutputType<Args, z.ZodNever>;
+export type ToolArgs<Args extends ZodRawShape> = z.objectOutputType<Args, ZodNever>;
 
-export abstract class ToolBase<Args extends ZodRawShape> {
+export abstract class ToolBase {
     protected abstract name: string;
 
     protected abstract description: string;
 
-    protected abstract argsShape: Args;
+    protected abstract argsShape: ZodRawShape;
 
-    protected abstract execute(args: ToolArgs<Args>): Promise<CallToolResult>;
+    protected abstract execute(args: ToolArgs<typeof this.argsShape>): Promise<CallToolResult>;
 
     protected constructor(protected state: State) {}
 
     public register(server: McpServer): void {
-        const callback = async (args: z.objectOutputType<Args, ZodNever>): Promise<CallToolResult> => {
+        const callback = async (args: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> => {
             try {
                 // TODO: add telemetry here
 

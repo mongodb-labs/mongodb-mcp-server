@@ -4,17 +4,15 @@ import { DbOperationArgs, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 import { IndexDirection } from "mongodb";
 
-const argsShape = {
-    ...DbOperationArgs,
-    keys: z.record(z.string(), z.custom<IndexDirection>()).describe("The index definition"),
-};
-
-export class CreateIndexTool extends MongoDBToolBase<typeof argsShape> {
+export class CreateIndexTool extends MongoDBToolBase {
     protected name = "create-index";
     protected description = "Create an index for a collection";
-    protected argsShape = argsShape;
+    protected argsShape = {
+        ...DbOperationArgs,
+        keys: z.record(z.string(), z.custom<IndexDirection>()).describe("The index definition"),
+    };
 
-    protected async execute({ database, collection, keys }: ToolArgs<typeof argsShape>): Promise<CallToolResult> {
+    protected async execute({ database, collection, keys }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         const provider = this.ensureConnected();
         const indexes = await provider.createIndexes(database, collection, [
             {

@@ -2,16 +2,14 @@ import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { DbOperationArgs, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 
-const argsShape = {
-    database: DbOperationArgs.database,
-};
-
-export class ListCollectionsTool extends MongoDBToolBase<typeof argsShape> {
+export class ListCollectionsTool extends MongoDBToolBase {
     protected name = "list-collections";
     protected description = "List all collections for a given database";
-    protected argsShape = argsShape;
+    protected argsShape = {
+        database: DbOperationArgs.database,
+    };
 
-    protected async execute({ database }: ToolArgs<typeof argsShape>): Promise<CallToolResult> {
+    protected async execute({ database }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         const provider = this.ensureConnected();
         const collections = await provider.listCollections(database);
 

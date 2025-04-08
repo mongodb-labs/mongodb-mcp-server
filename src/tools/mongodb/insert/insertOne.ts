@@ -3,21 +3,25 @@ import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { MongoDBToolBase } from "../mongodbTool.js";
 import { ToolArgs } from "../../tool.js";
 
-const argsShape = {
-    collection: z.string().describe("Collection name"),
-    database: z.string().describe("Database name"),
-    document: z
-        .object({})
-        .passthrough()
-        .describe("The document to insert, matching the syntax of the document argument of db.collection.insertOne()"),
-};
-
-export class InsertOneTool extends MongoDBToolBase<typeof argsShape> {
+export class InsertOneTool extends MongoDBToolBase {
     protected name = "insert-one";
     protected description = "Insert a document into a MongoDB collection";
-    protected argsShape = argsShape;
+    protected argsShape = {
+        collection: z.string().describe("Collection name"),
+        database: z.string().describe("Database name"),
+        document: z
+            .object({})
+            .passthrough()
+            .describe(
+                "The document to insert, matching the syntax of the document argument of db.collection.insertOne()"
+            ),
+    };
 
-    protected async execute({ database, collection, document }: ToolArgs<typeof argsShape>): Promise<CallToolResult> {
+    protected async execute({
+        database,
+        collection,
+        document,
+    }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         const provider = this.ensureConnected();
         const result = await provider.insertOne(database, collection, document);
 

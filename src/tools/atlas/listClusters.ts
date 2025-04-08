@@ -7,9 +7,7 @@ import { AtlasToolBase } from "./atlasTool.js";
 import { State } from "../../state.js";
 import { ToolArgs } from "../tool.js";
 
-export class ListClustersTool extends AtlasToolBase<{
-    projectId: ZodString | ZodOptional<ZodString>;
-}> {
+export class ListClustersTool extends AtlasToolBase {
     protected name = "listClusters";
     protected description = "List MongoDB Atlas clusters";
     protected argsShape;
