@@ -53,20 +53,7 @@ jobs:
               run: |
                   npm ci
             - run: |
-                  npm run reformat
-            - name: Check for uncommitted files
-              run: |
-                  export FILES=
-                  FILES=$(git ls-files -o -m --directory --exclude-standard --no-empty-directory)
-                  export LINES=
-                  LINES=$(echo "$FILES" | awk 'NF' | wc -l)
-                  if [ "$LINES" -ne 0 ]; then
-                    echo "Detected files that need to be committed:"
-                    echo "${FILES}"
-                    echo ""
-                    echo "Try running: npm run reformat"
-                    exit 1
-                  fi
+                  npm run check:format
     eslint:
         runs-on: ubuntu-latest
         steps:
@@ -83,4 +70,4 @@ jobs:
               run: |
                   npm ci
             - run: |
-                  npm run lint
+                  npm run check:lint
