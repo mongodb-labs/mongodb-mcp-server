@@ -17,7 +17,8 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version-file: package.json
-            - name: install dependencies
+                  cache: "npm"
+            - name: Install dependencies
               run: |
                   npm ci
             - name: build
@@ -37,7 +38,6 @@ jobs:
                     exit 1
                   fi
     prettier:
-        name: Prettier Check
         runs-on: ubuntu-latest
         steps:
             - uses: GitHubSecurityLab/actions-permissions/monitor@v1
@@ -45,14 +45,29 @@ jobs:
                   config: ${{ vars.PERMISSIONS_CONFIG }}
             - name: Checkout Repository
               uses: actions/checkout@v2
-            - name: Run Prettier
-              id: prettier-run
-              uses: rutajdash/prettier-cli-action@d42c4325a3b344f3bd4be482bc34de521998d557
+            - uses: actions/setup-node@v4
               with:
-                  config_path: ./.prettierrc.yml
-            - name: Prettier Output
-              if: ${{ failure() }}
-              shell: bash
+                  node-version-file: package.json
+                  cache: "npm"
+            - name: Install dependencies
               run: |
-                  echo "The following files are not formatted:"
-                  echo "${{steps.prettier-run.outputs.prettier_output}}"
+                  npm ci
+            - run: |
+                  npm run check:format
+    eslint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: GitHubSecurityLab/actions-permissions/monitor@v1
+              with:
+                  config: ${{ vars.PERMISSIONS_CONFIG }}
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: package.json
+                  cache: "npm"
+            - name: Install dependencies
+              run: |
+                  npm ci
+            - run: |
+                  npm run check:lint

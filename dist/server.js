@@ -3,6 +3,7 @@ import { ApiClient } from "./client.js";
 import { saveState, loadState } from "./state.js";
 import { registerAtlasTools } from "./tools/atlas/index.js";
 import { registerMongoDBTools } from "./tools/mongodb/index.js";
+import { config } from "./config.js";
 export class Server {
     constructor() {
         this.state = undefined;
