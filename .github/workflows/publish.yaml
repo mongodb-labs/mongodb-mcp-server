@@ -7,6 +7,7 @@ on:
 jobs:
     publish:
         runs-on: ubuntu-latest
+        environment: Production
         steps:
             - uses: GitHubSecurityLab/actions-permissions/monitor@v1
               with:
@@ -16,11 +17,14 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version-file: package.json
+                  registry-url: 'https://registry.npmjs.org'
                   cache: "npm"
             - name: Install dependencies
               run: |
                   npm ci
-            - run: |
+            - env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+              run: |
                   npm publish
             - run: |
                   gh release create ${{ github.ref }} --title "${{ github.ref }}" --notes "Release ${{ github.ref }}" --generate-notes
