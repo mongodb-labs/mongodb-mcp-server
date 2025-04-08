@@ -16,7 +16,7 @@
     "check": "npm run check:lint && npm run check:format",
     "check:lint": "eslint .",
     "check:format": "prettier -c .",
-    "reformat": "npx prettier --write ."
+    "reformat": "prettier --write ."
   },
   "license": "Apache-2.0",
   "devDependencies": {
