@@ -1,8 +1,6 @@
-# Atlas MCP Server PoC
+# Atlas MCP Server
 
-A Model Context Protocol server for interacting with MongoDB Atlas.
-
-Developed using the official MCP SDK https://github.com/modelcontextprotocol/typescript-sdk
+A Model Context Protocol server for interacting with MongoDB Atlas. This project implements a Model Context Protocol (MCP) server enabling AI assistants to interact with MongoDB Atlas resources through natural language.
 
 ## 📚 Table of Contents
 
@@ -10,26 +8,28 @@ Developed using the official MCP SDK https://github.com/modelcontextprotocol/typ
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Running the MCP Server](#running-the-mcp-server)
-- [🔧 Troubleshooting](#troubleshooting)
-  - [Restart Server](#restart-server)
-  - [View Logs](#view-logs)
-  - [Debugging](#debugging)
 - [🛠️ Supported Tools](#supported-tools)
   - [Tool List](#tool-list)
 - [👩‍💻 Client Integration](#client-integration)
   - [VSCode](#vscode)
   - [Claude](#claude)
+- [🤝 Contributing](#contributing)
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js installed
+- Node.js (v23 or later)
 - MongoDB Atlas account
 
 ### Installation
 
 ```shell
+# Clone the repository
+git clone https://github.com/mongodb-labs/mongodb-mcp-server.git
+cd mongodb-mcp-server
+
+# Install dependencies
 npm install
 ```
 
@@ -37,39 +37,6 @@ npm install
 
 ```shell
 npm run build
-```
-
-## 🔧 Troubleshooting
-
-### Restart Server
-
-- Run `npm run build` to re-build the server if you made changes to the code
-- Press `Cmd + Shift + P` and type List MCP Servers
-- Select the MCP server you want to restart
-- Select the option to restart the server
-
-### View Logs
-
-To see MCP logs, check https://code.visualstudio.com/docs/copilot/chat/mcp-servers.
-
-- Press `Cmd + Shift + P` and type List MCP Servers
-- Select the MCP server you want to see logs for
-- Select the option to view logs in the output panel
-
-### Debugging
-
-We can use @modelcontextprotocol/inspector to debug the server - https://github.com/modelcontextprotocol/inspector
-
-From the root of this repository, run:
-
-```shell
-npx @modelcontextprotocol/inspector -- node dist/index.js
-```
-
-Or use the npm script:
-
-```shell
-npm run inspect
 ```
 
 ## 🛠️ Supported Tools
@@ -150,3 +117,7 @@ Step 3: Launch Claude Desktop and click on the hammer icon, the Demo MCP server 
 - Detailed instructions with screenshots can be found in this [document](https://docs.google.com/document/d/1_C8QBMZ5rwImV_9v4G96661OqcBk1n1SfEgKyNalv9c/edit?tab=t.2hhewstzj7ck#bookmark=id.nktw0lg0fn7t).
 
 Note: If you make changes to your MCP server code, rebuild the project with `npm run build` and restart the server and Claude Desktop.
+
+## 🤝 Contributing
+
+Interested in contributing? Great! Please check our [Contributing Guide](CONTRIBUTING.md) for guidelines on code contributions, standards, adding new tools, and troubleshooting information.

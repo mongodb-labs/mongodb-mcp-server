@@ -28,7 +28,7 @@ This project implements a Model Context Protocol (MCP) server for MongoDB and Mo
    npm install
    ```
 
-3. Add the mcp server to your IDE of choice
+3. Add the mcp server to your IDE of choice (see the [README](README.md) for detailed client integration instructions)
    ```json
    {
      "mcpServers": {
@@ -56,6 +56,37 @@ This project implements a Model Context Protocol (MCP) server for MongoDB and Mo
    ```
 
 4. Commit your changes with a descriptive commit message
+
+## Troubleshooting
+
+### Restart Server
+
+- Run `npm run build` to re-build the server if you made changes to the code
+- Press `Cmd + Shift + P` and type List MCP Servers
+- Select the MCP server you want to restart
+- Select the option to restart the server
+
+### View Logs
+
+To see MCP logs, check https://code.visualstudio.com/docs/copilot/chat/mcp-servers.
+
+- Press `Cmd + Shift + P` and type List MCP Servers
+- Select the MCP server you want to see logs for
+- Select the option to view logs in the output panel
+
+### Debugging
+
+For debugging, we use the MCP inspector tool. From the root of this repository, run:
+
+```shell
+npm run inspect
+```
+
+This is equivalent to:
+
+```shell
+npx @modelcontextprotocol/inspector -- node dist/index.js
+```
 
 ## Pull Request Guidelines
 
