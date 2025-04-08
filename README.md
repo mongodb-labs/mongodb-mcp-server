@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# atlas-mcp-server
-
-TBD
-=======
 # Atlas MCP Server PoC
 
 A Model Context Protocol server for interacting with MongoDB Atlas.
@@ -144,4 +139,3 @@ Step 3: Launch Claude Desktop and click on the hammer icon, the Demo MCP server 
 
 
 Note: If you make changes to your MCP server code, rebuild the project with `npm run build` and restart the server and Claude Desktop.
->>>>>>> 1599834 (chore: adds docs written by filipe into readme)
