@@ -178,7 +178,7 @@ export class Server {
             const header = `Project Name | Project ID | Created At
 ----------------|----------------|----------------`;
             const rows = projects
-                .map(project => {
+                .map((project) => {
                 const createdAt = project.created ? new Date(project.created.$date).toLocaleString() : "N/A";
                 return `${project.name} | ${project.id} | ${createdAt}`;
             })
@@ -218,7 +218,9 @@ export class Server {
             version: config.version,
         });
         server.tool("auth", "Authenticate to Atlas", async () => this.authTool());
-        let projectIdFilter = z.string().describe("Optional Atlas project ID to filter clusters");
+        let projectIdFilter = z
+            .string()
+            .describe("Optional Atlas project ID to filter clusters");
         if (config.projectID) {
             projectIdFilter = projectIdFilter.optional();
         }
