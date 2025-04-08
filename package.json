@@ -1,10 +1,10 @@
 {
   "name": "mongodb-mcp-server",
   "version": "0.0.0",
-  "private": true,
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
+    "prepare": "npm run build",
     "build:clean": "rm -rf dist",
     "build:compile": "tsc",
     "build:addshebang": "echo '#!/usr/bin/env node' > dist/index2.js && cat dist/index.js >> dist/index2.js && mv dist/index2.js dist/index.js",
@@ -14,8 +14,8 @@
     "prettier": "prettier",
     "check": "npm run check:lint && npm run check:format",
     "check:lint": "eslint .",
-    "check:format": "npm run prettier -c .",
-    "reformat": "npm run prettier -- --write . && npm run check:lint -- --fix"
+    "check:format": "prettier -c .",
+    "reformat": "prettier --write ."
   },
   "license": "Apache-2.0",
   "devDependencies": {

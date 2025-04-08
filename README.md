@@ -102,7 +102,7 @@ It should look like this
 ```json
 {
   "servers": {
-    "demo-atlas-server": {
+    "mongodb-mcp-server": {
       "type": "stdio",
       "command": "/Users/<user>/workplace/atlas-mcp-server/dist/index.js",
       "args": []

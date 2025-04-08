@@ -1,0 +1,30 @@
+---
+name: Publish
+on:
+    push:
+        tags:
+            - v*
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        environment: Production
+        steps:
+            - uses: GitHubSecurityLab/actions-permissions/monitor@v1
+              with:
+                  config: ${{ vars.PERMISSIONS_CONFIG }}
+            - name: Checkout Repository
+              uses: actions/checkout@v2
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: package.json
+                  registry-url: "https://registry.npmjs.org"
+                  cache: "npm"
+            - name: Install dependencies
+              run: |
+                  npm ci
+            - env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+              run: |
+                  npm publish
+            - run: |
+                  gh release create ${{ github.ref }} --title "${{ github.ref }}" --notes "Release ${{ github.ref }}" --generate-notes
