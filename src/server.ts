@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { ApiClient } from "./client.js";
 import { State, saveState, loadState } from "./state.js";
 import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
-import { registerAtlasTools } from "./tools/atlas/index.js";
+import { registerAtlasTools } from "./tools/atlas/tools.js";
 import { registerMongoDBTools } from "./tools/mongodb/index.js";
 import { config } from "./config.js";
 
