@@ -1,8 +1,15 @@
 {
-  "name": "mongodb-mcp-server",
+  "name": "@mongodb-js/mongodb-mcp-server",
+  "description": "MongoDB Model Context Protocol Server",
   "version": "0.0.0",
   "main": "dist/index.js",
-  "type": "module",
+  "author": "MongoDB <info@mongodb.com>",
+  "bin": {
+    "mongodb-mcp-server": "dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepare": "npm run build",
     "build:clean": "rm -rf dist",
