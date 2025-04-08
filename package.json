@@ -1,6 +1,6 @@
 {
-  "name": "atlas-mcp-server",
-  "version": "1.0.0",
+  "name": "mongodb-mcp-server",
+  "version": "0.0.0",
   "private": true,
   "main": "dist/index.js",
   "type": "module",
@@ -14,7 +14,7 @@
     "prettier": "prettier",
     "reformat": "npm run prettier -- --write ."
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.8.0",
     "@types/node": "^22.14.0",

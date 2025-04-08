@@ -234,7 +234,7 @@ export class Server {
     private mcpServer(): McpServer {
         const server = new McpServer({
             name: "MongoDB Atlas",
-            version: process.env.VERSION || "1.0.0",
+            version: config.version,
         });
 
         server.tool("auth", "Authenticate to Atlas", async ({}) => this.authTool());
