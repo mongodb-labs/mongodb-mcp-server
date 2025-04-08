@@ -31,7 +31,7 @@ jobs:
           LINES=$(echo "$FILES" | awk 'NF' | wc -l)
           if [ "$LINES" -ne 0 ]; then
             echo "Detected files that need to be committed:"
-            echo "${FILES//^/ }"
+            echo "${FILES}"
             echo ""
             echo "Try running: npm run build"
             exit 1
