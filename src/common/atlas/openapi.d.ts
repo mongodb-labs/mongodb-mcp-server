@@ -122,44 +122,7 @@ export interface components {
              * @description Geographic area that Amazon Web Services (AWS) defines to which MongoDB Cloud deployed this network peering container.
              * @enum {string}
              */
-            regionName:
-                | "US_EAST_1"
-                | "US_EAST_2"
-                | "US_WEST_1"
-                | "US_WEST_2"
-                | "CA_CENTRAL_1"
-                | "EU_NORTH_1"
-                | "EU_WEST_1"
-                | "EU_WEST_2"
-                | "EU_WEST_3"
-                | "EU_CENTRAL_1"
-                | "EU_CENTRAL_2"
-                | "SA_EAST_1"
-                | "AP_EAST_1"
-                | "AP_SOUTHEAST_2"
-                | "AP_SOUTHEAST_3"
-                | "AP_SOUTHEAST_4"
-                | "AP_NORTHEAST_1"
-                | "AP_NORTHEAST_2"
-                | "AP_NORTHEAST_3"
-                | "AP_SOUTHEAST_1"
-                | "AP_SOUTH_1"
-                | "AP_SOUTH_2"
-                | "CN_NORTH_1"
-                | "CN_NORTHWEST_1"
-                | "ME_CENTRAL_1"
-                | "ME_SOUTH_1"
-                | "AF_SOUTH_1"
-                | "EU_SOUTH_1"
-                | "EU_SOUTH_2"
-                | "IL_CENTRAL_1"
-                | "CA_WEST_1"
-                | "AP_SOUTHEAST_5"
-                | "AP_SOUTHEAST_7"
-                | "MX_CENTRAL_1"
-                | "GLOBAL"
-                | "US_GOV_WEST_1"
-                | "US_GOV_EAST_1";
+            regionName: "US_EAST_1" | "US_EAST_2" | "US_WEST_1" | "US_WEST_2" | "CA_CENTRAL_1" | "EU_NORTH_1" | "EU_WEST_1" | "EU_WEST_2" | "EU_WEST_3" | "EU_CENTRAL_1" | "EU_CENTRAL_2" | "SA_EAST_1" | "AP_EAST_1" | "AP_SOUTHEAST_2" | "AP_SOUTHEAST_3" | "AP_SOUTHEAST_4" | "AP_NORTHEAST_1" | "AP_NORTHEAST_2" | "AP_NORTHEAST_3" | "AP_SOUTHEAST_1" | "AP_SOUTH_1" | "AP_SOUTH_2" | "CN_NORTH_1" | "CN_NORTHWEST_1" | "ME_CENTRAL_1" | "ME_SOUTH_1" | "AF_SOUTH_1" | "EU_SOUTH_1" | "EU_SOUTH_2" | "IL_CENTRAL_1" | "CA_WEST_1" | "AP_SOUTHEAST_5" | "AP_SOUTHEAST_7" | "MX_CENTRAL_1" | "GLOBAL" | "US_GOV_WEST_1" | "US_GOV_EAST_1";
             /**
              * @description Unique string that identifies the MongoDB Cloud VPC on AWS.
              * @example vpc-b555d3b0d9cb783b0
@@ -196,75 +159,13 @@ export interface components {
              * @description Cluster tier, with a default storage and memory capacity, that applies to all the data-bearing hosts in your cluster.
              * @enum {string}
              */
-            instanceSizeName?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M100"
-                | "M140"
-                | "M200"
-                | "M300"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "R700"
-                | "M40_NVME"
-                | "M50_NVME"
-                | "M60_NVME"
-                | "M80_NVME"
-                | "M200_NVME"
-                | "M400_NVME";
+            instanceSizeName?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M100" | "M140" | "M200" | "M300" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R700" | "M40_NVME" | "M50_NVME" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M400_NVME";
             /**
              * AWS Regions
              * @description Physical location where MongoDB Cloud deploys your AWS-hosted MongoDB cluster nodes. The region you choose can affect network latency for clients accessing your databases. When MongoDB Cloud deploys a dedicated cluster, it checks if a VPC or VPC connection exists for that provider and region. If not, MongoDB Cloud creates them as part of the deployment. MongoDB Cloud assigns the VPC a CIDR block. To limit a new VPC peering connection to one CIDR block and region, create the connection first. Deploy the cluster after the connection starts.
              * @enum {string}
              */
-            regionName?:
-                | "US_GOV_WEST_1"
-                | "US_GOV_EAST_1"
-                | "US_EAST_1"
-                | "US_EAST_2"
-                | "US_WEST_1"
-                | "US_WEST_2"
-                | "CA_CENTRAL_1"
-                | "EU_NORTH_1"
-                | "EU_WEST_1"
-                | "EU_WEST_2"
-                | "EU_WEST_3"
-                | "EU_CENTRAL_1"
-                | "EU_CENTRAL_2"
-                | "AP_EAST_1"
-                | "AP_NORTHEAST_1"
-                | "AP_NORTHEAST_2"
-                | "AP_NORTHEAST_3"
-                | "AP_SOUTHEAST_1"
-                | "AP_SOUTHEAST_2"
-                | "AP_SOUTHEAST_3"
-                | "AP_SOUTHEAST_4"
-                | "AP_SOUTH_1"
-                | "AP_SOUTH_2"
-                | "SA_EAST_1"
-                | "CN_NORTH_1"
-                | "CN_NORTHWEST_1"
-                | "ME_SOUTH_1"
-                | "ME_CENTRAL_1"
-                | "AF_SOUTH_1"
-                | "EU_SOUTH_1"
-                | "EU_SOUTH_2"
-                | "IL_CENTRAL_1"
-                | "CA_WEST_1"
-                | "AP_SOUTHEAST_5"
-                | "AP_SOUTHEAST_7"
-                | "MX_CENTRAL_1"
-                | "GLOBAL";
+            regionName?: "US_GOV_WEST_1" | "US_GOV_EAST_1" | "US_EAST_1" | "US_EAST_2" | "US_WEST_1" | "US_WEST_2" | "CA_CENTRAL_1" | "EU_NORTH_1" | "EU_WEST_1" | "EU_WEST_2" | "EU_WEST_3" | "EU_CENTRAL_1" | "EU_CENTRAL_2" | "AP_EAST_1" | "AP_NORTHEAST_1" | "AP_NORTHEAST_2" | "AP_NORTHEAST_3" | "AP_SOUTHEAST_1" | "AP_SOUTHEAST_2" | "AP_SOUTHEAST_3" | "AP_SOUTHEAST_4" | "AP_SOUTH_1" | "AP_SOUTH_2" | "SA_EAST_1" | "CN_NORTH_1" | "CN_NORTHWEST_1" | "ME_SOUTH_1" | "ME_CENTRAL_1" | "AF_SOUTH_1" | "EU_SOUTH_1" | "EU_SOUTH_2" | "IL_CENTRAL_1" | "CA_WEST_1" | "AP_SOUTHEAST_5" | "AP_SOUTHEAST_7" | "MX_CENTRAL_1" | "GLOBAL";
             /**
              * @description Disk Input/Output Operations per Second (IOPS) setting for Amazon Web Services (AWS) storage that you configure only for abbr title="Amazon Web Services">AWS</abbr>. Specify whether Disk Input/Output Operations per Second (IOPS) must not exceed the default Input/Output Operations per Second (IOPS) rate for the selected volume size (`STANDARD`), or must fall within the allowable Input/Output Operations per Second (IOPS) range for the selected volume size (`PROVISIONED`). You must set this value to (`PROVISIONED`) for NVMe clusters.
              * @enum {string}
@@ -293,79 +194,20 @@ export interface components {
              * @description Maximum instance size to which your cluster can automatically scale.
              * @enum {string}
              */
-            maxInstanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M100"
-                | "M140"
-                | "M200"
-                | "M300"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "R700"
-                | "M40_NVME"
-                | "M50_NVME"
-                | "M60_NVME"
-                | "M80_NVME"
-                | "M200_NVME"
-                | "M400_NVME";
+            maxInstanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M100" | "M140" | "M200" | "M300" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R700" | "M40_NVME" | "M50_NVME" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M400_NVME";
             /**
              * AWS Instance Sizes
              * @description Minimum instance size to which your cluster can automatically scale.
              * @enum {string}
              */
-            minInstanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M100"
-                | "M140"
-                | "M200"
-                | "M300"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "R700"
-                | "M40_NVME"
-                | "M50_NVME"
-                | "M60_NVME"
-                | "M80_NVME"
-                | "M200_NVME"
-                | "M400_NVME";
+            minInstanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M100" | "M140" | "M200" | "M300" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R700" | "M40_NVME" | "M50_NVME" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M400_NVME";
         };
         AWSCreateDataProcessRegionView: Omit<components["schemas"]["CreateDataProcessRegionView"], "cloudProvider"> & {
             /**
              * @description Human-readable label that identifies the geographic location of the region where you wish to store your archived data.
              * @enum {string}
              */
-            region?:
-                | "US_EAST_1"
-                | "US_WEST_2"
-                | "SA_EAST_1"
-                | "EU_WEST_1"
-                | "EU_WEST_2"
-                | "EU_CENTRAL_1"
-                | "AP_SOUTH_1"
-                | "AP_SOUTHEAST_1"
-                | "AP_SOUTHEAST_2";
+            region?: "US_EAST_1" | "US_WEST_2" | "SA_EAST_1" | "EU_WEST_1" | "EU_WEST_2" | "EU_CENTRAL_1" | "AP_SOUTH_1" | "AP_SOUTHEAST_1" | "AP_SOUTHEAST_2";
         } & {
             /**
              * @description discriminator enum property added by openapi-typescript
@@ -378,16 +220,7 @@ export interface components {
              * @description Human-readable label that identifies the geographic location of the region where you store your archived data.
              * @enum {string}
              */
-            readonly region?:
-                | "US_EAST_1"
-                | "US_WEST_2"
-                | "SA_EAST_1"
-                | "EU_WEST_1"
-                | "EU_WEST_2"
-                | "EU_CENTRAL_1"
-                | "AP_SOUTH_1"
-                | "AP_SOUTHEAST_1"
-                | "AP_SOUTHEAST_2";
+            readonly region?: "US_EAST_1" | "US_WEST_2" | "SA_EAST_1" | "EU_WEST_1" | "EU_WEST_2" | "EU_CENTRAL_1" | "AP_SOUTH_1" | "AP_SOUTHEAST_1" | "AP_SOUTHEAST_2";
         } & {
             /**
              * @description discriminator enum property added by openapi-typescript
@@ -435,32 +268,7 @@ export interface components {
              * @description Hardware specification for the instance sizes in this region. Each instance size has a default storage and memory capacity. The instance size you select applies to all the data-bearing hosts of the node type.
              * @enum {string}
              */
-            instanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M100"
-                | "M140"
-                | "M200"
-                | "M300"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "R700"
-                | "M40_NVME"
-                | "M50_NVME"
-                | "M60_NVME"
-                | "M80_NVME"
-                | "M200_NVME"
-                | "M400_NVME";
+            instanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M100" | "M140" | "M200" | "M300" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R700" | "M40_NVME" | "M50_NVME" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M400_NVME";
             /**
              * Format: int32
              * @description Number of nodes of the given type for MongoDB Cloud to deploy to the region.
@@ -526,32 +334,7 @@ export interface components {
              * @description Hardware specification for the instance sizes in this region in this shard. Each instance size has a default storage and memory capacity. Electable nodes and read-only nodes (known as "base nodes") within a single shard must use the same instance size. Analytics nodes can scale independently from base nodes within a shard. Both base nodes and analytics nodes can scale independently from their equivalents in other shards.
              * @enum {string}
              */
-            instanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M100"
-                | "M140"
-                | "M200"
-                | "M300"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "R700"
-                | "M40_NVME"
-                | "M50_NVME"
-                | "M60_NVME"
-                | "M80_NVME"
-                | "M200_NVME"
-                | "M400_NVME";
+            instanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M100" | "M140" | "M200" | "M300" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R700" | "M40_NVME" | "M50_NVME" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M400_NVME";
             /**
              * Format: int32
              * @description Number of nodes of the given type for MongoDB Cloud to deploy to the region.
@@ -635,10 +418,7 @@ export interface components {
         /** @description Group of settings that configures a subset of the advanced configuration details. */
         ApiAtlasClusterAdvancedConfigurationView: {
             /** @description The custom OpenSSL cipher suite list for TLS 1.2. This field is only valid when `tlsCipherConfigMode` is set to `CUSTOM`. */
-            customOpensslCipherConfigTls12?: (
-                | "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
-                | "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
-            )[];
+            customOpensslCipherConfigTls12?: ("TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384" | "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256")[];
             /**
              * @description Minimum Transport Layer Security (TLS) version that the cluster accepts for incoming connections. Clusters using TLS 1.0 or 1.1 should consider setting TLS 1.2 as the minimum TLS protocol version.
              * @enum {string}
@@ -656,12 +436,7 @@ export interface components {
          */
         ApiAtlasFTSAnalyzersViewManual: {
             /** @description Filters that examine text one character at a time and perform filtering operations. */
-            charFilters?: (
-                | components["schemas"]["charFilterhtmlStrip"]
-                | components["schemas"]["charFiltericuNormalize"]
-                | components["schemas"]["charFiltermapping"]
-                | components["schemas"]["charFilterpersian"]
-            )[];
+            charFilters?: (components["schemas"]["charFilterhtmlStrip"] | components["schemas"]["charFiltericuNormalize"] | components["schemas"]["charFiltermapping"] | components["schemas"]["charFilterpersian"])[];
             /** @description Human-readable name that identifies the custom analyzer. Names must be unique within an index, and must not start with any of the following strings:
              *     - `lucene.`
              *     - `builtin.`
@@ -672,39 +447,9 @@ export interface components {
              *     - Stemming, which reduces related words, such as "talking", "talked", and "talks" to their root word "talk".
              *
              *     - Redaction, the removal of sensitive information from public documents. */
-            tokenFilters?: (
-                | components["schemas"]["tokenFilterasciiFolding"]
-                | components["schemas"]["tokenFilterdaitchMokotoffSoundex"]
-                | components["schemas"]["tokenFilteredgeGram"]
-                | components["schemas"]["TokenFilterEnglishPossessive"]
-                | components["schemas"]["TokenFilterFlattenGraph"]
-                | components["schemas"]["tokenFiltericuFolding"]
-                | components["schemas"]["tokenFiltericuNormalizer"]
-                | components["schemas"]["TokenFilterkStemming"]
-                | components["schemas"]["tokenFilterlength"]
-                | components["schemas"]["tokenFilterlowercase"]
-                | components["schemas"]["tokenFilternGram"]
-                | components["schemas"]["TokenFilterPorterStemming"]
-                | components["schemas"]["tokenFilterregex"]
-                | components["schemas"]["tokenFilterreverse"]
-                | components["schemas"]["tokenFiltershingle"]
-                | components["schemas"]["tokenFiltersnowballStemming"]
-                | components["schemas"]["TokenFilterSpanishPluralStemming"]
-                | components["schemas"]["TokenFilterStempel"]
-                | components["schemas"]["tokenFilterstopword"]
-                | components["schemas"]["tokenFiltertrim"]
-                | components["schemas"]["TokenFilterWordDelimiterGraph"]
-            )[];
+            tokenFilters?: (components["schemas"]["tokenFilterasciiFolding"] | components["schemas"]["tokenFilterdaitchMokotoffSoundex"] | components["schemas"]["tokenFilteredgeGram"] | components["schemas"]["TokenFilterEnglishPossessive"] | components["schemas"]["TokenFilterFlattenGraph"] | components["schemas"]["tokenFiltericuFolding"] | components["schemas"]["tokenFiltericuNormalizer"] | components["schemas"]["TokenFilterkStemming"] | components["schemas"]["tokenFilterlength"] | components["schemas"]["tokenFilterlowercase"] | components["schemas"]["tokenFilternGram"] | components["schemas"]["TokenFilterPorterStemming"] | components["schemas"]["tokenFilterregex"] | components["schemas"]["tokenFilterreverse"] | components["schemas"]["tokenFiltershingle"] | components["schemas"]["tokenFiltersnowballStemming"] | components["schemas"]["TokenFilterSpanishPluralStemming"] | components["schemas"]["TokenFilterStempel"] | components["schemas"]["tokenFilterstopword"] | components["schemas"]["tokenFiltertrim"] | components["schemas"]["TokenFilterWordDelimiterGraph"])[];
             /** @description Tokenizer that you want to use to create tokens. Tokens determine how Atlas Search splits up text into discrete chunks for indexing. */
-            tokenizer:
-                | components["schemas"]["tokenizeredgeGram"]
-                | components["schemas"]["tokenizerkeyword"]
-                | components["schemas"]["tokenizernGram"]
-                | components["schemas"]["tokenizerregexCaptureGroup"]
-                | components["schemas"]["tokenizerregexSplit"]
-                | components["schemas"]["tokenizerstandard"]
-                | components["schemas"]["tokenizeruaxUrlEmail"]
-                | components["schemas"]["tokenizerwhitespace"];
+            tokenizer: components["schemas"]["tokenizeredgeGram"] | components["schemas"]["tokenizerkeyword"] | components["schemas"]["tokenizernGram"] | components["schemas"]["tokenizerregexCaptureGroup"] | components["schemas"]["tokenizerregexSplit"] | components["schemas"]["tokenizerstandard"] | components["schemas"]["tokenizeruaxUrlEmail"] | components["schemas"]["tokenizerwhitespace"];
         };
         /**
          * mappings
@@ -784,63 +529,7 @@ export interface components {
              * @description Azure region to which MongoDB Cloud deployed this network peering container.
              * @enum {string}
              */
-            region:
-                | "US_CENTRAL"
-                | "US_EAST"
-                | "US_EAST_2"
-                | "US_EAST_2_EUAP"
-                | "US_NORTH_CENTRAL"
-                | "US_WEST"
-                | "US_SOUTH_CENTRAL"
-                | "EUROPE_NORTH"
-                | "EUROPE_WEST"
-                | "US_WEST_CENTRAL"
-                | "US_WEST_2"
-                | "US_WEST_3"
-                | "CANADA_EAST"
-                | "CANADA_CENTRAL"
-                | "BRAZIL_SOUTH"
-                | "BRAZIL_SOUTHEAST"
-                | "AUSTRALIA_EAST"
-                | "AUSTRALIA_SOUTH_EAST"
-                | "AUSTRALIA_CENTRAL"
-                | "AUSTRALIA_CENTRAL_2"
-                | "UAE_NORTH"
-                | "GERMANY_CENTRAL"
-                | "GERMANY_NORTH_EAST"
-                | "GERMANY_WEST_CENTRAL"
-                | "GERMANY_NORTH"
-                | "SWITZERLAND_NORTH"
-                | "SWITZERLAND_WEST"
-                | "SWEDEN_CENTRAL"
-                | "SWEDEN_SOUTH"
-                | "UK_SOUTH"
-                | "UK_WEST"
-                | "INDIA_CENTRAL"
-                | "INDIA_WEST"
-                | "INDIA_SOUTH"
-                | "CHINA_EAST"
-                | "CHINA_NORTH"
-                | "ASIA_EAST"
-                | "JAPAN_EAST"
-                | "JAPAN_WEST"
-                | "ASIA_SOUTH_EAST"
-                | "KOREA_CENTRAL"
-                | "KOREA_SOUTH"
-                | "FRANCE_CENTRAL"
-                | "FRANCE_SOUTH"
-                | "SOUTH_AFRICA_NORTH"
-                | "SOUTH_AFRICA_WEST"
-                | "NORWAY_EAST"
-                | "NORWAY_WEST"
-                | "UAE_CENTRAL"
-                | "QATAR_CENTRAL"
-                | "POLAND_CENTRAL"
-                | "ISRAEL_CENTRAL"
-                | "ITALY_NORTH"
-                | "SPAIN_CENTRAL"
-                | "MEXICO_CENTRAL"
-                | "NEW_ZEALAND_NORTH";
+            region: "US_CENTRAL" | "US_EAST" | "US_EAST_2" | "US_EAST_2_EUAP" | "US_NORTH_CENTRAL" | "US_WEST" | "US_SOUTH_CENTRAL" | "EUROPE_NORTH" | "EUROPE_WEST" | "US_WEST_CENTRAL" | "US_WEST_2" | "US_WEST_3" | "CANADA_EAST" | "CANADA_CENTRAL" | "BRAZIL_SOUTH" | "BRAZIL_SOUTHEAST" | "AUSTRALIA_EAST" | "AUSTRALIA_SOUTH_EAST" | "AUSTRALIA_CENTRAL" | "AUSTRALIA_CENTRAL_2" | "UAE_NORTH" | "GERMANY_CENTRAL" | "GERMANY_NORTH_EAST" | "GERMANY_WEST_CENTRAL" | "GERMANY_NORTH" | "SWITZERLAND_NORTH" | "SWITZERLAND_WEST" | "SWEDEN_CENTRAL" | "SWEDEN_SOUTH" | "UK_SOUTH" | "UK_WEST" | "INDIA_CENTRAL" | "INDIA_WEST" | "INDIA_SOUTH" | "CHINA_EAST" | "CHINA_NORTH" | "ASIA_EAST" | "JAPAN_EAST" | "JAPAN_WEST" | "ASIA_SOUTH_EAST" | "KOREA_CENTRAL" | "KOREA_SOUTH" | "FRANCE_CENTRAL" | "FRANCE_SOUTH" | "SOUTH_AFRICA_NORTH" | "SOUTH_AFRICA_WEST" | "NORWAY_EAST" | "NORWAY_WEST" | "UAE_CENTRAL" | "QATAR_CENTRAL" | "POLAND_CENTRAL" | "ISRAEL_CENTRAL" | "ITALY_NORTH" | "SPAIN_CENTRAL" | "MEXICO_CENTRAL" | "NEW_ZEALAND_NORTH";
             /** @description Unique string that identifies the Azure VNet in which MongoDB Cloud clusters in this network peering container exist. The response returns **null** if no clusters exist in this network peering container. */
             readonly vnetName?: string;
         } & {
@@ -868,84 +557,13 @@ export interface components {
              * @description Cluster tier, with a default storage and memory capacity, that applies to all the data-bearing hosts in your cluster.
              * @enum {string}
              */
-            instanceSizeName?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M90"
-                | "M200"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "M60_NVME"
-                | "M80_NVME"
-                | "M200_NVME"
-                | "M300_NVME"
-                | "M400_NVME"
-                | "M600_NVME";
+            instanceSizeName?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M90" | "M200" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M300_NVME" | "M400_NVME" | "M600_NVME";
             /**
              * Azure Regions
              * @description Microsoft Azure Regions.
              * @enum {string}
              */
-            regionName?:
-                | "US_CENTRAL"
-                | "US_EAST"
-                | "US_EAST_2"
-                | "US_NORTH_CENTRAL"
-                | "US_WEST"
-                | "US_SOUTH_CENTRAL"
-                | "EUROPE_NORTH"
-                | "EUROPE_WEST"
-                | "US_WEST_CENTRAL"
-                | "US_WEST_2"
-                | "US_WEST_3"
-                | "CANADA_EAST"
-                | "CANADA_CENTRAL"
-                | "BRAZIL_SOUTH"
-                | "BRAZIL_SOUTHEAST"
-                | "AUSTRALIA_CENTRAL"
-                | "AUSTRALIA_CENTRAL_2"
-                | "AUSTRALIA_EAST"
-                | "AUSTRALIA_SOUTH_EAST"
-                | "GERMANY_CENTRAL"
-                | "GERMANY_NORTH_EAST"
-                | "GERMANY_WEST_CENTRAL"
-                | "GERMANY_NORTH"
-                | "SWEDEN_CENTRAL"
-                | "SWEDEN_SOUTH"
-                | "SWITZERLAND_NORTH"
-                | "SWITZERLAND_WEST"
-                | "UK_SOUTH"
-                | "UK_WEST"
-                | "NORWAY_EAST"
-                | "NORWAY_WEST"
-                | "INDIA_CENTRAL"
-                | "INDIA_SOUTH"
-                | "INDIA_WEST"
-                | "CHINA_EAST"
-                | "CHINA_NORTH"
-                | "ASIA_EAST"
-                | "JAPAN_EAST"
-                | "JAPAN_WEST"
-                | "ASIA_SOUTH_EAST"
-                | "KOREA_CENTRAL"
-                | "KOREA_SOUTH"
-                | "FRANCE_CENTRAL"
-                | "FRANCE_SOUTH"
-                | "SOUTH_AFRICA_NORTH"
-                | "SOUTH_AFRICA_WEST"
-                | "UAE_CENTRAL"
-                | "UAE_NORTH"
-                | "QATAR_CENTRAL";
+            regionName?: "US_CENTRAL" | "US_EAST" | "US_EAST_2" | "US_NORTH_CENTRAL" | "US_WEST" | "US_SOUTH_CENTRAL" | "EUROPE_NORTH" | "EUROPE_WEST" | "US_WEST_CENTRAL" | "US_WEST_2" | "US_WEST_3" | "CANADA_EAST" | "CANADA_CENTRAL" | "BRAZIL_SOUTH" | "BRAZIL_SOUTHEAST" | "AUSTRALIA_CENTRAL" | "AUSTRALIA_CENTRAL_2" | "AUSTRALIA_EAST" | "AUSTRALIA_SOUTH_EAST" | "GERMANY_CENTRAL" | "GERMANY_NORTH_EAST" | "GERMANY_WEST_CENTRAL" | "GERMANY_NORTH" | "SWEDEN_CENTRAL" | "SWEDEN_SOUTH" | "SWITZERLAND_NORTH" | "SWITZERLAND_WEST" | "UK_SOUTH" | "UK_WEST" | "NORWAY_EAST" | "NORWAY_WEST" | "INDIA_CENTRAL" | "INDIA_SOUTH" | "INDIA_WEST" | "CHINA_EAST" | "CHINA_NORTH" | "ASIA_EAST" | "JAPAN_EAST" | "JAPAN_WEST" | "ASIA_SOUTH_EAST" | "KOREA_CENTRAL" | "KOREA_SOUTH" | "FRANCE_CENTRAL" | "FRANCE_SOUTH" | "SOUTH_AFRICA_NORTH" | "SOUTH_AFRICA_WEST" | "UAE_CENTRAL" | "UAE_NORTH" | "QATAR_CENTRAL";
         } & {
             /**
              * @description discriminator enum property added by openapi-typescript
@@ -969,62 +587,15 @@ export interface components {
              * @description Maximum instance size to which your cluster can automatically scale.
              * @enum {string}
              */
-            maxInstanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M90"
-                | "M200"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "M60_NVME"
-                | "M80_NVME"
-                | "M200_NVME"
-                | "M300_NVME"
-                | "M400_NVME"
-                | "M600_NVME";
+            maxInstanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M90" | "M200" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M300_NVME" | "M400_NVME" | "M600_NVME";
             /**
              * Azure Instance Sizes
              * @description Minimum instance size to which your cluster can automatically scale.
              * @enum {string}
              */
-            minInstanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M90"
-                | "M200"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "M60_NVME"
-                | "M80_NVME"
-                | "M200_NVME"
-                | "M300_NVME"
-                | "M400_NVME"
-                | "M600_NVME";
+            minInstanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M90" | "M200" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M300_NVME" | "M400_NVME" | "M600_NVME";
         };
-        AzureCreateDataProcessRegionView: Omit<
-            components["schemas"]["CreateDataProcessRegionView"],
-            "cloudProvider"
-        > & {
+        AzureCreateDataProcessRegionView: Omit<components["schemas"]["CreateDataProcessRegionView"], "cloudProvider"> & {
             /**
              * @description Human-readable label that identifies the geographic location of the region where you wish to store your archived data.
              * @enum {string}
@@ -1068,29 +639,7 @@ export interface components {
              * @description Hardware specification for the instance sizes in this region. Each instance size has a default storage and memory capacity. The instance size you select applies to all the data-bearing hosts of the node type.
              * @enum {string}
              */
-            instanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M90"
-                | "M200"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "M60_NVME"
-                | "M80_NVME"
-                | "M200_NVME"
-                | "M300_NVME"
-                | "M400_NVME"
-                | "M600_NVME";
+            instanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M90" | "M200" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M300_NVME" | "M400_NVME" | "M600_NVME";
             /**
              * Format: int32
              * @description Number of nodes of the given type for MongoDB Cloud to deploy to the region.
@@ -1132,29 +681,7 @@ export interface components {
              * @description Hardware specification for the instance sizes in this region in this shard. Each instance size has a default storage and memory capacity. Electable nodes and read-only nodes (known as "base nodes") within a single shard must use the same instance size. Analytics nodes can scale independently from base nodes within a shard. Both base nodes and analytics nodes can scale independently from their equivalents in other shards.
              * @enum {string}
              */
-            instanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M90"
-                | "M200"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "M60_NVME"
-                | "M80_NVME"
-                | "M200_NVME"
-                | "M300_NVME"
-                | "M400_NVME"
-                | "M600_NVME";
+            instanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M90" | "M200" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M300_NVME" | "M400_NVME" | "M600_NVME";
             /**
              * Format: int32
              * @description Number of nodes of the given type for MongoDB Cloud to deploy to the region.
@@ -1211,80 +738,7 @@ export interface components {
             fields?: components["schemas"]["FieldViolation"][];
         };
         /** @description Instance size boundary to which your cluster can automatically scale. */
-        BaseCloudProviderInstanceSize:
-            | (
-                  | "M10"
-                  | "M20"
-                  | "M30"
-                  | "M40"
-                  | "M50"
-                  | "M60"
-                  | "M80"
-                  | "M100"
-                  | "M140"
-                  | "M200"
-                  | "M300"
-                  | "R40"
-                  | "R50"
-                  | "R60"
-                  | "R80"
-                  | "R200"
-                  | "R300"
-                  | "R400"
-                  | "R700"
-                  | "M40_NVME"
-                  | "M50_NVME"
-                  | "M60_NVME"
-                  | "M80_NVME"
-                  | "M200_NVME"
-                  | "M400_NVME"
-              )
-            | (
-                  | "M10"
-                  | "M20"
-                  | "M30"
-                  | "M40"
-                  | "M50"
-                  | "M60"
-                  | "M80"
-                  | "M90"
-                  | "M200"
-                  | "R40"
-                  | "R50"
-                  | "R60"
-                  | "R80"
-                  | "R200"
-                  | "R300"
-                  | "R400"
-                  | "M60_NVME"
-                  | "M80_NVME"
-                  | "M200_NVME"
-                  | "M300_NVME"
-                  | "M400_NVME"
-                  | "M600_NVME"
-              )
-            | (
-                  | "M10"
-                  | "M20"
-                  | "M30"
-                  | "M40"
-                  | "M50"
-                  | "M60"
-                  | "M80"
-                  | "M140"
-                  | "M200"
-                  | "M250"
-                  | "M300"
-                  | "M400"
-                  | "R40"
-                  | "R50"
-                  | "R60"
-                  | "R80"
-                  | "R200"
-                  | "R300"
-                  | "R400"
-                  | "R600"
-              );
+        BaseCloudProviderInstanceSize: ("M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M100" | "M140" | "M200" | "M300" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R700" | "M40_NVME" | "M50_NVME" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M400_NVME") | ("M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M90" | "M200" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "M60_NVME" | "M80_NVME" | "M200_NVME" | "M300_NVME" | "M400_NVME" | "M600_NVME") | ("M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M140" | "M200" | "M250" | "M300" | "M400" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R600");
         BasicDBObject: {
             [key: string]: Record<string, never>;
         };
@@ -1513,18 +967,7 @@ export interface components {
              *     - `PARTIAL_PAID`: Customer paid for part of this line item.
              * @enum {string}
              */
-            statusName?:
-                | "NEW"
-                | "FORGIVEN"
-                | "FAILED"
-                | "PAID"
-                | "PARTIAL_PAID"
-                | "CANCELLED"
-                | "INVOICED"
-                | "FAILED_AUTHENTICATION"
-                | "PROCESSING"
-                | "PENDING_REVERSAL"
-                | "REFUNDED";
+            statusName?: "NEW" | "FORGIVEN" | "FAILED" | "PAID" | "PARTIAL_PAID" | "CANCELLED" | "INVOICED" | "FAILED_AUTHENTICATION" | "PROCESSING" | "PENDING_REVERSAL" | "REFUNDED";
             /**
              * Format: int64
              * @description Sum of all positive invoice line items contained in this invoice. This parameter expresses its value in cents (100ths of one US Dollar).
@@ -1608,83 +1051,13 @@ export interface components {
              * @description Cluster tier, with a default storage and memory capacity, that applies to all the data-bearing hosts in your cluster.
              * @enum {string}
              */
-            instanceSizeName?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M140"
-                | "M200"
-                | "M250"
-                | "M300"
-                | "M400"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "R600";
+            instanceSizeName?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M140" | "M200" | "M250" | "M300" | "M400" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R600";
             /**
              * GCP Regions
              * @description Google Compute Regions.
              * @enum {string}
              */
-            regionName?:
-                | "EASTERN_US"
-                | "EASTERN_US_AW"
-                | "US_EAST_4"
-                | "US_EAST_4_AW"
-                | "US_EAST_5"
-                | "US_EAST_5_AW"
-                | "US_WEST_2"
-                | "US_WEST_2_AW"
-                | "US_WEST_3"
-                | "US_WEST_3_AW"
-                | "US_WEST_4"
-                | "US_WEST_4_AW"
-                | "US_SOUTH_1"
-                | "US_SOUTH_1_AW"
-                | "CENTRAL_US"
-                | "CENTRAL_US_AW"
-                | "WESTERN_US"
-                | "WESTERN_US_AW"
-                | "NORTH_AMERICA_NORTHEAST_1"
-                | "NORTH_AMERICA_NORTHEAST_2"
-                | "NORTH_AMERICA_SOUTH_1"
-                | "SOUTH_AMERICA_EAST_1"
-                | "SOUTH_AMERICA_WEST_1"
-                | "WESTERN_EUROPE"
-                | "EUROPE_NORTH_1"
-                | "EUROPE_WEST_2"
-                | "EUROPE_WEST_3"
-                | "EUROPE_WEST_4"
-                | "EUROPE_WEST_6"
-                | "EUROPE_WEST_8"
-                | "EUROPE_WEST_9"
-                | "EUROPE_WEST_10"
-                | "EUROPE_WEST_12"
-                | "EUROPE_SOUTHWEST_1"
-                | "EUROPE_CENTRAL_2"
-                | "MIDDLE_EAST_CENTRAL_1"
-                | "MIDDLE_EAST_CENTRAL_2"
-                | "MIDDLE_EAST_WEST_1"
-                | "AUSTRALIA_SOUTHEAST_1"
-                | "AUSTRALIA_SOUTHEAST_2"
-                | "AFRICA_SOUTH_1"
-                | "EASTERN_ASIA_PACIFIC"
-                | "NORTHEASTERN_ASIA_PACIFIC"
-                | "SOUTHEASTERN_ASIA_PACIFIC"
-                | "ASIA_EAST_2"
-                | "ASIA_NORTHEAST_2"
-                | "ASIA_NORTHEAST_3"
-                | "ASIA_SOUTH_1"
-                | "ASIA_SOUTH_2"
-                | "ASIA_SOUTHEAST_2";
+            regionName?: "EASTERN_US" | "EASTERN_US_AW" | "US_EAST_4" | "US_EAST_4_AW" | "US_EAST_5" | "US_EAST_5_AW" | "US_WEST_2" | "US_WEST_2_AW" | "US_WEST_3" | "US_WEST_3_AW" | "US_WEST_4" | "US_WEST_4_AW" | "US_SOUTH_1" | "US_SOUTH_1_AW" | "CENTRAL_US" | "CENTRAL_US_AW" | "WESTERN_US" | "WESTERN_US_AW" | "NORTH_AMERICA_NORTHEAST_1" | "NORTH_AMERICA_NORTHEAST_2" | "NORTH_AMERICA_SOUTH_1" | "SOUTH_AMERICA_EAST_1" | "SOUTH_AMERICA_WEST_1" | "WESTERN_EUROPE" | "EUROPE_NORTH_1" | "EUROPE_WEST_2" | "EUROPE_WEST_3" | "EUROPE_WEST_4" | "EUROPE_WEST_6" | "EUROPE_WEST_8" | "EUROPE_WEST_9" | "EUROPE_WEST_10" | "EUROPE_WEST_12" | "EUROPE_SOUTHWEST_1" | "EUROPE_CENTRAL_2" | "MIDDLE_EAST_CENTRAL_1" | "MIDDLE_EAST_CENTRAL_2" | "MIDDLE_EAST_WEST_1" | "AUSTRALIA_SOUTHEAST_1" | "AUSTRALIA_SOUTHEAST_2" | "AFRICA_SOUTH_1" | "EASTERN_ASIA_PACIFIC" | "NORTHEASTERN_ASIA_PACIFIC" | "SOUTHEASTERN_ASIA_PACIFIC" | "ASIA_EAST_2" | "ASIA_NORTHEAST_2" | "ASIA_NORTHEAST_3" | "ASIA_SOUTH_1" | "ASIA_SOUTH_2" | "ASIA_SOUTHEAST_2";
         } & {
             /**
              * @description discriminator enum property added by openapi-typescript
@@ -1703,10 +1076,7 @@ export interface components {
             compute?: components["schemas"]["AWSComputeAutoScaling"];
         };
         /** @description Details that describe the features linked to the Amazon Web Services (AWS) Identity and Access Management (IAM) role. */
-        CloudProviderAccessAWSIAMRole: Omit<
-            WithRequired<components["schemas"]["CloudProviderAccessRole"], "providerName">,
-            "providerName"
-        > & {
+        CloudProviderAccessAWSIAMRole: Omit<WithRequired<components["schemas"]["CloudProviderAccessRole"], "providerName">, "providerName"> & {
             /**
              * @description Amazon Resource Name that identifies the Amazon Web Services (AWS) user account that MongoDB Cloud uses when it assumes the Identity and Access Management (IAM) role.
              * @example arn:aws:iam::772401394250:role/my-test-aws-role
@@ -1747,10 +1117,7 @@ export interface components {
             providerName: "AWS";
         };
         /** @description Details that describe the features linked to the Amazon Web Services (AWS) Identity and Access Management (IAM) role. */
-        CloudProviderAccessAWSIAMRoleRequestUpdate: Omit<
-            WithRequired<components["schemas"]["CloudProviderAccessRoleRequestUpdate"], "providerName">,
-            "providerName"
-        > & {
+        CloudProviderAccessAWSIAMRoleRequestUpdate: Omit<WithRequired<components["schemas"]["CloudProviderAccessRoleRequestUpdate"], "providerName">, "providerName"> & {
             /**
              * @description Amazon Resource Name that identifies the Amazon Web Services (AWS) user account that MongoDB Cloud uses when it assumes the Identity and Access Management (IAM) role.
              * @example arn:aws:iam::772401394250:role/my-test-aws-role
@@ -1791,10 +1158,7 @@ export interface components {
             providerName: "AWS";
         };
         /** @description Details that describe the features linked to the Azure Service Principal. */
-        CloudProviderAccessAzureServicePrincipal: Omit<
-            WithRequired<components["schemas"]["CloudProviderAccessRole"], "providerName">,
-            "providerName"
-        > & {
+        CloudProviderAccessAzureServicePrincipal: Omit<WithRequired<components["schemas"]["CloudProviderAccessRole"], "providerName">, "providerName"> & {
             /**
              * @description Unique 24-hexadecimal digit string that identifies the role.
              * @example 32b6e34b3d91647abb20e7b8
@@ -1835,10 +1199,7 @@ export interface components {
             providerName: "AZURE";
         };
         /** @description Details that describe the features linked to the Azure Service Principal. */
-        CloudProviderAccessAzureServicePrincipalRequestUpdate: Omit<
-            WithRequired<components["schemas"]["CloudProviderAccessRoleRequestUpdate"], "providerName">,
-            "providerName"
-        > & {
+        CloudProviderAccessAzureServicePrincipalRequestUpdate: Omit<WithRequired<components["schemas"]["CloudProviderAccessRoleRequestUpdate"], "providerName">, "providerName"> & {
             /**
              * @description Unique 24-hexadecimal digit string that identifies the role.
              * @example 32b6e34b3d91647abb20e7b8
@@ -1879,10 +1240,7 @@ export interface components {
             providerName: "AZURE";
         };
         /** @description Details that describe the Atlas Data Lakes linked to this Amazon Web Services (AWS) Identity and Access Management (IAM) role. */
-        CloudProviderAccessDataLakeFeatureUsage: Omit<
-            components["schemas"]["CloudProviderAccessFeatureUsage"],
-            "featureType"
-        > & {
+        CloudProviderAccessDataLakeFeatureUsage: Omit<components["schemas"]["CloudProviderAccessFeatureUsage"], "featureType"> & {
             featureId?: components["schemas"]["CloudProviderAccessFeatureUsageDataLakeFeatureId"];
         } & {
             /**
@@ -1892,10 +1250,7 @@ export interface components {
             featureType: "ATLAS_DATA_LAKE";
         };
         /** @description Details that describe the Key Management Service (KMS) linked to this Amazon Web Services (AWS) Identity and Access Management (IAM) role. */
-        CloudProviderAccessEncryptionAtRestFeatureUsage: Omit<
-            components["schemas"]["CloudProviderAccessFeatureUsage"],
-            "featureType"
-        > & {
+        CloudProviderAccessEncryptionAtRestFeatureUsage: Omit<components["schemas"]["CloudProviderAccessFeatureUsage"], "featureType"> & {
             featureId?: components["schemas"]["ApiAtlasCloudProviderAccessFeatureUsageFeatureIdView"];
         } & {
             /**
@@ -1905,10 +1260,7 @@ export interface components {
             featureType: "ENCRYPTION_AT_REST";
         };
         /** @description Details that describe the Amazon Web Services (AWS) Simple Storage Service (S3) export buckets linked to this AWS Identity and Access Management (IAM) role. */
-        CloudProviderAccessExportSnapshotFeatureUsage: Omit<
-            components["schemas"]["CloudProviderAccessFeatureUsage"],
-            "featureType"
-        > & {
+        CloudProviderAccessExportSnapshotFeatureUsage: Omit<components["schemas"]["CloudProviderAccessFeatureUsage"], "featureType"> & {
             featureId?: components["schemas"]["CloudProviderAccessFeatureUsageExportSnapshotFeatureId"];
         } & {
             /**
@@ -1923,11 +1275,7 @@ export interface components {
              * @description Human-readable label that describes one MongoDB Cloud feature linked to this Amazon Web Services (AWS) Identity and Access Management (IAM) role.
              * @enum {string}
              */
-            readonly featureType?:
-                | "ATLAS_DATA_LAKE"
-                | "ENCRYPTION_AT_REST"
-                | "EXPORT_SNAPSHOT"
-                | "PUSH_BASED_LOG_EXPORT";
+            readonly featureType?: "ATLAS_DATA_LAKE" | "ENCRYPTION_AT_REST" | "EXPORT_SNAPSHOT" | "PUSH_BASED_LOG_EXPORT";
         };
         /** @description Identifying characteristics about the data lake linked to this Amazon Web Services (AWS) Identity and Access Management (IAM) role. */
         CloudProviderAccessFeatureUsageDataLakeFeatureId: {
@@ -1963,10 +1311,7 @@ export interface components {
             readonly groupId?: string;
         };
         /** @description Details that describe the features linked to the GCP Service Account. */
-        CloudProviderAccessGCPServiceAccount: Omit<
-            WithRequired<components["schemas"]["CloudProviderAccessRole"], "providerName">,
-            "providerName"
-        > & {
+        CloudProviderAccessGCPServiceAccount: Omit<WithRequired<components["schemas"]["CloudProviderAccessRole"], "providerName">, "providerName"> & {
             /**
              * Format: date-time
              * @description Date and time when this Google Service Account was created. This parameter expresses its value in the ISO 8601 timestamp format in UTC.
@@ -1989,10 +1334,7 @@ export interface components {
             providerName: "GCP";
         };
         /** @description Details that describe the features linked to the GCP Service Account. */
-        CloudProviderAccessGCPServiceAccountRequestUpdate: Omit<
-            WithRequired<components["schemas"]["CloudProviderAccessRoleRequestUpdate"], "providerName">,
-            "providerName"
-        > & {
+        CloudProviderAccessGCPServiceAccountRequestUpdate: Omit<WithRequired<components["schemas"]["CloudProviderAccessRoleRequestUpdate"], "providerName">, "providerName"> & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
@@ -2000,10 +1342,7 @@ export interface components {
             providerName: "GCP";
         };
         /** @description Details that describe the Amazon Web Services (AWS) Simple Storage Service (S3) export buckets linked to this AWS Identity and Access Management (IAM) role. */
-        CloudProviderAccessPushBasedLogExportFeatureUsage: Omit<
-            components["schemas"]["CloudProviderAccessFeatureUsage"],
-            "featureType"
-        > & {
+        CloudProviderAccessPushBasedLogExportFeatureUsage: Omit<components["schemas"]["CloudProviderAccessFeatureUsage"], "featureType"> & {
             featureId?: components["schemas"]["CloudProviderAccessFeatureUsagePushBasedLogExportFeatureId"];
         } & {
             /**
@@ -2046,11 +1385,7 @@ export interface components {
             providerName?: "AWS" | "GCP" | "AZURE" | "TENANT" | "SERVERLESS";
             /** @description Flag that indicates whether MongoDB Cloud clusters exist in the specified network peering container. */
             readonly provisioned?: boolean;
-        } & (
-            | components["schemas"]["AzureCloudProviderContainer"]
-            | components["schemas"]["GCPCloudProviderContainer"]
-            | components["schemas"]["AWSCloudProviderContainer"]
-        );
+        } & (components["schemas"]["AzureCloudProviderContainer"] | components["schemas"]["GCPCloudProviderContainer"] | components["schemas"]["AWSCloudProviderContainer"]);
         /** @description Range of instance sizes to which your cluster can scale. */
         CloudProviderGCPAutoScaling: {
             compute?: components["schemas"]["GCPComputeAutoScaling"];
@@ -2074,155 +1409,8 @@ export interface components {
              */
             providerName?: "AWS" | "AZURE" | "GCP" | "TENANT";
             /** @description Physical location of your MongoDB cluster nodes. The region you choose can affect network latency for clients accessing your databases. The region name is only returned in the response for single-region clusters. When MongoDB Cloud deploys a dedicated cluster, it checks if a VPC or VPC connection exists for that provider and region. If not, MongoDB Cloud creates them as part of the deployment. It assigns the VPC a Classless Inter-Domain Routing (CIDR) block. To limit a new VPC peering connection to one Classless Inter-Domain Routing (CIDR) block and region, create the connection first. Deploy the cluster after the connection starts. GCP Clusters and Multi-region clusters require one VPC peering connection for each region. MongoDB nodes can use only the peering connection that resides in the same region as the nodes to communicate with the peered VPC. */
-            regionName?:
-                | (
-                      | "US_GOV_WEST_1"
-                      | "US_GOV_EAST_1"
-                      | "US_EAST_1"
-                      | "US_EAST_2"
-                      | "US_WEST_1"
-                      | "US_WEST_2"
-                      | "CA_CENTRAL_1"
-                      | "EU_NORTH_1"
-                      | "EU_WEST_1"
-                      | "EU_WEST_2"
-                      | "EU_WEST_3"
-                      | "EU_CENTRAL_1"
-                      | "EU_CENTRAL_2"
-                      | "AP_EAST_1"
-                      | "AP_NORTHEAST_1"
-                      | "AP_NORTHEAST_2"
-                      | "AP_NORTHEAST_3"
-                      | "AP_SOUTHEAST_1"
-                      | "AP_SOUTHEAST_2"
-                      | "AP_SOUTHEAST_3"
-                      | "AP_SOUTHEAST_4"
-                      | "AP_SOUTH_1"
-                      | "AP_SOUTH_2"
-                      | "SA_EAST_1"
-                      | "CN_NORTH_1"
-                      | "CN_NORTHWEST_1"
-                      | "ME_SOUTH_1"
-                      | "ME_CENTRAL_1"
-                      | "AF_SOUTH_1"
-                      | "EU_SOUTH_1"
-                      | "EU_SOUTH_2"
-                      | "IL_CENTRAL_1"
-                      | "CA_WEST_1"
-                      | "AP_SOUTHEAST_5"
-                      | "AP_SOUTHEAST_7"
-                      | "MX_CENTRAL_1"
-                      | "GLOBAL"
-                  )
-                | (
-                      | "US_CENTRAL"
-                      | "US_EAST"
-                      | "US_EAST_2"
-                      | "US_NORTH_CENTRAL"
-                      | "US_WEST"
-                      | "US_SOUTH_CENTRAL"
-                      | "EUROPE_NORTH"
-                      | "EUROPE_WEST"
-                      | "US_WEST_CENTRAL"
-                      | "US_WEST_2"
-                      | "US_WEST_3"
-                      | "CANADA_EAST"
-                      | "CANADA_CENTRAL"
-                      | "BRAZIL_SOUTH"
-                      | "BRAZIL_SOUTHEAST"
-                      | "AUSTRALIA_CENTRAL"
-                      | "AUSTRALIA_CENTRAL_2"
-                      | "AUSTRALIA_EAST"
-                      | "AUSTRALIA_SOUTH_EAST"
-                      | "GERMANY_CENTRAL"
-                      | "GERMANY_NORTH_EAST"
-                      | "GERMANY_WEST_CENTRAL"
-                      | "GERMANY_NORTH"
-                      | "SWEDEN_CENTRAL"
-                      | "SWEDEN_SOUTH"
-                      | "SWITZERLAND_NORTH"
-                      | "SWITZERLAND_WEST"
-                      | "UK_SOUTH"
-                      | "UK_WEST"
-                      | "NORWAY_EAST"
-                      | "NORWAY_WEST"
-                      | "INDIA_CENTRAL"
-                      | "INDIA_SOUTH"
-                      | "INDIA_WEST"
-                      | "CHINA_EAST"
-                      | "CHINA_NORTH"
-                      | "ASIA_EAST"
-                      | "JAPAN_EAST"
-                      | "JAPAN_WEST"
-                      | "ASIA_SOUTH_EAST"
-                      | "KOREA_CENTRAL"
-                      | "KOREA_SOUTH"
-                      | "FRANCE_CENTRAL"
-                      | "FRANCE_SOUTH"
-                      | "SOUTH_AFRICA_NORTH"
-                      | "SOUTH_AFRICA_WEST"
-                      | "UAE_CENTRAL"
-                      | "UAE_NORTH"
-                      | "QATAR_CENTRAL"
-                  )
-                | (
-                      | "EASTERN_US"
-                      | "EASTERN_US_AW"
-                      | "US_EAST_4"
-                      | "US_EAST_4_AW"
-                      | "US_EAST_5"
-                      | "US_EAST_5_AW"
-                      | "US_WEST_2"
-                      | "US_WEST_2_AW"
-                      | "US_WEST_3"
-                      | "US_WEST_3_AW"
-                      | "US_WEST_4"
-                      | "US_WEST_4_AW"
-                      | "US_SOUTH_1"
-                      | "US_SOUTH_1_AW"
-                      | "CENTRAL_US"
-                      | "CENTRAL_US_AW"
-                      | "WESTERN_US"
-                      | "WESTERN_US_AW"
-                      | "NORTH_AMERICA_NORTHEAST_1"
-                      | "NORTH_AMERICA_NORTHEAST_2"
-                      | "NORTH_AMERICA_SOUTH_1"
-                      | "SOUTH_AMERICA_EAST_1"
-                      | "SOUTH_AMERICA_WEST_1"
-                      | "WESTERN_EUROPE"
-                      | "EUROPE_NORTH_1"
-                      | "EUROPE_WEST_2"
-                      | "EUROPE_WEST_3"
-                      | "EUROPE_WEST_4"
-                      | "EUROPE_WEST_6"
-                      | "EUROPE_WEST_8"
-                      | "EUROPE_WEST_9"
-                      | "EUROPE_WEST_10"
-                      | "EUROPE_WEST_12"
-                      | "EUROPE_SOUTHWEST_1"
-                      | "EUROPE_CENTRAL_2"
-                      | "MIDDLE_EAST_CENTRAL_1"
-                      | "MIDDLE_EAST_CENTRAL_2"
-                      | "MIDDLE_EAST_WEST_1"
-                      | "AUSTRALIA_SOUTHEAST_1"
-                      | "AUSTRALIA_SOUTHEAST_2"
-                      | "AFRICA_SOUTH_1"
-                      | "EASTERN_ASIA_PACIFIC"
-                      | "NORTHEASTERN_ASIA_PACIFIC"
-                      | "SOUTHEASTERN_ASIA_PACIFIC"
-                      | "ASIA_EAST_2"
-                      | "ASIA_NORTHEAST_2"
-                      | "ASIA_NORTHEAST_3"
-                      | "ASIA_SOUTH_1"
-                      | "ASIA_SOUTH_2"
-                      | "ASIA_SOUTHEAST_2"
-                  );
-        } & (
-            | components["schemas"]["AWSRegionConfig"]
-            | components["schemas"]["AzureRegionConfig"]
-            | components["schemas"]["GCPRegionConfig"]
-            | components["schemas"]["TenantRegionConfig"]
-        );
+            regionName?: ("US_GOV_WEST_1" | "US_GOV_EAST_1" | "US_EAST_1" | "US_EAST_2" | "US_WEST_1" | "US_WEST_2" | "CA_CENTRAL_1" | "EU_NORTH_1" | "EU_WEST_1" | "EU_WEST_2" | "EU_WEST_3" | "EU_CENTRAL_1" | "EU_CENTRAL_2" | "AP_EAST_1" | "AP_NORTHEAST_1" | "AP_NORTHEAST_2" | "AP_NORTHEAST_3" | "AP_SOUTHEAST_1" | "AP_SOUTHEAST_2" | "AP_SOUTHEAST_3" | "AP_SOUTHEAST_4" | "AP_SOUTH_1" | "AP_SOUTH_2" | "SA_EAST_1" | "CN_NORTH_1" | "CN_NORTHWEST_1" | "ME_SOUTH_1" | "ME_CENTRAL_1" | "AF_SOUTH_1" | "EU_SOUTH_1" | "EU_SOUTH_2" | "IL_CENTRAL_1" | "CA_WEST_1" | "AP_SOUTHEAST_5" | "AP_SOUTHEAST_7" | "MX_CENTRAL_1" | "GLOBAL") | ("US_CENTRAL" | "US_EAST" | "US_EAST_2" | "US_NORTH_CENTRAL" | "US_WEST" | "US_SOUTH_CENTRAL" | "EUROPE_NORTH" | "EUROPE_WEST" | "US_WEST_CENTRAL" | "US_WEST_2" | "US_WEST_3" | "CANADA_EAST" | "CANADA_CENTRAL" | "BRAZIL_SOUTH" | "BRAZIL_SOUTHEAST" | "AUSTRALIA_CENTRAL" | "AUSTRALIA_CENTRAL_2" | "AUSTRALIA_EAST" | "AUSTRALIA_SOUTH_EAST" | "GERMANY_CENTRAL" | "GERMANY_NORTH_EAST" | "GERMANY_WEST_CENTRAL" | "GERMANY_NORTH" | "SWEDEN_CENTRAL" | "SWEDEN_SOUTH" | "SWITZERLAND_NORTH" | "SWITZERLAND_WEST" | "UK_SOUTH" | "UK_WEST" | "NORWAY_EAST" | "NORWAY_WEST" | "INDIA_CENTRAL" | "INDIA_SOUTH" | "INDIA_WEST" | "CHINA_EAST" | "CHINA_NORTH" | "ASIA_EAST" | "JAPAN_EAST" | "JAPAN_WEST" | "ASIA_SOUTH_EAST" | "KOREA_CENTRAL" | "KOREA_SOUTH" | "FRANCE_CENTRAL" | "FRANCE_SOUTH" | "SOUTH_AFRICA_NORTH" | "SOUTH_AFRICA_WEST" | "UAE_CENTRAL" | "UAE_NORTH" | "QATAR_CENTRAL") | ("EASTERN_US" | "EASTERN_US_AW" | "US_EAST_4" | "US_EAST_4_AW" | "US_EAST_5" | "US_EAST_5_AW" | "US_WEST_2" | "US_WEST_2_AW" | "US_WEST_3" | "US_WEST_3_AW" | "US_WEST_4" | "US_WEST_4_AW" | "US_SOUTH_1" | "US_SOUTH_1_AW" | "CENTRAL_US" | "CENTRAL_US_AW" | "WESTERN_US" | "WESTERN_US_AW" | "NORTH_AMERICA_NORTHEAST_1" | "NORTH_AMERICA_NORTHEAST_2" | "NORTH_AMERICA_SOUTH_1" | "SOUTH_AMERICA_EAST_1" | "SOUTH_AMERICA_WEST_1" | "WESTERN_EUROPE" | "EUROPE_NORTH_1" | "EUROPE_WEST_2" | "EUROPE_WEST_3" | "EUROPE_WEST_4" | "EUROPE_WEST_6" | "EUROPE_WEST_8" | "EUROPE_WEST_9" | "EUROPE_WEST_10" | "EUROPE_WEST_12" | "EUROPE_SOUTHWEST_1" | "EUROPE_CENTRAL_2" | "MIDDLE_EAST_CENTRAL_1" | "MIDDLE_EAST_CENTRAL_2" | "MIDDLE_EAST_WEST_1" | "AUSTRALIA_SOUTHEAST_1" | "AUSTRALIA_SOUTHEAST_2" | "AFRICA_SOUTH_1" | "EASTERN_ASIA_PACIFIC" | "NORTHEASTERN_ASIA_PACIFIC" | "SOUTHEASTERN_ASIA_PACIFIC" | "ASIA_EAST_2" | "ASIA_NORTHEAST_2" | "ASIA_NORTHEAST_3" | "ASIA_SOUTH_1" | "ASIA_SOUTH_2" | "ASIA_SOUTHEAST_2");
+        } & (components["schemas"]["AWSRegionConfig"] | components["schemas"]["AzureRegionConfig"] | components["schemas"]["GCPRegionConfig"] | components["schemas"]["TenantRegionConfig"]);
         /**
          * Cloud Service Provider Settings
          * @description Cloud service provider on which MongoDB Cloud provisions the hosts.
@@ -2242,155 +1430,8 @@ export interface components {
              */
             providerName?: "AWS" | "AZURE" | "GCP" | "TENANT";
             /** @description Physical location of your MongoDB cluster nodes. The region you choose can affect network latency for clients accessing your databases. The region name is only returned in the response for single-region clusters. When MongoDB Cloud deploys a dedicated cluster, it checks if a VPC or VPC connection exists for that provider and region. If not, MongoDB Cloud creates them as part of the deployment. It assigns the VPC a Classless Inter-Domain Routing (CIDR) block. To limit a new VPC peering connection to one Classless Inter-Domain Routing (CIDR) block and region, create the connection first. Deploy the cluster after the connection starts. GCP Clusters and Multi-region clusters require one VPC peering connection for each region. MongoDB nodes can use only the peering connection that resides in the same region as the nodes to communicate with the peered VPC. */
-            regionName?:
-                | (
-                      | "US_GOV_WEST_1"
-                      | "US_GOV_EAST_1"
-                      | "US_EAST_1"
-                      | "US_EAST_2"
-                      | "US_WEST_1"
-                      | "US_WEST_2"
-                      | "CA_CENTRAL_1"
-                      | "EU_NORTH_1"
-                      | "EU_WEST_1"
-                      | "EU_WEST_2"
-                      | "EU_WEST_3"
-                      | "EU_CENTRAL_1"
-                      | "EU_CENTRAL_2"
-                      | "AP_EAST_1"
-                      | "AP_NORTHEAST_1"
-                      | "AP_NORTHEAST_2"
-                      | "AP_NORTHEAST_3"
-                      | "AP_SOUTHEAST_1"
-                      | "AP_SOUTHEAST_2"
-                      | "AP_SOUTHEAST_3"
-                      | "AP_SOUTHEAST_4"
-                      | "AP_SOUTH_1"
-                      | "AP_SOUTH_2"
-                      | "SA_EAST_1"
-                      | "CN_NORTH_1"
-                      | "CN_NORTHWEST_1"
-                      | "ME_SOUTH_1"
-                      | "ME_CENTRAL_1"
-                      | "AF_SOUTH_1"
-                      | "EU_SOUTH_1"
-                      | "EU_SOUTH_2"
-                      | "IL_CENTRAL_1"
-                      | "CA_WEST_1"
-                      | "AP_SOUTHEAST_5"
-                      | "AP_SOUTHEAST_7"
-                      | "MX_CENTRAL_1"
-                      | "GLOBAL"
-                  )
-                | (
-                      | "US_CENTRAL"
-                      | "US_EAST"
-                      | "US_EAST_2"
-                      | "US_NORTH_CENTRAL"
-                      | "US_WEST"
-                      | "US_SOUTH_CENTRAL"
-                      | "EUROPE_NORTH"
-                      | "EUROPE_WEST"
-                      | "US_WEST_CENTRAL"
-                      | "US_WEST_2"
-                      | "US_WEST_3"
-                      | "CANADA_EAST"
-                      | "CANADA_CENTRAL"
-                      | "BRAZIL_SOUTH"
-                      | "BRAZIL_SOUTHEAST"
-                      | "AUSTRALIA_CENTRAL"
-                      | "AUSTRALIA_CENTRAL_2"
-                      | "AUSTRALIA_EAST"
-                      | "AUSTRALIA_SOUTH_EAST"
-                      | "GERMANY_CENTRAL"
-                      | "GERMANY_NORTH_EAST"
-                      | "GERMANY_WEST_CENTRAL"
-                      | "GERMANY_NORTH"
-                      | "SWEDEN_CENTRAL"
-                      | "SWEDEN_SOUTH"
-                      | "SWITZERLAND_NORTH"
-                      | "SWITZERLAND_WEST"
-                      | "UK_SOUTH"
-                      | "UK_WEST"
-                      | "NORWAY_EAST"
-                      | "NORWAY_WEST"
-                      | "INDIA_CENTRAL"
-                      | "INDIA_SOUTH"
-                      | "INDIA_WEST"
-                      | "CHINA_EAST"
-                      | "CHINA_NORTH"
-                      | "ASIA_EAST"
-                      | "JAPAN_EAST"
-                      | "JAPAN_WEST"
-                      | "ASIA_SOUTH_EAST"
-                      | "KOREA_CENTRAL"
-                      | "KOREA_SOUTH"
-                      | "FRANCE_CENTRAL"
-                      | "FRANCE_SOUTH"
-                      | "SOUTH_AFRICA_NORTH"
-                      | "SOUTH_AFRICA_WEST"
-                      | "UAE_CENTRAL"
-                      | "UAE_NORTH"
-                      | "QATAR_CENTRAL"
-                  )
-                | (
-                      | "EASTERN_US"
-                      | "EASTERN_US_AW"
-                      | "US_EAST_4"
-                      | "US_EAST_4_AW"
-                      | "US_EAST_5"
-                      | "US_EAST_5_AW"
-                      | "US_WEST_2"
-                      | "US_WEST_2_AW"
-                      | "US_WEST_3"
-                      | "US_WEST_3_AW"
-                      | "US_WEST_4"
-                      | "US_WEST_4_AW"
-                      | "US_SOUTH_1"
-                      | "US_SOUTH_1_AW"
-                      | "CENTRAL_US"
-                      | "CENTRAL_US_AW"
-                      | "WESTERN_US"
-                      | "WESTERN_US_AW"
-                      | "NORTH_AMERICA_NORTHEAST_1"
-                      | "NORTH_AMERICA_NORTHEAST_2"
-                      | "NORTH_AMERICA_SOUTH_1"
-                      | "SOUTH_AMERICA_EAST_1"
-                      | "SOUTH_AMERICA_WEST_1"
-                      | "WESTERN_EUROPE"
-                      | "EUROPE_NORTH_1"
-                      | "EUROPE_WEST_2"
-                      | "EUROPE_WEST_3"
-                      | "EUROPE_WEST_4"
-                      | "EUROPE_WEST_6"
-                      | "EUROPE_WEST_8"
-                      | "EUROPE_WEST_9"
-                      | "EUROPE_WEST_10"
-                      | "EUROPE_WEST_12"
-                      | "EUROPE_SOUTHWEST_1"
-                      | "EUROPE_CENTRAL_2"
-                      | "MIDDLE_EAST_CENTRAL_1"
-                      | "MIDDLE_EAST_CENTRAL_2"
-                      | "MIDDLE_EAST_WEST_1"
-                      | "AUSTRALIA_SOUTHEAST_1"
-                      | "AUSTRALIA_SOUTHEAST_2"
-                      | "AFRICA_SOUTH_1"
-                      | "EASTERN_ASIA_PACIFIC"
-                      | "NORTHEASTERN_ASIA_PACIFIC"
-                      | "SOUTHEASTERN_ASIA_PACIFIC"
-                      | "ASIA_EAST_2"
-                      | "ASIA_NORTHEAST_2"
-                      | "ASIA_NORTHEAST_3"
-                      | "ASIA_SOUTH_1"
-                      | "ASIA_SOUTH_2"
-                      | "ASIA_SOUTHEAST_2"
-                  );
-        } & (
-            | components["schemas"]["AWSRegionConfig20240805"]
-            | components["schemas"]["AzureRegionConfig20240805"]
-            | components["schemas"]["GCPRegionConfig20240805"]
-            | components["schemas"]["TenantRegionConfig20240805"]
-        );
+            regionName?: ("US_GOV_WEST_1" | "US_GOV_EAST_1" | "US_EAST_1" | "US_EAST_2" | "US_WEST_1" | "US_WEST_2" | "CA_CENTRAL_1" | "EU_NORTH_1" | "EU_WEST_1" | "EU_WEST_2" | "EU_WEST_3" | "EU_CENTRAL_1" | "EU_CENTRAL_2" | "AP_EAST_1" | "AP_NORTHEAST_1" | "AP_NORTHEAST_2" | "AP_NORTHEAST_3" | "AP_SOUTHEAST_1" | "AP_SOUTHEAST_2" | "AP_SOUTHEAST_3" | "AP_SOUTHEAST_4" | "AP_SOUTH_1" | "AP_SOUTH_2" | "SA_EAST_1" | "CN_NORTH_1" | "CN_NORTHWEST_1" | "ME_SOUTH_1" | "ME_CENTRAL_1" | "AF_SOUTH_1" | "EU_SOUTH_1" | "EU_SOUTH_2" | "IL_CENTRAL_1" | "CA_WEST_1" | "AP_SOUTHEAST_5" | "AP_SOUTHEAST_7" | "MX_CENTRAL_1" | "GLOBAL") | ("US_CENTRAL" | "US_EAST" | "US_EAST_2" | "US_NORTH_CENTRAL" | "US_WEST" | "US_SOUTH_CENTRAL" | "EUROPE_NORTH" | "EUROPE_WEST" | "US_WEST_CENTRAL" | "US_WEST_2" | "US_WEST_3" | "CANADA_EAST" | "CANADA_CENTRAL" | "BRAZIL_SOUTH" | "BRAZIL_SOUTHEAST" | "AUSTRALIA_CENTRAL" | "AUSTRALIA_CENTRAL_2" | "AUSTRALIA_EAST" | "AUSTRALIA_SOUTH_EAST" | "GERMANY_CENTRAL" | "GERMANY_NORTH_EAST" | "GERMANY_WEST_CENTRAL" | "GERMANY_NORTH" | "SWEDEN_CENTRAL" | "SWEDEN_SOUTH" | "SWITZERLAND_NORTH" | "SWITZERLAND_WEST" | "UK_SOUTH" | "UK_WEST" | "NORWAY_EAST" | "NORWAY_WEST" | "INDIA_CENTRAL" | "INDIA_SOUTH" | "INDIA_WEST" | "CHINA_EAST" | "CHINA_NORTH" | "ASIA_EAST" | "JAPAN_EAST" | "JAPAN_WEST" | "ASIA_SOUTH_EAST" | "KOREA_CENTRAL" | "KOREA_SOUTH" | "FRANCE_CENTRAL" | "FRANCE_SOUTH" | "SOUTH_AFRICA_NORTH" | "SOUTH_AFRICA_WEST" | "UAE_CENTRAL" | "UAE_NORTH" | "QATAR_CENTRAL") | ("EASTERN_US" | "EASTERN_US_AW" | "US_EAST_4" | "US_EAST_4_AW" | "US_EAST_5" | "US_EAST_5_AW" | "US_WEST_2" | "US_WEST_2_AW" | "US_WEST_3" | "US_WEST_3_AW" | "US_WEST_4" | "US_WEST_4_AW" | "US_SOUTH_1" | "US_SOUTH_1_AW" | "CENTRAL_US" | "CENTRAL_US_AW" | "WESTERN_US" | "WESTERN_US_AW" | "NORTH_AMERICA_NORTHEAST_1" | "NORTH_AMERICA_NORTHEAST_2" | "NORTH_AMERICA_SOUTH_1" | "SOUTH_AMERICA_EAST_1" | "SOUTH_AMERICA_WEST_1" | "WESTERN_EUROPE" | "EUROPE_NORTH_1" | "EUROPE_WEST_2" | "EUROPE_WEST_3" | "EUROPE_WEST_4" | "EUROPE_WEST_6" | "EUROPE_WEST_8" | "EUROPE_WEST_9" | "EUROPE_WEST_10" | "EUROPE_WEST_12" | "EUROPE_SOUTHWEST_1" | "EUROPE_CENTRAL_2" | "MIDDLE_EAST_CENTRAL_1" | "MIDDLE_EAST_CENTRAL_2" | "MIDDLE_EAST_WEST_1" | "AUSTRALIA_SOUTHEAST_1" | "AUSTRALIA_SOUTHEAST_2" | "AFRICA_SOUTH_1" | "EASTERN_ASIA_PACIFIC" | "NORTHEASTERN_ASIA_PACIFIC" | "SOUTHEASTERN_ASIA_PACIFIC" | "ASIA_EAST_2" | "ASIA_NORTHEAST_2" | "ASIA_NORTHEAST_3" | "ASIA_SOUTH_1" | "ASIA_SOUTH_2" | "ASIA_SOUTHEAST_2");
+        } & (components["schemas"]["AWSRegionConfig20240805"] | components["schemas"]["AzureRegionConfig20240805"] | components["schemas"]["GCPRegionConfig20240805"] | components["schemas"]["TenantRegionConfig20240805"]);
         /**
          * Cluster Connection Strings
          * @description Collection of Uniform Resource Locators that point to the MongoDB database.
@@ -2667,13 +1708,7 @@ export interface components {
          */
         ClusterProviderSettings: {
             providerName: string;
-        } & (
-            | components["schemas"]["AWSCloudProviderSettings"]
-            | components["schemas"]["AzureCloudProviderSettings"]
-            | components["schemas"]["CloudGCPProviderSettings"]
-            | components["schemas"]["ClusterFreeProviderSettings"]
-            | components["schemas"]["ClusterFlexProviderSettings"]
-        );
+        } & (components["schemas"]["AWSCloudProviderSettings"] | components["schemas"]["AzureCloudProviderSettings"] | components["schemas"]["CloudGCPProviderSettings"] | components["schemas"]["ClusterFreeProviderSettings"] | components["schemas"]["ClusterFlexProviderSettings"]);
         ClusterSearchIndex: {
             /** @description Human-readable label that identifies the collection that contains one or more Atlas Search indexes. */
             collectionName: string;
@@ -2751,10 +1786,7 @@ export interface components {
              */
             cloudProvider?: "AWS" | "AZURE" | "GCP";
         };
-        CreateEndpointRequest:
-            | components["schemas"]["CreateAWSEndpointRequest"]
-            | components["schemas"]["CreateAzureEndpointRequest"]
-            | components["schemas"]["CreateGCPEndpointGroupRequest"];
+        CreateEndpointRequest: components["schemas"]["CreateAWSEndpointRequest"] | components["schemas"]["CreateAzureEndpointRequest"] | components["schemas"]["CreateGCPEndpointGroupRequest"];
         /**
          * GCP
          * @description Group of Private Endpoint settings.
@@ -2939,56 +1971,7 @@ export interface components {
              * @description Microsoft Azure Regions.
              * @enum {string}
              */
-            region?:
-                | "US_CENTRAL"
-                | "US_EAST"
-                | "US_EAST_2"
-                | "US_NORTH_CENTRAL"
-                | "US_WEST"
-                | "US_SOUTH_CENTRAL"
-                | "EUROPE_NORTH"
-                | "EUROPE_WEST"
-                | "US_WEST_CENTRAL"
-                | "US_WEST_2"
-                | "US_WEST_3"
-                | "CANADA_EAST"
-                | "CANADA_CENTRAL"
-                | "BRAZIL_SOUTH"
-                | "BRAZIL_SOUTHEAST"
-                | "AUSTRALIA_CENTRAL"
-                | "AUSTRALIA_CENTRAL_2"
-                | "AUSTRALIA_EAST"
-                | "AUSTRALIA_SOUTH_EAST"
-                | "GERMANY_CENTRAL"
-                | "GERMANY_NORTH_EAST"
-                | "GERMANY_WEST_CENTRAL"
-                | "GERMANY_NORTH"
-                | "SWEDEN_CENTRAL"
-                | "SWEDEN_SOUTH"
-                | "SWITZERLAND_NORTH"
-                | "SWITZERLAND_WEST"
-                | "UK_SOUTH"
-                | "UK_WEST"
-                | "NORWAY_EAST"
-                | "NORWAY_WEST"
-                | "INDIA_CENTRAL"
-                | "INDIA_SOUTH"
-                | "INDIA_WEST"
-                | "CHINA_EAST"
-                | "CHINA_NORTH"
-                | "ASIA_EAST"
-                | "JAPAN_EAST"
-                | "JAPAN_WEST"
-                | "ASIA_SOUTH_EAST"
-                | "KOREA_CENTRAL"
-                | "KOREA_SOUTH"
-                | "FRANCE_CENTRAL"
-                | "FRANCE_SOUTH"
-                | "SOUTH_AFRICA_NORTH"
-                | "SOUTH_AFRICA_WEST"
-                | "UAE_CENTRAL"
-                | "UAE_NORTH"
-                | "QATAR_CENTRAL";
+            region?: "US_CENTRAL" | "US_EAST" | "US_EAST_2" | "US_NORTH_CENTRAL" | "US_WEST" | "US_SOUTH_CENTRAL" | "EUROPE_NORTH" | "EUROPE_WEST" | "US_WEST_CENTRAL" | "US_WEST_2" | "US_WEST_3" | "CANADA_EAST" | "CANADA_CENTRAL" | "BRAZIL_SOUTH" | "BRAZIL_SOUTHEAST" | "AUSTRALIA_CENTRAL" | "AUSTRALIA_CENTRAL_2" | "AUSTRALIA_EAST" | "AUSTRALIA_SOUTH_EAST" | "GERMANY_CENTRAL" | "GERMANY_NORTH_EAST" | "GERMANY_WEST_CENTRAL" | "GERMANY_NORTH" | "SWEDEN_CENTRAL" | "SWEDEN_SOUTH" | "SWITZERLAND_NORTH" | "SWITZERLAND_WEST" | "UK_SOUTH" | "UK_WEST" | "NORWAY_EAST" | "NORWAY_WEST" | "INDIA_CENTRAL" | "INDIA_SOUTH" | "INDIA_WEST" | "CHINA_EAST" | "CHINA_NORTH" | "ASIA_EAST" | "JAPAN_EAST" | "JAPAN_WEST" | "ASIA_SOUTH_EAST" | "KOREA_CENTRAL" | "KOREA_SOUTH" | "FRANCE_CENTRAL" | "FRANCE_SOUTH" | "SOUTH_AFRICA_NORTH" | "SOUTH_AFRICA_WEST" | "UAE_CENTRAL" | "UAE_NORTH" | "QATAR_CENTRAL";
             /** @description Replacement Delimiter. */
             replacementDelimiter?: string;
             /** @description Service URL. */
@@ -3012,41 +1995,7 @@ export interface components {
              * @description Physical location where MongoDB Cloud deploys your AWS-hosted MongoDB cluster nodes. The region you choose can affect network latency for clients accessing your databases. When MongoDB Cloud deploys a dedicated cluster, it checks if a VPC or VPC connection exists for that provider and region. If not, MongoDB Cloud creates them as part of the deployment. MongoDB Cloud assigns the VPC a CIDR block. To limit a new VPC peering connection to one CIDR block and region, create the connection first. Deploy the cluster after the connection starts.
              * @enum {string}
              */
-            region?:
-                | "US_GOV_WEST_1"
-                | "US_GOV_EAST_1"
-                | "US_EAST_1"
-                | "US_EAST_2"
-                | "US_WEST_1"
-                | "US_WEST_2"
-                | "CA_CENTRAL_1"
-                | "EU_NORTH_1"
-                | "EU_WEST_1"
-                | "EU_WEST_2"
-                | "EU_WEST_3"
-                | "EU_CENTRAL_1"
-                | "EU_CENTRAL_2"
-                | "AP_EAST_1"
-                | "AP_NORTHEAST_1"
-                | "AP_NORTHEAST_2"
-                | "AP_NORTHEAST_3"
-                | "AP_SOUTHEAST_1"
-                | "AP_SOUTHEAST_2"
-                | "AP_SOUTHEAST_3"
-                | "AP_SOUTHEAST_4"
-                | "AP_SOUTH_1"
-                | "AP_SOUTH_2"
-                | "SA_EAST_1"
-                | "CN_NORTH_1"
-                | "CN_NORTHWEST_1"
-                | "ME_SOUTH_1"
-                | "ME_CENTRAL_1"
-                | "AF_SOUTH_1"
-                | "EU_SOUTH_1"
-                | "EU_SOUTH_2"
-                | "IL_CENTRAL_1"
-                | "CA_WEST_1"
-                | "GLOBAL";
+            region?: "US_GOV_WEST_1" | "US_GOV_EAST_1" | "US_EAST_1" | "US_EAST_2" | "US_WEST_1" | "US_WEST_2" | "CA_CENTRAL_1" | "EU_NORTH_1" | "EU_WEST_1" | "EU_WEST_2" | "EU_WEST_3" | "EU_CENTRAL_1" | "EU_CENTRAL_2" | "AP_EAST_1" | "AP_NORTHEAST_1" | "AP_NORTHEAST_2" | "AP_NORTHEAST_3" | "AP_SOUTHEAST_1" | "AP_SOUTHEAST_2" | "AP_SOUTHEAST_3" | "AP_SOUTHEAST_4" | "AP_SOUTH_1" | "AP_SOUTH_2" | "SA_EAST_1" | "CN_NORTH_1" | "CN_NORTHWEST_1" | "ME_SOUTH_1" | "ME_CENTRAL_1" | "AF_SOUTH_1" | "EU_SOUTH_1" | "EU_SOUTH_2" | "IL_CENTRAL_1" | "CA_WEST_1" | "GLOBAL";
         } & {
             /**
              * @description discriminator enum property added by openapi-typescript
@@ -3066,56 +2015,7 @@ export interface components {
              * @description Microsoft Azure Regions.
              * @enum {string}
              */
-            region?:
-                | "US_CENTRAL"
-                | "US_EAST"
-                | "US_EAST_2"
-                | "US_NORTH_CENTRAL"
-                | "US_WEST"
-                | "US_SOUTH_CENTRAL"
-                | "EUROPE_NORTH"
-                | "EUROPE_WEST"
-                | "US_WEST_CENTRAL"
-                | "US_WEST_2"
-                | "US_WEST_3"
-                | "CANADA_EAST"
-                | "CANADA_CENTRAL"
-                | "BRAZIL_SOUTH"
-                | "BRAZIL_SOUTHEAST"
-                | "AUSTRALIA_CENTRAL"
-                | "AUSTRALIA_CENTRAL_2"
-                | "AUSTRALIA_EAST"
-                | "AUSTRALIA_SOUTH_EAST"
-                | "GERMANY_CENTRAL"
-                | "GERMANY_NORTH_EAST"
-                | "GERMANY_WEST_CENTRAL"
-                | "GERMANY_NORTH"
-                | "SWEDEN_CENTRAL"
-                | "SWEDEN_SOUTH"
-                | "SWITZERLAND_NORTH"
-                | "SWITZERLAND_WEST"
-                | "UK_SOUTH"
-                | "UK_WEST"
-                | "NORWAY_EAST"
-                | "NORWAY_WEST"
-                | "INDIA_CENTRAL"
-                | "INDIA_SOUTH"
-                | "INDIA_WEST"
-                | "CHINA_EAST"
-                | "CHINA_NORTH"
-                | "ASIA_EAST"
-                | "JAPAN_EAST"
-                | "JAPAN_WEST"
-                | "ASIA_SOUTH_EAST"
-                | "KOREA_CENTRAL"
-                | "KOREA_SOUTH"
-                | "FRANCE_CENTRAL"
-                | "FRANCE_SOUTH"
-                | "SOUTH_AFRICA_NORTH"
-                | "SOUTH_AFRICA_WEST"
-                | "UAE_CENTRAL"
-                | "UAE_NORTH"
-                | "QATAR_CENTRAL";
+            region?: "US_CENTRAL" | "US_EAST" | "US_EAST_2" | "US_NORTH_CENTRAL" | "US_WEST" | "US_SOUTH_CENTRAL" | "EUROPE_NORTH" | "EUROPE_WEST" | "US_WEST_CENTRAL" | "US_WEST_2" | "US_WEST_3" | "CANADA_EAST" | "CANADA_CENTRAL" | "BRAZIL_SOUTH" | "BRAZIL_SOUTHEAST" | "AUSTRALIA_CENTRAL" | "AUSTRALIA_CENTRAL_2" | "AUSTRALIA_EAST" | "AUSTRALIA_SOUTH_EAST" | "GERMANY_CENTRAL" | "GERMANY_NORTH_EAST" | "GERMANY_WEST_CENTRAL" | "GERMANY_NORTH" | "SWEDEN_CENTRAL" | "SWEDEN_SOUTH" | "SWITZERLAND_NORTH" | "SWITZERLAND_WEST" | "UK_SOUTH" | "UK_WEST" | "NORWAY_EAST" | "NORWAY_WEST" | "INDIA_CENTRAL" | "INDIA_SOUTH" | "INDIA_WEST" | "CHINA_EAST" | "CHINA_NORTH" | "ASIA_EAST" | "JAPAN_EAST" | "JAPAN_WEST" | "ASIA_SOUTH_EAST" | "KOREA_CENTRAL" | "KOREA_SOUTH" | "FRANCE_CENTRAL" | "FRANCE_SOUTH" | "SOUTH_AFRICA_NORTH" | "SOUTH_AFRICA_WEST" | "UAE_CENTRAL" | "UAE_NORTH" | "QATAR_CENTRAL";
         } & {
             /**
              * @description discriminator enum property added by openapi-typescript
@@ -3135,43 +2035,7 @@ export interface components {
              * @description Google Cloud Platform Regions.
              * @enum {string}
              */
-            region?:
-                | "ASIA_EAST_2"
-                | "ASIA_NORTHEAST_2"
-                | "ASIA_NORTHEAST_3"
-                | "ASIA_SOUTH_1"
-                | "ASIA_SOUTH_2"
-                | "ASIA_SOUTHEAST_2"
-                | "AUSTRALIA_SOUTHEAST_1"
-                | "AUSTRALIA_SOUTHEAST_2"
-                | "CENTRAL_US"
-                | "EASTERN_ASIA_PACIFIC"
-                | "EASTERN_US"
-                | "EUROPE_CENTRAL_2"
-                | "EUROPE_NORTH_1"
-                | "EUROPE_WEST_2"
-                | "EUROPE_WEST_3"
-                | "EUROPE_WEST_4"
-                | "EUROPE_WEST_6"
-                | "EUROPE_WEST_10"
-                | "EUROPE_WEST_12"
-                | "MIDDLE_EAST_CENTRAL_1"
-                | "MIDDLE_EAST_CENTRAL_2"
-                | "MIDDLE_EAST_WEST_1"
-                | "NORTH_AMERICA_NORTHEAST_1"
-                | "NORTH_AMERICA_NORTHEAST_2"
-                | "NORTHEASTERN_ASIA_PACIFIC"
-                | "SOUTH_AMERICA_EAST_1"
-                | "SOUTH_AMERICA_WEST_1"
-                | "SOUTHEASTERN_ASIA_PACIFIC"
-                | "US_EAST_4"
-                | "US_EAST_5"
-                | "US_WEST_2"
-                | "US_WEST_3"
-                | "US_WEST_4"
-                | "US_SOUTH_1"
-                | "WESTERN_EUROPE"
-                | "WESTERN_US";
+            region?: "ASIA_EAST_2" | "ASIA_NORTHEAST_2" | "ASIA_NORTHEAST_3" | "ASIA_SOUTH_1" | "ASIA_SOUTH_2" | "ASIA_SOUTHEAST_2" | "AUSTRALIA_SOUTHEAST_1" | "AUSTRALIA_SOUTHEAST_2" | "CENTRAL_US" | "EASTERN_ASIA_PACIFIC" | "EASTERN_US" | "EUROPE_CENTRAL_2" | "EUROPE_NORTH_1" | "EUROPE_WEST_2" | "EUROPE_WEST_3" | "EUROPE_WEST_4" | "EUROPE_WEST_6" | "EUROPE_WEST_10" | "EUROPE_WEST_12" | "MIDDLE_EAST_CENTRAL_1" | "MIDDLE_EAST_CENTRAL_2" | "MIDDLE_EAST_WEST_1" | "NORTH_AMERICA_NORTHEAST_1" | "NORTH_AMERICA_NORTHEAST_2" | "NORTHEASTERN_ASIA_PACIFIC" | "SOUTH_AMERICA_EAST_1" | "SOUTH_AMERICA_WEST_1" | "SOUTHEASTERN_ASIA_PACIFIC" | "US_EAST_4" | "US_EAST_5" | "US_WEST_2" | "US_WEST_3" | "US_WEST_4" | "US_SOUTH_1" | "WESTERN_EUROPE" | "WESTERN_US";
         } & {
             /**
              * @description discriminator enum property added by openapi-typescript
@@ -3202,43 +2066,7 @@ export interface components {
              * @description Google Cloud Platform Regions.
              * @enum {string}
              */
-            region?:
-                | "ASIA_EAST_2"
-                | "ASIA_NORTHEAST_2"
-                | "ASIA_NORTHEAST_3"
-                | "ASIA_SOUTH_1"
-                | "ASIA_SOUTH_2"
-                | "ASIA_SOUTHEAST_2"
-                | "AUSTRALIA_SOUTHEAST_1"
-                | "AUSTRALIA_SOUTHEAST_2"
-                | "CENTRAL_US"
-                | "EASTERN_ASIA_PACIFIC"
-                | "EASTERN_US"
-                | "EUROPE_CENTRAL_2"
-                | "EUROPE_NORTH_1"
-                | "EUROPE_WEST_2"
-                | "EUROPE_WEST_3"
-                | "EUROPE_WEST_4"
-                | "EUROPE_WEST_6"
-                | "EUROPE_WEST_10"
-                | "EUROPE_WEST_12"
-                | "MIDDLE_EAST_CENTRAL_1"
-                | "MIDDLE_EAST_CENTRAL_2"
-                | "MIDDLE_EAST_WEST_1"
-                | "NORTH_AMERICA_NORTHEAST_1"
-                | "NORTH_AMERICA_NORTHEAST_2"
-                | "NORTHEASTERN_ASIA_PACIFIC"
-                | "SOUTH_AMERICA_EAST_1"
-                | "SOUTH_AMERICA_WEST_1"
-                | "SOUTHEASTERN_ASIA_PACIFIC"
-                | "US_EAST_4"
-                | "US_EAST_5"
-                | "US_WEST_2"
-                | "US_WEST_3"
-                | "US_WEST_4"
-                | "US_SOUTH_1"
-                | "WESTERN_EUROPE"
-                | "WESTERN_US";
+            region?: "ASIA_EAST_2" | "ASIA_NORTHEAST_2" | "ASIA_NORTHEAST_3" | "ASIA_SOUTH_1" | "ASIA_SOUTH_2" | "ASIA_SOUTHEAST_2" | "AUSTRALIA_SOUTHEAST_1" | "AUSTRALIA_SOUTHEAST_2" | "CENTRAL_US" | "EASTERN_ASIA_PACIFIC" | "EASTERN_US" | "EUROPE_CENTRAL_2" | "EUROPE_NORTH_1" | "EUROPE_WEST_2" | "EUROPE_WEST_3" | "EUROPE_WEST_4" | "EUROPE_WEST_6" | "EUROPE_WEST_10" | "EUROPE_WEST_12" | "MIDDLE_EAST_CENTRAL_1" | "MIDDLE_EAST_CENTRAL_2" | "MIDDLE_EAST_WEST_1" | "NORTH_AMERICA_NORTHEAST_1" | "NORTH_AMERICA_NORTHEAST_2" | "NORTHEASTERN_ASIA_PACIFIC" | "SOUTH_AMERICA_EAST_1" | "SOUTH_AMERICA_WEST_1" | "SOUTHEASTERN_ASIA_PACIFIC" | "US_EAST_4" | "US_EAST_5" | "US_WEST_2" | "US_WEST_3" | "US_WEST_4" | "US_SOUTH_1" | "WESTERN_EUROPE" | "WESTERN_US";
             /** @description Replacement Delimiter. */
             replacementDelimiter?: string;
         } & {
@@ -3315,41 +2143,7 @@ export interface components {
              * @description Physical location where MongoDB Cloud deploys your AWS-hosted MongoDB cluster nodes. The region you choose can affect network latency for clients accessing your databases. When MongoDB Cloud deploys a dedicated cluster, it checks if a VPC or VPC connection exists for that provider and region. If not, MongoDB Cloud creates them as part of the deployment. MongoDB Cloud assigns the VPC a CIDR block. To limit a new VPC peering connection to one CIDR block and region, create the connection first. Deploy the cluster after the connection starts.
              * @enum {string}
              */
-            region?:
-                | "US_GOV_WEST_1"
-                | "US_GOV_EAST_1"
-                | "US_EAST_1"
-                | "US_EAST_2"
-                | "US_WEST_1"
-                | "US_WEST_2"
-                | "CA_CENTRAL_1"
-                | "EU_NORTH_1"
-                | "EU_WEST_1"
-                | "EU_WEST_2"
-                | "EU_WEST_3"
-                | "EU_CENTRAL_1"
-                | "EU_CENTRAL_2"
-                | "AP_EAST_1"
-                | "AP_NORTHEAST_1"
-                | "AP_NORTHEAST_2"
-                | "AP_NORTHEAST_3"
-                | "AP_SOUTHEAST_1"
-                | "AP_SOUTHEAST_2"
-                | "AP_SOUTHEAST_3"
-                | "AP_SOUTHEAST_4"
-                | "AP_SOUTH_1"
-                | "AP_SOUTH_2"
-                | "SA_EAST_1"
-                | "CN_NORTH_1"
-                | "CN_NORTHWEST_1"
-                | "ME_SOUTH_1"
-                | "ME_CENTRAL_1"
-                | "AF_SOUTH_1"
-                | "EU_SOUTH_1"
-                | "EU_SOUTH_2"
-                | "IL_CENTRAL_1"
-                | "CA_WEST_1"
-                | "GLOBAL";
+            region?: "US_GOV_WEST_1" | "US_GOV_EAST_1" | "US_EAST_1" | "US_EAST_2" | "US_WEST_1" | "US_WEST_2" | "CA_CENTRAL_1" | "EU_NORTH_1" | "EU_WEST_1" | "EU_WEST_2" | "EU_WEST_3" | "EU_CENTRAL_1" | "EU_CENTRAL_2" | "AP_EAST_1" | "AP_NORTHEAST_1" | "AP_NORTHEAST_2" | "AP_NORTHEAST_3" | "AP_SOUTHEAST_1" | "AP_SOUTHEAST_2" | "AP_SOUTHEAST_3" | "AP_SOUTHEAST_4" | "AP_SOUTH_1" | "AP_SOUTH_2" | "SA_EAST_1" | "CN_NORTH_1" | "CN_NORTHWEST_1" | "ME_SOUTH_1" | "ME_CENTRAL_1" | "AF_SOUTH_1" | "EU_SOUTH_1" | "EU_SOUTH_2" | "IL_CENTRAL_1" | "CA_WEST_1" | "GLOBAL";
         } & {
             /**
              * @description discriminator enum property added by openapi-typescript
@@ -3368,16 +2162,7 @@ export interface components {
             /** @description Human-readable label that identifies the data store. The **databases.[n].collections.[n].dataSources.[n].storeName** field references this values as part of the mapping configuration. To use MongoDB Cloud as a data store, the data lake requires a serverless instance or an `M10` or higher cluster. */
             name?: string;
             provider: string;
-        } & (
-            | components["schemas"]["DataLakeS3StoreSettings"]
-            | components["schemas"]["DataLakeDLSAWSStore"]
-            | components["schemas"]["DataLakeDLSAzureStore"]
-            | components["schemas"]["DataLakeDLSGCPStore"]
-            | components["schemas"]["DataLakeAtlasStoreInstance"]
-            | components["schemas"]["DataLakeHTTPStore"]
-            | components["schemas"]["DataLakeAzureBlobStore"]
-            | components["schemas"]["DataLakeGoogleCloudStorageStore"]
-        );
+        } & (components["schemas"]["DataLakeS3StoreSettings"] | components["schemas"]["DataLakeDLSAWSStore"] | components["schemas"]["DataLakeDLSAzureStore"] | components["schemas"]["DataLakeDLSGCPStore"] | components["schemas"]["DataLakeAtlasStoreInstance"] | components["schemas"]["DataLakeHTTPStore"] | components["schemas"]["DataLakeAzureBlobStore"] | components["schemas"]["DataLakeGoogleCloudStorageStore"]);
         /** @description Settings to configure the region where you wish to store your archived data. */
         DataProcessRegionView: {
             /**
@@ -3419,11 +2204,7 @@ export interface components {
              * @description Number of nodes of the given type for MongoDB Cloud to deploy to the region.
              */
             nodeCount?: number;
-        } & (
-            | components["schemas"]["AWSHardwareSpec"]
-            | components["schemas"]["AzureHardwareSpec"]
-            | components["schemas"]["GCPHardwareSpec"]
-        );
+        } & (components["schemas"]["AWSHardwareSpec"] | components["schemas"]["AzureHardwareSpec"] | components["schemas"]["GCPHardwareSpec"]);
         /** @description Hardware specifications for read-only nodes in the region. Read-only nodes can never become the primary member, but can enable local reads. If you don't specify this parameter, no read-only nodes are deployed to the region. */
         DedicatedHardwareSpec20240805: {
             /**
@@ -3448,11 +2229,7 @@ export interface components {
              * @description Number of nodes of the given type for MongoDB Cloud to deploy to the region.
              */
             nodeCount?: number;
-        } & (
-            | components["schemas"]["AWSHardwareSpec20240805"]
-            | components["schemas"]["AzureHardwareSpec20240805"]
-            | components["schemas"]["GCPHardwareSpec20240805"]
-        );
+        } & (components["schemas"]["AWSHardwareSpec20240805"] | components["schemas"]["AzureHardwareSpec20240805"] | components["schemas"]["GCPHardwareSpec20240805"]);
         DefaultScheduleView: Omit<WithRequired<components["schemas"]["OnlineArchiveSchedule"], "type">, "type"> & {
             /**
              * @description discriminator enum property added by openapi-typescript
@@ -3466,10 +2243,7 @@ export interface components {
              */
             type: "DEFAULT";
         };
-        DiskBackupSnapshotAWSExportBucketRequest: Omit<
-            WithRequired<components["schemas"]["DiskBackupSnapshotExportBucketRequest"], "cloudProvider">,
-            "cloudProvider"
-        > & {
+        DiskBackupSnapshotAWSExportBucketRequest: Omit<WithRequired<components["schemas"]["DiskBackupSnapshotExportBucketRequest"], "cloudProvider">, "cloudProvider"> & {
             /**
              * @description Human-readable label that identifies the AWS S3 Bucket that the role is authorized to export to.
              * @example export-bucket
@@ -3511,10 +2285,7 @@ export interface components {
             /** @description List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships. */
             readonly links?: components["schemas"]["Link"][];
         };
-        DiskBackupSnapshotAzureExportBucketRequest: Omit<
-            WithRequired<components["schemas"]["DiskBackupSnapshotExportBucketRequest"], "cloudProvider">,
-            "cloudProvider"
-        > & {
+        DiskBackupSnapshotAzureExportBucketRequest: Omit<WithRequired<components["schemas"]["DiskBackupSnapshotExportBucketRequest"], "cloudProvider">, "cloudProvider"> & {
             /**
              * @description The name of the Azure Storage Container to export to. This can be omitted and computed from the serviceUrl if the serviceUrl includes a Azure Storage Container name. For example a serviceUrl of "https://examplestorageaccount.blob.core.windows.net/exportcontainer" will yield a computed bucketName of "exportcontainer". If the serviceUrl does not include a Container name, this field is required.
              * @example exportcontainer
@@ -3543,13 +2314,7 @@ export interface components {
              */
             cloudProvider: "AZURE";
         };
-        DiskBackupSnapshotAzureExportBucketResponse: Omit<
-            WithRequired<
-                components["schemas"]["DiskBackupSnapshotExportBucketResponse"],
-                "_id" | "bucketName" | "cloudProvider"
-            >,
-            "cloudProvider"
-        > & {
+        DiskBackupSnapshotAzureExportBucketResponse: Omit<WithRequired<components["schemas"]["DiskBackupSnapshotExportBucketResponse"], "_id" | "bucketName" | "cloudProvider">, "cloudProvider"> & {
             /**
              * @description Unique 24-hexadecimal digit string that identifies the Azure Cloud Provider Access Role that MongoDB Cloud uses to access the Azure Blob Storage Container.
              * @example 32b6e34b3d91647abb20e7b8
@@ -3618,10 +2383,7 @@ export interface components {
              * @description Level of access to grant to MongoDB Employees.
              * @enum {string}
              */
-            grantType:
-                | "CLUSTER_DATABASE_LOGS"
-                | "CLUSTER_INFRASTRUCTURE"
-                | "CLUSTER_INFRASTRUCTURE_AND_APP_SERVICES_SYNC_DATA";
+            grantType: "CLUSTER_DATABASE_LOGS" | "CLUSTER_INFRASTRUCTURE" | "CLUSTER_INFRASTRUCTURE_AND_APP_SERVICES_SYNC_DATA";
             /** @description List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships. */
             readonly links?: components["schemas"]["Link"][];
         };
@@ -3673,46 +2435,7 @@ export interface components {
             /** @description Human-readable label that identifies the network in which MongoDB Cloud clusters in this network peering container exist. MongoDB Cloud returns **null** if no clusters exist in this network peering container. */
             readonly networkName?: string;
             /** @description List of GCP regions to which you want to deploy this MongoDB Cloud network peering container.  In this MongoDB Cloud project, you can deploy clusters only to the GCP regions in this list. To deploy MongoDB Cloud clusters to other GCP regions, create additional projects. */
-            regions?: (
-                | "AFRICA_SOUTH_1"
-                | "ASIA_EAST_2"
-                | "ASIA_NORTHEAST_2"
-                | "ASIA_NORTHEAST_3"
-                | "ASIA_SOUTH_1"
-                | "ASIA_SOUTH_2"
-                | "ASIA_SOUTHEAST_2"
-                | "AUSTRALIA_SOUTHEAST_1"
-                | "AUSTRALIA_SOUTHEAST_2"
-                | "CENTRAL_US"
-                | "EASTERN_ASIA_PACIFIC"
-                | "EASTERN_US"
-                | "EUROPE_CENTRAL_2"
-                | "EUROPE_NORTH_1"
-                | "EUROPE_WEST_2"
-                | "EUROPE_WEST_3"
-                | "EUROPE_WEST_4"
-                | "EUROPE_WEST_6"
-                | "EUROPE_WEST_10"
-                | "EUROPE_WEST_12"
-                | "MIDDLE_EAST_CENTRAL_1"
-                | "MIDDLE_EAST_CENTRAL_2"
-                | "MIDDLE_EAST_WEST_1"
-                | "NORTH_AMERICA_NORTHEAST_1"
-                | "NORTH_AMERICA_NORTHEAST_2"
-                | "NORTH_AMERICA_SOUTH_1"
-                | "NORTHEASTERN_ASIA_PACIFIC"
-                | "SOUTH_AMERICA_EAST_1"
-                | "SOUTH_AMERICA_WEST_1"
-                | "SOUTHEASTERN_ASIA_PACIFIC"
-                | "US_EAST_4"
-                | "US_EAST_5"
-                | "US_WEST_2"
-                | "US_WEST_3"
-                | "US_WEST_4"
-                | "US_SOUTH_1"
-                | "WESTERN_EUROPE"
-                | "WESTERN_US"
-            )[];
+            regions?: ("AFRICA_SOUTH_1" | "ASIA_EAST_2" | "ASIA_NORTHEAST_2" | "ASIA_NORTHEAST_3" | "ASIA_SOUTH_1" | "ASIA_SOUTH_2" | "ASIA_SOUTHEAST_2" | "AUSTRALIA_SOUTHEAST_1" | "AUSTRALIA_SOUTHEAST_2" | "CENTRAL_US" | "EASTERN_ASIA_PACIFIC" | "EASTERN_US" | "EUROPE_CENTRAL_2" | "EUROPE_NORTH_1" | "EUROPE_WEST_2" | "EUROPE_WEST_3" | "EUROPE_WEST_4" | "EUROPE_WEST_6" | "EUROPE_WEST_10" | "EUROPE_WEST_12" | "MIDDLE_EAST_CENTRAL_1" | "MIDDLE_EAST_CENTRAL_2" | "MIDDLE_EAST_WEST_1" | "NORTH_AMERICA_NORTHEAST_1" | "NORTH_AMERICA_NORTHEAST_2" | "NORTH_AMERICA_SOUTH_1" | "NORTHEASTERN_ASIA_PACIFIC" | "SOUTH_AMERICA_EAST_1" | "SOUTH_AMERICA_WEST_1" | "SOUTHEASTERN_ASIA_PACIFIC" | "US_EAST_4" | "US_EAST_5" | "US_WEST_2" | "US_WEST_3" | "US_WEST_4" | "US_SOUTH_1" | "WESTERN_EUROPE" | "WESTERN_US")[];
         } & {
             /**
              * @description discriminator enum property added by openapi-typescript
@@ -3736,53 +2459,13 @@ export interface components {
              * @description Maximum instance size to which your cluster can automatically scale.
              * @enum {string}
              */
-            maxInstanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M140"
-                | "M200"
-                | "M250"
-                | "M300"
-                | "M400"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "R600";
+            maxInstanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M140" | "M200" | "M250" | "M300" | "M400" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R600";
             /**
              * GCP Instance Sizes
              * @description Minimum instance size to which your cluster can automatically scale.
              * @enum {string}
              */
-            minInstanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M140"
-                | "M200"
-                | "M250"
-                | "M300"
-                | "M400"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "R600";
+            minInstanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M140" | "M200" | "M250" | "M300" | "M400" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R600";
         };
         GCPCreateDataProcessRegionView: Omit<components["schemas"]["CreateDataProcessRegionView"], "cloudProvider"> & {
             /**
@@ -3816,27 +2499,7 @@ export interface components {
              * @description Hardware specification for the instance sizes in this region. Each instance size has a default storage and memory capacity. The instance size you select applies to all the data-bearing hosts of the node type.
              * @enum {string}
              */
-            instanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M140"
-                | "M200"
-                | "M250"
-                | "M300"
-                | "M400"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "R600";
+            instanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M140" | "M200" | "M250" | "M300" | "M400" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R600";
             /**
              * Format: int32
              * @description Number of nodes of the given type for MongoDB Cloud to deploy to the region.
@@ -3866,27 +2529,7 @@ export interface components {
              * @description Hardware specification for the instance sizes in this region in this shard. Each instance size has a default storage and memory capacity. Electable nodes and read-only nodes (known as "base nodes") within a single shard must use the same instance size. Analytics nodes can scale independently from base nodes within a shard. Both base nodes and analytics nodes can scale independently from their equivalents in other shards.
              * @enum {string}
              */
-            instanceSize?:
-                | "M10"
-                | "M20"
-                | "M30"
-                | "M40"
-                | "M50"
-                | "M60"
-                | "M80"
-                | "M140"
-                | "M200"
-                | "M250"
-                | "M300"
-                | "M400"
-                | "R40"
-                | "R50"
-                | "R60"
-                | "R80"
-                | "R200"
-                | "R300"
-                | "R400"
-                | "R600";
+            instanceSize?: "M10" | "M20" | "M30" | "M40" | "M50" | "M60" | "M80" | "M140" | "M200" | "M250" | "M300" | "M400" | "R40" | "R50" | "R60" | "R80" | "R200" | "R300" | "R400" | "R600";
             /**
              * Format: int32
              * @description Number of nodes of the given type for MongoDB Cloud to deploy to the region.
@@ -3984,13 +2627,7 @@ export interface components {
              */
             withDefaultAlertsSettings: boolean;
         };
-        GroupActiveUserResponse: Omit<
-            WithRequired<
-                components["schemas"]["GroupUserResponse"],
-                "id" | "orgMembershipStatus" | "roles" | "username"
-            >,
-            "orgMembershipStatus"
-        > & {
+        GroupActiveUserResponse: Omit<WithRequired<components["schemas"]["GroupUserResponse"], "id" | "orgMembershipStatus" | "roles" | "username">, "orgMembershipStatus"> & {
             /**
              * @description Two-character alphabetical string that identifies the MongoDB Cloud user's geographic location. This parameter uses the ISO 3166-1a2 code format.
              * @example US
@@ -4031,13 +2668,7 @@ export interface components {
              */
             orgMembershipStatus: "ACTIVE";
         };
-        GroupPendingUserResponse: Omit<
-            WithRequired<
-                components["schemas"]["GroupUserResponse"],
-                "id" | "orgMembershipStatus" | "roles" | "username"
-            >,
-            "orgMembershipStatus"
-        > & {
+        GroupPendingUserResponse: Omit<WithRequired<components["schemas"]["GroupUserResponse"], "id" | "orgMembershipStatus" | "roles" | "username">, "orgMembershipStatus"> & {
             /**
              * Format: date-time
              * @description Date and time when MongoDB Cloud sent the invitation. MongoDB Cloud represents this timestamp in ISO 8601 format in UTC.
@@ -4073,19 +2704,7 @@ export interface components {
              */
             groupId?: string;
             /** @description One or more project-level roles assigned to the MongoDB Cloud user. */
-            groupRoles?: (
-                | "GROUP_OWNER"
-                | "GROUP_CLUSTER_MANAGER"
-                | "GROUP_STREAM_PROCESSING_OWNER"
-                | "GROUP_DATA_ACCESS_ADMIN"
-                | "GROUP_DATA_ACCESS_READ_WRITE"
-                | "GROUP_DATA_ACCESS_READ_ONLY"
-                | "GROUP_READ_ONLY"
-                | "GROUP_SEARCH_INDEX_EDITOR"
-                | "GROUP_BACKUP_MANAGER"
-                | "GROUP_OBSERVABILITY_VIEWER"
-                | "GROUP_DATABASE_ACCESS_ADMIN"
-            )[];
+            groupRoles?: ("GROUP_OWNER" | "GROUP_CLUSTER_MANAGER" | "GROUP_STREAM_PROCESSING_OWNER" | "GROUP_DATA_ACCESS_ADMIN" | "GROUP_DATA_ACCESS_READ_WRITE" | "GROUP_DATA_ACCESS_READ_ONLY" | "GROUP_READ_ONLY" | "GROUP_SEARCH_INDEX_EDITOR" | "GROUP_BACKUP_MANAGER" | "GROUP_OBSERVABILITY_VIEWER" | "GROUP_DATABASE_ACCESS_ADMIN")[];
         };
         GroupUserResponse: {
             /**
@@ -4099,19 +2718,7 @@ export interface components {
              */
             readonly orgMembershipStatus: "PENDING" | "ACTIVE";
             /** @description One or more project-level roles assigned to the MongoDB Cloud user. */
-            readonly roles: (
-                | "GROUP_OWNER"
-                | "GROUP_CLUSTER_MANAGER"
-                | "GROUP_STREAM_PROCESSING_OWNER"
-                | "GROUP_DATA_ACCESS_ADMIN"
-                | "GROUP_DATA_ACCESS_READ_WRITE"
-                | "GROUP_DATA_ACCESS_READ_ONLY"
-                | "GROUP_READ_ONLY"
-                | "GROUP_SEARCH_INDEX_EDITOR"
-                | "GROUP_BACKUP_MANAGER"
-                | "GROUP_OBSERVABILITY_VIEWER"
-                | "GROUP_DATABASE_ACCESS_ADMIN"
-            )[];
+            readonly roles: ("GROUP_OWNER" | "GROUP_CLUSTER_MANAGER" | "GROUP_STREAM_PROCESSING_OWNER" | "GROUP_DATA_ACCESS_ADMIN" | "GROUP_DATA_ACCESS_READ_WRITE" | "GROUP_DATA_ACCESS_READ_ONLY" | "GROUP_READ_ONLY" | "GROUP_SEARCH_INDEX_EDITOR" | "GROUP_BACKUP_MANAGER" | "GROUP_OBSERVABILITY_VIEWER" | "GROUP_DATABASE_ACCESS_ADMIN")[];
             /**
              * Format: email
              * @description Email address that represents the username of the MongoDB Cloud user.
@@ -4119,11 +2726,7 @@ export interface components {
             readonly username: string;
         } & (components["schemas"]["GroupPendingUserResponse"] | components["schemas"]["GroupActiveUserResponse"]);
         /** @description Hardware specifications for all electable nodes deployed in the region. Electable nodes can become the primary and can enable local reads. If you don't specify this option, MongoDB Cloud deploys no electable nodes to the region. */
-        HardwareSpec:
-            | components["schemas"]["AWSHardwareSpec"]
-            | components["schemas"]["AzureHardwareSpec"]
-            | components["schemas"]["GCPHardwareSpec"]
-            | components["schemas"]["TenantHardwareSpec"];
+        HardwareSpec: components["schemas"]["AWSHardwareSpec"] | components["schemas"]["AzureHardwareSpec"] | components["schemas"]["GCPHardwareSpec"] | components["schemas"]["TenantHardwareSpec"];
         /** @description Hardware specifications for all electable nodes deployed in the region. Electable nodes can become the primary and can enable local reads. If you don't specify this option, MongoDB Cloud deploys no electable nodes to the region. */
         HardwareSpec20240805: {
             /**
@@ -4143,12 +2746,7 @@ export interface components {
              *      The maximum value for disk storage cannot exceed 50 times the maximum RAM for the selected cluster. If you require more storage space, consider upgrading your cluster to a higher tier.
              */
             diskSizeGB?: number;
-        } & (
-            | components["schemas"]["AWSHardwareSpec20240805"]
-            | components["schemas"]["AzureHardwareSpec20240805"]
-            | components["schemas"]["GCPHardwareSpec20240805"]
-            | components["schemas"]["TenantHardwareSpec20240805"]
-        );
+        } & (components["schemas"]["AWSHardwareSpec20240805"] | components["schemas"]["AzureHardwareSpec20240805"] | components["schemas"]["GCPHardwareSpec20240805"] | components["schemas"]["TenantHardwareSpec20240805"]);
         /**
          * Ingestion Destination
          * @description Ingestion destination of a Data Lake Pipeline.
@@ -4216,412 +2814,7 @@ export interface components {
              * @description Human-readable description of the service that this line item provided. This Stock Keeping Unit (SKU) could be the instance type, a support charge, advanced security, or another service.
              * @enum {string}
              */
-            readonly sku?:
-                | "CLASSIC_BACKUP_OPLOG"
-                | "CLASSIC_BACKUP_STORAGE"
-                | "CLASSIC_BACKUP_SNAPSHOT_CREATE"
-                | "CLASSIC_BACKUP_DAILY_MINIMUM"
-                | "CLASSIC_BACKUP_FREE_TIER"
-                | "CLASSIC_COUPON"
-                | "BACKUP_STORAGE_FREE_TIER"
-                | "BACKUP_STORAGE"
-                | "FLEX_CONSULTING"
-                | "CLOUD_MANAGER_CLASSIC"
-                | "CLOUD_MANAGER_BASIC_FREE_TIER"
-                | "CLOUD_MANAGER_BASIC"
-                | "CLOUD_MANAGER_PREMIUM"
-                | "CLOUD_MANAGER_FREE_TIER"
-                | "CLOUD_MANAGER_STANDARD_FREE_TIER"
-                | "CLOUD_MANAGER_STANDARD_ANNUAL"
-                | "CLOUD_MANAGER_STANDARD"
-                | "CLOUD_MANAGER_FREE_TRIAL"
-                | "ATLAS_INSTANCE_M0"
-                | "ATLAS_INSTANCE_M2"
-                | "ATLAS_INSTANCE_M5"
-                | "ATLAS_AWS_INSTANCE_M10"
-                | "ATLAS_AWS_INSTANCE_M20"
-                | "ATLAS_AWS_INSTANCE_M30"
-                | "ATLAS_AWS_INSTANCE_M40"
-                | "ATLAS_AWS_INSTANCE_M50"
-                | "ATLAS_AWS_INSTANCE_M60"
-                | "ATLAS_AWS_INSTANCE_M80"
-                | "ATLAS_AWS_INSTANCE_M100"
-                | "ATLAS_AWS_INSTANCE_M140"
-                | "ATLAS_AWS_INSTANCE_M200"
-                | "ATLAS_AWS_INSTANCE_M300"
-                | "ATLAS_AWS_INSTANCE_M40_LOW_CPU"
-                | "ATLAS_AWS_INSTANCE_M50_LOW_CPU"
-                | "ATLAS_AWS_INSTANCE_M60_LOW_CPU"
-                | "ATLAS_AWS_INSTANCE_M80_LOW_CPU"
-                | "ATLAS_AWS_INSTANCE_M200_LOW_CPU"
-                | "ATLAS_AWS_INSTANCE_M300_LOW_CPU"
-                | "ATLAS_AWS_INSTANCE_M400_LOW_CPU"
-                | "ATLAS_AWS_INSTANCE_M700_LOW_CPU"
-                | "ATLAS_AWS_INSTANCE_M40_NVME"
-                | "ATLAS_AWS_INSTANCE_M50_NVME"
-                | "ATLAS_AWS_INSTANCE_M60_NVME"
-                | "ATLAS_AWS_INSTANCE_M80_NVME"
-                | "ATLAS_AWS_INSTANCE_M200_NVME"
-                | "ATLAS_AWS_INSTANCE_M400_NVME"
-                | "ATLAS_AWS_INSTANCE_M10_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M20_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M30_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M40_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M50_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M60_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M80_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M100_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M140_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M200_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M300_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M40_LOW_CPU_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M50_LOW_CPU_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M60_LOW_CPU_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M80_LOW_CPU_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M200_LOW_CPU_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M300_LOW_CPU_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M400_LOW_CPU_PAUSED"
-                | "ATLAS_AWS_INSTANCE_M700_LOW_CPU_PAUSED"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S20_COMPUTE_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S30_COMPUTE_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S40_COMPUTE_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S50_COMPUTE_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S60_COMPUTE_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S70_COMPUTE_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S80_COMPUTE_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S30_MEMORY_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S40_MEMORY_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S50_MEMORY_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S60_MEMORY_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S80_MEMORY_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S90_MEMORY_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S100_MEMORY_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S110_MEMORY_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S40_STORAGE_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S50_STORAGE_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S60_STORAGE_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S80_STORAGE_NVME"
-                | "ATLAS_AWS_SEARCH_INSTANCE_S90_STORAGE_NVME"
-                | "ATLAS_AWS_STORAGE_PROVISIONED"
-                | "ATLAS_AWS_STORAGE_STANDARD"
-                | "ATLAS_AWS_STORAGE_STANDARD_GP3"
-                | "ATLAS_AWS_STORAGE_IOPS"
-                | "ATLAS_AWS_DATA_TRANSFER_SAME_REGION"
-                | "ATLAS_AWS_DATA_TRANSFER_DIFFERENT_REGION"
-                | "ATLAS_AWS_DATA_TRANSFER_INTERNET"
-                | "ATLAS_AWS_BACKUP_SNAPSHOT_STORAGE"
-                | "ATLAS_AWS_BACKUP_DOWNLOAD_VM"
-                | "ATLAS_AWS_BACKUP_DOWNLOAD_VM_STORAGE"
-                | "ATLAS_AWS_BACKUP_DOWNLOAD_VM_STORAGE_IOPS"
-                | "ATLAS_AWS_PRIVATE_ENDPOINT"
-                | "ATLAS_AWS_PRIVATE_ENDPOINT_CAPACITY_UNITS"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S20_COMPUTE_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S30_COMPUTE_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S40_COMPUTE_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S50_COMPUTE_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S60_COMPUTE_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S70_COMPUTE_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S80_COMPUTE_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S30_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S40_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S50_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S60_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S70_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S80_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S90_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S100_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S110_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S120_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S130_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_SEARCH_INSTANCE_S140_MEMORY_LOCALSSD"
-                | "ATLAS_GCP_INSTANCE_M10"
-                | "ATLAS_GCP_INSTANCE_M20"
-                | "ATLAS_GCP_INSTANCE_M30"
-                | "ATLAS_GCP_INSTANCE_M40"
-                | "ATLAS_GCP_INSTANCE_M50"
-                | "ATLAS_GCP_INSTANCE_M60"
-                | "ATLAS_GCP_INSTANCE_M80"
-                | "ATLAS_GCP_INSTANCE_M140"
-                | "ATLAS_GCP_INSTANCE_M200"
-                | "ATLAS_GCP_INSTANCE_M250"
-                | "ATLAS_GCP_INSTANCE_M300"
-                | "ATLAS_GCP_INSTANCE_M400"
-                | "ATLAS_GCP_INSTANCE_M40_LOW_CPU"
-                | "ATLAS_GCP_INSTANCE_M50_LOW_CPU"
-                | "ATLAS_GCP_INSTANCE_M60_LOW_CPU"
-                | "ATLAS_GCP_INSTANCE_M80_LOW_CPU"
-                | "ATLAS_GCP_INSTANCE_M200_LOW_CPU"
-                | "ATLAS_GCP_INSTANCE_M300_LOW_CPU"
-                | "ATLAS_GCP_INSTANCE_M400_LOW_CPU"
-                | "ATLAS_GCP_INSTANCE_M600_LOW_CPU"
-                | "ATLAS_GCP_INSTANCE_M10_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M20_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M30_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M40_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M50_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M60_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M80_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M140_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M200_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M250_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M300_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M400_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M40_LOW_CPU_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M50_LOW_CPU_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M60_LOW_CPU_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M80_LOW_CPU_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M200_LOW_CPU_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M300_LOW_CPU_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M400_LOW_CPU_PAUSED"
-                | "ATLAS_GCP_INSTANCE_M600_LOW_CPU_PAUSED"
-                | "ATLAS_GCP_DATA_TRANSFER_INTERNET"
-                | "ATLAS_GCP_STORAGE_SSD"
-                | "ATLAS_GCP_DATA_TRANSFER_INTER_CONNECT"
-                | "ATLAS_GCP_DATA_TRANSFER_INTER_ZONE"
-                | "ATLAS_GCP_DATA_TRANSFER_INTER_REGION"
-                | "ATLAS_GCP_DATA_TRANSFER_GOOGLE"
-                | "ATLAS_GCP_BACKUP_SNAPSHOT_STORAGE"
-                | "ATLAS_GCP_BACKUP_DOWNLOAD_VM"
-                | "ATLAS_GCP_BACKUP_DOWNLOAD_VM_STORAGE"
-                | "ATLAS_GCP_PRIVATE_ENDPOINT"
-                | "ATLAS_GCP_PRIVATE_ENDPOINT_CAPACITY_UNITS"
-                | "ATLAS_GCP_SNAPSHOT_COPY_DATA_TRANSFER"
-                | "ATLAS_AZURE_INSTANCE_M10"
-                | "ATLAS_AZURE_INSTANCE_M20"
-                | "ATLAS_AZURE_INSTANCE_M30"
-                | "ATLAS_AZURE_INSTANCE_M40"
-                | "ATLAS_AZURE_INSTANCE_M50"
-                | "ATLAS_AZURE_INSTANCE_M60"
-                | "ATLAS_AZURE_INSTANCE_M80"
-                | "ATLAS_AZURE_INSTANCE_M90"
-                | "ATLAS_AZURE_INSTANCE_M200"
-                | "ATLAS_AZURE_INSTANCE_R40"
-                | "ATLAS_AZURE_INSTANCE_R50"
-                | "ATLAS_AZURE_INSTANCE_R60"
-                | "ATLAS_AZURE_INSTANCE_R80"
-                | "ATLAS_AZURE_INSTANCE_R200"
-                | "ATLAS_AZURE_INSTANCE_R300"
-                | "ATLAS_AZURE_INSTANCE_R400"
-                | "ATLAS_AZURE_INSTANCE_M60_NVME"
-                | "ATLAS_AZURE_INSTANCE_M80_NVME"
-                | "ATLAS_AZURE_INSTANCE_M200_NVME"
-                | "ATLAS_AZURE_INSTANCE_M300_NVME"
-                | "ATLAS_AZURE_INSTANCE_M400_NVME"
-                | "ATLAS_AZURE_INSTANCE_M600_NVME"
-                | "ATLAS_AZURE_INSTANCE_M10_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_M20_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_M30_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_M40_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_M50_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_M60_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_M80_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_M90_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_M200_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_R40_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_R50_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_R60_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_R80_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_R200_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_R300_PAUSED"
-                | "ATLAS_AZURE_INSTANCE_R400_PAUSED"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S20_COMPUTE_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S30_COMPUTE_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S40_COMPUTE_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S50_COMPUTE_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S60_COMPUTE_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S70_COMPUTE_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S80_COMPUTE_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S40_MEMORY_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S50_MEMORY_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S60_MEMORY_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S80_MEMORY_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S90_MEMORY_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S100_MEMORY_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S110_MEMORY_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S130_MEMORY_LOCALSSD"
-                | "ATLAS_AZURE_SEARCH_INSTANCE_S135_MEMORY_LOCALSSD"
-                | "ATLAS_AZURE_STORAGE_P2"
-                | "ATLAS_AZURE_STORAGE_P3"
-                | "ATLAS_AZURE_STORAGE_P4"
-                | "ATLAS_AZURE_STORAGE_P6"
-                | "ATLAS_AZURE_STORAGE_P10"
-                | "ATLAS_AZURE_STORAGE_P15"
-                | "ATLAS_AZURE_STORAGE_P20"
-                | "ATLAS_AZURE_STORAGE_P30"
-                | "ATLAS_AZURE_STORAGE_P40"
-                | "ATLAS_AZURE_STORAGE_P50"
-                | "ATLAS_AZURE_DATA_TRANSFER"
-                | "ATLAS_AZURE_DATA_TRANSFER_REGIONAL_VNET_IN"
-                | "ATLAS_AZURE_DATA_TRANSFER_REGIONAL_VNET_OUT"
-                | "ATLAS_AZURE_DATA_TRANSFER_GLOBAL_VNET_IN"
-                | "ATLAS_AZURE_DATA_TRANSFER_GLOBAL_VNET_OUT"
-                | "ATLAS_AZURE_DATA_TRANSFER_AVAILABILITY_ZONE_IN"
-                | "ATLAS_AZURE_DATA_TRANSFER_AVAILABILITY_ZONE_OUT"
-                | "ATLAS_AZURE_DATA_TRANSFER_INTER_REGION_INTRA_CONTINENT"
-                | "ATLAS_AZURE_DATA_TRANSFER_INTER_REGION_INTER_CONTINENT"
-                | "ATLAS_AZURE_BACKUP_SNAPSHOT_STORAGE"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P2"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P3"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P4"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P6"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P10"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P15"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P20"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P30"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P40"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P50"
-                | "ATLAS_AZURE_STANDARD_STORAGE"
-                | "ATLAS_AZURE_EXTENDED_STANDARD_IOPS"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE"
-                | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_EXTENDED_IOPS"
-                | "ATLAS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE"
-                | "ATLAS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_EXTENDED_IOPS"
-                | "ATLAS_BI_CONNECTOR"
-                | "ATLAS_ADVANCED_SECURITY"
-                | "ATLAS_ENTERPRISE_AUDITING"
-                | "ATLAS_FREE_SUPPORT"
-                | "ATLAS_SUPPORT"
-                | "ATLAS_NDS_BACKFILL_SUPPORT"
-                | "STITCH_DATA_DOWNLOADED_FREE_TIER"
-                | "STITCH_DATA_DOWNLOADED"
-                | "STITCH_COMPUTE_FREE_TIER"
-                | "STITCH_COMPUTE"
-                | "CREDIT"
-                | "MINIMUM_CHARGE"
-                | "CHARTS_DATA_DOWNLOADED_FREE_TIER"
-                | "CHARTS_DATA_DOWNLOADED"
-                | "ATLAS_DATA_LAKE_AWS_DATA_RETURNED_SAME_REGION"
-                | "ATLAS_DATA_LAKE_AWS_DATA_RETURNED_DIFFERENT_REGION"
-                | "ATLAS_DATA_LAKE_AWS_DATA_RETURNED_INTERNET"
-                | "ATLAS_DATA_LAKE_AWS_DATA_SCANNED"
-                | "ATLAS_DATA_LAKE_AWS_DATA_TRANSFERRED_FROM_DIFFERENT_REGION"
-                | "ATLAS_NDS_AWS_DATA_LAKE_STORAGE_ACCESS"
-                | "ATLAS_NDS_AWS_DATA_LAKE_STORAGE"
-                | "ATLAS_DATA_FEDERATION_AZURE_DATA_RETURNED_SAME_REGION"
-                | "ATLAS_DATA_FEDERATION_AZURE_DATA_RETURNED_SAME_CONTINENT"
-                | "ATLAS_DATA_FEDERATION_AZURE_DATA_RETURNED_DIFFERENT_CONTINENT"
-                | "ATLAS_DATA_FEDERATION_AZURE_DATA_RETURNED_INTERNET"
-                | "ATLAS_DATA_FEDERATION_GCP_DATA_RETURNED_SAME_REGION"
-                | "ATLAS_DATA_FEDERATION_GCP_DATA_RETURNED_DIFFERENT_REGION"
-                | "ATLAS_DATA_FEDERATION_GCP_DATA_RETURNED_INTERNET"
-                | "ATLAS_DATA_FEDERATION_AZURE_DATA_SCANNED"
-                | "ATLAS_NDS_AZURE_DATA_LAKE_STORAGE_ACCESS"
-                | "ATLAS_NDS_AZURE_DATA_LAKE_STORAGE"
-                | "ATLAS_DATA_FEDERATION_GCP_DATA_SCANNED"
-                | "ATLAS_NDS_GCP_DATA_LAKE_STORAGE_ACCESS"
-                | "ATLAS_NDS_GCP_DATA_LAKE_STORAGE"
-                | "ATLAS_NDS_AWS_OBJECT_STORAGE_ACCESS"
-                | "ATLAS_NDS_AWS_COMPRESSED_OBJECT_STORAGE"
-                | "ATLAS_NDS_AZURE_OBJECT_STORAGE_ACCESS"
-                | "ATLAS_NDS_AZURE_OBJECT_STORAGE"
-                | "ATLAS_NDS_AZURE_COMPRESSED_OBJECT_STORAGE"
-                | "ATLAS_NDS_GCP_OBJECT_STORAGE_ACCESS"
-                | "ATLAS_NDS_GCP_OBJECT_STORAGE"
-                | "ATLAS_NDS_GCP_COMPRESSED_OBJECT_STORAGE"
-                | "ATLAS_ARCHIVE_ACCESS_PARTITION_LOCATE"
-                | "ATLAS_NDS_AWS_PIT_RESTORE_STORAGE_FREE_TIER"
-                | "ATLAS_NDS_AWS_PIT_RESTORE_STORAGE"
-                | "ATLAS_NDS_GCP_PIT_RESTORE_STORAGE_FREE_TIER"
-                | "ATLAS_NDS_GCP_PIT_RESTORE_STORAGE"
-                | "ATLAS_NDS_AZURE_PIT_RESTORE_STORAGE_FREE_TIER"
-                | "ATLAS_NDS_AZURE_PIT_RESTORE_STORAGE"
-                | "ATLAS_NDS_AZURE_PRIVATE_ENDPOINT_CAPACITY_UNITS"
-                | "ATLAS_NDS_AZURE_CMK_PRIVATE_NETWORKING"
-                | "ATLAS_NDS_AWS_CMK_PRIVATE_NETWORKING"
-                | "ATLAS_NDS_AWS_OBJECT_STORAGE"
-                | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_UPLOAD"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_UPLOAD"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_M40"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_M50"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_M60"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P2"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P3"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P4"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P6"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P10"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P15"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P20"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P30"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P40"
-                | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P50"
-                | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM"
-                | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM_M40"
-                | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM_M50"
-                | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM_M60"
-                | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM_STORAGE"
-                | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM_STORAGE_IOPS"
-                | "ATLAS_NDS_GCP_SNAPSHOT_EXPORT_VM"
-                | "ATLAS_NDS_GCP_SNAPSHOT_EXPORT_VM_M40"
-                | "ATLAS_NDS_GCP_SNAPSHOT_EXPORT_VM_M50"
-                | "ATLAS_NDS_GCP_SNAPSHOT_EXPORT_VM_M60"
-                | "ATLAS_NDS_GCP_SNAPSHOT_EXPORT_VM_STORAGE"
-                | "ATLAS_NDS_AWS_SERVERLESS_RPU"
-                | "ATLAS_NDS_AWS_SERVERLESS_WPU"
-                | "ATLAS_NDS_AWS_SERVERLESS_STORAGE"
-                | "ATLAS_NDS_AWS_SERVERLESS_CONTINUOUS_BACKUP"
-                | "ATLAS_NDS_AWS_SERVERLESS_BACKUP_RESTORE_VM"
-                | "ATLAS_NDS_AWS_SERVERLESS_DATA_TRANSFER_PREVIEW"
-                | "ATLAS_NDS_AWS_SERVERLESS_DATA_TRANSFER"
-                | "ATLAS_NDS_AWS_SERVERLESS_DATA_TRANSFER_REGIONAL"
-                | "ATLAS_NDS_AWS_SERVERLESS_DATA_TRANSFER_CROSS_REGION"
-                | "ATLAS_NDS_AWS_SERVERLESS_DATA_TRANSFER_INTERNET"
-                | "ATLAS_NDS_GCP_SERVERLESS_RPU"
-                | "ATLAS_NDS_GCP_SERVERLESS_WPU"
-                | "ATLAS_NDS_GCP_SERVERLESS_STORAGE"
-                | "ATLAS_NDS_GCP_SERVERLESS_CONTINUOUS_BACKUP"
-                | "ATLAS_NDS_GCP_SERVERLESS_BACKUP_RESTORE_VM"
-                | "ATLAS_NDS_GCP_SERVERLESS_DATA_TRANSFER_PREVIEW"
-                | "ATLAS_NDS_GCP_SERVERLESS_DATA_TRANSFER"
-                | "ATLAS_NDS_GCP_SERVERLESS_DATA_TRANSFER_REGIONAL"
-                | "ATLAS_NDS_GCP_SERVERLESS_DATA_TRANSFER_CROSS_REGION"
-                | "ATLAS_NDS_GCP_SERVERLESS_DATA_TRANSFER_INTERNET"
-                | "ATLAS_NDS_AZURE_SERVERLESS_RPU"
-                | "ATLAS_NDS_AZURE_SERVERLESS_WPU"
-                | "ATLAS_NDS_AZURE_SERVERLESS_STORAGE"
-                | "ATLAS_NDS_AZURE_SERVERLESS_CONTINUOUS_BACKUP"
-                | "ATLAS_NDS_AZURE_SERVERLESS_BACKUP_RESTORE_VM"
-                | "ATLAS_NDS_AZURE_SERVERLESS_DATA_TRANSFER_PREVIEW"
-                | "ATLAS_NDS_AZURE_SERVERLESS_DATA_TRANSFER"
-                | "ATLAS_NDS_AZURE_SERVERLESS_DATA_TRANSFER_REGIONAL"
-                | "ATLAS_NDS_AZURE_SERVERLESS_DATA_TRANSFER_CROSS_REGION"
-                | "ATLAS_NDS_AZURE_SERVERLESS_DATA_TRANSFER_INTERNET"
-                | "REALM_APP_REQUESTS_FREE_TIER"
-                | "REALM_APP_REQUESTS"
-                | "REALM_APP_COMPUTE_FREE_TIER"
-                | "REALM_APP_COMPUTE"
-                | "REALM_APP_SYNC_FREE_TIER"
-                | "REALM_APP_SYNC"
-                | "REALM_APP_DATA_TRANSFER_FREE_TIER"
-                | "REALM_APP_DATA_TRANSFER"
-                | "GCP_SNAPSHOT_COPY_DISK"
-                | "ATLAS_AWS_STREAM_PROCESSING_INSTANCE_SP10"
-                | "ATLAS_AWS_STREAM_PROCESSING_INSTANCE_SP30"
-                | "ATLAS_AWS_STREAM_PROCESSING_INSTANCE_SP50"
-                | "ATLAS_AZURE_STREAM_PROCESSING_INSTANCE_SP10"
-                | "ATLAS_AZURE_STREAM_PROCESSING_INSTANCE_SP30"
-                | "ATLAS_AZURE_STREAM_PROCESSING_INSTANCE_SP50"
-                | "ATLAS_AWS_STREAM_PROCESSING_DATA_TRANSFER"
-                | "ATLAS_AZURE_STREAM_PROCESSING_DATA_TRANSFER"
-                | "ATLAS_AWS_STREAM_PROCESSING_VPC_PEERING"
-                | "ATLAS_AZURE_STREAM_PROCESSING_PRIVATELINK"
-                | "ATLAS_AWS_STREAM_PROCESSING_PRIVATELINK"
-                | "ATLAS_FLEX_AWS_100_USAGE_HOURS"
-                | "ATLAS_FLEX_AWS_200_USAGE_HOURS"
-                | "ATLAS_FLEX_AWS_300_USAGE_HOURS"
-                | "ATLAS_FLEX_AWS_400_USAGE_HOURS"
-                | "ATLAS_FLEX_AWS_500_USAGE_HOURS"
-                | "ATLAS_FLEX_AZURE_100_USAGE_HOURS"
-                | "ATLAS_FLEX_AZURE_200_USAGE_HOURS"
-                | "ATLAS_FLEX_AZURE_300_USAGE_HOURS"
-                | "ATLAS_FLEX_AZURE_400_USAGE_HOURS"
-                | "ATLAS_FLEX_AZURE_500_USAGE_HOURS"
-                | "ATLAS_FLEX_GCP_100_USAGE_HOURS"
-                | "ATLAS_FLEX_GCP_200_USAGE_HOURS"
-                | "ATLAS_FLEX_GCP_300_USAGE_HOURS"
-                | "ATLAS_FLEX_GCP_400_USAGE_HOURS"
-                | "ATLAS_FLEX_GCP_500_USAGE_HOURS";
+            readonly sku?: "CLASSIC_BACKUP_OPLOG" | "CLASSIC_BACKUP_STORAGE" | "CLASSIC_BACKUP_SNAPSHOT_CREATE" | "CLASSIC_BACKUP_DAILY_MINIMUM" | "CLASSIC_BACKUP_FREE_TIER" | "CLASSIC_COUPON" | "BACKUP_STORAGE_FREE_TIER" | "BACKUP_STORAGE" | "FLEX_CONSULTING" | "CLOUD_MANAGER_CLASSIC" | "CLOUD_MANAGER_BASIC_FREE_TIER" | "CLOUD_MANAGER_BASIC" | "CLOUD_MANAGER_PREMIUM" | "CLOUD_MANAGER_FREE_TIER" | "CLOUD_MANAGER_STANDARD_FREE_TIER" | "CLOUD_MANAGER_STANDARD_ANNUAL" | "CLOUD_MANAGER_STANDARD" | "CLOUD_MANAGER_FREE_TRIAL" | "ATLAS_INSTANCE_M0" | "ATLAS_INSTANCE_M2" | "ATLAS_INSTANCE_M5" | "ATLAS_AWS_INSTANCE_M10" | "ATLAS_AWS_INSTANCE_M20" | "ATLAS_AWS_INSTANCE_M30" | "ATLAS_AWS_INSTANCE_M40" | "ATLAS_AWS_INSTANCE_M50" | "ATLAS_AWS_INSTANCE_M60" | "ATLAS_AWS_INSTANCE_M80" | "ATLAS_AWS_INSTANCE_M100" | "ATLAS_AWS_INSTANCE_M140" | "ATLAS_AWS_INSTANCE_M200" | "ATLAS_AWS_INSTANCE_M300" | "ATLAS_AWS_INSTANCE_M40_LOW_CPU" | "ATLAS_AWS_INSTANCE_M50_LOW_CPU" | "ATLAS_AWS_INSTANCE_M60_LOW_CPU" | "ATLAS_AWS_INSTANCE_M80_LOW_CPU" | "ATLAS_AWS_INSTANCE_M200_LOW_CPU" | "ATLAS_AWS_INSTANCE_M300_LOW_CPU" | "ATLAS_AWS_INSTANCE_M400_LOW_CPU" | "ATLAS_AWS_INSTANCE_M700_LOW_CPU" | "ATLAS_AWS_INSTANCE_M40_NVME" | "ATLAS_AWS_INSTANCE_M50_NVME" | "ATLAS_AWS_INSTANCE_M60_NVME" | "ATLAS_AWS_INSTANCE_M80_NVME" | "ATLAS_AWS_INSTANCE_M200_NVME" | "ATLAS_AWS_INSTANCE_M400_NVME" | "ATLAS_AWS_INSTANCE_M10_PAUSED" | "ATLAS_AWS_INSTANCE_M20_PAUSED" | "ATLAS_AWS_INSTANCE_M30_PAUSED" | "ATLAS_AWS_INSTANCE_M40_PAUSED" | "ATLAS_AWS_INSTANCE_M50_PAUSED" | "ATLAS_AWS_INSTANCE_M60_PAUSED" | "ATLAS_AWS_INSTANCE_M80_PAUSED" | "ATLAS_AWS_INSTANCE_M100_PAUSED" | "ATLAS_AWS_INSTANCE_M140_PAUSED" | "ATLAS_AWS_INSTANCE_M200_PAUSED" | "ATLAS_AWS_INSTANCE_M300_PAUSED" | "ATLAS_AWS_INSTANCE_M40_LOW_CPU_PAUSED" | "ATLAS_AWS_INSTANCE_M50_LOW_CPU_PAUSED" | "ATLAS_AWS_INSTANCE_M60_LOW_CPU_PAUSED" | "ATLAS_AWS_INSTANCE_M80_LOW_CPU_PAUSED" | "ATLAS_AWS_INSTANCE_M200_LOW_CPU_PAUSED" | "ATLAS_AWS_INSTANCE_M300_LOW_CPU_PAUSED" | "ATLAS_AWS_INSTANCE_M400_LOW_CPU_PAUSED" | "ATLAS_AWS_INSTANCE_M700_LOW_CPU_PAUSED" | "ATLAS_AWS_SEARCH_INSTANCE_S20_COMPUTE_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S30_COMPUTE_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S40_COMPUTE_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S50_COMPUTE_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S60_COMPUTE_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S70_COMPUTE_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S80_COMPUTE_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S30_MEMORY_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S40_MEMORY_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S50_MEMORY_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S60_MEMORY_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S80_MEMORY_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S90_MEMORY_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S100_MEMORY_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S110_MEMORY_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S40_STORAGE_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S50_STORAGE_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S60_STORAGE_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S80_STORAGE_NVME" | "ATLAS_AWS_SEARCH_INSTANCE_S90_STORAGE_NVME" | "ATLAS_AWS_STORAGE_PROVISIONED" | "ATLAS_AWS_STORAGE_STANDARD" | "ATLAS_AWS_STORAGE_STANDARD_GP3" | "ATLAS_AWS_STORAGE_IOPS" | "ATLAS_AWS_DATA_TRANSFER_SAME_REGION" | "ATLAS_AWS_DATA_TRANSFER_DIFFERENT_REGION" | "ATLAS_AWS_DATA_TRANSFER_INTERNET" | "ATLAS_AWS_BACKUP_SNAPSHOT_STORAGE" | "ATLAS_AWS_BACKUP_DOWNLOAD_VM" | "ATLAS_AWS_BACKUP_DOWNLOAD_VM_STORAGE" | "ATLAS_AWS_BACKUP_DOWNLOAD_VM_STORAGE_IOPS" | "ATLAS_AWS_PRIVATE_ENDPOINT" | "ATLAS_AWS_PRIVATE_ENDPOINT_CAPACITY_UNITS" | "ATLAS_GCP_SEARCH_INSTANCE_S20_COMPUTE_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S30_COMPUTE_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S40_COMPUTE_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S50_COMPUTE_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S60_COMPUTE_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S70_COMPUTE_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S80_COMPUTE_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S30_MEMORY_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S40_MEMORY_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S50_MEMORY_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S60_MEMORY_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S70_MEMORY_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S80_MEMORY_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S90_MEMORY_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S100_MEMORY_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S110_MEMORY_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S120_MEMORY_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S130_MEMORY_LOCALSSD" | "ATLAS_GCP_SEARCH_INSTANCE_S140_MEMORY_LOCALSSD" | "ATLAS_GCP_INSTANCE_M10" | "ATLAS_GCP_INSTANCE_M20" | "ATLAS_GCP_INSTANCE_M30" | "ATLAS_GCP_INSTANCE_M40" | "ATLAS_GCP_INSTANCE_M50" | "ATLAS_GCP_INSTANCE_M60" | "ATLAS_GCP_INSTANCE_M80" | "ATLAS_GCP_INSTANCE_M140" | "ATLAS_GCP_INSTANCE_M200" | "ATLAS_GCP_INSTANCE_M250" | "ATLAS_GCP_INSTANCE_M300" | "ATLAS_GCP_INSTANCE_M400" | "ATLAS_GCP_INSTANCE_M40_LOW_CPU" | "ATLAS_GCP_INSTANCE_M50_LOW_CPU" | "ATLAS_GCP_INSTANCE_M60_LOW_CPU" | "ATLAS_GCP_INSTANCE_M80_LOW_CPU" | "ATLAS_GCP_INSTANCE_M200_LOW_CPU" | "ATLAS_GCP_INSTANCE_M300_LOW_CPU" | "ATLAS_GCP_INSTANCE_M400_LOW_CPU" | "ATLAS_GCP_INSTANCE_M600_LOW_CPU" | "ATLAS_GCP_INSTANCE_M10_PAUSED" | "ATLAS_GCP_INSTANCE_M20_PAUSED" | "ATLAS_GCP_INSTANCE_M30_PAUSED" | "ATLAS_GCP_INSTANCE_M40_PAUSED" | "ATLAS_GCP_INSTANCE_M50_PAUSED" | "ATLAS_GCP_INSTANCE_M60_PAUSED" | "ATLAS_GCP_INSTANCE_M80_PAUSED" | "ATLAS_GCP_INSTANCE_M140_PAUSED" | "ATLAS_GCP_INSTANCE_M200_PAUSED" | "ATLAS_GCP_INSTANCE_M250_PAUSED" | "ATLAS_GCP_INSTANCE_M300_PAUSED" | "ATLAS_GCP_INSTANCE_M400_PAUSED" | "ATLAS_GCP_INSTANCE_M40_LOW_CPU_PAUSED" | "ATLAS_GCP_INSTANCE_M50_LOW_CPU_PAUSED" | "ATLAS_GCP_INSTANCE_M60_LOW_CPU_PAUSED" | "ATLAS_GCP_INSTANCE_M80_LOW_CPU_PAUSED" | "ATLAS_GCP_INSTANCE_M200_LOW_CPU_PAUSED" | "ATLAS_GCP_INSTANCE_M300_LOW_CPU_PAUSED" | "ATLAS_GCP_INSTANCE_M400_LOW_CPU_PAUSED" | "ATLAS_GCP_INSTANCE_M600_LOW_CPU_PAUSED" | "ATLAS_GCP_DATA_TRANSFER_INTERNET" | "ATLAS_GCP_STORAGE_SSD" | "ATLAS_GCP_DATA_TRANSFER_INTER_CONNECT" | "ATLAS_GCP_DATA_TRANSFER_INTER_ZONE" | "ATLAS_GCP_DATA_TRANSFER_INTER_REGION" | "ATLAS_GCP_DATA_TRANSFER_GOOGLE" | "ATLAS_GCP_BACKUP_SNAPSHOT_STORAGE" | "ATLAS_GCP_BACKUP_DOWNLOAD_VM" | "ATLAS_GCP_BACKUP_DOWNLOAD_VM_STORAGE" | "ATLAS_GCP_PRIVATE_ENDPOINT" | "ATLAS_GCP_PRIVATE_ENDPOINT_CAPACITY_UNITS" | "ATLAS_GCP_SNAPSHOT_COPY_DATA_TRANSFER" | "ATLAS_AZURE_INSTANCE_M10" | "ATLAS_AZURE_INSTANCE_M20" | "ATLAS_AZURE_INSTANCE_M30" | "ATLAS_AZURE_INSTANCE_M40" | "ATLAS_AZURE_INSTANCE_M50" | "ATLAS_AZURE_INSTANCE_M60" | "ATLAS_AZURE_INSTANCE_M80" | "ATLAS_AZURE_INSTANCE_M90" | "ATLAS_AZURE_INSTANCE_M200" | "ATLAS_AZURE_INSTANCE_R40" | "ATLAS_AZURE_INSTANCE_R50" | "ATLAS_AZURE_INSTANCE_R60" | "ATLAS_AZURE_INSTANCE_R80" | "ATLAS_AZURE_INSTANCE_R200" | "ATLAS_AZURE_INSTANCE_R300" | "ATLAS_AZURE_INSTANCE_R400" | "ATLAS_AZURE_INSTANCE_M60_NVME" | "ATLAS_AZURE_INSTANCE_M80_NVME" | "ATLAS_AZURE_INSTANCE_M200_NVME" | "ATLAS_AZURE_INSTANCE_M300_NVME" | "ATLAS_AZURE_INSTANCE_M400_NVME" | "ATLAS_AZURE_INSTANCE_M600_NVME" | "ATLAS_AZURE_INSTANCE_M10_PAUSED" | "ATLAS_AZURE_INSTANCE_M20_PAUSED" | "ATLAS_AZURE_INSTANCE_M30_PAUSED" | "ATLAS_AZURE_INSTANCE_M40_PAUSED" | "ATLAS_AZURE_INSTANCE_M50_PAUSED" | "ATLAS_AZURE_INSTANCE_M60_PAUSED" | "ATLAS_AZURE_INSTANCE_M80_PAUSED" | "ATLAS_AZURE_INSTANCE_M90_PAUSED" | "ATLAS_AZURE_INSTANCE_M200_PAUSED" | "ATLAS_AZURE_INSTANCE_R40_PAUSED" | "ATLAS_AZURE_INSTANCE_R50_PAUSED" | "ATLAS_AZURE_INSTANCE_R60_PAUSED" | "ATLAS_AZURE_INSTANCE_R80_PAUSED" | "ATLAS_AZURE_INSTANCE_R200_PAUSED" | "ATLAS_AZURE_INSTANCE_R300_PAUSED" | "ATLAS_AZURE_INSTANCE_R400_PAUSED" | "ATLAS_AZURE_SEARCH_INSTANCE_S20_COMPUTE_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S30_COMPUTE_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S40_COMPUTE_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S50_COMPUTE_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S60_COMPUTE_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S70_COMPUTE_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S80_COMPUTE_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S40_MEMORY_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S50_MEMORY_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S60_MEMORY_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S80_MEMORY_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S90_MEMORY_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S100_MEMORY_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S110_MEMORY_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S130_MEMORY_LOCALSSD" | "ATLAS_AZURE_SEARCH_INSTANCE_S135_MEMORY_LOCALSSD" | "ATLAS_AZURE_STORAGE_P2" | "ATLAS_AZURE_STORAGE_P3" | "ATLAS_AZURE_STORAGE_P4" | "ATLAS_AZURE_STORAGE_P6" | "ATLAS_AZURE_STORAGE_P10" | "ATLAS_AZURE_STORAGE_P15" | "ATLAS_AZURE_STORAGE_P20" | "ATLAS_AZURE_STORAGE_P30" | "ATLAS_AZURE_STORAGE_P40" | "ATLAS_AZURE_STORAGE_P50" | "ATLAS_AZURE_DATA_TRANSFER" | "ATLAS_AZURE_DATA_TRANSFER_REGIONAL_VNET_IN" | "ATLAS_AZURE_DATA_TRANSFER_REGIONAL_VNET_OUT" | "ATLAS_AZURE_DATA_TRANSFER_GLOBAL_VNET_IN" | "ATLAS_AZURE_DATA_TRANSFER_GLOBAL_VNET_OUT" | "ATLAS_AZURE_DATA_TRANSFER_AVAILABILITY_ZONE_IN" | "ATLAS_AZURE_DATA_TRANSFER_AVAILABILITY_ZONE_OUT" | "ATLAS_AZURE_DATA_TRANSFER_INTER_REGION_INTRA_CONTINENT" | "ATLAS_AZURE_DATA_TRANSFER_INTER_REGION_INTER_CONTINENT" | "ATLAS_AZURE_BACKUP_SNAPSHOT_STORAGE" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P2" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P3" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P4" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P6" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P10" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P15" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P20" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P30" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P40" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_P50" | "ATLAS_AZURE_STANDARD_STORAGE" | "ATLAS_AZURE_EXTENDED_STANDARD_IOPS" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE" | "ATLAS_AZURE_BACKUP_DOWNLOAD_VM_STORAGE_EXTENDED_IOPS" | "ATLAS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE" | "ATLAS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_EXTENDED_IOPS" | "ATLAS_BI_CONNECTOR" | "ATLAS_ADVANCED_SECURITY" | "ATLAS_ENTERPRISE_AUDITING" | "ATLAS_FREE_SUPPORT" | "ATLAS_SUPPORT" | "ATLAS_NDS_BACKFILL_SUPPORT" | "STITCH_DATA_DOWNLOADED_FREE_TIER" | "STITCH_DATA_DOWNLOADED" | "STITCH_COMPUTE_FREE_TIER" | "STITCH_COMPUTE" | "CREDIT" | "MINIMUM_CHARGE" | "CHARTS_DATA_DOWNLOADED_FREE_TIER" | "CHARTS_DATA_DOWNLOADED" | "ATLAS_DATA_LAKE_AWS_DATA_RETURNED_SAME_REGION" | "ATLAS_DATA_LAKE_AWS_DATA_RETURNED_DIFFERENT_REGION" | "ATLAS_DATA_LAKE_AWS_DATA_RETURNED_INTERNET" | "ATLAS_DATA_LAKE_AWS_DATA_SCANNED" | "ATLAS_DATA_LAKE_AWS_DATA_TRANSFERRED_FROM_DIFFERENT_REGION" | "ATLAS_NDS_AWS_DATA_LAKE_STORAGE_ACCESS" | "ATLAS_NDS_AWS_DATA_LAKE_STORAGE" | "ATLAS_DATA_FEDERATION_AZURE_DATA_RETURNED_SAME_REGION" | "ATLAS_DATA_FEDERATION_AZURE_DATA_RETURNED_SAME_CONTINENT" | "ATLAS_DATA_FEDERATION_AZURE_DATA_RETURNED_DIFFERENT_CONTINENT" | "ATLAS_DATA_FEDERATION_AZURE_DATA_RETURNED_INTERNET" | "ATLAS_DATA_FEDERATION_GCP_DATA_RETURNED_SAME_REGION" | "ATLAS_DATA_FEDERATION_GCP_DATA_RETURNED_DIFFERENT_REGION" | "ATLAS_DATA_FEDERATION_GCP_DATA_RETURNED_INTERNET" | "ATLAS_DATA_FEDERATION_AZURE_DATA_SCANNED" | "ATLAS_NDS_AZURE_DATA_LAKE_STORAGE_ACCESS" | "ATLAS_NDS_AZURE_DATA_LAKE_STORAGE" | "ATLAS_DATA_FEDERATION_GCP_DATA_SCANNED" | "ATLAS_NDS_GCP_DATA_LAKE_STORAGE_ACCESS" | "ATLAS_NDS_GCP_DATA_LAKE_STORAGE" | "ATLAS_NDS_AWS_OBJECT_STORAGE_ACCESS" | "ATLAS_NDS_AWS_COMPRESSED_OBJECT_STORAGE" | "ATLAS_NDS_AZURE_OBJECT_STORAGE_ACCESS" | "ATLAS_NDS_AZURE_OBJECT_STORAGE" | "ATLAS_NDS_AZURE_COMPRESSED_OBJECT_STORAGE" | "ATLAS_NDS_GCP_OBJECT_STORAGE_ACCESS" | "ATLAS_NDS_GCP_OBJECT_STORAGE" | "ATLAS_NDS_GCP_COMPRESSED_OBJECT_STORAGE" | "ATLAS_ARCHIVE_ACCESS_PARTITION_LOCATE" | "ATLAS_NDS_AWS_PIT_RESTORE_STORAGE_FREE_TIER" | "ATLAS_NDS_AWS_PIT_RESTORE_STORAGE" | "ATLAS_NDS_GCP_PIT_RESTORE_STORAGE_FREE_TIER" | "ATLAS_NDS_GCP_PIT_RESTORE_STORAGE" | "ATLAS_NDS_AZURE_PIT_RESTORE_STORAGE_FREE_TIER" | "ATLAS_NDS_AZURE_PIT_RESTORE_STORAGE" | "ATLAS_NDS_AZURE_PRIVATE_ENDPOINT_CAPACITY_UNITS" | "ATLAS_NDS_AZURE_CMK_PRIVATE_NETWORKING" | "ATLAS_NDS_AWS_CMK_PRIVATE_NETWORKING" | "ATLAS_NDS_AWS_OBJECT_STORAGE" | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_UPLOAD" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_UPLOAD" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_M40" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_M50" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_M60" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P2" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P3" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P4" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P6" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P10" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P15" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P20" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P30" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P40" | "ATLAS_NDS_AZURE_SNAPSHOT_EXPORT_VM_STORAGE_P50" | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM" | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM_M40" | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM_M50" | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM_M60" | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM_STORAGE" | "ATLAS_NDS_AWS_SNAPSHOT_EXPORT_VM_STORAGE_IOPS" | "ATLAS_NDS_GCP_SNAPSHOT_EXPORT_VM" | "ATLAS_NDS_GCP_SNAPSHOT_EXPORT_VM_M40" | "ATLAS_NDS_GCP_SNAPSHOT_EXPORT_VM_M50" | "ATLAS_NDS_GCP_SNAPSHOT_EXPORT_VM_M60" | "ATLAS_NDS_GCP_SNAPSHOT_EXPORT_VM_STORAGE" | "ATLAS_NDS_AWS_SERVERLESS_RPU" | "ATLAS_NDS_AWS_SERVERLESS_WPU" | "ATLAS_NDS_AWS_SERVERLESS_STORAGE" | "ATLAS_NDS_AWS_SERVERLESS_CONTINUOUS_BACKUP" | "ATLAS_NDS_AWS_SERVERLESS_BACKUP_RESTORE_VM" | "ATLAS_NDS_AWS_SERVERLESS_DATA_TRANSFER_PREVIEW" | "ATLAS_NDS_AWS_SERVERLESS_DATA_TRANSFER" | "ATLAS_NDS_AWS_SERVERLESS_DATA_TRANSFER_REGIONAL" | "ATLAS_NDS_AWS_SERVERLESS_DATA_TRANSFER_CROSS_REGION" | "ATLAS_NDS_AWS_SERVERLESS_DATA_TRANSFER_INTERNET" | "ATLAS_NDS_GCP_SERVERLESS_RPU" | "ATLAS_NDS_GCP_SERVERLESS_WPU" | "ATLAS_NDS_GCP_SERVERLESS_STORAGE" | "ATLAS_NDS_GCP_SERVERLESS_CONTINUOUS_BACKUP" | "ATLAS_NDS_GCP_SERVERLESS_BACKUP_RESTORE_VM" | "ATLAS_NDS_GCP_SERVERLESS_DATA_TRANSFER_PREVIEW" | "ATLAS_NDS_GCP_SERVERLESS_DATA_TRANSFER" | "ATLAS_NDS_GCP_SERVERLESS_DATA_TRANSFER_REGIONAL" | "ATLAS_NDS_GCP_SERVERLESS_DATA_TRANSFER_CROSS_REGION" | "ATLAS_NDS_GCP_SERVERLESS_DATA_TRANSFER_INTERNET" | "ATLAS_NDS_AZURE_SERVERLESS_RPU" | "ATLAS_NDS_AZURE_SERVERLESS_WPU" | "ATLAS_NDS_AZURE_SERVERLESS_STORAGE" | "ATLAS_NDS_AZURE_SERVERLESS_CONTINUOUS_BACKUP" | "ATLAS_NDS_AZURE_SERVERLESS_BACKUP_RESTORE_VM" | "ATLAS_NDS_AZURE_SERVERLESS_DATA_TRANSFER_PREVIEW" | "ATLAS_NDS_AZURE_SERVERLESS_DATA_TRANSFER" | "ATLAS_NDS_AZURE_SERVERLESS_DATA_TRANSFER_REGIONAL" | "ATLAS_NDS_AZURE_SERVERLESS_DATA_TRANSFER_CROSS_REGION" | "ATLAS_NDS_AZURE_SERVERLESS_DATA_TRANSFER_INTERNET" | "REALM_APP_REQUESTS_FREE_TIER" | "REALM_APP_REQUESTS" | "REALM_APP_COMPUTE_FREE_TIER" | "REALM_APP_COMPUTE" | "REALM_APP_SYNC_FREE_TIER" | "REALM_APP_SYNC" | "REALM_APP_DATA_TRANSFER_FREE_TIER" | "REALM_APP_DATA_TRANSFER" | "GCP_SNAPSHOT_COPY_DISK" | "ATLAS_AWS_STREAM_PROCESSING_INSTANCE_SP10" | "ATLAS_AWS_STREAM_PROCESSING_INSTANCE_SP30" | "ATLAS_AWS_STREAM_PROCESSING_INSTANCE_SP50" | "ATLAS_AZURE_STREAM_PROCESSING_INSTANCE_SP10" | "ATLAS_AZURE_STREAM_PROCESSING_INSTANCE_SP30" | "ATLAS_AZURE_STREAM_PROCESSING_INSTANCE_SP50" | "ATLAS_AWS_STREAM_PROCESSING_DATA_TRANSFER" | "ATLAS_AZURE_STREAM_PROCESSING_DATA_TRANSFER" | "ATLAS_AWS_STREAM_PROCESSING_VPC_PEERING" | "ATLAS_AZURE_STREAM_PROCESSING_PRIVATELINK" | "ATLAS_AWS_STREAM_PROCESSING_PRIVATELINK" | "ATLAS_FLEX_AWS_100_USAGE_HOURS" | "ATLAS_FLEX_AWS_200_USAGE_HOURS" | "ATLAS_FLEX_AWS_300_USAGE_HOURS" | "ATLAS_FLEX_AWS_400_USAGE_HOURS" | "ATLAS_FLEX_AWS_500_USAGE_HOURS" | "ATLAS_FLEX_AZURE_100_USAGE_HOURS" | "ATLAS_FLEX_AZURE_200_USAGE_HOURS" | "ATLAS_FLEX_AZURE_300_USAGE_HOURS" | "ATLAS_FLEX_AZURE_400_USAGE_HOURS" | "ATLAS_FLEX_AZURE_500_USAGE_HOURS" | "ATLAS_FLEX_GCP_100_USAGE_HOURS" | "ATLAS_FLEX_GCP_200_USAGE_HOURS" | "ATLAS_FLEX_GCP_300_USAGE_HOURS" | "ATLAS_FLEX_GCP_400_USAGE_HOURS" | "ATLAS_FLEX_GCP_500_USAGE_HOURS";
             /**
              * Format: date-time
              * @description Date and time when MongoDB Cloud began charging for this line item. This parameter expresses its value in the ISO 8601 timestamp format in UTC.
@@ -4744,16 +2937,8 @@ export interface components {
              * @enum {string}
              */
             type: "DEFAULT" | "DAILY" | "WEEKLY" | "MONTHLY";
-        } & (
-            | components["schemas"]["DefaultScheduleView"]
-            | components["schemas"]["DailyScheduleView"]
-            | components["schemas"]["WeeklyScheduleView"]
-            | components["schemas"]["MonthlyScheduleView"]
-        );
-        OrgActiveUserResponse: Omit<
-            WithRequired<components["schemas"]["OrgUserResponse"], "id" | "orgMembershipStatus" | "roles" | "username">,
-            "orgMembershipStatus"
-        > & {
+        } & (components["schemas"]["DefaultScheduleView"] | components["schemas"]["DailyScheduleView"] | components["schemas"]["WeeklyScheduleView"] | components["schemas"]["MonthlyScheduleView"]);
+        OrgActiveUserResponse: Omit<WithRequired<components["schemas"]["OrgUserResponse"], "id" | "orgMembershipStatus" | "roles" | "username">, "orgMembershipStatus"> & {
             /**
              * @description Two-character alphabetical string that identifies the MongoDB Cloud user's geographic location. This parameter uses the ISO 3166-1a2 code format.
              * @example US
@@ -4810,10 +2995,7 @@ export interface components {
             /** @description List of human-readable labels that categorize the specified project. MongoDB Cloud returns an empty array. */
             readonly tags?: string[];
         };
-        OrgPendingUserResponse: Omit<
-            WithRequired<components["schemas"]["OrgUserResponse"], "id" | "orgMembershipStatus" | "roles" | "username">,
-            "orgMembershipStatus"
-        > & {
+        OrgPendingUserResponse: Omit<WithRequired<components["schemas"]["OrgUserResponse"], "id" | "orgMembershipStatus" | "roles" | "username">, "orgMembershipStatus"> & {
             /**
              * Format: date-time
              * @description Date and time when MongoDB Cloud sent the invitation. MongoDB Cloud represents this timestamp in ISO 8601 format in UTC.
@@ -4867,14 +3049,7 @@ export interface components {
             /** @description List of project-level role assignments assigned to the MongoDB Cloud user. */
             groupRoleAssignments?: components["schemas"]["GroupRoleAssignment"][];
             /** @description One or more organization-level roles assigned to the MongoDB Cloud user. */
-            orgRoles?: (
-                | "ORG_OWNER"
-                | "ORG_GROUP_CREATOR"
-                | "ORG_BILLING_ADMIN"
-                | "ORG_BILLING_READ_ONLY"
-                | "ORG_READ_ONLY"
-                | "ORG_MEMBER"
-            )[];
+            orgRoles?: ("ORG_OWNER" | "ORG_GROUP_CREATOR" | "ORG_BILLING_ADMIN" | "ORG_BILLING_READ_ONLY" | "ORG_READ_ONLY" | "ORG_MEMBER")[];
         };
         PaginatedAtlasGroupView: {
             /** @description List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships. */
@@ -4992,10 +3167,7 @@ export interface components {
              */
             status?: "DELETING" | "FAILED" | "STALE" | "PENDING" | "BUILDING" | "READY" | "DOES_NOT_EXIST";
         };
-        SearchIndex: Omit<
-            WithRequired<components["schemas"]["ClusterSearchIndex"], "collectionName" | "database" | "name">,
-            "type"
-        > & {
+        SearchIndex: Omit<WithRequired<components["schemas"]["ClusterSearchIndex"], "collectionName" | "database" | "name">, "type"> & {
             /**
              * @description Specific pre-defined method chosen to convert database field text into searchable words. This conversion reduces the text of fields into the smallest units of text. These units are called a **term** or **token**. This process, known as tokenization, involves a variety of changes made to the text in fields:
              *
@@ -5010,53 +3182,7 @@ export interface components {
              * @default lucene.standard
              * @enum {string}
              */
-            analyzer:
-                | "lucene.standard"
-                | "lucene.simple"
-                | "lucene.whitespace"
-                | "lucene.keyword"
-                | "lucene.arabic"
-                | "lucene.armenian"
-                | "lucene.basque"
-                | "lucene.bengali"
-                | "lucene.brazilian"
-                | "lucene.bulgarian"
-                | "lucene.catalan"
-                | "lucene.chinese"
-                | "lucene.cjk"
-                | "lucene.czech"
-                | "lucene.danish"
-                | "lucene.dutch"
-                | "lucene.english"
-                | "lucene.finnish"
-                | "lucene.french"
-                | "lucene.galician"
-                | "lucene.german"
-                | "lucene.greek"
-                | "lucene.hindi"
-                | "lucene.hungarian"
-                | "lucene.indonesian"
-                | "lucene.irish"
-                | "lucene.italian"
-                | "lucene.japanese"
-                | "lucene.korean"
-                | "lucene.kuromoji"
-                | "lucene.latvian"
-                | "lucene.lithuanian"
-                | "lucene.morfologik"
-                | "lucene.nori"
-                | "lucene.norwegian"
-                | "lucene.persian"
-                | "lucene.portuguese"
-                | "lucene.romanian"
-                | "lucene.russian"
-                | "lucene.smartcn"
-                | "lucene.sorani"
-                | "lucene.spanish"
-                | "lucene.swedish"
-                | "lucene.thai"
-                | "lucene.turkish"
-                | "lucene.ukrainian";
+            analyzer: "lucene.standard" | "lucene.simple" | "lucene.whitespace" | "lucene.keyword" | "lucene.arabic" | "lucene.armenian" | "lucene.basque" | "lucene.bengali" | "lucene.brazilian" | "lucene.bulgarian" | "lucene.catalan" | "lucene.chinese" | "lucene.cjk" | "lucene.czech" | "lucene.danish" | "lucene.dutch" | "lucene.english" | "lucene.finnish" | "lucene.french" | "lucene.galician" | "lucene.german" | "lucene.greek" | "lucene.hindi" | "lucene.hungarian" | "lucene.indonesian" | "lucene.irish" | "lucene.italian" | "lucene.japanese" | "lucene.korean" | "lucene.kuromoji" | "lucene.latvian" | "lucene.lithuanian" | "lucene.morfologik" | "lucene.nori" | "lucene.norwegian" | "lucene.persian" | "lucene.portuguese" | "lucene.romanian" | "lucene.russian" | "lucene.smartcn" | "lucene.sorani" | "lucene.spanish" | "lucene.swedish" | "lucene.thai" | "lucene.turkish" | "lucene.ukrainian";
             /** @description List of user-defined methods to convert database field text into searchable words. */
             analyzers?: components["schemas"]["ApiAtlasFTSAnalyzersViewManual"][];
             mappings?: components["schemas"]["ApiAtlasFTSMappingsViewManual"];
@@ -5065,53 +3191,7 @@ export interface components {
              * @default lucene.standard
              * @enum {string}
              */
-            searchAnalyzer:
-                | "lucene.standard"
-                | "lucene.simple"
-                | "lucene.whitespace"
-                | "lucene.keyword"
-                | "lucene.arabic"
-                | "lucene.armenian"
-                | "lucene.basque"
-                | "lucene.bengali"
-                | "lucene.brazilian"
-                | "lucene.bulgarian"
-                | "lucene.catalan"
-                | "lucene.chinese"
-                | "lucene.cjk"
-                | "lucene.czech"
-                | "lucene.danish"
-                | "lucene.dutch"
-                | "lucene.english"
-                | "lucene.finnish"
-                | "lucene.french"
-                | "lucene.galician"
-                | "lucene.german"
-                | "lucene.greek"
-                | "lucene.hindi"
-                | "lucene.hungarian"
-                | "lucene.indonesian"
-                | "lucene.irish"
-                | "lucene.italian"
-                | "lucene.japanese"
-                | "lucene.korean"
-                | "lucene.kuromoji"
-                | "lucene.latvian"
-                | "lucene.lithuanian"
-                | "lucene.morfologik"
-                | "lucene.nori"
-                | "lucene.norwegian"
-                | "lucene.persian"
-                | "lucene.portuguese"
-                | "lucene.romanian"
-                | "lucene.russian"
-                | "lucene.smartcn"
-                | "lucene.sorani"
-                | "lucene.spanish"
-                | "lucene.swedish"
-                | "lucene.thai"
-                | "lucene.turkish"
-                | "lucene.ukrainian";
+            searchAnalyzer: "lucene.standard" | "lucene.simple" | "lucene.whitespace" | "lucene.keyword" | "lucene.arabic" | "lucene.armenian" | "lucene.basque" | "lucene.bengali" | "lucene.brazilian" | "lucene.bulgarian" | "lucene.catalan" | "lucene.chinese" | "lucene.cjk" | "lucene.czech" | "lucene.danish" | "lucene.dutch" | "lucene.english" | "lucene.finnish" | "lucene.french" | "lucene.galician" | "lucene.german" | "lucene.greek" | "lucene.hindi" | "lucene.hungarian" | "lucene.indonesian" | "lucene.irish" | "lucene.italian" | "lucene.japanese" | "lucene.korean" | "lucene.kuromoji" | "lucene.latvian" | "lucene.lithuanian" | "lucene.morfologik" | "lucene.nori" | "lucene.norwegian" | "lucene.persian" | "lucene.portuguese" | "lucene.romanian" | "lucene.russian" | "lucene.smartcn" | "lucene.sorani" | "lucene.spanish" | "lucene.swedish" | "lucene.thai" | "lucene.turkish" | "lucene.ukrainian";
             /**
              * @description Flag that indicates whether to store all fields (true) on Atlas Search. By default, Atlas doesn't store (false) the fields on Atlas Search.  Alternatively, you can specify an object that only contains the list of fields to store (include) or not store (exclude) on Atlas Search. To learn more, see documentation.
              * @example {
@@ -5278,53 +3358,7 @@ export interface components {
              * @description Specific pre-defined method chosen to apply to the synonyms to be searched.
              * @enum {string}
              */
-            analyzer:
-                | "lucene.standard"
-                | "lucene.simple"
-                | "lucene.whitespace"
-                | "lucene.keyword"
-                | "lucene.arabic"
-                | "lucene.armenian"
-                | "lucene.basque"
-                | "lucene.bengali"
-                | "lucene.brazilian"
-                | "lucene.bulgarian"
-                | "lucene.catalan"
-                | "lucene.chinese"
-                | "lucene.cjk"
-                | "lucene.czech"
-                | "lucene.danish"
-                | "lucene.dutch"
-                | "lucene.english"
-                | "lucene.finnish"
-                | "lucene.french"
-                | "lucene.galician"
-                | "lucene.german"
-                | "lucene.greek"
-                | "lucene.hindi"
-                | "lucene.hungarian"
-                | "lucene.indonesian"
-                | "lucene.irish"
-                | "lucene.italian"
-                | "lucene.japanese"
-                | "lucene.korean"
-                | "lucene.kuromoji"
-                | "lucene.latvian"
-                | "lucene.lithuanian"
-                | "lucene.morfologik"
-                | "lucene.nori"
-                | "lucene.norwegian"
-                | "lucene.persian"
-                | "lucene.portuguese"
-                | "lucene.romanian"
-                | "lucene.russian"
-                | "lucene.smartcn"
-                | "lucene.sorani"
-                | "lucene.spanish"
-                | "lucene.swedish"
-                | "lucene.thai"
-                | "lucene.turkish"
-                | "lucene.ukrainian";
+            analyzer: "lucene.standard" | "lucene.simple" | "lucene.whitespace" | "lucene.keyword" | "lucene.arabic" | "lucene.armenian" | "lucene.basque" | "lucene.bengali" | "lucene.brazilian" | "lucene.bulgarian" | "lucene.catalan" | "lucene.chinese" | "lucene.cjk" | "lucene.czech" | "lucene.danish" | "lucene.dutch" | "lucene.english" | "lucene.finnish" | "lucene.french" | "lucene.galician" | "lucene.german" | "lucene.greek" | "lucene.hindi" | "lucene.hungarian" | "lucene.indonesian" | "lucene.irish" | "lucene.italian" | "lucene.japanese" | "lucene.korean" | "lucene.kuromoji" | "lucene.latvian" | "lucene.lithuanian" | "lucene.morfologik" | "lucene.nori" | "lucene.norwegian" | "lucene.persian" | "lucene.portuguese" | "lucene.romanian" | "lucene.russian" | "lucene.smartcn" | "lucene.sorani" | "lucene.spanish" | "lucene.swedish" | "lucene.thai" | "lucene.turkish" | "lucene.ukrainian";
             /** @description Label that identifies the synonym definition. Each **synonym.name** must be unique within the same index definition. */
             name: string;
             source: components["schemas"]["SynonymSource"];
@@ -5333,10 +3367,7 @@ export interface components {
          * AWS
          * @description Updates to a serverless AWS tenant endpoint.
          */
-        ServerlessAWSTenantEndpointUpdate: Omit<
-            WithRequired<components["schemas"]["ServerlessTenantEndpointUpdate"], "providerName">,
-            "providerName"
-        > & {
+        ServerlessAWSTenantEndpointUpdate: Omit<WithRequired<components["schemas"]["ServerlessTenantEndpointUpdate"], "providerName">, "providerName"> & {
             /** @description Unique string that identifies the private endpoint's network interface. */
             cloudProviderEndpointId?: string;
         } & {
@@ -5350,10 +3381,7 @@ export interface components {
          * AZURE
          * @description Updates to a serverless Azure tenant endpoint.
          */
-        ServerlessAzureTenantEndpointUpdate: Omit<
-            WithRequired<components["schemas"]["ServerlessTenantEndpointUpdate"], "providerName">,
-            "providerName"
-        > & {
+        ServerlessAzureTenantEndpointUpdate: Omit<WithRequired<components["schemas"]["ServerlessTenantEndpointUpdate"], "providerName">, "providerName"> & {
             /** @description Unique string that identifies the Azure private endpoint's network interface for this private endpoint service. */
             cloudProviderEndpointId?: string;
             /** @description IPv4 address of the private endpoint in your Azure VNet that someone added to this private endpoint service. */
@@ -5428,14 +3456,7 @@ export interface components {
              * @enum {string}
              */
             type?: "Kafka" | "Cluster" | "Sample" | "Https" | "AWSLambda";
-        } & (
-            | components["schemas"]["StreamsSampleConnection"]
-            | components["schemas"]["StreamsClusterConnection"]
-            | components["schemas"]["StreamsKafkaConnection"]
-            | components["schemas"]["StreamsHttpsConnection"]
-            | components["schemas"]["StreamsAWSLambdaConnection"]
-            | components["schemas"]["StreamsS3Connection"]
-        );
+        } & (components["schemas"]["StreamsSampleConnection"] | components["schemas"]["StreamsClusterConnection"] | components["schemas"]["StreamsKafkaConnection"] | components["schemas"]["StreamsHttpsConnection"] | components["schemas"]["StreamsAWSLambdaConnection"] | components["schemas"]["StreamsS3Connection"]);
         StreamsHttpsConnection: Omit<components["schemas"]["StreamsConnection"], "type"> & {
             /** @description A map of key-value pairs that will be passed as headers for the request. */
             headers?: {
@@ -5705,10 +3726,7 @@ export interface components {
             status?: "DELETING" | "FAILED" | "STALE" | "PENDING" | "BUILDING" | "READY" | "DOES_NOT_EXIST";
         };
         /** @description Text Search Index Create Request */
-        TextSearchIndexCreateRequest: Omit<
-            WithRequired<components["schemas"]["SearchIndexCreateRequest"], "collectionName" | "database" | "name">,
-            "type"
-        > & {
+        TextSearchIndexCreateRequest: Omit<WithRequired<components["schemas"]["SearchIndexCreateRequest"], "collectionName" | "database" | "name">, "type"> & {
             definition: components["schemas"]["TextSearchIndexDefinition"];
         } & {
             /**
@@ -5736,53 +3754,7 @@ export interface components {
              * @default lucene.standard
              * @enum {string}
              */
-            analyzer:
-                | "lucene.standard"
-                | "lucene.simple"
-                | "lucene.whitespace"
-                | "lucene.keyword"
-                | "lucene.arabic"
-                | "lucene.armenian"
-                | "lucene.basque"
-                | "lucene.bengali"
-                | "lucene.brazilian"
-                | "lucene.bulgarian"
-                | "lucene.catalan"
-                | "lucene.chinese"
-                | "lucene.cjk"
-                | "lucene.czech"
-                | "lucene.danish"
-                | "lucene.dutch"
-                | "lucene.english"
-                | "lucene.finnish"
-                | "lucene.french"
-                | "lucene.galician"
-                | "lucene.german"
-                | "lucene.greek"
-                | "lucene.hindi"
-                | "lucene.hungarian"
-                | "lucene.indonesian"
-                | "lucene.irish"
-                | "lucene.italian"
-                | "lucene.japanese"
-                | "lucene.korean"
-                | "lucene.kuromoji"
-                | "lucene.latvian"
-                | "lucene.lithuanian"
-                | "lucene.morfologik"
-                | "lucene.nori"
-                | "lucene.norwegian"
-                | "lucene.persian"
-                | "lucene.portuguese"
-                | "lucene.romanian"
-                | "lucene.russian"
-                | "lucene.smartcn"
-                | "lucene.sorani"
-                | "lucene.spanish"
-                | "lucene.swedish"
-                | "lucene.thai"
-                | "lucene.turkish"
-                | "lucene.ukrainian";
+            analyzer: "lucene.standard" | "lucene.simple" | "lucene.whitespace" | "lucene.keyword" | "lucene.arabic" | "lucene.armenian" | "lucene.basque" | "lucene.bengali" | "lucene.brazilian" | "lucene.bulgarian" | "lucene.catalan" | "lucene.chinese" | "lucene.cjk" | "lucene.czech" | "lucene.danish" | "lucene.dutch" | "lucene.english" | "lucene.finnish" | "lucene.french" | "lucene.galician" | "lucene.german" | "lucene.greek" | "lucene.hindi" | "lucene.hungarian" | "lucene.indonesian" | "lucene.irish" | "lucene.italian" | "lucene.japanese" | "lucene.korean" | "lucene.kuromoji" | "lucene.latvian" | "lucene.lithuanian" | "lucene.morfologik" | "lucene.nori" | "lucene.norwegian" | "lucene.persian" | "lucene.portuguese" | "lucene.romanian" | "lucene.russian" | "lucene.smartcn" | "lucene.sorani" | "lucene.spanish" | "lucene.swedish" | "lucene.thai" | "lucene.turkish" | "lucene.ukrainian";
             /** @description List of user-defined methods to convert database field text into searchable words. */
             analyzers?: components["schemas"]["AtlasSearchAnalyzer"][];
             mappings: components["schemas"]["SearchMappings"];
@@ -5797,53 +3769,7 @@ export interface components {
              * @default lucene.standard
              * @enum {string}
              */
-            searchAnalyzer:
-                | "lucene.standard"
-                | "lucene.simple"
-                | "lucene.whitespace"
-                | "lucene.keyword"
-                | "lucene.arabic"
-                | "lucene.armenian"
-                | "lucene.basque"
-                | "lucene.bengali"
-                | "lucene.brazilian"
-                | "lucene.bulgarian"
-                | "lucene.catalan"
-                | "lucene.chinese"
-                | "lucene.cjk"
-                | "lucene.czech"
-                | "lucene.danish"
-                | "lucene.dutch"
-                | "lucene.english"
-                | "lucene.finnish"
-                | "lucene.french"
-                | "lucene.galician"
-                | "lucene.german"
-                | "lucene.greek"
-                | "lucene.hindi"
-                | "lucene.hungarian"
-                | "lucene.indonesian"
-                | "lucene.irish"
-                | "lucene.italian"
-                | "lucene.japanese"
-                | "lucene.korean"
-                | "lucene.kuromoji"
-                | "lucene.latvian"
-                | "lucene.lithuanian"
-                | "lucene.morfologik"
-                | "lucene.nori"
-                | "lucene.norwegian"
-                | "lucene.persian"
-                | "lucene.portuguese"
-                | "lucene.romanian"
-                | "lucene.russian"
-                | "lucene.smartcn"
-                | "lucene.sorani"
-                | "lucene.spanish"
-                | "lucene.swedish"
-                | "lucene.thai"
-                | "lucene.turkish"
-                | "lucene.ukrainian";
+            searchAnalyzer: "lucene.standard" | "lucene.simple" | "lucene.whitespace" | "lucene.keyword" | "lucene.arabic" | "lucene.armenian" | "lucene.basque" | "lucene.bengali" | "lucene.brazilian" | "lucene.bulgarian" | "lucene.catalan" | "lucene.chinese" | "lucene.cjk" | "lucene.czech" | "lucene.danish" | "lucene.dutch" | "lucene.english" | "lucene.finnish" | "lucene.french" | "lucene.galician" | "lucene.german" | "lucene.greek" | "lucene.hindi" | "lucene.hungarian" | "lucene.indonesian" | "lucene.irish" | "lucene.italian" | "lucene.japanese" | "lucene.korean" | "lucene.kuromoji" | "lucene.latvian" | "lucene.lithuanian" | "lucene.morfologik" | "lucene.nori" | "lucene.norwegian" | "lucene.persian" | "lucene.portuguese" | "lucene.romanian" | "lucene.russian" | "lucene.smartcn" | "lucene.sorani" | "lucene.spanish" | "lucene.swedish" | "lucene.thai" | "lucene.turkish" | "lucene.ukrainian";
             /**
              * @description Flag that indicates whether to store all fields (true) on Atlas Search. By default, Atlas doesn't store (false) the fields on Atlas Search.  Alternatively, you can specify an object that only contains the list of fields to store (include) or not store (exclude) on Atlas Search. To learn more, see Stored Source Fields.
              * @example {
@@ -6070,10 +3996,7 @@ export interface components {
              */
             status?: "DELETING" | "FAILED" | "STALE" | "PENDING" | "BUILDING" | "READY" | "DOES_NOT_EXIST";
         };
-        VectorSearchIndex: Omit<
-            WithRequired<components["schemas"]["ClusterSearchIndex"], "collectionName" | "database" | "name">,
-            "type"
-        > & {
+        VectorSearchIndex: Omit<WithRequired<components["schemas"]["ClusterSearchIndex"], "collectionName" | "database" | "name">, "type"> & {
             /** @description Settings that configure the fields, one per object, to index. You must define at least one "vector" type field. You can optionally define "filter" type fields also. */
             fields?: components["schemas"]["BasicDBObject"][];
         } & {
@@ -6084,10 +4007,7 @@ export interface components {
             type: "vectorSearch";
         };
         /** @description Vector Search Index Create Request */
-        VectorSearchIndexCreateRequest: Omit<
-            WithRequired<components["schemas"]["SearchIndexCreateRequest"], "collectionName" | "database" | "name">,
-            "type"
-        > & {
+        VectorSearchIndexCreateRequest: Omit<WithRequired<components["schemas"]["SearchIndexCreateRequest"], "collectionName" | "database" | "name">, "type"> & {
             definition: components["schemas"]["VectorSearchIndexDefinition"];
         } & {
             /**
@@ -6441,32 +4361,7 @@ export interface components {
              * @description Snowball-generated stemmer to use.
              * @enum {string}
              */
-            stemmerName:
-                | "arabic"
-                | "armenian"
-                | "basque"
-                | "catalan"
-                | "danish"
-                | "dutch"
-                | "english"
-                | "finnish"
-                | "french"
-                | "german"
-                | "german2"
-                | "hungarian"
-                | "irish"
-                | "italian"
-                | "kp"
-                | "lithuanian"
-                | "lovins"
-                | "norwegian"
-                | "porter"
-                | "portuguese"
-                | "romanian"
-                | "russian"
-                | "spanish"
-                | "swedish"
-                | "turkish";
+            stemmerName: "arabic" | "armenian" | "basque" | "catalan" | "danish" | "dutch" | "english" | "finnish" | "french" | "german" | "german2" | "hungarian" | "irish" | "italian" | "kp" | "lithuanian" | "lovins" | "norwegian" | "porter" | "portuguese" | "romanian" | "russian" | "spanish" | "swedish" | "turkish";
             /**
              * @description Human-readable label that identifies this token filter type.
              * @enum {string}
@@ -6705,255 +4600,237 @@ export interface components {
     headers: never;
     pathItems: never;
 }
-export type AwsCloudProviderContainer = components["schemas"]["AWSCloudProviderContainer"];
-export type AwsCloudProviderSettings = components["schemas"]["AWSCloudProviderSettings"];
-export type AwsComputeAutoScaling = components["schemas"]["AWSComputeAutoScaling"];
-export type AwsCreateDataProcessRegionView = components["schemas"]["AWSCreateDataProcessRegionView"];
-export type AwsDataProcessRegionView = components["schemas"]["AWSDataProcessRegionView"];
-export type AwsHardwareSpec = components["schemas"]["AWSHardwareSpec"];
-export type AwsHardwareSpec20240805 = components["schemas"]["AWSHardwareSpec20240805"];
-export type AwsRegionConfig = components["schemas"]["AWSRegionConfig"];
-export type AwsRegionConfig20240805 = components["schemas"]["AWSRegionConfig20240805"];
-export type AdvancedAutoScalingSettings = components["schemas"]["AdvancedAutoScalingSettings"];
-export type AdvancedComputeAutoScaling = components["schemas"]["AdvancedComputeAutoScaling"];
-export type ApiAtlasCloudProviderAccessFeatureUsageFeatureIdView =
-    components["schemas"]["ApiAtlasCloudProviderAccessFeatureUsageFeatureIdView"];
-export type ApiAtlasClusterAdvancedConfigurationView =
-    components["schemas"]["ApiAtlasClusterAdvancedConfigurationView"];
-export type ApiAtlasFtsAnalyzersViewManual = components["schemas"]["ApiAtlasFTSAnalyzersViewManual"];
-export type ApiAtlasFtsMappingsViewManual = components["schemas"]["ApiAtlasFTSMappingsViewManual"];
-export type ApiError = components["schemas"]["ApiError"];
-export type AtlasSearchAnalyzer = components["schemas"]["AtlasSearchAnalyzer"];
-export type AzureCloudProviderContainer = components["schemas"]["AzureCloudProviderContainer"];
-export type AzureCloudProviderSettings = components["schemas"]["AzureCloudProviderSettings"];
-export type AzureComputeAutoScalingRules = components["schemas"]["AzureComputeAutoScalingRules"];
-export type AzureCreateDataProcessRegionView = components["schemas"]["AzureCreateDataProcessRegionView"];
-export type AzureDataProcessRegionView = components["schemas"]["AzureDataProcessRegionView"];
-export type AzureHardwareSpec = components["schemas"]["AzureHardwareSpec"];
-export type AzureHardwareSpec20240805 = components["schemas"]["AzureHardwareSpec20240805"];
-export type AzureRegionConfig = components["schemas"]["AzureRegionConfig"];
-export type AzureRegionConfig20240805 = components["schemas"]["AzureRegionConfig20240805"];
-export type BadRequestDetail = components["schemas"]["BadRequestDetail"];
-export type BaseCloudProviderInstanceSize = components["schemas"]["BaseCloudProviderInstanceSize"];
-export type BasicDbObject = components["schemas"]["BasicDBObject"];
-export type BiConnector = components["schemas"]["BiConnector"];
-export type BillingInvoice = components["schemas"]["BillingInvoice"];
-export type BillingInvoiceMetadata = components["schemas"]["BillingInvoiceMetadata"];
-export type BillingPayment = components["schemas"]["BillingPayment"];
-export type BillingRefund = components["schemas"]["BillingRefund"];
-export type CloudCluster = components["schemas"]["CloudCluster"];
-export type CloudGcpProviderSettings = components["schemas"]["CloudGCPProviderSettings"];
-export type CloudProviderAwsAutoScaling = components["schemas"]["CloudProviderAWSAutoScaling"];
-export type CloudProviderAccessAwsiamRole = components["schemas"]["CloudProviderAccessAWSIAMRole"];
-export type CloudProviderAccessAwsiamRoleRequestUpdate =
-    components["schemas"]["CloudProviderAccessAWSIAMRoleRequestUpdate"];
-export type CloudProviderAccessAzureServicePrincipal =
-    components["schemas"]["CloudProviderAccessAzureServicePrincipal"];
-export type CloudProviderAccessAzureServicePrincipalRequestUpdate =
-    components["schemas"]["CloudProviderAccessAzureServicePrincipalRequestUpdate"];
-export type CloudProviderAccessDataLakeFeatureUsage = components["schemas"]["CloudProviderAccessDataLakeFeatureUsage"];
-export type CloudProviderAccessEncryptionAtRestFeatureUsage =
-    components["schemas"]["CloudProviderAccessEncryptionAtRestFeatureUsage"];
-export type CloudProviderAccessExportSnapshotFeatureUsage =
-    components["schemas"]["CloudProviderAccessExportSnapshotFeatureUsage"];
-export type CloudProviderAccessFeatureUsage = components["schemas"]["CloudProviderAccessFeatureUsage"];
-export type CloudProviderAccessFeatureUsageDataLakeFeatureId =
-    components["schemas"]["CloudProviderAccessFeatureUsageDataLakeFeatureId"];
-export type CloudProviderAccessFeatureUsageExportSnapshotFeatureId =
-    components["schemas"]["CloudProviderAccessFeatureUsageExportSnapshotFeatureId"];
-export type CloudProviderAccessFeatureUsagePushBasedLogExportFeatureId =
-    components["schemas"]["CloudProviderAccessFeatureUsagePushBasedLogExportFeatureId"];
-export type CloudProviderAccessGcpServiceAccount = components["schemas"]["CloudProviderAccessGCPServiceAccount"];
-export type CloudProviderAccessGcpServiceAccountRequestUpdate =
-    components["schemas"]["CloudProviderAccessGCPServiceAccountRequestUpdate"];
-export type CloudProviderAccessPushBasedLogExportFeatureUsage =
-    components["schemas"]["CloudProviderAccessPushBasedLogExportFeatureUsage"];
-export type CloudProviderAccessRole = components["schemas"]["CloudProviderAccessRole"];
-export type CloudProviderAccessRoleRequestUpdate = components["schemas"]["CloudProviderAccessRoleRequestUpdate"];
-export type CloudProviderAzureAutoScaling = components["schemas"]["CloudProviderAzureAutoScaling"];
-export type CloudProviderContainer = components["schemas"]["CloudProviderContainer"];
-export type CloudProviderGcpAutoScaling = components["schemas"]["CloudProviderGCPAutoScaling"];
-export type CloudRegionConfig = components["schemas"]["CloudRegionConfig"];
-export type CloudRegionConfig20240805 = components["schemas"]["CloudRegionConfig20240805"];
-export type ClusterConnectionStrings = components["schemas"]["ClusterConnectionStrings"];
-export type ClusterDescription20240805 = components["schemas"]["ClusterDescription20240805"];
-export type ClusterDescriptionConnectionStringsPrivateEndpoint =
-    components["schemas"]["ClusterDescriptionConnectionStringsPrivateEndpoint"];
-export type ClusterDescriptionConnectionStringsPrivateEndpointEndpoint =
-    components["schemas"]["ClusterDescriptionConnectionStringsPrivateEndpointEndpoint"];
-export type ClusterFlexProviderSettings = components["schemas"]["ClusterFlexProviderSettings"];
-export type ClusterFreeAutoScaling = components["schemas"]["ClusterFreeAutoScaling"];
-export type ClusterFreeProviderSettings = components["schemas"]["ClusterFreeProviderSettings"];
-export type ClusterProviderSettings = components["schemas"]["ClusterProviderSettings"];
-export type ClusterSearchIndex = components["schemas"]["ClusterSearchIndex"];
-export type ComponentLabel = components["schemas"]["ComponentLabel"];
-export type CreateAwsEndpointRequest = components["schemas"]["CreateAWSEndpointRequest"];
-export type CreateAzureEndpointRequest = components["schemas"]["CreateAzureEndpointRequest"];
-export type CreateDataProcessRegionView = components["schemas"]["CreateDataProcessRegionView"];
-export type CreateEndpointRequest = components["schemas"]["CreateEndpointRequest"];
-export type CreateGcpEndpointGroupRequest = components["schemas"]["CreateGCPEndpointGroupRequest"];
-export type CreateGcpForwardingRuleRequest = components["schemas"]["CreateGCPForwardingRuleRequest"];
-export type CriteriaView = components["schemas"]["CriteriaView"];
-export type CustomCriteriaView = components["schemas"]["CustomCriteriaView"];
-export type DbRoleToExecute = components["schemas"]["DBRoleToExecute"];
-export type DlsIngestionSink = components["schemas"]["DLSIngestionSink"];
-export type DailyScheduleView = components["schemas"]["DailyScheduleView"];
-export type DataLakeAtlasStoreInstance = components["schemas"]["DataLakeAtlasStoreInstance"];
-export type DataLakeAtlasStoreReadConcern = components["schemas"]["DataLakeAtlasStoreReadConcern"];
-export type DataLakeAtlasStoreReadPreference = components["schemas"]["DataLakeAtlasStoreReadPreference"];
-export type DataLakeAtlasStoreReadPreferenceTag = components["schemas"]["DataLakeAtlasStoreReadPreferenceTag"];
-export type DataLakeAzureBlobStore = components["schemas"]["DataLakeAzureBlobStore"];
-export type DataLakeDlsawsStore = components["schemas"]["DataLakeDLSAWSStore"];
-export type DataLakeDlsAzureStore = components["schemas"]["DataLakeDLSAzureStore"];
-export type DataLakeDlsgcpStore = components["schemas"]["DataLakeDLSGCPStore"];
-export type DataLakeGoogleCloudStorageStore = components["schemas"]["DataLakeGoogleCloudStorageStore"];
-export type DataLakeHttpStore = components["schemas"]["DataLakeHTTPStore"];
-export type DataLakePipelinesPartitionField = components["schemas"]["DataLakePipelinesPartitionField"];
-export type DataLakeS3StoreSettings = components["schemas"]["DataLakeS3StoreSettings"];
-export type DataLakeStoreSettings = components["schemas"]["DataLakeStoreSettings"];
-export type DataProcessRegionView = components["schemas"]["DataProcessRegionView"];
-export type DateCriteriaView = components["schemas"]["DateCriteriaView"];
-export type DedicatedHardwareSpec = components["schemas"]["DedicatedHardwareSpec"];
-export type DedicatedHardwareSpec20240805 = components["schemas"]["DedicatedHardwareSpec20240805"];
-export type DefaultScheduleView = components["schemas"]["DefaultScheduleView"];
-export type DiskBackupSnapshotAwsExportBucketRequest =
-    components["schemas"]["DiskBackupSnapshotAWSExportBucketRequest"];
-export type DiskBackupSnapshotAwsExportBucketResponse =
-    components["schemas"]["DiskBackupSnapshotAWSExportBucketResponse"];
-export type DiskBackupSnapshotAzureExportBucketRequest =
-    components["schemas"]["DiskBackupSnapshotAzureExportBucketRequest"];
-export type DiskBackupSnapshotAzureExportBucketResponse =
-    components["schemas"]["DiskBackupSnapshotAzureExportBucketResponse"];
-export type DiskBackupSnapshotExportBucketRequest = components["schemas"]["DiskBackupSnapshotExportBucketRequest"];
-export type DiskBackupSnapshotExportBucketResponse = components["schemas"]["DiskBackupSnapshotExportBucketResponse"];
-export type DiskGbAutoScaling = components["schemas"]["DiskGBAutoScaling"];
-export type EmployeeAccessGrantView = components["schemas"]["EmployeeAccessGrantView"];
-export type FieldViolation = components["schemas"]["FieldViolation"];
-export type Fields = components["schemas"]["Fields"];
-export type FreeComputeAutoScalingRules = components["schemas"]["FreeComputeAutoScalingRules"];
-export type GcpCloudProviderContainer = components["schemas"]["GCPCloudProviderContainer"];
-export type GcpComputeAutoScaling = components["schemas"]["GCPComputeAutoScaling"];
-export type GcpCreateDataProcessRegionView = components["schemas"]["GCPCreateDataProcessRegionView"];
-export type GcpDataProcessRegionView = components["schemas"]["GCPDataProcessRegionView"];
-export type GcpHardwareSpec = components["schemas"]["GCPHardwareSpec"];
-export type GcpHardwareSpec20240805 = components["schemas"]["GCPHardwareSpec20240805"];
-export type GcpRegionConfig = components["schemas"]["GCPRegionConfig"];
-export type GcpRegionConfig20240805 = components["schemas"]["GCPRegionConfig20240805"];
-export type Group = components["schemas"]["Group"];
-export type GroupActiveUserResponse = components["schemas"]["GroupActiveUserResponse"];
-export type GroupPendingUserResponse = components["schemas"]["GroupPendingUserResponse"];
-export type GroupRoleAssignment = components["schemas"]["GroupRoleAssignment"];
-export type GroupUserResponse = components["schemas"]["GroupUserResponse"];
-export type HardwareSpec = components["schemas"]["HardwareSpec"];
-export type HardwareSpec20240805 = components["schemas"]["HardwareSpec20240805"];
-export type IngestionSink = components["schemas"]["IngestionSink"];
-export type IngestionSource = components["schemas"]["IngestionSource"];
-export type InvoiceLineItem = components["schemas"]["InvoiceLineItem"];
-export type Link = components["schemas"]["Link"];
-export type MonthlyScheduleView = components["schemas"]["MonthlyScheduleView"];
-export type OnDemandCpsSnapshotSource = components["schemas"]["OnDemandCpsSnapshotSource"];
-export type OnlineArchiveSchedule = components["schemas"]["OnlineArchiveSchedule"];
-export type OrgActiveUserResponse = components["schemas"]["OrgActiveUserResponse"];
-export type OrgGroup = components["schemas"]["OrgGroup"];
-export type OrgPendingUserResponse = components["schemas"]["OrgPendingUserResponse"];
-export type OrgUserResponse = components["schemas"]["OrgUserResponse"];
-export type OrgUserRolesResponse = components["schemas"]["OrgUserRolesResponse"];
-export type PaginatedAtlasGroupView = components["schemas"]["PaginatedAtlasGroupView"];
-export type PaginatedClusterDescription20240805 = components["schemas"]["PaginatedClusterDescription20240805"];
-export type PaginatedOrgGroupView = components["schemas"]["PaginatedOrgGroupView"];
-export type PeriodicCpsSnapshotSource = components["schemas"]["PeriodicCpsSnapshotSource"];
-export type ReplicationSpec20240805 = components["schemas"]["ReplicationSpec20240805"];
-export type ResourceTag = components["schemas"]["ResourceTag"];
-export type SearchHostStatusDetail = components["schemas"]["SearchHostStatusDetail"];
-export type SearchIndex = components["schemas"]["SearchIndex"];
-export type SearchIndexCreateRequest = components["schemas"]["SearchIndexCreateRequest"];
-export type SearchIndexDefinition = components["schemas"]["SearchIndexDefinition"];
-export type SearchIndexDefinitionVersion = components["schemas"]["SearchIndexDefinitionVersion"];
-export type SearchIndexResponse = components["schemas"]["SearchIndexResponse"];
-export type SearchMainIndexStatusDetail = components["schemas"]["SearchMainIndexStatusDetail"];
-export type SearchMappings = components["schemas"]["SearchMappings"];
-export type SearchStagedIndexStatusDetail = components["schemas"]["SearchStagedIndexStatusDetail"];
-export type SearchSynonymMappingDefinition = components["schemas"]["SearchSynonymMappingDefinition"];
-export type ServerlessAwsTenantEndpointUpdate = components["schemas"]["ServerlessAWSTenantEndpointUpdate"];
-export type ServerlessAzureTenantEndpointUpdate = components["schemas"]["ServerlessAzureTenantEndpointUpdate"];
-export type ServerlessTenantEndpointUpdate = components["schemas"]["ServerlessTenantEndpointUpdate"];
-export type StreamsAwsConnectionConfig = components["schemas"]["StreamsAWSConnectionConfig"];
-export type StreamsAwsLambdaConnection = components["schemas"]["StreamsAWSLambdaConnection"];
-export type StreamsClusterConnection = components["schemas"]["StreamsClusterConnection"];
-export type StreamsConnection = components["schemas"]["StreamsConnection"];
-export type StreamsHttpsConnection = components["schemas"]["StreamsHttpsConnection"];
-export type StreamsKafkaAuthentication = components["schemas"]["StreamsKafkaAuthentication"];
-export type StreamsKafkaConnection = components["schemas"]["StreamsKafkaConnection"];
-export type StreamsKafkaNetworking = components["schemas"]["StreamsKafkaNetworking"];
-export type StreamsKafkaNetworkingAccess = components["schemas"]["StreamsKafkaNetworkingAccess"];
-export type StreamsKafkaSecurity = components["schemas"]["StreamsKafkaSecurity"];
-export type StreamsS3Connection = components["schemas"]["StreamsS3Connection"];
-export type StreamsSampleConnection = components["schemas"]["StreamsSampleConnection"];
-export type SynonymMappingStatusDetail = components["schemas"]["SynonymMappingStatusDetail"];
-export type SynonymMappingStatusDetailMap = components["schemas"]["SynonymMappingStatusDetailMap"];
-export type SynonymSource = components["schemas"]["SynonymSource"];
-export type TenantHardwareSpec = components["schemas"]["TenantHardwareSpec"];
-export type TenantHardwareSpec20240805 = components["schemas"]["TenantHardwareSpec20240805"];
-export type TenantRegionConfig = components["schemas"]["TenantRegionConfig"];
-export type TenantRegionConfig20240805 = components["schemas"]["TenantRegionConfig20240805"];
-export type TextSearchHostStatusDetail = components["schemas"]["TextSearchHostStatusDetail"];
-export type TextSearchIndexCreateRequest = components["schemas"]["TextSearchIndexCreateRequest"];
-export type TextSearchIndexDefinition = components["schemas"]["TextSearchIndexDefinition"];
-export type TextSearchIndexResponse = components["schemas"]["TextSearchIndexResponse"];
-export type TextSearchIndexStatusDetail = components["schemas"]["TextSearchIndexStatusDetail"];
-export type TokenFilterEnglishPossessive = components["schemas"]["TokenFilterEnglishPossessive"];
-export type TokenFilterFlattenGraph = components["schemas"]["TokenFilterFlattenGraph"];
-export type TokenFilterPorterStemming = components["schemas"]["TokenFilterPorterStemming"];
-export type TokenFilterSpanishPluralStemming = components["schemas"]["TokenFilterSpanishPluralStemming"];
-export type TokenFilterStempel = components["schemas"]["TokenFilterStempel"];
-export type TokenFilterWordDelimiterGraph = components["schemas"]["TokenFilterWordDelimiterGraph"];
-export type TokenFilterkStemming = components["schemas"]["TokenFilterkStemming"];
-export type VectorSearchHostStatusDetail = components["schemas"]["VectorSearchHostStatusDetail"];
-export type VectorSearchIndex = components["schemas"]["VectorSearchIndex"];
-export type VectorSearchIndexCreateRequest = components["schemas"]["VectorSearchIndexCreateRequest"];
-export type VectorSearchIndexDefinition = components["schemas"]["VectorSearchIndexDefinition"];
-export type VectorSearchIndexResponse = components["schemas"]["VectorSearchIndexResponse"];
-export type VectorSearchIndexStatusDetail = components["schemas"]["VectorSearchIndexStatusDetail"];
-export type WeeklyScheduleView = components["schemas"]["WeeklyScheduleView"];
-export type CharFilterhtmlStrip = components["schemas"]["charFilterhtmlStrip"];
-export type CharFiltericuNormalize = components["schemas"]["charFiltericuNormalize"];
-export type CharFiltermapping = components["schemas"]["charFiltermapping"];
-export type CharFilterpersian = components["schemas"]["charFilterpersian"];
-export type TokenFilterasciiFolding = components["schemas"]["tokenFilterasciiFolding"];
-export type TokenFilterdaitchMokotoffSoundex = components["schemas"]["tokenFilterdaitchMokotoffSoundex"];
-export type TokenFilteredgeGram = components["schemas"]["tokenFilteredgeGram"];
-export type TokenFiltericuFolding = components["schemas"]["tokenFiltericuFolding"];
-export type TokenFiltericuNormalizer = components["schemas"]["tokenFiltericuNormalizer"];
-export type TokenFilterlength = components["schemas"]["tokenFilterlength"];
-export type TokenFilterlowercase = components["schemas"]["tokenFilterlowercase"];
-export type TokenFilternGram = components["schemas"]["tokenFilternGram"];
-export type TokenFilterregex = components["schemas"]["tokenFilterregex"];
-export type TokenFilterreverse = components["schemas"]["tokenFilterreverse"];
-export type TokenFiltershingle = components["schemas"]["tokenFiltershingle"];
-export type TokenFiltersnowballStemming = components["schemas"]["tokenFiltersnowballStemming"];
-export type TokenFilterstopword = components["schemas"]["tokenFilterstopword"];
-export type TokenFiltertrim = components["schemas"]["tokenFiltertrim"];
-export type TokenizeredgeGram = components["schemas"]["tokenizeredgeGram"];
-export type Tokenizerkeyword = components["schemas"]["tokenizerkeyword"];
-export type TokenizernGram = components["schemas"]["tokenizernGram"];
-export type TokenizerregexCaptureGroup = components["schemas"]["tokenizerregexCaptureGroup"];
-export type TokenizerregexSplit = components["schemas"]["tokenizerregexSplit"];
-export type Tokenizerstandard = components["schemas"]["tokenizerstandard"];
-export type TokenizeruaxUrlEmail = components["schemas"]["tokenizeruaxUrlEmail"];
-export type Tokenizerwhitespace = components["schemas"]["tokenizerwhitespace"];
-export type ResponseBadRequest = components["responses"]["badRequest"];
-export type ResponseConflict = components["responses"]["conflict"];
-export type ResponseForbidden = components["responses"]["forbidden"];
-export type ResponseInternalServerError = components["responses"]["internalServerError"];
-export type ResponseNotFound = components["responses"]["notFound"];
-export type ResponsePaymentRequired = components["responses"]["paymentRequired"];
-export type ResponseUnauthorized = components["responses"]["unauthorized"];
-export type ParameterEnvelope = components["parameters"]["envelope"];
-export type ParameterGroupId = components["parameters"]["groupId"];
-export type ParameterIncludeCount = components["parameters"]["includeCount"];
-export type ParameterItemsPerPage = components["parameters"]["itemsPerPage"];
-export type ParameterPageNum = components["parameters"]["pageNum"];
-export type ParameterPretty = components["parameters"]["pretty"];
+export type AwsCloudProviderContainer = components['schemas']['AWSCloudProviderContainer'];
+export type AwsCloudProviderSettings = components['schemas']['AWSCloudProviderSettings'];
+export type AwsComputeAutoScaling = components['schemas']['AWSComputeAutoScaling'];
+export type AwsCreateDataProcessRegionView = components['schemas']['AWSCreateDataProcessRegionView'];
+export type AwsDataProcessRegionView = components['schemas']['AWSDataProcessRegionView'];
+export type AwsHardwareSpec = components['schemas']['AWSHardwareSpec'];
+export type AwsHardwareSpec20240805 = components['schemas']['AWSHardwareSpec20240805'];
+export type AwsRegionConfig = components['schemas']['AWSRegionConfig'];
+export type AwsRegionConfig20240805 = components['schemas']['AWSRegionConfig20240805'];
+export type AdvancedAutoScalingSettings = components['schemas']['AdvancedAutoScalingSettings'];
+export type AdvancedComputeAutoScaling = components['schemas']['AdvancedComputeAutoScaling'];
+export type ApiAtlasCloudProviderAccessFeatureUsageFeatureIdView = components['schemas']['ApiAtlasCloudProviderAccessFeatureUsageFeatureIdView'];
+export type ApiAtlasClusterAdvancedConfigurationView = components['schemas']['ApiAtlasClusterAdvancedConfigurationView'];
+export type ApiAtlasFtsAnalyzersViewManual = components['schemas']['ApiAtlasFTSAnalyzersViewManual'];
+export type ApiAtlasFtsMappingsViewManual = components['schemas']['ApiAtlasFTSMappingsViewManual'];
+export type ApiError = components['schemas']['ApiError'];
+export type AtlasSearchAnalyzer = components['schemas']['AtlasSearchAnalyzer'];
+export type AzureCloudProviderContainer = components['schemas']['AzureCloudProviderContainer'];
+export type AzureCloudProviderSettings = components['schemas']['AzureCloudProviderSettings'];
+export type AzureComputeAutoScalingRules = components['schemas']['AzureComputeAutoScalingRules'];
+export type AzureCreateDataProcessRegionView = components['schemas']['AzureCreateDataProcessRegionView'];
+export type AzureDataProcessRegionView = components['schemas']['AzureDataProcessRegionView'];
+export type AzureHardwareSpec = components['schemas']['AzureHardwareSpec'];
+export type AzureHardwareSpec20240805 = components['schemas']['AzureHardwareSpec20240805'];
+export type AzureRegionConfig = components['schemas']['AzureRegionConfig'];
+export type AzureRegionConfig20240805 = components['schemas']['AzureRegionConfig20240805'];
+export type BadRequestDetail = components['schemas']['BadRequestDetail'];
+export type BaseCloudProviderInstanceSize = components['schemas']['BaseCloudProviderInstanceSize'];
+export type BasicDbObject = components['schemas']['BasicDBObject'];
+export type BiConnector = components['schemas']['BiConnector'];
+export type BillingInvoice = components['schemas']['BillingInvoice'];
+export type BillingInvoiceMetadata = components['schemas']['BillingInvoiceMetadata'];
+export type BillingPayment = components['schemas']['BillingPayment'];
+export type BillingRefund = components['schemas']['BillingRefund'];
+export type CloudCluster = components['schemas']['CloudCluster'];
+export type CloudGcpProviderSettings = components['schemas']['CloudGCPProviderSettings'];
+export type CloudProviderAwsAutoScaling = components['schemas']['CloudProviderAWSAutoScaling'];
+export type CloudProviderAccessAwsiamRole = components['schemas']['CloudProviderAccessAWSIAMRole'];
+export type CloudProviderAccessAwsiamRoleRequestUpdate = components['schemas']['CloudProviderAccessAWSIAMRoleRequestUpdate'];
+export type CloudProviderAccessAzureServicePrincipal = components['schemas']['CloudProviderAccessAzureServicePrincipal'];
+export type CloudProviderAccessAzureServicePrincipalRequestUpdate = components['schemas']['CloudProviderAccessAzureServicePrincipalRequestUpdate'];
+export type CloudProviderAccessDataLakeFeatureUsage = components['schemas']['CloudProviderAccessDataLakeFeatureUsage'];
+export type CloudProviderAccessEncryptionAtRestFeatureUsage = components['schemas']['CloudProviderAccessEncryptionAtRestFeatureUsage'];
+export type CloudProviderAccessExportSnapshotFeatureUsage = components['schemas']['CloudProviderAccessExportSnapshotFeatureUsage'];
+export type CloudProviderAccessFeatureUsage = components['schemas']['CloudProviderAccessFeatureUsage'];
+export type CloudProviderAccessFeatureUsageDataLakeFeatureId = components['schemas']['CloudProviderAccessFeatureUsageDataLakeFeatureId'];
+export type CloudProviderAccessFeatureUsageExportSnapshotFeatureId = components['schemas']['CloudProviderAccessFeatureUsageExportSnapshotFeatureId'];
+export type CloudProviderAccessFeatureUsagePushBasedLogExportFeatureId = components['schemas']['CloudProviderAccessFeatureUsagePushBasedLogExportFeatureId'];
+export type CloudProviderAccessGcpServiceAccount = components['schemas']['CloudProviderAccessGCPServiceAccount'];
+export type CloudProviderAccessGcpServiceAccountRequestUpdate = components['schemas']['CloudProviderAccessGCPServiceAccountRequestUpdate'];
+export type CloudProviderAccessPushBasedLogExportFeatureUsage = components['schemas']['CloudProviderAccessPushBasedLogExportFeatureUsage'];
+export type CloudProviderAccessRole = components['schemas']['CloudProviderAccessRole'];
+export type CloudProviderAccessRoleRequestUpdate = components['schemas']['CloudProviderAccessRoleRequestUpdate'];
+export type CloudProviderAzureAutoScaling = components['schemas']['CloudProviderAzureAutoScaling'];
+export type CloudProviderContainer = components['schemas']['CloudProviderContainer'];
+export type CloudProviderGcpAutoScaling = components['schemas']['CloudProviderGCPAutoScaling'];
+export type CloudRegionConfig = components['schemas']['CloudRegionConfig'];
+export type CloudRegionConfig20240805 = components['schemas']['CloudRegionConfig20240805'];
+export type ClusterConnectionStrings = components['schemas']['ClusterConnectionStrings'];
+export type ClusterDescription20240805 = components['schemas']['ClusterDescription20240805'];
+export type ClusterDescriptionConnectionStringsPrivateEndpoint = components['schemas']['ClusterDescriptionConnectionStringsPrivateEndpoint'];
+export type ClusterDescriptionConnectionStringsPrivateEndpointEndpoint = components['schemas']['ClusterDescriptionConnectionStringsPrivateEndpointEndpoint'];
+export type ClusterFlexProviderSettings = components['schemas']['ClusterFlexProviderSettings'];
+export type ClusterFreeAutoScaling = components['schemas']['ClusterFreeAutoScaling'];
+export type ClusterFreeProviderSettings = components['schemas']['ClusterFreeProviderSettings'];
+export type ClusterProviderSettings = components['schemas']['ClusterProviderSettings'];
+export type ClusterSearchIndex = components['schemas']['ClusterSearchIndex'];
+export type ComponentLabel = components['schemas']['ComponentLabel'];
+export type CreateAwsEndpointRequest = components['schemas']['CreateAWSEndpointRequest'];
+export type CreateAzureEndpointRequest = components['schemas']['CreateAzureEndpointRequest'];
+export type CreateDataProcessRegionView = components['schemas']['CreateDataProcessRegionView'];
+export type CreateEndpointRequest = components['schemas']['CreateEndpointRequest'];
+export type CreateGcpEndpointGroupRequest = components['schemas']['CreateGCPEndpointGroupRequest'];
+export type CreateGcpForwardingRuleRequest = components['schemas']['CreateGCPForwardingRuleRequest'];
+export type CriteriaView = components['schemas']['CriteriaView'];
+export type CustomCriteriaView = components['schemas']['CustomCriteriaView'];
+export type DbRoleToExecute = components['schemas']['DBRoleToExecute'];
+export type DlsIngestionSink = components['schemas']['DLSIngestionSink'];
+export type DailyScheduleView = components['schemas']['DailyScheduleView'];
+export type DataLakeAtlasStoreInstance = components['schemas']['DataLakeAtlasStoreInstance'];
+export type DataLakeAtlasStoreReadConcern = components['schemas']['DataLakeAtlasStoreReadConcern'];
+export type DataLakeAtlasStoreReadPreference = components['schemas']['DataLakeAtlasStoreReadPreference'];
+export type DataLakeAtlasStoreReadPreferenceTag = components['schemas']['DataLakeAtlasStoreReadPreferenceTag'];
+export type DataLakeAzureBlobStore = components['schemas']['DataLakeAzureBlobStore'];
+export type DataLakeDlsawsStore = components['schemas']['DataLakeDLSAWSStore'];
+export type DataLakeDlsAzureStore = components['schemas']['DataLakeDLSAzureStore'];
+export type DataLakeDlsgcpStore = components['schemas']['DataLakeDLSGCPStore'];
+export type DataLakeGoogleCloudStorageStore = components['schemas']['DataLakeGoogleCloudStorageStore'];
+export type DataLakeHttpStore = components['schemas']['DataLakeHTTPStore'];
+export type DataLakePipelinesPartitionField = components['schemas']['DataLakePipelinesPartitionField'];
+export type DataLakeS3StoreSettings = components['schemas']['DataLakeS3StoreSettings'];
+export type DataLakeStoreSettings = components['schemas']['DataLakeStoreSettings'];
+export type DataProcessRegionView = components['schemas']['DataProcessRegionView'];
+export type DateCriteriaView = components['schemas']['DateCriteriaView'];
+export type DedicatedHardwareSpec = components['schemas']['DedicatedHardwareSpec'];
+export type DedicatedHardwareSpec20240805 = components['schemas']['DedicatedHardwareSpec20240805'];
+export type DefaultScheduleView = components['schemas']['DefaultScheduleView'];
+export type DiskBackupSnapshotAwsExportBucketRequest = components['schemas']['DiskBackupSnapshotAWSExportBucketRequest'];
+export type DiskBackupSnapshotAwsExportBucketResponse = components['schemas']['DiskBackupSnapshotAWSExportBucketResponse'];
+export type DiskBackupSnapshotAzureExportBucketRequest = components['schemas']['DiskBackupSnapshotAzureExportBucketRequest'];
+export type DiskBackupSnapshotAzureExportBucketResponse = components['schemas']['DiskBackupSnapshotAzureExportBucketResponse'];
+export type DiskBackupSnapshotExportBucketRequest = components['schemas']['DiskBackupSnapshotExportBucketRequest'];
+export type DiskBackupSnapshotExportBucketResponse = components['schemas']['DiskBackupSnapshotExportBucketResponse'];
+export type DiskGbAutoScaling = components['schemas']['DiskGBAutoScaling'];
+export type EmployeeAccessGrantView = components['schemas']['EmployeeAccessGrantView'];
+export type FieldViolation = components['schemas']['FieldViolation'];
+export type Fields = components['schemas']['Fields'];
+export type FreeComputeAutoScalingRules = components['schemas']['FreeComputeAutoScalingRules'];
+export type GcpCloudProviderContainer = components['schemas']['GCPCloudProviderContainer'];
+export type GcpComputeAutoScaling = components['schemas']['GCPComputeAutoScaling'];
+export type GcpCreateDataProcessRegionView = components['schemas']['GCPCreateDataProcessRegionView'];
+export type GcpDataProcessRegionView = components['schemas']['GCPDataProcessRegionView'];
+export type GcpHardwareSpec = components['schemas']['GCPHardwareSpec'];
+export type GcpHardwareSpec20240805 = components['schemas']['GCPHardwareSpec20240805'];
+export type GcpRegionConfig = components['schemas']['GCPRegionConfig'];
+export type GcpRegionConfig20240805 = components['schemas']['GCPRegionConfig20240805'];
+export type Group = components['schemas']['Group'];
+export type GroupActiveUserResponse = components['schemas']['GroupActiveUserResponse'];
+export type GroupPendingUserResponse = components['schemas']['GroupPendingUserResponse'];
+export type GroupRoleAssignment = components['schemas']['GroupRoleAssignment'];
+export type GroupUserResponse = components['schemas']['GroupUserResponse'];
+export type HardwareSpec = components['schemas']['HardwareSpec'];
+export type HardwareSpec20240805 = components['schemas']['HardwareSpec20240805'];
+export type IngestionSink = components['schemas']['IngestionSink'];
+export type IngestionSource = components['schemas']['IngestionSource'];
+export type InvoiceLineItem = components['schemas']['InvoiceLineItem'];
+export type Link = components['schemas']['Link'];
+export type MonthlyScheduleView = components['schemas']['MonthlyScheduleView'];
+export type OnDemandCpsSnapshotSource = components['schemas']['OnDemandCpsSnapshotSource'];
+export type OnlineArchiveSchedule = components['schemas']['OnlineArchiveSchedule'];
+export type OrgActiveUserResponse = components['schemas']['OrgActiveUserResponse'];
+export type OrgGroup = components['schemas']['OrgGroup'];
+export type OrgPendingUserResponse = components['schemas']['OrgPendingUserResponse'];
+export type OrgUserResponse = components['schemas']['OrgUserResponse'];
+export type OrgUserRolesResponse = components['schemas']['OrgUserRolesResponse'];
+export type PaginatedAtlasGroupView = components['schemas']['PaginatedAtlasGroupView'];
+export type PaginatedClusterDescription20240805 = components['schemas']['PaginatedClusterDescription20240805'];
+export type PaginatedOrgGroupView = components['schemas']['PaginatedOrgGroupView'];
+export type PeriodicCpsSnapshotSource = components['schemas']['PeriodicCpsSnapshotSource'];
+export type ReplicationSpec20240805 = components['schemas']['ReplicationSpec20240805'];
+export type ResourceTag = components['schemas']['ResourceTag'];
+export type SearchHostStatusDetail = components['schemas']['SearchHostStatusDetail'];
+export type SearchIndex = components['schemas']['SearchIndex'];
+export type SearchIndexCreateRequest = components['schemas']['SearchIndexCreateRequest'];
+export type SearchIndexDefinition = components['schemas']['SearchIndexDefinition'];
+export type SearchIndexDefinitionVersion = components['schemas']['SearchIndexDefinitionVersion'];
+export type SearchIndexResponse = components['schemas']['SearchIndexResponse'];
+export type SearchMainIndexStatusDetail = components['schemas']['SearchMainIndexStatusDetail'];
+export type SearchMappings = components['schemas']['SearchMappings'];
+export type SearchStagedIndexStatusDetail = components['schemas']['SearchStagedIndexStatusDetail'];
+export type SearchSynonymMappingDefinition = components['schemas']['SearchSynonymMappingDefinition'];
+export type ServerlessAwsTenantEndpointUpdate = components['schemas']['ServerlessAWSTenantEndpointUpdate'];
+export type ServerlessAzureTenantEndpointUpdate = components['schemas']['ServerlessAzureTenantEndpointUpdate'];
+export type ServerlessTenantEndpointUpdate = components['schemas']['ServerlessTenantEndpointUpdate'];
+export type StreamsAwsConnectionConfig = components['schemas']['StreamsAWSConnectionConfig'];
+export type StreamsAwsLambdaConnection = components['schemas']['StreamsAWSLambdaConnection'];
+export type StreamsClusterConnection = components['schemas']['StreamsClusterConnection'];
+export type StreamsConnection = components['schemas']['StreamsConnection'];
+export type StreamsHttpsConnection = components['schemas']['StreamsHttpsConnection'];
+export type StreamsKafkaAuthentication = components['schemas']['StreamsKafkaAuthentication'];
+export type StreamsKafkaConnection = components['schemas']['StreamsKafkaConnection'];
+export type StreamsKafkaNetworking = components['schemas']['StreamsKafkaNetworking'];
+export type StreamsKafkaNetworkingAccess = components['schemas']['StreamsKafkaNetworkingAccess'];
+export type StreamsKafkaSecurity = components['schemas']['StreamsKafkaSecurity'];
+export type StreamsS3Connection = components['schemas']['StreamsS3Connection'];
+export type StreamsSampleConnection = components['schemas']['StreamsSampleConnection'];
+export type SynonymMappingStatusDetail = components['schemas']['SynonymMappingStatusDetail'];
+export type SynonymMappingStatusDetailMap = components['schemas']['SynonymMappingStatusDetailMap'];
+export type SynonymSource = components['schemas']['SynonymSource'];
+export type TenantHardwareSpec = components['schemas']['TenantHardwareSpec'];
+export type TenantHardwareSpec20240805 = components['schemas']['TenantHardwareSpec20240805'];
+export type TenantRegionConfig = components['schemas']['TenantRegionConfig'];
+export type TenantRegionConfig20240805 = components['schemas']['TenantRegionConfig20240805'];
+export type TextSearchHostStatusDetail = components['schemas']['TextSearchHostStatusDetail'];
+export type TextSearchIndexCreateRequest = components['schemas']['TextSearchIndexCreateRequest'];
+export type TextSearchIndexDefinition = components['schemas']['TextSearchIndexDefinition'];
+export type TextSearchIndexResponse = components['schemas']['TextSearchIndexResponse'];
+export type TextSearchIndexStatusDetail = components['schemas']['TextSearchIndexStatusDetail'];
+export type TokenFilterEnglishPossessive = components['schemas']['TokenFilterEnglishPossessive'];
+export type TokenFilterFlattenGraph = components['schemas']['TokenFilterFlattenGraph'];
+export type TokenFilterPorterStemming = components['schemas']['TokenFilterPorterStemming'];
+export type TokenFilterSpanishPluralStemming = components['schemas']['TokenFilterSpanishPluralStemming'];
+export type TokenFilterStempel = components['schemas']['TokenFilterStempel'];
+export type TokenFilterWordDelimiterGraph = components['schemas']['TokenFilterWordDelimiterGraph'];
+export type TokenFilterkStemming = components['schemas']['TokenFilterkStemming'];
+export type VectorSearchHostStatusDetail = components['schemas']['VectorSearchHostStatusDetail'];
+export type VectorSearchIndex = components['schemas']['VectorSearchIndex'];
+export type VectorSearchIndexCreateRequest = components['schemas']['VectorSearchIndexCreateRequest'];
+export type VectorSearchIndexDefinition = components['schemas']['VectorSearchIndexDefinition'];
+export type VectorSearchIndexResponse = components['schemas']['VectorSearchIndexResponse'];
+export type VectorSearchIndexStatusDetail = components['schemas']['VectorSearchIndexStatusDetail'];
+export type WeeklyScheduleView = components['schemas']['WeeklyScheduleView'];
+export type CharFilterhtmlStrip = components['schemas']['charFilterhtmlStrip'];
+export type CharFiltericuNormalize = components['schemas']['charFiltericuNormalize'];
+export type CharFiltermapping = components['schemas']['charFiltermapping'];
+export type CharFilterpersian = components['schemas']['charFilterpersian'];
+export type TokenFilterasciiFolding = components['schemas']['tokenFilterasciiFolding'];
+export type TokenFilterdaitchMokotoffSoundex = components['schemas']['tokenFilterdaitchMokotoffSoundex'];
+export type TokenFilteredgeGram = components['schemas']['tokenFilteredgeGram'];
+export type TokenFiltericuFolding = components['schemas']['tokenFiltericuFolding'];
+export type TokenFiltericuNormalizer = components['schemas']['tokenFiltericuNormalizer'];
+export type TokenFilterlength = components['schemas']['tokenFilterlength'];
+export type TokenFilterlowercase = components['schemas']['tokenFilterlowercase'];
+export type TokenFilternGram = components['schemas']['tokenFilternGram'];
+export type TokenFilterregex = components['schemas']['tokenFilterregex'];
+export type TokenFilterreverse = components['schemas']['tokenFilterreverse'];
+export type TokenFiltershingle = components['schemas']['tokenFiltershingle'];
+export type TokenFiltersnowballStemming = components['schemas']['tokenFiltersnowballStemming'];
+export type TokenFilterstopword = components['schemas']['tokenFilterstopword'];
+export type TokenFiltertrim = components['schemas']['tokenFiltertrim'];
+export type TokenizeredgeGram = components['schemas']['tokenizeredgeGram'];
+export type Tokenizerkeyword = components['schemas']['tokenizerkeyword'];
+export type TokenizernGram = components['schemas']['tokenizernGram'];
+export type TokenizerregexCaptureGroup = components['schemas']['tokenizerregexCaptureGroup'];
+export type TokenizerregexSplit = components['schemas']['tokenizerregexSplit'];
+export type Tokenizerstandard = components['schemas']['tokenizerstandard'];
+export type TokenizeruaxUrlEmail = components['schemas']['tokenizeruaxUrlEmail'];
+export type Tokenizerwhitespace = components['schemas']['tokenizerwhitespace'];
+export type ResponseBadRequest = components['responses']['badRequest'];
+export type ResponseConflict = components['responses']['conflict'];
+export type ResponseForbidden = components['responses']['forbidden'];
+export type ResponseInternalServerError = components['responses']['internalServerError'];
+export type ResponseNotFound = components['responses']['notFound'];
+export type ResponsePaymentRequired = components['responses']['paymentRequired'];
+export type ResponseUnauthorized = components['responses']['unauthorized'];
+export type ParameterEnvelope = components['parameters']['envelope'];
+export type ParameterGroupId = components['parameters']['groupId'];
+export type ParameterIncludeCount = components['parameters']['includeCount'];
+export type ParameterItemsPerPage = components['parameters']['itemsPerPage'];
+export type ParameterPageNum = components['parameters']['pageNum'];
+export type ParameterPretty = components['parameters']['pretty'];
 export type $defs = Record<string, never>;
 export interface operations {
     listClustersForAllProjects: {
