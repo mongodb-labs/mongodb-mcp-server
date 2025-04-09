@@ -6,4 +6,5 @@ curl -Lo ./scripts/spec.json https://github.com/mongodb/openapi/raw/refs/heads/m
 tsx ./scripts/filter.ts > ./scripts/filteredSpec.json < ./scripts/spec.json
 redocly bundle --ext json --remove-unused-components ./scripts/filteredSpec.json --output ./scripts/bundledSpec.json
 openapi-typescript ./scripts/bundledSpec.json --root-types-no-schema-prefix --root-types --output ./src/common/atlas/openapi.d.ts
+prettier --write ./src/common/atlas/openapi.d.ts
 rm -rf ./scripts/bundledSpec.json ./scripts/filteredSpec.json ./scripts/spec.json
