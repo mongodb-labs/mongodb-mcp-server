@@ -12,6 +12,8 @@ export const DbOperationArgs = {
     collection: z.string().describe("Collection name"),
 };
 
+export type DbOperationType = "metadata" | "read" | "create" | "update" | "delete";
+
 export abstract class MongoDBToolBase extends ToolBase {
     constructor(
         state: State,
@@ -19,6 +21,8 @@ export abstract class MongoDBToolBase extends ToolBase {
     ) {
         super(state);
     }
+
+    protected abstract operationType: DbOperationType;
 
     protected ensureConnected(): NodeDriverServiceProvider {
         const provider = this.mongodbState.serviceProvider;

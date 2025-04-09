@@ -1,7 +1,8 @@
 import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { MongoDBToolBase } from "../mongodbTool.js";
+import { DbOperationType, MongoDBToolBase } from "../mongodbTool.js";
 import { ToolArgs } from "../../tool.js";
+import { SortDirection } from "mongodb";
 
 export class FindTool extends MongoDBToolBase {
     protected name = "find";
@@ -20,7 +21,14 @@ export class FindTool extends MongoDBToolBase {
             .optional()
             .describe("The projection, matching the syntax of the projection argument of db.collection.find()"),
         limit: z.number().optional().default(10).describe("The maximum number of documents to return"),
+        sort: z
+            .record(z.string(), z.custom<SortDirection>())
+            .optional()
+            .describe(
+                "A document, describing the sort order, matching the syntax of the sort argument of cursor.sort()"
+            ),
     };
+    protected operationType: DbOperationType = "read";
 
     protected async execute({
         database,
@@ -28,9 +36,10 @@ export class FindTool extends MongoDBToolBase {
         filter,
         projection,
         limit,
+        sort,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         const provider = this.ensureConnected();
-        const documents = await provider.find(database, collection, filter, { projection, limit }).toArray();
+        const documents = await provider.find(database, collection, filter, { projection, limit, sort }).toArray();
 
         const content: Array<{ text: string; type: "text" }> = [
             {

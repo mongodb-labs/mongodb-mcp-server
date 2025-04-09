@@ -1,14 +1,13 @@
 import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { MongoDBToolBase } from "../mongodbTool.js";
+import { DbOperationArgs, DbOperationType, MongoDBToolBase } from "../mongodbTool.js";
 import { ToolArgs } from "../../tool.js";
 
 export class InsertOneTool extends MongoDBToolBase {
     protected name = "insert-one";
     protected description = "Insert a document into a MongoDB collection";
     protected argsShape = {
-        collection: z.string().describe("Collection name"),
-        database: z.string().describe("Database name"),
+        ...DbOperationArgs,
         document: z
             .object({})
             .passthrough()
@@ -16,6 +15,8 @@ export class InsertOneTool extends MongoDBToolBase {
                 "The document to insert, matching the syntax of the document argument of db.collection.insertOne()"
             ),
     };
+
+    protected operationType: DbOperationType = "create";
 
     protected async execute({
         database,

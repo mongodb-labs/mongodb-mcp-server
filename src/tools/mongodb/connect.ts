@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { CallToolResult, McpError } from "@modelcontextprotocol/sdk/types.js";
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
-import { MongoDBToolBase } from "./mongodbTool.js";
+import { DbOperationType, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool";
 import { ErrorCodes } from "../../errors.js";
 
@@ -14,6 +14,8 @@ export class ConnectTool extends MongoDBToolBase {
             .optional()
             .describe("MongoDB connection string (in the mongodb:// or mongodb+srv:// format) or cluster name"),
     };
+
+    protected operationType: DbOperationType = "metadata";
 
     protected async execute({
         connectionStringOrClusterName,

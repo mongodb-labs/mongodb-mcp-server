@@ -1,12 +1,14 @@
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { DbOperationArgs, MongoDBToolBase } from "./mongodbTool.js";
-import { ToolArgs } from "../tool.js";
+import { DbOperationArgs, DbOperationType, MongoDBToolBase } from "../mongodbTool.js";
+import { ToolArgs } from "../../tool.js";
 import { parseSchema, SchemaField } from "mongodb-schema";
 
 export class CollectionSchemaTool extends MongoDBToolBase {
     protected name = "collection-schema";
     protected description = "Describe the schema for a collection";
     protected argsShape = DbOperationArgs;
+
+    protected operationType: DbOperationType = "metadata";
 
     protected async execute({ database, collection }: ToolArgs<typeof DbOperationArgs>): Promise<CallToolResult> {
         const provider = this.ensureConnected();

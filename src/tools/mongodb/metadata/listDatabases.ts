@@ -1,11 +1,13 @@
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { MongoDBToolBase } from "./mongodbTool.js";
+import { DbOperationType, MongoDBToolBase } from "../mongodbTool.js";
 import * as bson from "bson";
 
 export class ListDatabasesTool extends MongoDBToolBase {
     protected name = "list-databases";
     protected description = "List all databases for a MongoDB connection";
     protected argsShape = {};
+
+    protected operationType: DbOperationType = "metadata";
 
     protected async execute(): Promise<CallToolResult> {
         const provider = this.ensureConnected();
