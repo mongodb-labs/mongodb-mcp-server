@@ -7,6 +7,8 @@ import { ListClustersTool } from "./listClusters.js";
 import { ListProjectsTool } from "./listProjects.js";
 import { InspectClusterTool } from "./inspectCluster.js";
 import { CreateFreeClusterTool } from "./createFreeCluster.js";
+import { CreateAccessListTool } from "./createAccessList.js";
+import { InspectAccessListTool } from "./inspectAccessList.js";
 
 export function registerAtlasTools(server: McpServer, state: State, apiClient: ApiClient) {
     const tools: ToolBase[] = [
@@ -15,6 +17,8 @@ export function registerAtlasTools(server: McpServer, state: State, apiClient: A
         new ListProjectsTool(state, apiClient),
         new InspectClusterTool(state, apiClient),
         new CreateFreeClusterTool(state, apiClient),
+        new CreateAccessListTool(state, apiClient),
+        new InspectAccessListTool(state, apiClient),
     ];
 
     for (const tool of tools) {

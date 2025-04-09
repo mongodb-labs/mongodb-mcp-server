@@ -68,6 +68,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/atlas/v2/groups/{groupId}/accessList": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Return Project IP Access List
+         * @description Returns all access list entries from the specified project's IP access list. Each entry in the project's IP access list contains either one IP address or one CIDR-notated block of IP addresses. MongoDB Cloud only allows client connections to the cluster from entries in the project's IP access list. To use this resource, the requesting Service Account or API Key must have the Project Read Only or Project Charts Admin roles. This resource replaces the whitelist resource. MongoDB Cloud removed whitelists in July 2021. Update your applications to use this new resource. The `/groups/{GROUP-ID}/accessList` endpoint manages the database IP access list. This endpoint is distinct from the `orgs/{ORG-ID}/apiKeys/{API-KEY-ID}/accesslist` endpoint, which manages the access list for MongoDB Cloud organizations.
+         */
+        get: operations["listProjectIpAccessLists"];
+        put?: never;
+        /**
+         * Add Entries to Project IP Access List
+         * @description Adds one or more access list entries to the specified project. MongoDB Cloud only allows client connections to the cluster from entries in the project's IP access list. Write each entry as either one IP address or one CIDR-notated block of IP addresses. To use this resource, the requesting Service Account or API Key must have the Project Owner or Project Charts Admin roles. This resource replaces the whitelist resource. MongoDB Cloud removed whitelists in July 2021. Update your applications to use this new resource. The `/groups/{GROUP-ID}/accessList` endpoint manages the database IP access list. This endpoint is distinct from the `orgs/{ORG-ID}/apiKeys/{API-KEY-ID}/accesslist` endpoint, which manages the access list for MongoDB Cloud organizations. This endpoint doesn't support concurrent `POST` requests. You must submit multiple `POST` requests synchronously.
+         */
+        post: operations["createProjectIpAccessList"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/atlas/v2/groups/{groupId}/clusters": {
         parameters: {
             query?: never;
@@ -4711,6 +4735,28 @@ export interface components {
              */
             type: "MONTHLY";
         };
+        NetworkPermissionEntry: {
+            /** @description Unique string of the Amazon Web Services (AWS) security group that you want to add to the project's IP access list. Your IP access list entry can be one **awsSecurityGroup**, one **cidrBlock**, or one **ipAddress**. You must configure Virtual Private Connection (VPC) peering for your project before you can add an AWS security group to an IP access list. You cannot set AWS security groups as temporary access list entries. Don't set this parameter if you set **cidrBlock** or **ipAddress**. */
+            awsSecurityGroup?: string;
+            /** @description Range of IP addresses in Classless Inter-Domain Routing (CIDR) notation that you want to add to the project's IP access list. Your IP access list entry can be one **awsSecurityGroup**, one **cidrBlock**, or one **ipAddress**. Don't set this parameter if you set **awsSecurityGroup** or **ipAddress**. */
+            cidrBlock?: string;
+            /** @description Remark that explains the purpose or scope of this IP access list entry. */
+            comment?: string;
+            /**
+             * Format: date-time
+             * @description Date and time after which MongoDB Cloud deletes the temporary access list entry. This parameter expresses its value in the ISO 8601 timestamp format in UTC and can include the time zone designation. The date must be later than the current date but no later than one week after you submit this request. The resource returns this parameter if you specified an expiration date when creating this IP access list entry.
+             */
+            deleteAfterDate?: string;
+            /**
+             * @description Unique 24-hexadecimal digit string that identifies the project that contains the IP access list to which you want to add one or more entries.
+             * @example 32b6e34b3d91647abb20e7b8
+             */
+            readonly groupId?: string;
+            /** @description IP address that you want to add to the project's IP access list. Your IP access list entry can be one **awsSecurityGroup**, one **cidrBlock**, or one **ipAddress**. Don't set this parameter if you set **awsSecurityGroup** or **cidrBlock**. */
+            ipAddress?: string;
+            /** @description List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships. */
+            readonly links?: components["schemas"]["Link"][];
+        };
         /**
          * On-Demand Cloud Provider Snapshot Source
          * @description On-Demand Cloud Provider Snapshots as Source for a Data Lake Pipeline.
@@ -4892,6 +4938,17 @@ export interface components {
             readonly links?: components["schemas"]["Link"][];
             /** @description List of returned documents that MongoDB Cloud provides when completing this request. */
             readonly results?: components["schemas"]["ClusterDescription20240805"][];
+            /**
+             * Format: int32
+             * @description Total number of documents available. MongoDB Cloud omits this value if `includeCount` is set to `false`. The total number is an estimate and may not be exact.
+             */
+            readonly totalCount?: number;
+        };
+        PaginatedNetworkAccessView: {
+            /** @description List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships. */
+            readonly links?: components["schemas"]["Link"][];
+            /** @description List of returned documents that MongoDB Cloud provides when completing this request. */
+            readonly results?: components["schemas"]["NetworkPermissionEntry"][];
             /**
              * Format: int32
              * @description Total number of documents available. MongoDB Cloud omits this value if `includeCount` is set to `false`. The total number is an estimate and may not be exact.
@@ -6851,6 +6908,7 @@ export type IngestionSource = components["schemas"]["IngestionSource"];
 export type InvoiceLineItem = components["schemas"]["InvoiceLineItem"];
 export type Link = components["schemas"]["Link"];
 export type MonthlyScheduleView = components["schemas"]["MonthlyScheduleView"];
+export type NetworkPermissionEntry = components["schemas"]["NetworkPermissionEntry"];
 export type OnDemandCpsSnapshotSource = components["schemas"]["OnDemandCpsSnapshotSource"];
 export type OnlineArchiveSchedule = components["schemas"]["OnlineArchiveSchedule"];
 export type OrgActiveUserResponse = components["schemas"]["OrgActiveUserResponse"];
@@ -6860,6 +6918,7 @@ export type OrgUserResponse = components["schemas"]["OrgUserResponse"];
 export type OrgUserRolesResponse = components["schemas"]["OrgUserRolesResponse"];
 export type PaginatedAtlasGroupView = components["schemas"]["PaginatedAtlasGroupView"];
 export type PaginatedClusterDescription20240805 = components["schemas"]["PaginatedClusterDescription20240805"];
+export type PaginatedNetworkAccessView = components["schemas"]["PaginatedNetworkAccessView"];
 export type PaginatedOrgGroupView = components["schemas"]["PaginatedOrgGroupView"];
 export type PeriodicCpsSnapshotSource = components["schemas"]["PeriodicCpsSnapshotSource"];
 export type ReplicationSpec20240805 = components["schemas"]["ReplicationSpec20240805"];
@@ -7091,6 +7150,89 @@ export interface operations {
             };
             400: components["responses"]["badRequest"];
             404: components["responses"]["notFound"];
+            500: components["responses"]["internalServerError"];
+        };
+    };
+    listProjectIpAccessLists: {
+        parameters: {
+            query?: {
+                /** @description Flag that indicates whether Application wraps the response in an `envelope` JSON object. Some API clients cannot access the HTTP response headers or status code. To remediate this, set envelope=true in the query. Endpoints that return a list of results use the results object as an envelope. Application adds the status parameter to the response body. */
+                envelope?: components["parameters"]["envelope"];
+                /** @description Flag that indicates whether the response returns the total number of items (**totalCount**) in the response. */
+                includeCount?: components["parameters"]["includeCount"];
+                /** @description Number of items that the response returns per page. */
+                itemsPerPage?: components["parameters"]["itemsPerPage"];
+                /** @description Number of the page that displays the current set of the total objects that the response returns. */
+                pageNum?: components["parameters"]["pageNum"];
+                /** @description Flag that indicates whether the response body should be in the prettyprint format. */
+                pretty?: components["parameters"]["pretty"];
+            };
+            header?: never;
+            path: {
+                /** @description Unique 24-hexadecimal digit string that identifies your project. Use the [/groups](#tag/Projects/operation/listProjects) endpoint to retrieve all projects to which the authenticated user has access.
+                 *
+                 *     **NOTE**: Groups and projects are synonymous terms. Your group id is the same as your project id. For existing groups, your group/project id remains the same. The resource and corresponding endpoints use the term groups. */
+                groupId: components["parameters"]["groupId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/vnd.atlas.2023-01-01+json": components["schemas"]["PaginatedNetworkAccessView"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            500: components["responses"]["internalServerError"];
+        };
+    };
+    createProjectIpAccessList: {
+        parameters: {
+            query?: {
+                /** @description Flag that indicates whether Application wraps the response in an `envelope` JSON object. Some API clients cannot access the HTTP response headers or status code. To remediate this, set envelope=true in the query. Endpoints that return a list of results use the results object as an envelope. Application adds the status parameter to the response body. */
+                envelope?: components["parameters"]["envelope"];
+                /** @description Flag that indicates whether the response returns the total number of items (**totalCount**) in the response. */
+                includeCount?: components["parameters"]["includeCount"];
+                /** @description Number of items that the response returns per page. */
+                itemsPerPage?: components["parameters"]["itemsPerPage"];
+                /** @description Number of the page that displays the current set of the total objects that the response returns. */
+                pageNum?: components["parameters"]["pageNum"];
+                /** @description Flag that indicates whether the response body should be in the prettyprint format. */
+                pretty?: components["parameters"]["pretty"];
+            };
+            header?: never;
+            path: {
+                /** @description Unique 24-hexadecimal digit string that identifies your project. Use the [/groups](#tag/Projects/operation/listProjects) endpoint to retrieve all projects to which the authenticated user has access.
+                 *
+                 *     **NOTE**: Groups and projects are synonymous terms. Your group id is the same as your project id. For existing groups, your group/project id remains the same. The resource and corresponding endpoints use the term groups. */
+                groupId: components["parameters"]["groupId"];
+            };
+            cookie?: never;
+        };
+        /** @description One or more access list entries to add to the specified project. */
+        requestBody: {
+            content: {
+                "application/vnd.atlas.2023-01-01+json": components["schemas"]["NetworkPermissionEntry"][];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/vnd.atlas.2023-01-01+json": components["schemas"]["PaginatedNetworkAccessView"];
+                };
+            };
+            400: components["responses"]["badRequest"];
+            401: components["responses"]["unauthorized"];
+            403: components["responses"]["forbidden"];
             500: components["responses"]["internalServerError"];
         };
     };

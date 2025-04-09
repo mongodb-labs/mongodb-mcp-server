@@ -9,6 +9,7 @@ const packageMetadata = fs.readFileSync(path.join(__dirname, "..", "package.json
 const packageJson = JSON.parse(packageMetadata);
 
 export const config = {
+    atlasApiVersion: `2025-03-12`,
     version: packageJson.version,
     apiBaseURL: process.env.API_BASE_URL || "https://cloud.mongodb.com/",
     clientID: process.env.CLIENT_ID || "0oabtxactgS3gHIR0297",
