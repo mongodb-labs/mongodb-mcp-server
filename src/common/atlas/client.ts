@@ -1,7 +1,12 @@
-import { log } from "console";
 import config from "../../config.js";
 
-import { Group, PaginatedOrgGroupView, PaginatedAtlasGroupView, ClusterDescription20240805, PaginatedClusterDescription20240805 } from "./openapi.js"
+import {
+    Group,
+    PaginatedOrgGroupView,
+    PaginatedAtlasGroupView,
+    ClusterDescription20240805,
+    PaginatedClusterDescription20240805,
+} from "./openapi.js";
 
 export interface OAuthToken {
     access_token: string;

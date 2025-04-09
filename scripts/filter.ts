@@ -23,7 +23,7 @@ function filterOpenapi(openapi: OpenAPIV3_1.Document): OpenAPIV3_1.Document {
         "createProject",
         "listClusters",
         "createCluster",
-        "listClustersForAllProjects"
+        "listClustersForAllProjects",
     ];
 
     const filteredPaths = {};
@@ -40,7 +40,7 @@ function filterOpenapi(openapi: OpenAPIV3_1.Document): OpenAPIV3_1.Document {
         }
     }
 
-    return {...openapi, paths: filteredPaths};
+    return { ...openapi, paths: filteredPaths };
 }
 
 async function main() {
@@ -50,8 +50,7 @@ async function main() {
     console.log(JSON.stringify(filteredOpenapi));
 }
 
-main()
-    .catch((error) => {
-        console.error("Error:", error);
-        process.exit(1);
-    });
+main().catch((error) => {
+    console.error("Error:", error);
+    process.exit(1);
+});
