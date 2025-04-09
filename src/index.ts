@@ -1,5 +1,7 @@
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { Server } from "./server.js";
+import log from "./logger.js";
+import { mongoLogId } from "mongodb-log-writer";
 
 async function runServer() {
     const server = new Server();
@@ -9,6 +11,7 @@ async function runServer() {
 }
 
 runServer().catch((error) => {
-    console.error(`Fatal error running server:`, error);
+    log.fatal(mongoLogId(1_000_004), "server", `Fatal error running server: ${error}`);
+
     process.exit(1);
 });
