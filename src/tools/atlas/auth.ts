@@ -1,42 +1,11 @@
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { ApiClient } from "../../client.js";
 import { log } from "../../logger.js";
 import { saveState } from "../../state.js";
-import { State } from "../../state.js";
 import { AtlasToolBase } from "./atlasTool.js";
-
-export async function ensureAuthenticated(state: State, apiClient: ApiClient): Promise<void> {
-    if (!(await isAuthenticated(state, apiClient))) {
-        throw new Error("Not authenticated");
-    }
-}
-
-export async function isAuthenticated(state: State, apiClient: ApiClient): Promise<boolean> {
-    switch (state.auth.status) {
-        case "not_auth":
-            return false;
-        case "requested":
-            try {
-                if (!state.auth.code) {
-                    return false;
-                }
-                await apiClient.retrieveToken(state.auth.code.device_code);
-                return !!state.auth.token;
-            } catch {
-                return false;
-            }
-        case "issued":
-            if (!state.auth.token) {
-                return false;
-            }
-            return await apiClient.validateToken();
-        default:
-            throw new Error("Unknown authentication status");
-    }
-}
+import { isAuthenticated } from "../../common/atlas/auth.js";
 
 export class AuthTool extends AtlasToolBase {
-    protected name = "auth";
+    protected name = "atlas-auth";
     protected description = "Authenticate to MongoDB Atlas";
     protected argsShape = {};
 

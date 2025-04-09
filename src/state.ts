@@ -1,6 +1,6 @@
 import fs from "fs";
 import config from "./config.js";
-import { OauthDeviceCode, OAuthToken } from "./client.js";
+import { OauthDeviceCode, OAuthToken } from "./common/atlas/client.js";
 
 export interface State {
     auth: {

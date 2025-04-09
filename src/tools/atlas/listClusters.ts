@@ -1,88 +1,88 @@
-import { z, ZodOptional, ZodString } from "zod";
-import { ApiClient, AtlasCluster } from "../../client.js";
+import { z } from "zod";
 import { config } from "../../config.js";
-import { ensureAuthenticated } from "./auth.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { AtlasToolBase } from "./atlasTool.js";
-import { State } from "../../state.js";
 import { ToolArgs } from "../tool.js";
+import { PaginatedClusterDescription20240805, PaginatedOrgGroupView, Group } from "../../common/atlas/openapi.js";
 
 export class ListClustersTool extends AtlasToolBase {
-    protected name = "listClusters";
+    protected name = "atlas-list-clusters";
     protected description = "List MongoDB Atlas clusters";
-    protected argsShape;
-
-    constructor(state: State, apiClient: ApiClient) {
-        super(state, apiClient);
-
-        let projectIdFilter: ZodString | ZodOptional<ZodString> = z
+    protected argsShape = {
+        projectId: z
             .string()
-            .describe("Optional Atlas project ID to filter clusters");
-
-        if (config.projectID) {
-            projectIdFilter = projectIdFilter.optional();
-        }
-
-        this.argsShape = {
-            projectId: projectIdFilter,
-        };
-    }
+            .describe("Atlas project ID to filter clusters")
+            .optional(),
+    };
 
     protected async execute({ projectId }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        await ensureAuthenticated(this.state, this.apiClient);
-
-        let clusters: AtlasCluster[] | undefined = undefined;
-        let introText = "Here are your MongoDB Atlas clusters:";
+        await this.ensureAuthenticated();
 
         const selectedProjectId = projectId || config.projectID;
         if (!selectedProjectId) {
-            return {
-                content: [{ type: "text", text: "No project ID provided. Please specify a project ID." }],
-            };
+            const data = await this.apiClient.listClustersForAllProjects();
+
+            return this.formatAllClustersTable(data);
+        } else {
+            const project = await this.apiClient.getProject(selectedProjectId);
+
+            if (!project?.id) {
+                throw new Error(`Project with ID "${selectedProjectId}" not found.`);
+            }
+
+            const data = await this.apiClient.listClusters(project.id || '');
+
+            return this.formatClustersTable(project, data);
         }
+    }
 
-        const project = await this.apiClient.getProject(selectedProjectId);
-
-        const data = await this.apiClient.listProjectClusters(project.id);
-        clusters = data.results || [];
-
-        introText = `Here are the clusters in project "${project.name}" (${project.id}):`;
-
-        if (clusters.length === 0) {
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: "No clusters found. You may need to create a cluster in your MongoDB Atlas account.",
-                    },
-                ],
-            };
+    private formatAllClustersTable(clusters: PaginatedOrgGroupView): CallToolResult {
+        if (!clusters.results?.length) {
+            throw new Error("No clusters found.");
         }
-
-        const formattedClusters = this.formatClustersTable(clusters);
-
+        const rows = clusters.results!
+            .map((result) => {
+                return (result.clusters || []).map((cluster) => {
+                    return { ...result, ...cluster, clusters: undefined };
+                });
+            })
+            .flat()
+            .map((cluster) => {
+                return `${cluster.groupName} (${cluster.groupId}) | ${cluster.name}`;
+            })
+            .join("\n");
         return {
             content: [
-                { type: "text", text: introText },
-                { type: "text", text: formattedClusters },
+                { type: "text", text: `Here are your MongoDB Atlas clusters:` },
+                {
+                    type: "text", text: `Project | Cluster Name
+----------------|----------------
+${rows}`
+                },
             ],
         };
     }
 
-    private formatClustersTable(clusters: AtlasCluster[]): string {
-        if (clusters.length === 0) {
-            return "No clusters found.";
+
+    private formatClustersTable(project: Group, clusters: PaginatedClusterDescription20240805): CallToolResult {
+        if (!clusters.results?.length) {
+            throw new Error("No clusters found.");
         }
-        const header = `Cluster Name | State | MongoDB Version | Region | Connection String
-    ----------------|----------------|----------------|----------------|----------------|----------------`;
-        const rows = clusters
+        const rows = clusters.results!
             .map((cluster) => {
-                const region = cluster.providerSettings?.regionName || "N/A";
                 const connectionString = cluster.connectionStrings?.standard || "N/A";
                 const mongoDBVersion = cluster.mongoDBVersion || "N/A";
-                return `${cluster.name} | ${cluster.stateName} | ${mongoDBVersion} | ${region} | ${connectionString}`;
+                return `${cluster.name} | ${cluster.stateName} | ${mongoDBVersion} | ${connectionString}`;
             })
             .join("\n");
-        return `${header}\n${rows}`;
+        return {
+            content: [
+                { type: "text", text: `Here are your MongoDB Atlas clusters in project "${project.name}" (${project.id}):` },
+                {
+                    type: "text", text: `Cluster Name | State | MongoDB Version | Connection String
+----------------|----------------|----------------|----------------|----------------
+${rows}` },
+            ],
+        };
     }
 }

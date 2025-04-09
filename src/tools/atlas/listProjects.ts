@@ -1,14 +1,13 @@
-import { ensureAuthenticated } from "./auth.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { AtlasToolBase } from "./atlasTool.js";
 
 export class ListProjectsTool extends AtlasToolBase {
-    protected name = "listProjects";
+    protected name = "atlas-list-projects";
     protected description = "List MongoDB Atlas projects";
     protected argsShape = {};
 
     protected async execute(): Promise<CallToolResult> {
-        await ensureAuthenticated(this.state, this.apiClient);
+        await this.ensureAuthenticated();
 
         const projectsData = await this.apiClient!.listProjects();
         const projects = projectsData.results || [];
@@ -24,7 +23,8 @@ export class ListProjectsTool extends AtlasToolBase {
 ----------------|----------------|----------------`;
         const rows = projects
             .map((project) => {
-                const createdAt = project.created ? new Date(project.created.$date).toLocaleString() : "N/A";
+                const created = project.created as any as { $date: string }; // eslint-disable-line @typescript-eslint/no-explicit-any
+                const createdAt = created ? new Date(created.$date).toLocaleString() : "N/A";
                 return `${project.name} | ${project.id} | ${createdAt}`;
             })
             .join("\n");

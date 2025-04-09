@@ -1,6 +1,7 @@
 import { ToolBase } from "../tool.js";
-import { ApiClient } from "../../client.js";
+import { ApiClient } from "../../common/atlas/client.js";
 import { State } from "../../state.js";
+import { ensureAuthenticated } from "../../common/atlas/auth.js";
 
 export abstract class AtlasToolBase extends ToolBase {
     constructor(
@@ -8,5 +9,9 @@ export abstract class AtlasToolBase extends ToolBase {
         protected apiClient: ApiClient
     ) {
         super(state);
+    }
+
+    protected async ensureAuthenticated(): Promise<void> {
+        await ensureAuthenticated(this.state, this.apiClient);
     }
 }
