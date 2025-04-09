@@ -11,29 +11,32 @@ export class CreateAccessListTool extends AtlasToolBase {
     protected description = "Allow Ip/CIDR ranges to access your MongoDB Atlas clusters.";
     protected argsShape = {
         projectId: z.string().describe("Atlas project ID"),
-        ipAddresses: z.array(z.string().ip({ version: "v4" })).describe("IP addresses to allow access from").optional(),
+        ipAddresses: z
+            .array(z.string().ip({ version: "v4" }))
+            .describe("IP addresses to allow access from")
+            .optional(),
         cidrBlocks: z.array(z.string().cidr()).describe("CIDR blocks to allow access from").optional(),
         comment: z.string().describe("Comment for the access list entries").default(DEFAULT_COMMENT).optional(),
     };
 
-    protected async execute({projectId, ipAddresses, cidrBlocks, comment}: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
+    protected async execute({
+        projectId,
+        ipAddresses,
+        cidrBlocks,
+        comment,
+    }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         await this.ensureAuthenticated();
 
         if (!ipAddresses?.length && !cidrBlocks?.length) {
             throw new Error("Either ipAddresses or cidrBlocks must be provided.");
         }
 
-        console.error(`ipAddresses:`, JSON.stringify(ipAddresses, null, 2));
-        console.error(`cidrBlocks:`, JSON.stringify(cidrBlocks, null, 2));
-
-
-
         const ipInputs = (ipAddresses || []).map((ipAddress) => ({
             groupId: projectId,
             ipAddress,
             comment: comment || DEFAULT_COMMENT,
         }));
-        
+
         const cidrInputs = (cidrBlocks || []).map((cidrBlock) => ({
             groupId: projectId,
             cidrBlock,

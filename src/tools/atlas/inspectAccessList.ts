@@ -10,7 +10,7 @@ export class InspectAccessListTool extends AtlasToolBase {
         projectId: z.string().describe("Atlas project ID"),
     };
 
-    protected async execute({projectId}: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
+    protected async execute({ projectId }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         await this.ensureAuthenticated();
 
         const accessList = await this.apiClient.listProjectIpAccessLists(projectId);
@@ -23,13 +23,17 @@ export class InspectAccessListTool extends AtlasToolBase {
             content: [
                 {
                     type: "text",
-                    text: `IP ADDRESS | CIDR | COMMENT
+                    text:
+                        `IP ADDRESS | CIDR | COMMENT
 ------|------|------
-` + (accessList.results || []).map((entry) => {
-                        return `${entry.ipAddress} | ${entry.cidrBlock} | ${entry.comment}`;
-                    }).join("\n")
-                }
-            ]
+` +
+                        (accessList.results || [])
+                            .map((entry) => {
+                                return `${entry.ipAddress} | ${entry.cidrBlock} | ${entry.comment}`;
+                            })
+                            .join("\n"),
+                },
+            ],
         };
     }
 }

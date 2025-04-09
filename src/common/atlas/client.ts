@@ -275,7 +275,10 @@ export class ApiClient {
         return await this.do<PaginatedNetworkAccessView>(`/groups/${groupId}/accessList`);
     }
 
-    async createProjectIpAccessList(groupId: string, entries: NetworkPermissionEntry[]): Promise<PaginatedNetworkAccessView> {
+    async createProjectIpAccessList(
+        groupId: string,
+        entries: NetworkPermissionEntry[]
+    ): Promise<PaginatedNetworkAccessView> {
         return await this.do<PaginatedNetworkAccessView>(`/groups/${groupId}/accessList`, {
             method: "POST",
             body: JSON.stringify(entries),
