@@ -2,7 +2,6 @@ import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { AtlasToolBase } from "./atlasTool.js";
 import { ToolArgs } from "../tool.js";
-import { NetworkPermissionEntry } from "../../common/atlas/openapi.js";
 
 const DEFAULT_COMMENT = "Added by Atlas MCP";
 
