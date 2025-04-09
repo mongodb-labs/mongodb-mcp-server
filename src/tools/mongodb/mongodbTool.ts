@@ -2,8 +2,8 @@ import { z } from "zod";
 import { ToolBase } from "../tool.js";
 import { State } from "../../state.js";
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
-import { CallToolResult, McpError } from "@modelcontextprotocol/sdk/types.js";
-import { ErrorCodes } from "../../errors.js";
+import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+import { ErrorCodes, MongoDBError } from "../../errors.js";
 
 export type MongoDBToolState = { serviceProvider?: NodeDriverServiceProvider };
 
@@ -27,14 +27,14 @@ export abstract class MongoDBToolBase extends ToolBase {
     protected ensureConnected(): NodeDriverServiceProvider {
         const provider = this.mongodbState.serviceProvider;
         if (!provider) {
-            throw new McpError(ErrorCodes.NotConnectedToMongoDB, "Not connected to MongoDB");
+            throw new MongoDBError(ErrorCodes.NotConnectedToMongoDB, "Not connected to MongoDB");
         }
 
         return provider;
     }
 
     protected handleError(error: unknown): CallToolResult | undefined {
-        if (error instanceof McpError && error.code === ErrorCodes.NotConnectedToMongoDB) {
+        if (error instanceof MongoDBError && error.code === ErrorCodes.NotConnectedToMongoDB) {
             return {
                 content: [
                     {

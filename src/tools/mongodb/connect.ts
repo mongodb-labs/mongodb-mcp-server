@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { CallToolResult, McpError } from "@modelcontextprotocol/sdk/types.js";
+import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
 import { DbOperationType, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool";
-import { ErrorCodes } from "../../errors.js";
+import { ErrorCodes, MongoDBError } from "../../errors.js";
 
 export class ConnectTool extends MongoDBToolBase {
     protected name = "connect";
@@ -54,7 +54,7 @@ export class ConnectTool extends MongoDBToolBase {
                 };
             }
         } else {
-            throw new McpError(ErrorCodes.InvalidParams, "Invalid connection options");
+            throw new MongoDBError(ErrorCodes.InvalidParams, "Invalid connection options");
         }
 
         await this.connect(connectionString);
