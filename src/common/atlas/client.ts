@@ -103,8 +103,6 @@ export class ApiClient {
             },
         };
 
-        console.error(`Calling Atlas API: ${url.toString()}`);
-        console.error(`with: ${JSON.stringify(opt)}`);
         const response = await fetch(url, opt);
 
         if (!response.ok) {
