@@ -1,4 +1,4 @@
-import { jest, describe, it, expect } from "@jest/globals";
+import { describe, it } from "@jest/globals";
 import { runServer } from "../../src/index";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio";
 
