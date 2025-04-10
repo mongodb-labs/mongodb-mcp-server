@@ -11,7 +11,6 @@ import { CreateAccessListTool } from "./createAccessList.js";
 import { InspectAccessListTool } from "./inspectAccessList.js";
 import { ListDBUsersTool } from "./listDBUsers.js";
 import { CreateDBUserTool } from "./createDBUser.js";
-import { InspectCurrentIPTool } from "./inspectCurrentIP.js";
 
 export function registerAtlasTools(server: McpServer, state: State, apiClient: ApiClient) {
     const tools: ToolBase[] = [
@@ -24,7 +23,6 @@ export function registerAtlasTools(server: McpServer, state: State, apiClient: A
         new InspectAccessListTool(state, apiClient),
         new ListDBUsersTool(state, apiClient),
         new CreateDBUserTool(state, apiClient),
-        new InspectCurrentIPTool(state, apiClient),
     ];
 
     for (const tool of tools) {
