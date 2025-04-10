@@ -2,7 +2,7 @@ import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { AtlasToolBase } from "./atlasTool.js";
 import { ToolArgs } from "../tool.js";
-import { CloudDatabaseUser, DatabaseUserRole, UserScope } from "../../common/atlas/openapi.js";
+import { CloudDatabaseUser, DatabaseUserRole } from "../../common/atlas/openapi.js";
 
 export class CreateDBUserTool extends AtlasToolBase {
     protected name = "atlas-create-db-user";
@@ -59,20 +59,4 @@ export class CreateDBUserTool extends AtlasToolBase {
             content: [{ type: "text", text: `User "${username}" created sucessfully.` }],
         };
     }
-}
-
-function formatRoles(roles?: DatabaseUserRole[]) {
-    if (!roles?.length) {
-        return "N/A";
-    }
-    return roles
-        .map((role) => `${role.roleName}@${role.databaseName}${role.collectionName ? `:${role.collectionName}` : ""}`)
-        .join(", ");
-}
-
-function formatScopes(scopes?: UserScope[]) {
-    if (!scopes?.length) {
-        return "All";
-    }
-    return scopes.map((scope) => `${scope.type}:${scope.name}`).join(", ");
 }

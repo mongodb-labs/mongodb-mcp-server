@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { config } from "../../config.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { AtlasToolBase } from "./atlasTool.js";
 import { ToolArgs } from "../tool.js";
