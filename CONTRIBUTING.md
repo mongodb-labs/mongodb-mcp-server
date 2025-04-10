@@ -10,7 +10,7 @@ This project implements a Model Context Protocol (MCP) server for MongoDB and Mo
 
 ### Prerequisites
 
-- Node.js (v23 or later)
+- Node.js (v20 or later)
 - npm
 
 ### Getting Started

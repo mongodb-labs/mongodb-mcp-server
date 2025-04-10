@@ -19,7 +19,7 @@ A Model Context Protocol server for interacting with MongoDB Atlas. This project
 
 ### Prerequisites
 
-- Node.js (v23 or later)
+- Node.js (v20 or later)
 - MongoDB Atlas account
 
 ### Installation
