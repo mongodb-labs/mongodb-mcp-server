@@ -16,5 +16,5 @@
       "./src/types"
     ],
   },
-  "include": ["src/**/*.ts", "package.json"],
+  "include": ["src/**/*.ts"],
 }
