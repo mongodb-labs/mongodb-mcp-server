@@ -11,12 +11,8 @@ export interface State {
 }
 
 export async function saveState(state: State): Promise<void> {
-    const stateCopy: State = {
-        auth: state.auth,
-    };
-
     return new Promise((resolve, reject) => {
-        fs.writeFile(config.stateFile, JSON.stringify(stateCopy), function (err) {
+        fs.writeFile(config.stateFile, JSON.stringify(state), function (err) {
             if (err) {
                 return reject(err);
             }
