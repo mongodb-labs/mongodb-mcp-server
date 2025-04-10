@@ -1,15 +1,11 @@
 import config from "../../config.js";
+import createClient, { Middleware } from "openapi-fetch";
 
 import {
-    Group,
-    PaginatedOrgGroupView,
-    PaginatedAtlasGroupView,
+    paths,
     ClusterDescription20240805,
-    PaginatedClusterDescription20240805,
-    PaginatedNetworkAccessView,
     NetworkPermissionEntry,
     CloudDatabaseUser,
-    PaginatedApiAtlasDatabaseUserView,
 } from "./openapi.js";
 
 export interface OAuthToken {
@@ -48,32 +44,40 @@ export interface ApiClientOptions {
 }
 
 export class ApiClient {
-    token?: OAuthToken;
-    saveToken?: saveTokenFunction;
+    private token?: OAuthToken;
+    private saveToken?: saveTokenFunction;
+    private client = createClient<paths>({
+        baseUrl: config.apiBaseURL,
+        headers: {
+            "User-Agent": config.userAgent,
+            Accept: `application/vnd.atlas.${config.atlasApiVersion}+json`,
+        },
+    });
+    private authMiddleware = (apiClient: ApiClient): Middleware => ({
+        async onRequest({ request, schemaPath }) {
+            if (schemaPath.startsWith("/api/private/unauth") || schemaPath.startsWith("/api/oauth")) {
+                return undefined;
+            }
+            if (await apiClient.validateToken()) {
+                request.headers.set("Authorization", `Bearer ${apiClient.token?.access_token}`);
+                return request;
+            }
+        },
+    });
+    private errorMiddleware = (): Middleware => ({
+        async onResponse({ response }) {
+            if (!response.ok) {
+                throw new ApiClientError(`Error calling Atlas API: ${await response.text()}`, response);
+            }
+        },
+    });
 
     constructor(options: ApiClientOptions) {
         const { token, saveToken } = options;
         this.token = token;
         this.saveToken = saveToken;
-    }
-
-    private defaultOptions(): RequestInit {
-        const authHeaders = !this.token?.access_token
-            ? null
-            : {
-                  Authorization: `Bearer ${this.token.access_token}`,
-              };
-
-        return {
-            method: "GET",
-            credentials: !this.token?.access_token ? undefined : "include",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: `application/vnd.atlas.${config.atlasApiVersion}+json`,
-                "User-Agent": config.userAgent,
-                ...authHeaders,
-            },
-        };
+        this.client.use(this.authMiddleware(this));
+        this.client.use(this.errorMiddleware());
     }
 
     async storeToken(token: OAuthToken): Promise<OAuthToken> {
@@ -84,36 +88,6 @@ export class ApiClient {
         }
 
         return token;
-    }
-
-    async do<T>(endpoint: string, options?: RequestInit): Promise<T> {
-        if (!this.token || !this.token.access_token) {
-            throw new Error("Not authenticated. Please run the auth tool first.");
-        }
-
-        const url = new URL(`api/atlas/v2${endpoint}`, `${config.apiBaseURL}`);
-
-        if (!this.checkTokenExpiry()) {
-            await this.refreshToken();
-        }
-
-        const defaultOpt = this.defaultOptions();
-        const opt = {
-            ...defaultOpt,
-            ...options,
-            headers: {
-                ...defaultOpt.headers,
-                ...options?.headers,
-            },
-        };
-
-        const response = await fetch(url, opt);
-
-        if (!response.ok) {
-            throw new ApiClientError(`Error calling Atlas API: ${await response.text()}`, response);
-        }
-
-        return (await response.json()) as T;
     }
 
     async authenticate(): Promise<OauthDeviceCode> {
@@ -269,58 +243,108 @@ export class ApiClient {
         }
     }
 
-    async listProjects(): Promise<PaginatedAtlasGroupView> {
-        return await this.do<PaginatedAtlasGroupView>("/groups");
+    async listProjects() {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups`);
+        return data;
     }
 
-    async listProjectIpAccessLists(groupId: string): Promise<PaginatedNetworkAccessView> {
-        return await this.do<PaginatedNetworkAccessView>(`/groups/${groupId}/accessList`);
+    async listProjectIpAccessLists(groupId: string) {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/accessList`, {
+            params: {
+                path: {
+                    groupId,
+                }
+            }
+        });
+        return data;
     }
 
     async createProjectIpAccessList(
         groupId: string,
-        entries: NetworkPermissionEntry[]
-    ): Promise<PaginatedNetworkAccessView> {
-        return await this.do<PaginatedNetworkAccessView>(`/groups/${groupId}/accessList`, {
-            method: "POST",
-            body: JSON.stringify(entries),
+        ...entries: NetworkPermissionEntry[]
+    ) {
+        const { data } = await this.client.POST(`/api/atlas/v2/groups/{groupId}/accessList`, {
+            params: {
+                path: {
+                    groupId,
+                }
+            },
+            body: entries,
         });
+        return data;
     }
 
-    async getProject(groupId: string): Promise<Group> {
-        return await this.do<Group>(`/groups/${groupId}`);
-    }
-
-    async listClusters(groupId: string): Promise<PaginatedClusterDescription20240805> {
-        return await this.do<PaginatedClusterDescription20240805>(`/groups/${groupId}/clusters`);
-    }
-
-    async listClustersForAllProjects(): Promise<PaginatedOrgGroupView> {
-        return await this.do<PaginatedOrgGroupView>(`/clusters`);
-    }
-
-    async getCluster(groupId: string, clusterName: string): Promise<ClusterDescription20240805> {
-        return await this.do<ClusterDescription20240805>(`/groups/${groupId}/clusters/${clusterName}`);
-    }
-
-    async createCluster(groupId: string, cluster: ClusterDescription20240805): Promise<ClusterDescription20240805> {
-        if (!cluster.groupId) {
-            throw new Error("Cluster groupId is required");
-        }
-        return await this.do<ClusterDescription20240805>(`/groups/${groupId}/clusters`, {
-            method: "POST",
-            body: JSON.stringify(cluster),
+    async getProject(groupId: string) {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}`, {
+            params: {
+                path: {
+                    groupId,
+                }
+            }
         });
+        return data;
     }
 
-    async createDatabaseUser(groupId: string, user: CloudDatabaseUser): Promise<CloudDatabaseUser> {
-        return await this.do<CloudDatabaseUser>(`/groups/${groupId}/databaseUsers`, {
-            method: "POST",
-            body: JSON.stringify(user),
+    async listClusters(groupId: string) {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/clusters`, {
+            params: {
+                path: {
+                    groupId,
+                }
+            }
         });
+        return data;
     }
 
-    async listDatabaseUsers(groupId: string): Promise<PaginatedApiAtlasDatabaseUserView> {
-        return await this.do<PaginatedApiAtlasDatabaseUserView>(`/groups/${groupId}/databaseUsers`);
+    async listClustersForAllProjects() {
+        const { data } = await this.client.GET(`/api/atlas/v2/clusters`);
+        return data;
+    }
+
+    async getCluster(groupId: string, clusterName: string) {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/clusters/{clusterName}`, {
+            params: {
+                path: {
+                    groupId,
+                    clusterName,
+                }
+            }
+        });
+        return data;
+    }
+
+    async createCluster(groupId: string, cluster: ClusterDescription20240805) {
+        const { data } = await this.client.POST('/api/atlas/v2/groups/{groupId}/clusters', {
+            params: {
+                path: {
+                    groupId,
+                }
+            },
+            body: cluster,
+        });
+        return data;
+    }
+
+    async createDatabaseUser(groupId: string, user: CloudDatabaseUser) {
+        const { data } = await this.client.POST('/api/atlas/v2/groups/{groupId}/databaseUsers', {
+            params: {
+                path: {
+                    groupId,
+                }
+            },
+            body: user,
+        });
+        return data;
+    }
+
+    async listDatabaseUsers(groupId: string) {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/databaseUsers`, {
+            params: {
+                path: {
+                    groupId,
+                }
+            }
+        });
+        return data;
     }
 }

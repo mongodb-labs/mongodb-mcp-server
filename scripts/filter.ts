@@ -22,6 +22,7 @@ function filterOpenapi(openapi: OpenAPIV3_1.Document): OpenAPIV3_1.Document {
         "getProject",
         "createProject",
         "listClusters",
+        "getCluster",
         "createCluster",
         "listClustersForAllProjects",
         "createDatabaseUser",

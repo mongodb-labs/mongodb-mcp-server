@@ -15,7 +15,7 @@ export class InspectAccessListTool extends AtlasToolBase {
 
         const accessList = await this.apiClient.listProjectIpAccessLists(projectId);
 
-        if (!accessList.results?.length) {
+        if (!accessList?.results?.length) {
             throw new Error("No access list entries found.");
         }
 

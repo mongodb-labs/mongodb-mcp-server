@@ -16,7 +16,7 @@ export class ListDBUsersTool extends AtlasToolBase {
 
         const data = await this.apiClient!.listDatabaseUsers(projectId);
 
-        if (!data.results?.length) {
+        if (!data?.results?.length) {
             throw new Error("No database users found.");
         }
 

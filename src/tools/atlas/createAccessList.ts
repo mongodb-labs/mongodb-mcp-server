@@ -44,7 +44,7 @@ export class CreateAccessListTool extends AtlasToolBase {
 
         const inputs = [...ipInputs, ...cidrInputs];
 
-        await this.apiClient.createProjectIpAccessList(projectId, inputs);
+        await this.apiClient.createProjectIpAccessList(projectId, ...inputs);
 
         return {
             content: [

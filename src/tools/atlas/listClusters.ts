@@ -31,8 +31,8 @@ export class ListClustersTool extends AtlasToolBase {
         }
     }
 
-    private formatAllClustersTable(clusters: PaginatedOrgGroupView): CallToolResult {
-        if (!clusters.results?.length) {
+    private formatAllClustersTable(clusters?: PaginatedOrgGroupView): CallToolResult {
+        if (!clusters?.results?.length) {
             throw new Error("No clusters found.");
         }
         const rows = clusters
@@ -59,8 +59,8 @@ ${rows}`,
         };
     }
 
-    private formatClustersTable(project: Group, clusters: PaginatedClusterDescription20240805): CallToolResult {
-        if (!clusters.results?.length) {
+    private formatClustersTable(project: Group, clusters?: PaginatedClusterDescription20240805): CallToolResult {
+        if (!clusters?.results?.length) {
             throw new Error("No clusters found.");
         }
         const rows = clusters

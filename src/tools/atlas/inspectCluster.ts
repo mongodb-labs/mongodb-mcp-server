@@ -20,7 +20,11 @@ export class InspectClusterTool extends AtlasToolBase {
         return this.formatOutput(cluster);
     }
 
-    private formatOutput(cluster: ClusterDescription20240805): CallToolResult {
+    private formatOutput(cluster?: ClusterDescription20240805): CallToolResult {
+        if (!cluster) {
+            throw new Error("Cluster not found");
+        }
+        
         return {
             content: [
                 {
