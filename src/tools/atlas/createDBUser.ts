@@ -59,7 +59,7 @@ export class CreateDBUserTool extends AtlasToolBase {
                     groupId: projectId,
                 },
             },
-            body: input
+            body: input,
         });
 
         return {

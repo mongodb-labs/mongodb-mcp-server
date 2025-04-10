@@ -65,8 +65,7 @@ export class ApiClient {
                 try {
                     const text = await response.text();
                     throw new ApiClientError(`Error calling Atlas API: [${response.statusText}] ${text}`, response);
-                }
-                catch {
+                } catch {
                     throw new ApiClientError(`Error calling Atlas API: ${response.statusText}`, response);
                 }
             }

@@ -29,8 +29,7 @@ export class InspectAccessListTool extends AtlasToolBase {
             content: [
                 {
                     type: "text",
-                    text:
-                        `IP ADDRESS | CIDR | COMMENT
+                    text: `IP ADDRESS | CIDR | COMMENT
 ------|------|------
 ${(accessList.results || [])
     .map((entry) => {
