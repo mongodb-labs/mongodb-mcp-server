@@ -252,6 +252,30 @@ export class ApiClient {
         }
     }
 
+    async getIpInfo() {
+        await this.validateToken();
+
+        const endpoint = "api/private/ipinfo";
+        const url = new URL(endpoint, config.apiBaseUrl);
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${this.token?.access_token}`,
+                "User-Agent": config.userAgent,
+            },
+        });
+
+        if (!response.ok) {
+            throw await ApiClientError.fromResponse(response);
+        }
+
+        const responseBody = await response.json();
+        return responseBody as {
+            currentIpv4Address: string;
+        };
+    }
+
     async listProjects(options?: FetchOptions<operations["listProjects"]>) {
         const { data } = await this.client.GET(`/api/atlas/v2/groups`, options);
         return data;

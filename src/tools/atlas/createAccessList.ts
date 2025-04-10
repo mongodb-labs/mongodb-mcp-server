@@ -15,6 +15,7 @@ export class CreateAccessListTool extends AtlasToolBase {
             .describe("IP addresses to allow access from")
             .optional(),
         cidrBlocks: z.array(z.string().cidr()).describe("CIDR blocks to allow access from").optional(),
+        currentIpAddress: z.boolean().describe("Add the current IP address").default(false),
         comment: z.string().describe("Comment for the access list entries").default(DEFAULT_COMMENT).optional(),
     };
 
@@ -23,11 +24,12 @@ export class CreateAccessListTool extends AtlasToolBase {
         ipAddresses,
         cidrBlocks,
         comment,
+        currentIpAddress,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         await this.ensureAuthenticated();
 
-        if (!ipAddresses?.length && !cidrBlocks?.length) {
-            throw new Error("Either ipAddresses or cidrBlocks must be provided.");
+        if (!ipAddresses?.length && !cidrBlocks?.length && !currentIpAddress) {
+            throw new Error("One of  ipAddresses, cidrBlocks, currentIpAddress must be provided.");
         }
 
         const ipInputs = (ipAddresses || []).map((ipAddress) => ({
@@ -35,6 +37,16 @@ export class CreateAccessListTool extends AtlasToolBase {
             ipAddress,
             comment: comment || DEFAULT_COMMENT,
         }));
+
+        if (currentIpAddress) {
+            const currentIp = await this.apiClient!.getIpInfo();
+            const input = {
+                groupId: projectId,
+                ipAddress: currentIp.currentIpv4Address,
+                comment: comment || DEFAULT_COMMENT,
+            };
+            ipInputs.push(input);
+        }
 
         const cidrInputs = (cidrBlocks || []).map((cidrBlock) => ({
             groupId: projectId,
