@@ -16,8 +16,6 @@ interface UserConfig extends Record<string, string> {
     projectId: string;
 }
 
-const cliConfig = argv(process.argv.slice(2)) as unknown as Partial<UserConfig>;
-
 const defaults: UserConfig = {
     apiBaseUrl: "https://cloud.mongodb.com/",
     clientId: "0oabtxactgS3gHIR0297",
@@ -25,7 +23,7 @@ const defaults: UserConfig = {
     projectId: "",
 };
 
-const mergedUserConfig = mergeConfigs(defaults, getFileConfig(), getEnvConfig(), cliConfig);
+const mergedUserConfig = Object.assign({}, defaults, getFileConfig(), getEnvConfig(), getCliConfig());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -93,17 +91,7 @@ function getFileConfig(): Partial<UserConfig> {
     }
 }
 
-// Merges several user-supplied configs into one. The precedence is from right to left where the last
-// config in the `partialConfigs` array overrides the previous ones. The `defaults` config is used as a base.
-function mergeConfigs(defaults: UserConfig, ...partialConfigs: Array<Partial<UserConfig>>): UserConfig {
-    const mergedConfig: UserConfig = { ...defaults };
-    for (const key of Object.keys(defaults)) {
-        for (const partialConfig of partialConfigs) {
-            if (partialConfig[key]) {
-                mergedConfig[key] = partialConfig[key];
-            }
-        }
-    }
-
-    return mergedConfig;
+// Reads the cli args and parses them into a UserConfig object.
+function getCliConfig() {
+    return argv(process.argv.slice(2)) as unknown as Partial<UserConfig>;
 }
