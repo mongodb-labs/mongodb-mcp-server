@@ -8,10 +8,11 @@ const { localDataPath, configPath } = getLocalDataPath();
 
 // If we decide to support non-string config options, we'll need to extend the mechanism for parsing
 // env variables.
-interface UserConfig extends Record<string, string> {
+interface UserConfig extends Record<string, string | undefined> {
     apiBaseUrl: string;
     clientId: string;
     stateFile: string;
+    connectionString?: string;
 }
 
 const defaults: UserConfig = {

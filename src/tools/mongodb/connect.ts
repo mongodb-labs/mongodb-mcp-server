@@ -5,6 +5,7 @@ import { DbOperationType, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 import { ErrorCodes, MongoDBError } from "../../errors.js";
 import { saveState } from "../../state.js";
+import config from "../../config.js";
 
 export class ConnectTool extends MongoDBToolBase {
     protected name = "connect";
@@ -21,7 +22,7 @@ export class ConnectTool extends MongoDBToolBase {
     protected async execute({
         connectionStringOrClusterName,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        connectionStringOrClusterName ??= this.state.connectionString;
+        connectionStringOrClusterName ??= config.connectionString || this.state.connectionString;
         if (!connectionStringOrClusterName) {
             return {
                 content: [
