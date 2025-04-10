@@ -4,7 +4,7 @@ import argv from "yargs-parser";
 
 import packageJson from "../package.json" with { type: "json" };
 import fs from "fs";
-const localDataPath = getLocalDataPath();
+const { localDataPath, configPath } = getLocalDataPath();
 
 // If we decide to support non-string config options, we'll need to extend the mechanism for parsing
 // env variables.
@@ -37,22 +37,28 @@ const config = {
 
 export default config;
 
-function getLocalDataPath(): string {
-    let result: string | undefined;
+function getLocalDataPath(): { localDataPath: string; configPath: string } {
+    let localDataPath: string | undefined;
+    let configPath: string | undefined;
 
     if (process.platform === "win32") {
         const appData = process.env.APPDATA;
         const localAppData = process.env.LOCALAPPDATA ?? process.env.APPDATA;
         if (localAppData && appData) {
-            result = path.join(localAppData, "mongodb", "mongodb-mcp");
+            localDataPath = path.join(localAppData, "mongodb", "mongodb-mcp");
+            configPath = path.join(localAppData, "mongodb", "mongodb-mcp.conf");
         }
     }
 
-    result ??= path.join(os.homedir(), ".mongodb", "mongodb-mcp");
+    localDataPath ??= path.join(os.homedir(), ".mongodb", "mongodb-mcp");
+    configPath ??= "/etc/mongodb-mcp.conf";
 
-    fs.mkdirSync(result, { recursive: true });
+    fs.mkdirSync(localDataPath, { recursive: true });
 
-    return result;
+    return {
+        localDataPath,
+        configPath,
+    };
 }
 
 // Gets the config supplied by the user as environment variables. The variable names
@@ -77,8 +83,6 @@ function getEnvConfig(): Partial<UserConfig> {
 // Gets the config supplied by the user as a JSON file. The file is expected to be located in the local data path
 // and named `config.json`.
 function getFileConfig(): Partial<UserConfig> {
-    const configPath = path.join(localDataPath, "config.json");
-
     try {
         const config = fs.readFileSync(configPath, "utf8");
         return JSON.parse(config);
