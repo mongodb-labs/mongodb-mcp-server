@@ -5,7 +5,7 @@ import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { registerAtlasTools } from "./tools/atlas/tools.js";
 import { registerMongoDBTools } from "./tools/mongodb/index.js";
 import { config } from "./config.js";
-import log, { initializeLogger } from "./logger.js";
+import logger, { initializeLogger } from "./logger.js";
 import { mongoLogId } from "mongodb-log-writer";
 
 export class Server {
@@ -32,8 +32,6 @@ export class Server {
             },
         });
 
-        await initializeLogger();
-
         this.initialized = true;
     }
 
@@ -42,6 +40,8 @@ export class Server {
             name: "MongoDB Atlas",
             version: config.version,
         });
+
+        server.server.registerCapabilities({ logging: {} });
 
         registerAtlasTools(server, this.state!, this.apiClient!);
         registerMongoDBTools(server, this.state!);
@@ -53,7 +53,8 @@ export class Server {
         await this.init();
         const server = this.createMcpServer();
         await server.connect(transport);
+        await initializeLogger(server);
 
-        log.info(mongoLogId(1_000_004), "server", `Server started with transport ${transport.constructor.name}`);
+        logger.info(mongoLogId(1_000_004), "server", `Server started with transport ${transport.constructor.name}`);
     }
 }

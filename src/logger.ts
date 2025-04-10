@@ -3,10 +3,103 @@ import path from "path";
 import config from "./config.js";
 import redact from "mongodb-redact";
 import fs from "fs/promises";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { LoggingMessageNotification } from "@modelcontextprotocol/sdk/types.js";
 
-let logWriter: MongoLogWriter | undefined = undefined;
+export type LogLevel = LoggingMessageNotification["params"]["level"];
 
-export async function initializeLogger(): Promise<void> {
+abstract class LoggerBase {
+    abstract log(level: LogLevel, id: MongoLogId, context: string, message: string): void;
+    info(id: MongoLogId, context: string, message: string): void {
+        this.log("info", id, context, message);
+    }
+
+    error(id: MongoLogId, context: string, message: string): void {
+        this.log("error", id, context, message);
+    }
+    debug(id: MongoLogId, context: string, message: string): void {
+        this.log("debug", id, context, message);
+    }
+
+    notice(id: MongoLogId, context: string, message: string): void {
+        this.log("notice", id, context, message);
+    }
+
+    warning(id: MongoLogId, context: string, message: string): void {
+        this.log("warning", id, context, message);
+    }
+
+    critical(id: MongoLogId, context: string, message: string): void {
+        this.log("critical", id, context, message);
+    }
+
+    alert(id: MongoLogId, context: string, message: string): void {
+        this.log("alert", id, context, message);
+    }
+
+    emergency(id: MongoLogId, context: string, message: string): void {
+        this.log("emergency", id, context, message);
+    }
+}
+
+class ConsoleLogger extends LoggerBase {
+    log(level: LogLevel, id: MongoLogId, context: string, message: string): void {
+        message = redact(message);
+        console.error(`[${level.toUpperCase()}] ${id} - ${context}: ${message}`);
+    }
+}
+
+class Logger extends LoggerBase {
+    constructor(
+        private logWriter: MongoLogWriter,
+        private server: McpServer
+    ) {
+        super();
+    }
+
+    log(level: LogLevel, id: MongoLogId, context: string, message: string): void {
+        message = redact(message);
+        const mongoDBLevel = this.mapToMongoDBLogLevel(level);
+        this.logWriter[mongoDBLevel]("MONGODB-MCP", id, context, message);
+        this.server.server.sendLoggingMessage({
+            level,
+            data: `[${context}]: ${message}`,
+        });
+    }
+
+    private mapToMongoDBLogLevel(level: LogLevel): "info" | "warn" | "error" | "debug" | "fatal" {
+        switch (level) {
+            case "info":
+                return "info";
+            case "warning":
+                return "warn";
+            case "error":
+                return "error";
+            case "notice":
+            case "debug":
+                return "debug";
+            case "critical":
+            case "alert":
+            case "emergency":
+                return "fatal";
+            default:
+                return "info";
+        }
+    }
+}
+
+class ProxyingLogger extends LoggerBase {
+    private internalLogger: LoggerBase = new ConsoleLogger();
+
+    log(level: LogLevel, id: MongoLogId, context: string, message: string): void {
+        this.internalLogger.log(level, id, context, message);
+    }
+}
+
+const logger = new ProxyingLogger();
+export default logger;
+
+export async function initializeLogger(server: McpServer): Promise<void> {
     const logDir = path.join(config.localDataPath, ".app-logs");
     await fs.mkdir(logDir, { recursive: true });
 
@@ -21,37 +114,6 @@ export async function initializeLogger(): Promise<void> {
 
     await manager.cleanupOldLogFiles();
 
-    logWriter = await manager.createLogWriter();
+    const logWriter = await manager.createLogWriter();
+    logger["internalLogger"] = new Logger(logWriter, server);
 }
-
-const log = {
-    log(level: "info" | "warn" | "error" | "debug" | "fatal", id: MongoLogId, context: string, message: string): void {
-        message = redact(message);
-        if (logWriter) {
-            logWriter[level]("MONGODB-MCP", id, context, message);
-        } else {
-            console.error(
-                `[${level.toUpperCase()}] Logger not initialized, dropping message: ${message}, context: ${context}, id: ${id}`
-            );
-        }
-    },
-
-    info(id: MongoLogId, context: string, message: string): void {
-        this.log("info", id, context, message);
-    },
-
-    warn(id: MongoLogId, context: string, message: string): void {
-        this.log("warn", id, context, message);
-    },
-    error(id: MongoLogId, context: string, message: string): void {
-        this.log("error", id, context, message);
-    },
-    debug(id: MongoLogId, context: string, message: string): void {
-        this.log("debug", id, context, message);
-    },
-    fatal(id: MongoLogId, context: string, message: string): void {
-        this.log("fatal", id, context, message);
-    },
-};
-
-export default log;
