@@ -19,7 +19,7 @@ jobs:
               run: npm ci
             - name: Run style check
               run: npm run check
-    
+
     run-tests:
         runs-on: ubuntu-latest
         steps:

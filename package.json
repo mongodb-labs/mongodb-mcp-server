@@ -29,9 +29,7 @@
     "check:format": "prettier -c .",
     "reformat": "prettier --write .",
     "generate": "./scripts/generate.sh",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
-    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+    "test": "jest"
   },
   "license": "Apache-2.0",
   "devDependencies": {

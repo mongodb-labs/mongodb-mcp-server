@@ -2,7 +2,6 @@
 
 This directory contains tests for the Atlas MCP Server. We use Jest as our testing framework along with TypeScript.
 
-
 ## Running Tests
 
 You can run tests using the following npm scripts:
