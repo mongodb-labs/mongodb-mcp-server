@@ -19,7 +19,7 @@ const cliConfig = argv(process.argv.slice(2)) as unknown as Partial<UserConfig>;
 const defaults: UserConfig = {
     apiBaseUrl: "https://cloud.mongodb.com/",
     clientId: "0oabtxactgS3gHIR0297",
-    stateFile: path.resolve("./state.json"),
+    stateFile: path.join(getLocalDataPath(), "state.json"),
     projectId: "",
 };
 
