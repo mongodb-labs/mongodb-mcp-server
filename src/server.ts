@@ -4,7 +4,7 @@ import { State, saveState, loadState } from "./state.js";
 import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { registerAtlasTools } from "./tools/atlas/tools.js";
 import { registerMongoDBTools } from "./tools/mongodb/index.js";
-import { config } from "./config.js";
+import config from "./config.js";
 import logger, { initializeLogger } from "./logger.js";
 import { mongoLogId } from "mongodb-log-writer";
 
