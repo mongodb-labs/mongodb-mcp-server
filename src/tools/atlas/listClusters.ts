@@ -47,8 +47,8 @@ export class ListClustersTool extends AtlasToolBase {
         if (!clusters?.results?.length) {
             throw new Error("No clusters found.");
         }
-        const rows = clusters
-            .results!.map((result) => {
+        const rows = clusters.results
+            .map((result) => {
                 return (result.clusters || []).map((cluster) => {
                     return { ...result, ...cluster, clusters: undefined };
                 });
@@ -75,8 +75,8 @@ ${rows}`,
         if (!clusters?.results?.length) {
             throw new Error("No clusters found.");
         }
-        const rows = clusters
-            .results!.map((cluster) => {
+        const rows = clusters.results
+            .map((cluster) => {
                 const connectionString = cluster.connectionStrings?.standard || "N/A";
                 const mongoDBVersion = cluster.mongoDBVersion || "N/A";
                 return `${cluster.name} | ${cluster.stateName} | ${mongoDBVersion} | ${connectionString}`;

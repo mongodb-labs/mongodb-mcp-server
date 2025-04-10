@@ -40,6 +40,3 @@ export class State {
         }
     }
 }
-
-const defaultState = new State();
-export default defaultState;

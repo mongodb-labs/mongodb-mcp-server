@@ -9,5 +9,11 @@ export default defineConfig([
     { files: ["src/**/*.ts"], languageOptions: { globals: globals.node } },
     tseslint.configs.recommended,
     eslintConfigPrettier,
+    {
+        files: ["src/**/*.ts"],
+        rules: {
+            "@typescript-eslint/no-non-null-assertion": "error",
+        },
+    },
     globalIgnores(["node_modules", "dist"]),
 ]);

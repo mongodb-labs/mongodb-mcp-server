@@ -2,6 +2,7 @@ import config from "../../config.js";
 import createClient, { FetchOptions, Middleware } from "openapi-fetch";
 
 import { paths, operations } from "./openapi.js";
+import { State } from "../../state.js";
 
 export interface OAuthToken {
     access_token: string;
@@ -83,6 +84,18 @@ export class ApiClient {
         this.saveToken = saveToken;
         this.client.use(this.authMiddleware(this));
         this.client.use(this.errorMiddleware());
+    }
+
+    static fromState(state: State): ApiClient {
+        return new ApiClient({
+            token: state.credentials.auth.token,
+            saveToken: async (token) => {
+                state.credentials.auth.code = undefined;
+                state.credentials.auth.token = token;
+                state.credentials.auth.status = "issued";
+                await state.persistCredentials();
+            },
+        });
     }
 
     async storeToken(token: OAuthToken): Promise<OAuthToken> {

@@ -53,7 +53,7 @@ export class CreateDBUserTool extends AtlasToolBase {
                 : undefined,
         } as CloudDatabaseUser;
 
-        await this.apiClient!.createDatabaseUser({
+        await this.apiClient.createDatabaseUser({
             params: {
                 path: {
                     groupId: projectId,
