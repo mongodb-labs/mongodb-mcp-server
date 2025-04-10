@@ -1,5 +1,5 @@
 import { ToolBase } from "../tool.js";
-import { ApiClient } from "../../common/atlas/client.js";
+import { ApiClient } from "../../common/atlas/apiClient.js";
 import { State } from "../../state.js";
 import { ensureAuthenticated } from "../../common/atlas/auth.js";
 

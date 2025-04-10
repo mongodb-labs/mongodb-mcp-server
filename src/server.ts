@@ -1,5 +1,5 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { ApiClient } from "./common/atlas/client.js";
+import { ApiClient } from "./common/atlas/apiClient.js";
 import { State, saveState, loadState } from "./state.js";
 import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { registerAtlasTools } from "./tools/atlas/tools.js";

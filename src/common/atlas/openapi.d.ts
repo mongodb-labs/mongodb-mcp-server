@@ -96,6 +96,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/atlas/v2/groups/{groupId}/databaseUsers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Return All Database Users from One Project
+         * @description Returns all database users that belong to the specified project. To use this resource, the requesting Service Account or API Key must have the Project Read Only role.
+         */
+        get: operations["listDatabaseUsers"];
+        put?: never;
+        /**
+         * Create One Database User in One Project
+         * @description Creates one database user in the specified project. This MongoDB Cloud supports a maximum of 100 database users per project. If you require more than 100 database users on a project, contact Support. To use this resource, the requesting Service Account or API Key must have the Project Owner role, the Project Charts Admin role, Project Stream Processing Owner role, or the Project Database Access Admin role.
+         */
+        post: operations["createDatabaseUser"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1600,6 +1624,77 @@ export interface components {
             readonly type?: "REPLICA_SET" | "SHARDED_CLUSTER";
             /** @description List that contains the versions of MongoDB that each node in the cluster runs. */
             readonly versions?: string[];
+        };
+        CloudDatabaseUser: {
+            /**
+             * @description Human-readable label that indicates whether the new database user authenticates with the Amazon Web Services (AWS) Identity and Access Management (IAM) credentials associated with the user or the user's role.
+             * @default NONE
+             * @enum {string}
+             */
+            awsIAMType: "NONE" | "USER" | "ROLE";
+            /**
+             * @description The database against which the database user authenticates. Database users must provide both a username and authentication database to log into MongoDB. If the user authenticates with AWS IAM, x.509, LDAP, or OIDC Workload this value should be `$external`. If the user authenticates with SCRAM-SHA or OIDC Workforce, this value should be `admin`.
+             * @default admin
+             * @enum {string}
+             */
+            databaseName: "admin" | "$external";
+            /**
+             * Format: date-time
+             * @description Date and time when MongoDB Cloud deletes the user. This parameter expresses its value in the ISO 8601 timestamp format in UTC and can include the time zone designation. You must specify a future date that falls within one week of making the Application Programming Interface (API) request.
+             */
+            deleteAfterDate?: string;
+            /** @description Description of this database user. */
+            description?: string;
+            /** @description Unique 24-hexadecimal digit string that identifies the project. */
+            groupId: string;
+            /** @description List that contains the key-value pairs for tagging and categorizing the MongoDB database user. The labels that you define do not appear in the console. */
+            labels?: components["schemas"]["ComponentLabel"][];
+            /**
+             * @description Part of the Lightweight Directory Access Protocol (LDAP) record that the database uses to authenticate this database user on the LDAP host.
+             * @default NONE
+             * @enum {string}
+             */
+            ldapAuthType: "NONE" | "GROUP" | "USER";
+            /** @description List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships. */
+            readonly links?: components["schemas"]["Link"][];
+            /**
+             * @description Human-readable label that indicates whether the new database user or group authenticates with OIDC federated authentication. To create a federated authentication user, specify the value of USER in this field. To create a federated authentication group, specify the value of IDP_GROUP in this field.
+             * @default NONE
+             * @enum {string}
+             */
+            oidcAuthType: "NONE" | "IDP_GROUP" | "USER";
+            /** @description Alphanumeric string that authenticates this database user against the database specified in `databaseName`. To authenticate with SCRAM-SHA, you must specify this parameter. This parameter doesn't appear in this response. */
+            password?: string;
+            /** @description List that provides the pairings of one role with one applicable database. */
+            roles?: components["schemas"]["DatabaseUserRole"][];
+            /** @description List that contains clusters, MongoDB Atlas Data Lakes, and MongoDB Atlas Streams Instances that this database user can access. If omitted, MongoDB Cloud grants the database user access to all the clusters, MongoDB Atlas Data Lakes, and MongoDB Atlas Streams Instances in the project. */
+            scopes?: components["schemas"]["UserScope"][];
+            /** @description Human-readable label that represents the user that authenticates to MongoDB. The format of this label depends on the method of authentication:
+             *
+             *     | Authentication Method | Parameter Needed | Parameter Value | username Format |
+             *     |---|---|---|---|
+             *     | AWS IAM | awsIAMType | ROLE | <abbr title="Amazon Resource Name">ARN</abbr> |
+             *     | AWS IAM | awsIAMType | USER | <abbr title="Amazon Resource Name">ARN</abbr> |
+             *     | x.509 | x509Type | CUSTOMER | [RFC 2253](https://tools.ietf.org/html/2253) Distinguished Name |
+             *     | x.509 | x509Type | MANAGED | [RFC 2253](https://tools.ietf.org/html/2253) Distinguished Name |
+             *     | LDAP | ldapAuthType | USER | [RFC 2253](https://tools.ietf.org/html/2253) Distinguished Name |
+             *     | LDAP | ldapAuthType | GROUP | [RFC 2253](https://tools.ietf.org/html/2253) Distinguished Name |
+             *     | OIDC Workforce | oidcAuthType | IDP_GROUP | Atlas OIDC IdP ID (found in federation settings), followed by a '/', followed by the IdP group name |
+             *     | OIDC Workload | oidcAuthType | USER | Atlas OIDC IdP ID (found in federation settings), followed by a '/', followed by the IdP user name |
+             *     | SCRAM-SHA | awsIAMType, x509Type, ldapAuthType, oidcAuthType | NONE | Alphanumeric string |
+             *      */
+            username: string;
+            /**
+             * @description X.509 method that MongoDB Cloud uses to authenticate the database user.
+             *
+             *     - For application-managed X.509, specify `MANAGED`.
+             *     - For self-managed X.509, specify `CUSTOMER`.
+             *
+             *     Users created with the `CUSTOMER` method require a Common Name (CN) in the **username** parameter. You must create externally authenticated users on the `$external` database.
+             * @default NONE
+             * @enum {string}
+             */
+            x509Type: "NONE" | "CUSTOMER" | "MANAGED";
         };
         CloudGCPProviderSettings: Omit<components["schemas"]["ClusterProviderSettings"], "providerName"> & {
             autoScaling?: components["schemas"]["CloudProviderGCPAutoScaling"];
@@ -3387,6 +3482,32 @@ export interface components {
             readonly cloudProvider?: "AWS" | "AZURE" | "GCP";
         };
         /**
+         * Database User Role
+         * @description Range of resources available to this database user.
+         */
+        DatabaseUserRole: {
+            /** @description Collection on which this role applies. */
+            collectionName?: string;
+            /** @description Database to which the user is granted access privileges. */
+            databaseName: string;
+            /**
+             * @description Human-readable label that identifies a group of privileges assigned to a database user. This value can either be a built-in role or a custom role.
+             * @enum {string}
+             */
+            roleName:
+                | "atlasAdmin"
+                | "backup"
+                | "clusterMonitor"
+                | "dbAdmin"
+                | "dbAdminAnyDatabase"
+                | "enableSharding"
+                | "read"
+                | "readAnyDatabase"
+                | "readWrite"
+                | "readWriteAnyDatabase"
+                | "<a custom role name>";
+        };
+        /**
          * Archival Criteria
          * @description **DATE criteria.type**.
          */
@@ -4876,6 +4997,18 @@ export interface components {
                 | "ORG_MEMBER"
             )[];
         };
+        /** @description List of MongoDB Database users granted access to databases in the specified project. */
+        PaginatedApiAtlasDatabaseUserView: {
+            /** @description List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships. */
+            readonly links?: components["schemas"]["Link"][];
+            /** @description List of returned documents that MongoDB Cloud provides when completing this request. */
+            readonly results?: components["schemas"]["CloudDatabaseUser"][];
+            /**
+             * Format: int32
+             * @description Total number of documents available. MongoDB Cloud omits this value if `includeCount` is set to `false`. The total number is an estimate and may not be exact.
+             */
+            readonly totalCount?: number;
+        };
         PaginatedAtlasGroupView: {
             /** @description List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships. */
             readonly links?: components["schemas"]["Link"][];
@@ -6049,6 +6182,19 @@ export interface components {
              */
             type: "kStemming";
         };
+        /**
+         * Database User Scope
+         * @description Range of resources available to this database user.
+         */
+        UserScope: {
+            /** @description Human-readable label that identifies the cluster or MongoDB Atlas Data Lake that this database user can access. */
+            name: string;
+            /**
+             * @description Category of resource that this database user can access.
+             * @enum {string}
+             */
+            type: "CLUSTER" | "DATA_LAKE" | "STREAM";
+        };
         /** Vector Search Host Status Detail */
         VectorSearchHostStatusDetail: {
             /** @description Hostname that corresponds to the status detail. */
@@ -6742,6 +6888,7 @@ export type BillingInvoiceMetadata = components["schemas"]["BillingInvoiceMetada
 export type BillingPayment = components["schemas"]["BillingPayment"];
 export type BillingRefund = components["schemas"]["BillingRefund"];
 export type CloudCluster = components["schemas"]["CloudCluster"];
+export type CloudDatabaseUser = components["schemas"]["CloudDatabaseUser"];
 export type CloudGcpProviderSettings = components["schemas"]["CloudGCPProviderSettings"];
 export type CloudProviderAwsAutoScaling = components["schemas"]["CloudProviderAWSAutoScaling"];
 export type CloudProviderAccessAwsiamRole = components["schemas"]["CloudProviderAccessAWSIAMRole"];
@@ -6812,6 +6959,7 @@ export type DataLakePipelinesPartitionField = components["schemas"]["DataLakePip
 export type DataLakeS3StoreSettings = components["schemas"]["DataLakeS3StoreSettings"];
 export type DataLakeStoreSettings = components["schemas"]["DataLakeStoreSettings"];
 export type DataProcessRegionView = components["schemas"]["DataProcessRegionView"];
+export type DatabaseUserRole = components["schemas"]["DatabaseUserRole"];
 export type DateCriteriaView = components["schemas"]["DateCriteriaView"];
 export type DedicatedHardwareSpec = components["schemas"]["DedicatedHardwareSpec"];
 export type DedicatedHardwareSpec20240805 = components["schemas"]["DedicatedHardwareSpec20240805"];
@@ -6858,6 +7006,7 @@ export type OrgGroup = components["schemas"]["OrgGroup"];
 export type OrgPendingUserResponse = components["schemas"]["OrgPendingUserResponse"];
 export type OrgUserResponse = components["schemas"]["OrgUserResponse"];
 export type OrgUserRolesResponse = components["schemas"]["OrgUserRolesResponse"];
+export type PaginatedApiAtlasDatabaseUserView = components["schemas"]["PaginatedApiAtlasDatabaseUserView"];
 export type PaginatedAtlasGroupView = components["schemas"]["PaginatedAtlasGroupView"];
 export type PaginatedClusterDescription20240805 = components["schemas"]["PaginatedClusterDescription20240805"];
 export type PaginatedOrgGroupView = components["schemas"]["PaginatedOrgGroupView"];
@@ -6908,6 +7057,7 @@ export type TokenFilterSpanishPluralStemming = components["schemas"]["TokenFilte
 export type TokenFilterStempel = components["schemas"]["TokenFilterStempel"];
 export type TokenFilterWordDelimiterGraph = components["schemas"]["TokenFilterWordDelimiterGraph"];
 export type TokenFilterkStemming = components["schemas"]["TokenFilterkStemming"];
+export type UserScope = components["schemas"]["UserScope"];
 export type VectorSearchHostStatusDetail = components["schemas"]["VectorSearchHostStatusDetail"];
 export type VectorSearchIndex = components["schemas"]["VectorSearchIndex"];
 export type VectorSearchIndexCreateRequest = components["schemas"]["VectorSearchIndexCreateRequest"];
@@ -7171,6 +7321,85 @@ export interface operations {
             401: components["responses"]["unauthorized"];
             402: components["responses"]["paymentRequired"];
             403: components["responses"]["forbidden"];
+            409: components["responses"]["conflict"];
+            500: components["responses"]["internalServerError"];
+        };
+    };
+    listDatabaseUsers: {
+        parameters: {
+            query?: {
+                /** @description Flag that indicates whether Application wraps the response in an `envelope` JSON object. Some API clients cannot access the HTTP response headers or status code. To remediate this, set envelope=true in the query. Endpoints that return a list of results use the results object as an envelope. Application adds the status parameter to the response body. */
+                envelope?: components["parameters"]["envelope"];
+                /** @description Flag that indicates whether the response returns the total number of items (**totalCount**) in the response. */
+                includeCount?: components["parameters"]["includeCount"];
+                /** @description Number of items that the response returns per page. */
+                itemsPerPage?: components["parameters"]["itemsPerPage"];
+                /** @description Number of the page that displays the current set of the total objects that the response returns. */
+                pageNum?: components["parameters"]["pageNum"];
+                /** @description Flag that indicates whether the response body should be in the prettyprint format. */
+                pretty?: components["parameters"]["pretty"];
+            };
+            header?: never;
+            path: {
+                /** @description Unique 24-hexadecimal digit string that identifies your project. Use the [/groups](#tag/Projects/operation/listProjects) endpoint to retrieve all projects to which the authenticated user has access.
+                 *
+                 *     **NOTE**: Groups and projects are synonymous terms. Your group id is the same as your project id. For existing groups, your group/project id remains the same. The resource and corresponding endpoints use the term groups. */
+                groupId: components["parameters"]["groupId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/vnd.atlas.2023-01-01+json": components["schemas"]["PaginatedApiAtlasDatabaseUserView"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            500: components["responses"]["internalServerError"];
+        };
+    };
+    createDatabaseUser: {
+        parameters: {
+            query?: {
+                /** @description Flag that indicates whether Application wraps the response in an `envelope` JSON object. Some API clients cannot access the HTTP response headers or status code. To remediate this, set envelope=true in the query. Endpoints that return a list of results use the results object as an envelope. Application adds the status parameter to the response body. */
+                envelope?: components["parameters"]["envelope"];
+                /** @description Flag that indicates whether the response body should be in the prettyprint format. */
+                pretty?: components["parameters"]["pretty"];
+            };
+            header?: never;
+            path: {
+                /** @description Unique 24-hexadecimal digit string that identifies your project. Use the [/groups](#tag/Projects/operation/listProjects) endpoint to retrieve all projects to which the authenticated user has access.
+                 *
+                 *     **NOTE**: Groups and projects are synonymous terms. Your group id is the same as your project id. For existing groups, your group/project id remains the same. The resource and corresponding endpoints use the term groups. */
+                groupId: components["parameters"]["groupId"];
+            };
+            cookie?: never;
+        };
+        /** @description Creates one database user in the specified project. */
+        requestBody: {
+            content: {
+                "application/vnd.atlas.2023-01-01+json": components["schemas"]["CloudDatabaseUser"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/vnd.atlas.2023-01-01+json": components["schemas"]["CloudDatabaseUser"];
+                };
+            };
+            400: components["responses"]["badRequest"];
+            401: components["responses"]["unauthorized"];
+            403: components["responses"]["forbidden"];
+            404: components["responses"]["notFound"];
             409: components["responses"]["conflict"];
             500: components["responses"]["internalServerError"];
         };

@@ -6,6 +6,8 @@ import {
     PaginatedAtlasGroupView,
     ClusterDescription20240805,
     PaginatedClusterDescription20240805,
+    CloudDatabaseUser,
+    PaginatedApiAtlasDatabaseUserView,
 } from "./openapi.js";
 
 export interface OAuthToken {
@@ -293,5 +295,16 @@ export class ApiClient {
             method: "POST",
             body: JSON.stringify(cluster),
         });
+    }
+
+    async createDatabaseUser(groupId: string, user: CloudDatabaseUser): Promise<CloudDatabaseUser> {
+        return await this.do<CloudDatabaseUser>(`/groups/${groupId}/databaseUsers`, {
+            method: "POST",
+            body: JSON.stringify(user),
+        });
+    }
+
+    async listDatabaseUsers(groupId: string): Promise<PaginatedApiAtlasDatabaseUserView> {
+        return await this.do<PaginatedApiAtlasDatabaseUserView>(`/groups/${groupId}/databaseUsers`);
     }
 }

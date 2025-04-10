@@ -1,4 +1,4 @@
-import { ApiClient } from "./client";
+import { ApiClient } from "./apiClient";
 import { State } from "../../state";
 
 export async function ensureAuthenticated(state: State, apiClient: ApiClient): Promise<void> {
