@@ -46,7 +46,7 @@ function getLocalDataPath(): { localDataPath: string; configPath: string } {
         const localAppData = process.env.LOCALAPPDATA ?? process.env.APPDATA;
         if (localAppData && appData) {
             localDataPath = path.join(localAppData, "mongodb", "mongodb-mcp");
-            configPath = path.join(localAppData, "mongodb", "mongodb-mcp.conf");
+            configPath = path.join(localDataPath, "mongodb-mcp.conf");
         }
     }
 
