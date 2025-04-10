@@ -1,4 +1,4 @@
-import { jest, describe, it, expect, beforeEach } from "@jest/globals";
+import { jest, describe, it, expect } from "@jest/globals";
 import { runServer } from "../../src/index";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio";
 
@@ -21,7 +21,7 @@ jest.mock("../../src/server.ts", () => {
 
 describe("Server initialization", () => {
     it("should create a server instance", async () => {
-        const server = await runServer();
+        await runServer();
         expect(StdioServerTransport).toHaveBeenCalled();
     });
 });
