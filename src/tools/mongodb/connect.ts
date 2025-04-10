@@ -21,7 +21,7 @@ export class ConnectTool extends MongoDBToolBase {
     protected async execute({
         connectionStringOrClusterName,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        connectionStringOrClusterName ??= this.state.connectionString;
+        connectionStringOrClusterName ??= this.state.persistent.connectionString;
         if (!connectionStringOrClusterName) {
             return {
                 content: [
@@ -71,8 +71,8 @@ export class ConnectTool extends MongoDBToolBase {
             productName: "MongoDB MCP",
         });
 
-        this.mongodbState.serviceProvider = provider;
-        this.state.connectionString = connectionString;
+        this.state.session.serviceProvider = provider;
+        this.state.persistent.connectionString = connectionString;
         await saveState(this.state);
     }
 }

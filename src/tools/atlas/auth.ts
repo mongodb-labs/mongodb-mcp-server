@@ -25,9 +25,9 @@ export class AuthTool extends AtlasToolBase {
         try {
             const code = await this.apiClient.authenticate();
 
-            this.state.auth.status = "requested";
-            this.state.auth.code = code;
-            this.state.auth.token = undefined;
+            this.state.persistent.auth.status = "requested";
+            this.state.persistent.auth.code = code;
+            this.state.persistent.auth.token = undefined;
 
             await saveState(this.state);
 

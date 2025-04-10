@@ -1,33 +1,51 @@
-import fs from "fs/promises";
-import config from "./config.js";
 import { OauthDeviceCode, OAuthToken } from "./common/atlas/apiClient.js";
+import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
+import { AsyncEntry } from "@napi-rs/keyring";
+import logger from "./logger.js";
+import { mongoLogId } from "mongodb-log-writer";
+
+const entry = new AsyncEntry("mongodb-mcp", "credentials");
 
 export interface State {
-    auth: {
-        status: "not_auth" | "requested" | "issued";
-        code?: OauthDeviceCode;
-        token?: OAuthToken;
+    persistent: {
+        auth: {
+            status: "not_auth" | "requested" | "issued";
+            code?: OauthDeviceCode;
+            token?: OAuthToken;
+        };
+        connectionString?: string;
     };
-    connectionString?: string;
+    session: {
+        serviceProvider?: NodeDriverServiceProvider;
+    };
 }
 
+const defaultState: State = {
+    persistent: {
+        auth: {
+            status: "not_auth",
+        },
+    },
+    session: {},
+};
+
 export async function saveState(state: State): Promise<void> {
-    await fs.writeFile(config.stateFile, JSON.stringify(state), { encoding: "utf-8" });
+    await entry.setPassword(JSON.stringify(state.persistent));
 }
 
 export async function loadState(): Promise<State> {
     try {
-        const data = await fs.readFile(config.stateFile, "utf-8");
-        return JSON.parse(data) as State;
-    } catch (err: unknown) {
-        if (err && typeof err === "object" && "code" in err && err.code === "ENOENT") {
-            return {
-                auth: {
-                    status: "not_auth",
-                },
-            };
+        const data = await entry.getPassword();
+        if (!data) {
+            return defaultState;
         }
 
-        throw err;
+        return {
+            persistent: JSON.parse(data),
+            session: {},
+        };
+    } catch (err: unknown) {
+        logger.error(mongoLogId(1_000_007), "state", `Failed to load state: ${err}`);
+        return defaultState;
     }
 }

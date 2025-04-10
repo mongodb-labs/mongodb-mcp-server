@@ -4,7 +4,6 @@ import { ConnectTool } from "./connect.js";
 import { ListCollectionsTool } from "./metadata/listCollections.js";
 import { CollectionIndexesTool } from "./collectionIndexes.js";
 import { ListDatabasesTool } from "./metadata/listDatabases.js";
-import { MongoDBToolState } from "./mongodbTool.js";
 import { CreateIndexTool } from "./createIndex.js";
 import { CollectionSchemaTool } from "./metadata/collectionSchema.js";
 import { InsertOneTool } from "./create/insertOne.js";
@@ -23,8 +22,6 @@ import { DropDatabaseTool } from "./delete/dropDatabase.js";
 import { DropCollectionTool } from "./delete/dropCollection.js";
 
 export function registerMongoDBTools(server: McpServer, state: State) {
-    const mongodbToolState: MongoDBToolState = {};
-
     const tools = [
         ConnectTool,
         ListCollectionsTool,
@@ -49,7 +46,7 @@ export function registerMongoDBTools(server: McpServer, state: State) {
     ];
 
     for (const tool of tools) {
-        const instance = new tool(state, mongodbToolState);
+        const instance = new tool(state);
         instance.register(server);
     }
 }

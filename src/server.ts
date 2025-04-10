@@ -20,14 +20,14 @@ export class Server {
         this.state = await loadState();
 
         this.apiClient = new ApiClient({
-            token: this.state?.auth.token,
+            token: this.state.persistent.auth.token,
             saveToken: async (token) => {
                 if (!this.state) {
                     throw new Error("State is not initialized");
                 }
-                this.state.auth.code = undefined;
-                this.state.auth.token = token;
-                this.state.auth.status = "issued";
+                this.state.persistent.auth.code = undefined;
+                this.state.persistent.auth.token = token;
+                this.state.persistent.auth.status = "issued";
                 await saveState(this.state);
             },
         });
