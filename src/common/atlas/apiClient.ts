@@ -62,7 +62,13 @@ export class ApiClient {
     private errorMiddleware = (): Middleware => ({
         async onResponse({ response }) {
             if (!response.ok) {
-                throw new ApiClientError(`Error calling Atlas API: ${await response.text()}`, response);
+                try {
+                    const text = await response.text();
+                    throw new ApiClientError(`Error calling Atlas API: [${response.statusText}] ${text}`, response);
+                }
+                catch {
+                    throw new ApiClientError(`Error calling Atlas API: ${response.statusText}`, response);
+                }
             }
         },
     });
