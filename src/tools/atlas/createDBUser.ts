@@ -11,15 +11,28 @@ export class CreateDBUserTool extends AtlasToolBase {
         projectId: z.string().describe("Atlas project ID"),
         username: z.string().describe("Username for the new user"),
         password: z.string().describe("Password for the new user"),
-        roles: z.array(z.object({
-            roleName: z.string().describe("Role name"),
-            databaseName: z.string().describe("Database name").default("admin"),
-            collectionName: z.string().describe("Collection name").optional(),
-        })).describe("Roles for the new user"),
-        clusters: z.array(z.string()).describe("Clusters to assign the user to, leave empty for access to all clusters").optional(),
+        roles: z
+            .array(
+                z.object({
+                    roleName: z.string().describe("Role name"),
+                    databaseName: z.string().describe("Database name").default("admin"),
+                    collectionName: z.string().describe("Collection name").optional(),
+                })
+            )
+            .describe("Roles for the new user"),
+        clusters: z
+            .array(z.string())
+            .describe("Clusters to assign the user to, leave empty for access to all clusters")
+            .optional(),
     };
 
-    protected async execute({ projectId, username, password, roles, clusters }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
+    protected async execute({
+        projectId,
+        username,
+        password,
+        roles,
+        clusters,
+    }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         await this.ensureAuthenticated();
 
         const input = {
@@ -32,18 +45,18 @@ export class CreateDBUserTool extends AtlasToolBase {
             username,
             password,
             roles: roles as unknown as DatabaseUserRole[],
-            scopes: clusters?.length ? clusters.map(cluster => ({
-                type: "CLUSTER",
-                name: cluster,
-            })) : undefined,
+            scopes: clusters?.length
+                ? clusters.map((cluster) => ({
+                      type: "CLUSTER",
+                      name: cluster,
+                  }))
+                : undefined,
         } as CloudDatabaseUser;
-        
+
         await this.apiClient!.createDatabaseUser(projectId, input);
 
         return {
-            content: [
-                { type: "text", text: `User "${username}" created sucessfully.` },
-            ],
+            content: [{ type: "text", text: `User "${username}" created sucessfully.` }],
         };
     }
 }
@@ -52,12 +65,14 @@ function formatRoles(roles?: DatabaseUserRole[]) {
     if (!roles?.length) {
         return "N/A";
     }
-    return roles.map(role => `${role.roleName}@${role.databaseName}${role.collectionName ? `:${role.collectionName}` : ""}`).join(", ");
+    return roles
+        .map((role) => `${role.roleName}@${role.databaseName}${role.collectionName ? `:${role.collectionName}` : ""}`)
+        .join(", ");
 }
 
 function formatScopes(scopes?: UserScope[]) {
     if (!scopes?.length) {
         return "All";
     }
-    return scopes.map(scope => `${scope.type}:${scope.name}`).join(", ");
+    return scopes.map((scope) => `${scope.type}:${scope.name}`).join(", ");
 }

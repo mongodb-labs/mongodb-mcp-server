@@ -20,17 +20,17 @@ export class ListDBUsersTool extends AtlasToolBase {
             throw new Error("No database users found.");
         }
 
-        const output = `Username | Roles | Scopes
+        const output =
+            `Username | Roles | Scopes
 ----------------|----------------|----------------
-` + data.results
-            .map((user) => {
-                return `${user.username} | ${formatRoles(user.roles) } | ${formatScopes(user.scopes)}`;
-            })
-            .join("\n");
+` +
+            data.results
+                .map((user) => {
+                    return `${user.username} | ${formatRoles(user.roles)} | ${formatScopes(user.scopes)}`;
+                })
+                .join("\n");
         return {
-            content: [
-                { type: "text", text: output },
-            ],
+            content: [{ type: "text", text: output }],
         };
     }
 }
@@ -39,12 +39,17 @@ function formatRoles(roles?: DatabaseUserRole[]) {
     if (!roles?.length) {
         return "N/A";
     }
-    return roles.map(role => `${role.roleName}${role.databaseName ? `@${role.databaseName}${role.collectionName ? `:${role.collectionName}` : ""}` : ""}`).join(", ");
+    return roles
+        .map(
+            (role) =>
+                `${role.roleName}${role.databaseName ? `@${role.databaseName}${role.collectionName ? `:${role.collectionName}` : ""}` : ""}`
+        )
+        .join(", ");
 }
 
 function formatScopes(scopes?: UserScope[]) {
     if (!scopes?.length) {
         return "All";
     }
-    return scopes.map(scope => `${scope.type}:${scope.name}`).join(", ");
+    return scopes.map((scope) => `${scope.type}:${scope.name}`).join(", ");
 }
