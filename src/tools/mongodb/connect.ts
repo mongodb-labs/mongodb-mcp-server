@@ -4,6 +4,7 @@ import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver
 import { DbOperationType, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 import { ErrorCodes, MongoDBError } from "../../errors.js";
+import { saveState } from "../../state.js";
 
 export class ConnectTool extends MongoDBToolBase {
     protected name = "connect";
@@ -20,8 +21,8 @@ export class ConnectTool extends MongoDBToolBase {
     protected async execute({
         connectionStringOrClusterName,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
+        connectionStringOrClusterName ??= this.state.connectionString;
         if (!connectionStringOrClusterName) {
-            // TODO: try reconnecting to the default connection
             return {
                 content: [
                     { type: "text", text: "No connection details provided." },
@@ -71,5 +72,7 @@ export class ConnectTool extends MongoDBToolBase {
         });
 
         this.mongodbState.serviceProvider = provider;
+        this.state.connectionString = connectionString;
+        await saveState(this.state);
     }
 }
