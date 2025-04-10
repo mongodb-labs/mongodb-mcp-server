@@ -23,7 +23,7 @@ export class InsertOneTool extends MongoDBToolBase {
         collection,
         document,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const result = await provider.insertOne(database, collection, document);
 
         return {

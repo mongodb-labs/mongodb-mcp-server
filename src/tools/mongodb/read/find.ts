@@ -38,7 +38,7 @@ export class FindTool extends MongoDBToolBase {
         limit,
         sort,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const documents = await provider.find(database, collection, filter, { projection, limit, sort }).toArray();
 
         const content: Array<{ text: string; type: "text" }> = [

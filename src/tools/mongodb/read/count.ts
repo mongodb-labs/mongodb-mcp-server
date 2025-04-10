@@ -20,7 +20,7 @@ export class CountTool extends MongoDBToolBase {
     protected operationType: DbOperationType = "metadata";
 
     protected async execute({ database, collection, query }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const count = await provider.count(database, collection, query);
 
         return {

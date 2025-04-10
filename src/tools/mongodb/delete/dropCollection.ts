@@ -12,7 +12,7 @@ export class DropCollectionTool extends MongoDBToolBase {
     protected operationType: DbOperationType = "delete";
 
     protected async execute({ database, collection }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const result = await provider.dropCollection(database, collection);
 
         return {

@@ -10,7 +10,7 @@ export class ListDatabasesTool extends MongoDBToolBase {
     protected operationType: DbOperationType = "metadata";
 
     protected async execute(): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const dbs = (await provider.listDatabases("")).databases as { name: string; sizeOnDisk: bson.Long }[];
 
         return {

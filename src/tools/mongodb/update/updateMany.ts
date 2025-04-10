@@ -35,7 +35,7 @@ export class UpdateManyTool extends MongoDBToolBase {
         update,
         upsert,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const result = await provider.updateMany(database, collection, filter, update, {
             upsert,
         });

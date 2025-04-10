@@ -12,7 +12,7 @@ export class DbStatsTool extends MongoDBToolBase {
     protected operationType: DbOperationType = "metadata";
 
     protected async execute({ database }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const result = await provider.runCommandWithCheck(database, {
             dbStats: 1,
             scale: 1,

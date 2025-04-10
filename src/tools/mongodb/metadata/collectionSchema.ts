@@ -11,7 +11,7 @@ export class CollectionSchemaTool extends MongoDBToolBase {
     protected operationType: DbOperationType = "metadata";
 
     protected async execute({ database, collection }: ToolArgs<typeof DbOperationArgs>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const documents = await provider.find(database, collection, {}, { limit: 5 }).toArray();
         const schema = await parseSchema(documents);
 
