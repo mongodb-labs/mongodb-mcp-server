@@ -1,5 +1,4 @@
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { saveState } from "../../state.js";
 import { AtlasToolBase } from "./atlasTool.js";
 import { isAuthenticated } from "../../common/atlas/auth.js";
 import logger from "../../logger.js";
@@ -25,11 +24,11 @@ export class AuthTool extends AtlasToolBase {
         try {
             const code = await this.apiClient.authenticate();
 
-            this.state.auth.status = "requested";
-            this.state.auth.code = code;
-            this.state.auth.token = undefined;
+            this.state.credentials.auth.status = "requested";
+            this.state.credentials.auth.code = code;
+            this.state.credentials.auth.token = undefined;
 
-            await saveState(this.state);
+            await this.state.persistCredentials();
 
             return {
                 content: [

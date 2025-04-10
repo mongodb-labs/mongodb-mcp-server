@@ -3,7 +3,7 @@ import { Server } from "./server.js";
 import logger from "./logger.js";
 import { mongoLogId } from "mongodb-log-writer";
 
-async function runServer() {
+export async function runServer() {
     const server = new Server();
 
     const transport = new StdioServerTransport();

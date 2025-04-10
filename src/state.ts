@@ -1,8 +1,10 @@
-import fs from "fs/promises";
-import config from "./config.js";
 import { OauthDeviceCode, OAuthToken } from "./common/atlas/apiClient.js";
+import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
+import { AsyncEntry } from "@napi-rs/keyring";
+import logger from "./logger.js";
+import { mongoLogId } from "mongodb-log-writer";
 
-export interface State {
+interface Credentials {
     auth: {
         status: "not_auth" | "requested" | "issued";
         code?: OauthDeviceCode;
@@ -11,23 +13,33 @@ export interface State {
     connectionString?: string;
 }
 
-export async function saveState(state: State): Promise<void> {
-    await fs.writeFile(config.stateFile, JSON.stringify(state), { encoding: "utf-8" });
-}
+export class State {
+    private entry = new AsyncEntry("mongodb-mcp", "credentials");
+    credentials: Credentials = {
+        auth: {
+            status: "not_auth",
+        },
+    };
+    serviceProvider?: NodeDriverServiceProvider;
 
-export async function loadState(): Promise<State> {
-    try {
-        const data = await fs.readFile(config.stateFile, "utf-8");
-        return JSON.parse(data) as State;
-    } catch (err: unknown) {
-        if (err && typeof err === "object" && "code" in err && err.code === "ENOENT") {
-            return {
-                auth: {
-                    status: "not_auth",
-                },
-            };
+    public async persistCredentials(): Promise<void> {
+        await this.entry.setPassword(JSON.stringify(this.credentials));
+    }
+
+    public async loadCredentials(): Promise<boolean> {
+        try {
+            const data = await this.entry.getPassword();
+            if (data) {
+                this.credentials = JSON.parse(data);
+            }
+
+            return true;
+        } catch (err: unknown) {
+            logger.error(mongoLogId(1_000_007), "state", `Failed to load state: ${err}`);
+            return false;
         }
-
-        throw err;
     }
 }
+
+const defaultState = new State();
+export default defaultState;

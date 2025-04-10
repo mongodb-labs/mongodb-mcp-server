@@ -57,6 +57,25 @@ This project implements a Model Context Protocol (MCP) server for MongoDB and Mo
 
 4. Commit your changes with a descriptive commit message
 
+## Adding tests to the MCP Server
+
+When adding new features or fixing bugs, please ensure that you also add tests to cover your changes. This helps maintain the quality and reliability of the codebase.
+
+## Running Tests
+
+The tests can be found in the `tests` directory.
+
+You can run tests using the following npm scripts:
+
+- `npm test`: Run all tests
+
+To run a specific test file or directory:
+
+```bash
+npm test -- path/to/test/file.test.ts
+npm test -- path/to/directory
+```
+
 ## Troubleshooting
 
 ### Restart Server

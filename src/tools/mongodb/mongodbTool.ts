@@ -5,8 +5,6 @@ import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { ErrorCodes, MongoDBError } from "../../errors.js";
 
-export type MongoDBToolState = { serviceProvider?: NodeDriverServiceProvider };
-
 export const DbOperationArgs = {
     database: z.string().describe("Database name"),
     collection: z.string().describe("Collection name"),
@@ -15,17 +13,14 @@ export const DbOperationArgs = {
 export type DbOperationType = "metadata" | "read" | "create" | "update" | "delete";
 
 export abstract class MongoDBToolBase extends ToolBase {
-    constructor(
-        state: State,
-        protected mongodbState: MongoDBToolState
-    ) {
+    constructor(state: State) {
         super(state);
     }
 
     protected abstract operationType: DbOperationType;
 
     protected ensureConnected(): NodeDriverServiceProvider {
-        const provider = this.mongodbState.serviceProvider;
+        const provider = this.state.serviceProvider;
         if (!provider) {
             throw new MongoDBError(ErrorCodes.NotConnectedToMongoDB, "Not connected to MongoDB");
         }

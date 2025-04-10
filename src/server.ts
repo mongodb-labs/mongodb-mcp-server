@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { ApiClient } from "./common/atlas/apiClient.js";
-import { State, saveState, loadState } from "./state.js";
+import defaultState, { State } from "./state.js";
 import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { registerAtlasTools } from "./tools/atlas/tools.js";
 import { registerMongoDBTools } from "./tools/mongodb/index.js";
@@ -9,7 +9,7 @@ import logger, { initializeLogger } from "./logger.js";
 import { mongoLogId } from "mongodb-log-writer";
 
 export class Server {
-    state: State | undefined = undefined;
+    state: State = defaultState;
     apiClient: ApiClient | undefined = undefined;
     initialized: boolean = false;
 
@@ -17,18 +17,19 @@ export class Server {
         if (this.initialized) {
             return;
         }
-        this.state = await loadState();
+
+        await this.state.loadCredentials();
 
         this.apiClient = new ApiClient({
-            token: this.state?.auth.token,
+            token: this.state.credentials.auth.token,
             saveToken: async (token) => {
                 if (!this.state) {
                     throw new Error("State is not initialized");
                 }
-                this.state.auth.code = undefined;
-                this.state.auth.token = token;
-                this.state.auth.status = "issued";
-                await saveState(this.state);
+                this.state.credentials.auth.code = undefined;
+                this.state.credentials.auth.token = token;
+                this.state.credentials.auth.status = "issued";
+                await this.state.persistCredentials();
             },
         });
 
@@ -43,8 +44,8 @@ export class Server {
 
         server.server.registerCapabilities({ logging: {} });
 
-        registerAtlasTools(server, this.state!, this.apiClient!);
-        registerMongoDBTools(server, this.state!);
+        registerAtlasTools(server, this.state, this.apiClient!);
+        registerMongoDBTools(server, this.state);
 
         return server;
     }
