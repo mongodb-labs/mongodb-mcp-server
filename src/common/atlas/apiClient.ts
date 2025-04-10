@@ -35,7 +35,10 @@ export class ApiClientError extends Error {
     static async fromResponse(response: Response): Promise<ApiClientError> {
         try {
             const text = await response.text();
-            return new ApiClientError(`Error calling Atlas API: [${response.status} ${response.statusText}] ${text}`, response);
+            return new ApiClientError(
+                `Error calling Atlas API: [${response.status} ${response.statusText}] ${text}`,
+                response
+            );
         } catch {
             return new ApiClientError(`Error calling Atlas API: ${response.status} ${response.statusText}`, response);
         }
