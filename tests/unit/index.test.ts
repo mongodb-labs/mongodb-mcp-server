@@ -3,7 +3,7 @@ import type { Transport } from "@modelcontextprotocol/sdk/shared/transport";
 
 // Mock modules with proper typing
 jest.mock("@modelcontextprotocol/sdk/server/stdio", () => ({
-    StdioServerTransport: jest.fn().mockImplementation(() => ({} as Transport)),
+    StdioServerTransport: jest.fn().mockImplementation(() => ({}) as Transport),
 }));
 
 // Properly type the mock function to return Promise<void>
