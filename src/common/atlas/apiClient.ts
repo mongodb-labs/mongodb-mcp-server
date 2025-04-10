@@ -36,10 +36,7 @@ export class ApiClientError extends Error {
         message ||= `error calling Atlas API`;
         try {
             const text = await response.text();
-            return new ApiClientError(
-                `${message}: [${response.status} ${response.statusText}] ${text}`,
-                response
-            );
+            return new ApiClientError(`${message}: [${response.status} ${response.statusText}] ${text}`, response);
         } catch {
             return new ApiClientError(`${message}: ${response.status} ${response.statusText}`, response);
         }
@@ -150,10 +147,16 @@ export class ApiClient {
             if (errorResponse.errorCode === "DEVICE_AUTHORIZATION_PENDING") {
                 throw await ApiClientError.fromResponse(response, "Authentication pending. Try again later.");
             } else {
-                throw await ApiClientError.fromResponse(response, "Device code expired. Please restart the authentication process.");
+                throw await ApiClientError.fromResponse(
+                    response,
+                    "Device code expired. Please restart the authentication process."
+                );
             }
         } catch {
-            throw await ApiClientError.fromResponse(response, "Failed to retrieve token. Please check your device code.");
+            throw await ApiClientError.fromResponse(
+                response,
+                "Failed to retrieve token. Please check your device code."
+            );
         }
     }
 
