@@ -31,6 +31,15 @@ export class ApiClientError extends Error {
         this.name = "ApiClientError";
         this.response = response;
     }
+
+    static async fromResponse(response: Response): Promise<ApiClientError> {
+        try {
+            const text = await response.text();
+            return new ApiClientError(`Error calling Atlas API: [${response.status} ${response.statusText}] ${text}`, response);
+        } catch {
+            return new ApiClientError(`Error calling Atlas API: ${response.status} ${response.statusText}`, response);
+        }
+    }
 }
 
 export interface ApiClientOptions {
@@ -62,18 +71,7 @@ export class ApiClient {
     private errorMiddleware = (): Middleware => ({
         async onResponse({ response }) {
             if (!response.ok) {
-                try {
-                    const text = await response.text();
-                    throw new ApiClientError(
-                        `Error calling Atlas API: [${response.status} ${response.statusText}] ${text}`,
-                        response
-                    );
-                } catch {
-                    throw new ApiClientError(
-                        `Error calling Atlas API: ${response.status} ${response.statusText}`,
-                        response
-                    );
-                }
+                throw await ApiClientError.fromResponse(response);
             }
         },
     });
