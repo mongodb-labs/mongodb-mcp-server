@@ -3,7 +3,7 @@ import { runServer } from "../../src/index";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio";
 
 // mock the StdioServerTransport
-jest.mock("@modelcontextprotocol/sdk/server/stdio.js");
+jest.mock("@modelcontextprotocol/sdk/server/stdio");
 // mock Server class and its methods
 jest.mock("../../src/server.ts", () => {
     return {
