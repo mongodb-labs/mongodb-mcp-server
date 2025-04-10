@@ -14,7 +14,13 @@ export class ListDBUsersTool extends AtlasToolBase {
     protected async execute({ projectId }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         await this.ensureAuthenticated();
 
-        const data = await this.apiClient!.listDatabaseUsers(projectId);
+        const data = await this.apiClient!.listDatabaseUsers({
+            params: {
+                path: {
+                    groupId: projectId,
+                },
+            },
+        });
 
         if (!data?.results?.length) {
             throw new Error("No database users found.");

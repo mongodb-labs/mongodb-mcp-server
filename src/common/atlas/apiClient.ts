@@ -1,7 +1,7 @@
 import config from "../../config.js";
-import createClient, { Middleware } from "openapi-fetch";
+import createClient, { FetchOptions, Middleware } from "openapi-fetch";
 
-import { paths, ClusterDescription20240805, NetworkPermissionEntry, CloudDatabaseUser } from "./openapi.js";
+import { paths, operations } from "./openapi.js";
 
 export interface OAuthToken {
     access_token: string;
@@ -238,105 +238,53 @@ export class ApiClient {
         }
     }
 
-    async listProjects() {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups`);
+    async listProjects(options?: FetchOptions<operations["listProjects"]>) {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups`, options);
         return data;
     }
 
-    async listProjectIpAccessLists(groupId: string) {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/accessList`, {
-            params: {
-                path: {
-                    groupId,
-                },
-            },
-        });
+    async listProjectIpAccessLists(options: FetchOptions<operations["listProjectIpAccessLists"]>) {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/accessList`, options);
         return data;
     }
 
-    async createProjectIpAccessList(groupId: string, ...entries: NetworkPermissionEntry[]) {
-        const { data } = await this.client.POST(`/api/atlas/v2/groups/{groupId}/accessList`, {
-            params: {
-                path: {
-                    groupId,
-                },
-            },
-            body: entries,
-        });
+    async createProjectIpAccessList(options: FetchOptions<operations["createProjectIpAccessList"]>) {
+        const { data } = await this.client.POST(`/api/atlas/v2/groups/{groupId}/accessList`, options);
         return data;
     }
 
-    async getProject(groupId: string) {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}`, {
-            params: {
-                path: {
-                    groupId,
-                },
-            },
-        });
+    async getProject(options: FetchOptions<operations["getProject"]>) {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}`, options);
         return data;
     }
 
-    async listClusters(groupId: string) {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/clusters`, {
-            params: {
-                path: {
-                    groupId,
-                },
-            },
-        });
+    async listClusters(options: FetchOptions<operations["listClusters"]>) {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/clusters`, options);
         return data;
     }
 
-    async listClustersForAllProjects() {
-        const { data } = await this.client.GET(`/api/atlas/v2/clusters`);
+    async listClustersForAllProjects(options?: FetchOptions<operations["listClustersForAllProjects"]>) {
+        const { data } = await this.client.GET(`/api/atlas/v2/clusters`, options);
         return data;
     }
 
-    async getCluster(groupId: string, clusterName: string) {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/clusters/{clusterName}`, {
-            params: {
-                path: {
-                    groupId,
-                    clusterName,
-                },
-            },
-        });
+    async getCluster(options: FetchOptions<operations["getCluster"]>) {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/clusters/{clusterName}`, options);
         return data;
     }
 
-    async createCluster(groupId: string, cluster: ClusterDescription20240805) {
-        const { data } = await this.client.POST("/api/atlas/v2/groups/{groupId}/clusters", {
-            params: {
-                path: {
-                    groupId,
-                },
-            },
-            body: cluster,
-        });
+    async createCluster(options: FetchOptions<operations["createCluster"]>) {
+        const { data } = await this.client.POST("/api/atlas/v2/groups/{groupId}/clusters", options);
         return data;
     }
 
-    async createDatabaseUser(groupId: string, user: CloudDatabaseUser) {
-        const { data } = await this.client.POST("/api/atlas/v2/groups/{groupId}/databaseUsers", {
-            params: {
-                path: {
-                    groupId,
-                },
-            },
-            body: user,
-        });
+    async createDatabaseUser(options: FetchOptions<operations["createDatabaseUser"]>) {
+        const { data } = await this.client.POST("/api/atlas/v2/groups/{groupId}/databaseUsers", options);
         return data;
     }
 
-    async listDatabaseUsers(groupId: string) {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/databaseUsers`, {
-            params: {
-                path: {
-                    groupId,
-                },
-            },
-        });
+    async listDatabaseUsers(options: FetchOptions<operations["listDatabaseUsers"]>) {
+        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/databaseUsers`, options);
         return data;
     }
 }

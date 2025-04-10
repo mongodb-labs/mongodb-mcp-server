@@ -15,7 +15,14 @@ export class InspectClusterTool extends AtlasToolBase {
     protected async execute({ projectId, clusterName }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         await this.ensureAuthenticated();
 
-        const cluster = await this.apiClient.getCluster(projectId, clusterName);
+        const cluster = await this.apiClient.getCluster({
+            params: {
+                path: {
+                    groupId: projectId,
+                    clusterName,
+                },
+            },
+        });
 
         return this.formatOutput(cluster);
     }

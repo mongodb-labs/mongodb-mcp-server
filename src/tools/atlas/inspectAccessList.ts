@@ -13,7 +13,13 @@ export class InspectAccessListTool extends AtlasToolBase {
     protected async execute({ projectId }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         await this.ensureAuthenticated();
 
-        const accessList = await this.apiClient.listProjectIpAccessLists(projectId);
+        const accessList = await this.apiClient.listProjectIpAccessLists({
+            params: {
+                path: {
+                    groupId: projectId,
+                },
+            },
+        });
 
         if (!accessList?.results?.length) {
             throw new Error("No access list entries found.");
@@ -26,12 +32,11 @@ export class InspectAccessListTool extends AtlasToolBase {
                     text:
                         `IP ADDRESS | CIDR | COMMENT
 ------|------|------
-` +
-                        (accessList.results || [])
-                            .map((entry) => {
-                                return `${entry.ipAddress} | ${entry.cidrBlock} | ${entry.comment}`;
-                            })
-                            .join("\n"),
+${(accessList.results || [])
+    .map((entry) => {
+        return `${entry.ipAddress} | ${entry.cidrBlock} | ${entry.comment}`;
+    })
+    .join("\n")}`,
                 },
             ],
         };

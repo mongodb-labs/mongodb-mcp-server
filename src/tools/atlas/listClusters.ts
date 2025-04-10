@@ -19,13 +19,25 @@ export class ListClustersTool extends AtlasToolBase {
 
             return this.formatAllClustersTable(data);
         } else {
-            const project = await this.apiClient.getProject(projectId);
+            const project = await this.apiClient.getProject({
+                params: {
+                    path: {
+                        groupId: projectId,
+                    },
+                },
+            });
 
             if (!project?.id) {
                 throw new Error(`Project with ID "${projectId}" not found.`);
             }
 
-            const data = await this.apiClient.listClusters(project.id || "");
+            const data = await this.apiClient.listClusters({
+                params: {
+                    path: {
+                        groupId: project.id || "",
+                    },
+                },
+            });
 
             return this.formatClustersTable(project, data);
         }

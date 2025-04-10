@@ -38,7 +38,14 @@ export class CreateFreeClusterTool extends AtlasToolBase {
             terminationProtectionEnabled: false,
         } as unknown as ClusterDescription20240805;
 
-        await this.apiClient.createCluster(projectId, input);
+        await this.apiClient.createCluster({
+            params: {
+                path: {
+                    groupId: projectId,
+                },
+            },
+            body: input,
+        });
 
         return {
             content: [{ type: "text", text: `Cluster "${name}" has been created in region "${region}".` }],
