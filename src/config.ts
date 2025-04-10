@@ -13,17 +13,20 @@ interface UserConfig extends Record<string, string> {
     apiBaseUrl: string;
     clientId: string;
     stateFile: string;
-    projectId: string;
 }
 
 const defaults: UserConfig = {
     apiBaseUrl: "https://cloud.mongodb.com/",
     clientId: "0oabtxactgS3gHIR0297",
     stateFile: path.join(localDataPath, "state.json"),
-    projectId: "",
 };
 
-const mergedUserConfig = Object.assign({}, defaults, getFileConfig(), getEnvConfig(), getCliConfig());
+const mergedUserConfig = {
+    ...defaults,
+    ...getFileConfig(),
+    ...getEnvConfig(),
+    ...getCliConfig(),
+};
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -68,12 +71,12 @@ function getEnvConfig(): Partial<UserConfig> {
     };
 
     const result: Partial<UserConfig> = {};
-    Object.keys(defaults).forEach((key) => {
+    for (const key of Object.keys(defaults)) {
         const envVarName = `MDB_MCP_${camelCaseToSNAKE_UPPER_CASE(key)}`;
         if (process.env[envVarName]) {
-            result[key as keyof UserConfig] = process.env[envVarName];
+            result[key] = process.env[envVarName];
         }
-    });
+    }
 
     return result;
 }
