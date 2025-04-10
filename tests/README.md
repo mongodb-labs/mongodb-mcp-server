@@ -7,8 +7,6 @@ This directory contains tests for the Atlas MCP Server. We use Jest as our testi
 You can run tests using the following npm scripts:
 
 - `npm test`: Run all tests
-- `npm run test:watch`: Run tests in watch mode (rerun on file changes)
-- `npm run test:coverage`: Run tests and generate coverage reports
 
 To run a specific test file or directory:
 
