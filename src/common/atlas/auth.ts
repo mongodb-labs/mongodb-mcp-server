@@ -1,5 +1,5 @@
-import { ApiClient } from "./apiClient";
-import { State } from "../../state";
+import { ApiClient } from "./apiClient.js";
+import { State } from "../../state.js";
 
 export async function ensureAuthenticated(state: State, apiClient: ApiClient): Promise<void> {
     if (!(await isAuthenticated(state, apiClient))) {

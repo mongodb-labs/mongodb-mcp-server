@@ -47,7 +47,7 @@ export class ApiClient {
     private token?: OAuthToken;
     private saveToken?: saveTokenFunction;
     private client = createClient<paths>({
-        baseUrl: config.apiBaseURL,
+        baseUrl: config.apiBaseUrl,
         headers: {
             "User-Agent": config.userAgent,
             Accept: `application/vnd.atlas.${config.atlasApiVersion}+json`,
@@ -93,7 +93,7 @@ export class ApiClient {
     async authenticate(): Promise<OauthDeviceCode> {
         const endpoint = "api/private/unauth/account/device/authorize";
 
-        const authUrl = new URL(endpoint, config.apiBaseURL);
+        const authUrl = new URL(endpoint, config.apiBaseUrl);
 
         const response = await fetch(authUrl, {
             method: "POST",
@@ -102,7 +102,7 @@ export class ApiClient {
                 Accept: "application/json",
             },
             body: new URLSearchParams({
-                client_id: config.clientID,
+                client_id: config.clientId,
                 scope: "openid profile offline_access",
                 grant_type: "urn:ietf:params:oauth:grant-type:device_code",
             }).toString(),
@@ -117,14 +117,14 @@ export class ApiClient {
 
     async retrieveToken(device_code: string): Promise<OAuthToken> {
         const endpoint = "api/private/unauth/account/device/token";
-        const url = new URL(endpoint, config.apiBaseURL);
+        const url = new URL(endpoint, config.apiBaseUrl);
         const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
             body: new URLSearchParams({
-                client_id: config.clientID,
+                client_id: config.clientId,
                 device_code: device_code,
                 grant_type: "urn:ietf:params:oauth:grant-type:device_code",
             }).toString(),
@@ -153,7 +153,7 @@ export class ApiClient {
 
     async refreshToken(token?: OAuthToken): Promise<OAuthToken | null> {
         const endpoint = "api/private/unauth/account/device/token";
-        const url = new URL(endpoint, config.apiBaseURL);
+        const url = new URL(endpoint, config.apiBaseUrl);
         const response = await fetch(url, {
             method: "POST",
             headers: {
@@ -161,7 +161,7 @@ export class ApiClient {
                 Accept: "application/json",
             },
             body: new URLSearchParams({
-                client_id: config.clientID,
+                client_id: config.clientId,
                 refresh_token: (token || this.token)?.refresh_token || "",
                 grant_type: "refresh_token",
                 scope: "openid profile offline_access",
@@ -187,7 +187,7 @@ export class ApiClient {
 
     async revokeToken(token?: OAuthToken): Promise<void> {
         const endpoint = "api/private/unauth/account/device/token";
-        const url = new URL(endpoint, config.apiBaseURL);
+        const url = new URL(endpoint, config.apiBaseUrl);
         const response = await fetch(url, {
             method: "POST",
             headers: {
@@ -196,7 +196,7 @@ export class ApiClient {
                 "User-Agent": config.userAgent,
             },
             body: new URLSearchParams({
-                client_id: config.clientID,
+                client_id: config.clientId,
                 token: (token || this.token)?.access_token || "",
                 token_type_hint: "refresh_token",
             }).toString(),

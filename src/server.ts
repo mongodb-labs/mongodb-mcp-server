@@ -4,7 +4,7 @@ import { State, saveState, loadState } from "./state.js";
 import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { registerAtlasTools } from "./tools/atlas/tools.js";
 import { registerMongoDBTools } from "./tools/mongodb/index.js";
-import { config } from "./config.js";
+import config from "./config.js";
 import logger, { initializeLogger } from "./logger.js";
 import { mongoLogId } from "mongodb-log-writer";
 
@@ -21,14 +21,14 @@ export class Server {
 
         this.apiClient = new ApiClient({
             token: this.state?.auth.token,
-            saveToken: (token) => {
+            saveToken: async (token) => {
                 if (!this.state) {
                     throw new Error("State is not initialized");
                 }
                 this.state.auth.code = undefined;
                 this.state.auth.token = token;
                 this.state.auth.status = "issued";
-                saveState(this.state);
+                await saveState(this.state);
             },
         });
 
