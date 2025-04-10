@@ -32,15 +32,16 @@ export class ApiClientError extends Error {
         this.response = response;
     }
 
-    static async fromResponse(response: Response): Promise<ApiClientError> {
+    static async fromResponse(response: Response, message?: string): Promise<ApiClientError> {
+        message ||= `error calling Atlas API`;
         try {
             const text = await response.text();
             return new ApiClientError(
-                `Error calling Atlas API: [${response.status} ${response.statusText}] ${text}`,
+                `${message}: [${response.status} ${response.statusText}] ${text}`,
                 response
             );
         } catch {
-            return new ApiClientError(`Error calling Atlas API: ${response.status} ${response.statusText}`, response);
+            return new ApiClientError(`${message}: ${response.status} ${response.statusText}`, response);
         }
     }
 }
@@ -116,7 +117,7 @@ export class ApiClient {
         });
 
         if (!response.ok) {
-            throw new ApiClientError(`Failed to initiate authentication: ${response.statusText}`, response);
+            throw await ApiClientError.fromResponse(response, `failed to initiate authentication`);
         }
 
         return (await response.json()) as OauthDeviceCode;
@@ -147,14 +148,12 @@ export class ApiClient {
         try {
             const errorResponse = await response.json();
             if (errorResponse.errorCode === "DEVICE_AUTHORIZATION_PENDING") {
-                throw new ApiClientError("Authentication pending. Try again later.", response);
-            } else if (errorResponse.error === "expired_token") {
-                throw new ApiClientError("Device code expired. Please restart the authentication process.", response);
+                throw await ApiClientError.fromResponse(response, "Authentication pending. Try again later.");
             } else {
-                throw new ApiClientError("Device code expired. Please restart the authentication process.", response);
+                throw await ApiClientError.fromResponse(response, "Device code expired. Please restart the authentication process.");
             }
         } catch {
-            throw new ApiClientError("Failed to retrieve token. Please check your device code.", response);
+            throw await ApiClientError.fromResponse(response, "Failed to retrieve token. Please check your device code.");
         }
     }
 
@@ -176,7 +175,7 @@ export class ApiClient {
         });
 
         if (!response.ok) {
-            throw new ApiClientError(`Failed to refresh token: ${response.statusText}`, response);
+            throw await ApiClientError.fromResponse(response, "Failed to refresh token");
         }
         const data = await response.json();
 
@@ -210,7 +209,7 @@ export class ApiClient {
         });
 
         if (!response.ok) {
-            throw new ApiClientError(`Failed to revoke token: ${response.statusText}`, response);
+            throw await ApiClientError.fromResponse(response);
         }
 
         if (!token && this.token) {
