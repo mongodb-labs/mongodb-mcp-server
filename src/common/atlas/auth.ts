@@ -8,21 +8,21 @@ export async function ensureAuthenticated(state: State, apiClient: ApiClient): P
 }
 
 export async function isAuthenticated(state: State, apiClient: ApiClient): Promise<boolean> {
-    switch (state.persistent.auth.status) {
+    switch (state.credentials.auth.status) {
         case "not_auth":
             return false;
         case "requested":
             try {
-                if (!state.persistent.auth.code) {
+                if (!state.credentials.auth.code) {
                     return false;
                 }
-                await apiClient.retrieveToken(state.persistent.auth.code.device_code);
-                return !!state.persistent.auth.token;
+                await apiClient.retrieveToken(state.credentials.auth.code.device_code);
+                return !!state.credentials.auth.token;
             } catch {
                 return false;
             }
         case "issued":
-            if (!state.persistent.auth.token) {
+            if (!state.credentials.auth.token) {
                 return false;
             }
             return await apiClient.validateToken();

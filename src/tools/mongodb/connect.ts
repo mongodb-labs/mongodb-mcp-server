@@ -4,7 +4,6 @@ import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver
 import { DbOperationType, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 import { ErrorCodes, MongoDBError } from "../../errors.js";
-import { saveState } from "../../state.js";
 
 export class ConnectTool extends MongoDBToolBase {
     protected name = "connect";
@@ -21,7 +20,7 @@ export class ConnectTool extends MongoDBToolBase {
     protected async execute({
         connectionStringOrClusterName,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        connectionStringOrClusterName ??= this.state.persistent.connectionString;
+        connectionStringOrClusterName ??= this.state.credentials.connectionString;
         if (!connectionStringOrClusterName) {
             return {
                 content: [
@@ -71,8 +70,8 @@ export class ConnectTool extends MongoDBToolBase {
             productName: "MongoDB MCP",
         });
 
-        this.state.session.serviceProvider = provider;
-        this.state.persistent.connectionString = connectionString;
-        await saveState(this.state);
+        this.state.serviceProvider = provider;
+        this.state.credentials.connectionString = connectionString;
+        await this.state.persistCredentials();
     }
 }

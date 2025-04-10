@@ -4,48 +4,42 @@ import { AsyncEntry } from "@napi-rs/keyring";
 import logger from "./logger.js";
 import { mongoLogId } from "mongodb-log-writer";
 
-const entry = new AsyncEntry("mongodb-mcp", "credentials");
-
-export interface State {
-    persistent: {
-        auth: {
-            status: "not_auth" | "requested" | "issued";
-            code?: OauthDeviceCode;
-            token?: OAuthToken;
-        };
-        connectionString?: string;
+interface Credentials {
+    auth: {
+        status: "not_auth" | "requested" | "issued";
+        code?: OauthDeviceCode;
+        token?: OAuthToken;
     };
-    session: {
-        serviceProvider?: NodeDriverServiceProvider;
-    };
+    connectionString?: string;
 }
 
-const defaultState: State = {
-    persistent: {
+export class State {
+    private entry = new AsyncEntry("mongodb-mcp", "credentials");
+    credentials: Credentials = {
         auth: {
             status: "not_auth",
         },
-    },
-    session: {},
-};
+    };
+    serviceProvider?: NodeDriverServiceProvider;
 
-export async function saveState(state: State): Promise<void> {
-    await entry.setPassword(JSON.stringify(state.persistent));
-}
+    public async persistCredentials(): Promise<void> {
+        await this.entry.setPassword(JSON.stringify(this.credentials));
+    }
 
-export async function loadState(): Promise<State> {
-    try {
-        const data = await entry.getPassword();
-        if (!data) {
-            return defaultState;
+    public async loadCredentials(): Promise<boolean> {
+        try {
+            const data = await this.entry.getPassword();
+            if (data) {
+                this.credentials = JSON.parse(data);
+            }
+
+            return true;
+        } catch (err: unknown) {
+            logger.error(mongoLogId(1_000_007), "state", `Failed to load state: ${err}`);
+            return false;
         }
-
-        return {
-            persistent: JSON.parse(data),
-            session: {},
-        };
-    } catch (err: unknown) {
-        logger.error(mongoLogId(1_000_007), "state", `Failed to load state: ${err}`);
-        return defaultState;
     }
 }
+
+const defaultState = new State();
+export default defaultState;

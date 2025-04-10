@@ -20,7 +20,7 @@ export abstract class MongoDBToolBase extends ToolBase {
     protected abstract operationType: DbOperationType;
 
     protected ensureConnected(): NodeDriverServiceProvider {
-        const provider = this.state.session.serviceProvider;
+        const provider = this.state.serviceProvider;
         if (!provider) {
             throw new MongoDBError(ErrorCodes.NotConnectedToMongoDB, "Not connected to MongoDB");
         }
