@@ -1,12 +1,7 @@
 import config from "../../config.js";
 import createClient, { Middleware } from "openapi-fetch";
 
-import {
-    paths,
-    ClusterDescription20240805,
-    NetworkPermissionEntry,
-    CloudDatabaseUser,
-} from "./openapi.js";
+import { paths, ClusterDescription20240805, NetworkPermissionEntry, CloudDatabaseUser } from "./openapi.js";
 
 export interface OAuthToken {
     access_token: string;
@@ -253,21 +248,18 @@ export class ApiClient {
             params: {
                 path: {
                     groupId,
-                }
-            }
+                },
+            },
         });
         return data;
     }
 
-    async createProjectIpAccessList(
-        groupId: string,
-        ...entries: NetworkPermissionEntry[]
-    ) {
+    async createProjectIpAccessList(groupId: string, ...entries: NetworkPermissionEntry[]) {
         const { data } = await this.client.POST(`/api/atlas/v2/groups/{groupId}/accessList`, {
             params: {
                 path: {
                     groupId,
-                }
+                },
             },
             body: entries,
         });
@@ -279,8 +271,8 @@ export class ApiClient {
             params: {
                 path: {
                     groupId,
-                }
-            }
+                },
+            },
         });
         return data;
     }
@@ -290,8 +282,8 @@ export class ApiClient {
             params: {
                 path: {
                     groupId,
-                }
-            }
+                },
+            },
         });
         return data;
     }
@@ -307,18 +299,18 @@ export class ApiClient {
                 path: {
                     groupId,
                     clusterName,
-                }
-            }
+                },
+            },
         });
         return data;
     }
 
     async createCluster(groupId: string, cluster: ClusterDescription20240805) {
-        const { data } = await this.client.POST('/api/atlas/v2/groups/{groupId}/clusters', {
+        const { data } = await this.client.POST("/api/atlas/v2/groups/{groupId}/clusters", {
             params: {
                 path: {
                     groupId,
-                }
+                },
             },
             body: cluster,
         });
@@ -326,11 +318,11 @@ export class ApiClient {
     }
 
     async createDatabaseUser(groupId: string, user: CloudDatabaseUser) {
-        const { data } = await this.client.POST('/api/atlas/v2/groups/{groupId}/databaseUsers', {
+        const { data } = await this.client.POST("/api/atlas/v2/groups/{groupId}/databaseUsers", {
             params: {
                 path: {
                     groupId,
-                }
+                },
             },
             body: user,
         });
@@ -342,8 +334,8 @@ export class ApiClient {
             params: {
                 path: {
                     groupId,
-                }
-            }
+                },
+            },
         });
         return data;
     }

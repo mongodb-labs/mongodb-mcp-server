@@ -24,7 +24,7 @@ export class InspectClusterTool extends AtlasToolBase {
         if (!cluster) {
             throw new Error("Cluster not found");
         }
-        
+
         return {
             content: [
                 {

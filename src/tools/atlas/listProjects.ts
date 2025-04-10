@@ -12,12 +12,12 @@ export class ListProjectsTool extends AtlasToolBase {
         const data = await this.apiClient!.listProjects();
 
         if (data?.results?.length) {
-            throw new Error("No projects found in your MongoDB Atlas account.")
+            throw new Error("No projects found in your MongoDB Atlas account.");
         }
 
         // Format projects as a table
-        const rows = data!.results!
-            .map((project) => {
+        const rows = data!
+            .results!.map((project) => {
                 const created = project.created as unknown as { $date: string };
                 const createdAt = created ? new Date(created.$date).toLocaleString() : "N/A";
                 return `${project.name} | ${project.id} | ${createdAt}`;
@@ -27,9 +27,7 @@ export class ListProjectsTool extends AtlasToolBase {
 ----------------| ----------------| ----------------
 ${rows}`;
         return {
-            content: [
-                { type: "text", text: formattedProjects },
-            ],
+            content: [{ type: "text", text: formattedProjects }],
         };
     }
 }
