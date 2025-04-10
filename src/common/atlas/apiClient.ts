@@ -6,6 +6,8 @@ import {
     PaginatedAtlasGroupView,
     ClusterDescription20240805,
     PaginatedClusterDescription20240805,
+    PaginatedNetworkAccessView,
+    NetworkPermissionEntry,
     CloudDatabaseUser,
     PaginatedApiAtlasDatabaseUserView,
 } from "./openapi.js";
@@ -67,7 +69,7 @@ export class ApiClient {
             credentials: !this.token?.access_token ? undefined : "include",
             headers: {
                 "Content-Type": "application/json",
-                Accept: "application/vnd.atlas.2025-04-07+json",
+                Accept: `application/vnd.atlas.${config.atlasApiVersion}+json`,
                 "User-Agent": config.userAgent,
                 ...authHeaders,
             },
@@ -269,6 +271,20 @@ export class ApiClient {
 
     async listProjects(): Promise<PaginatedAtlasGroupView> {
         return await this.do<PaginatedAtlasGroupView>("/groups");
+    }
+
+    async listProjectIpAccessLists(groupId: string): Promise<PaginatedNetworkAccessView> {
+        return await this.do<PaginatedNetworkAccessView>(`/groups/${groupId}/accessList`);
+    }
+
+    async createProjectIpAccessList(
+        groupId: string,
+        entries: NetworkPermissionEntry[]
+    ): Promise<PaginatedNetworkAccessView> {
+        return await this.do<PaginatedNetworkAccessView>(`/groups/${groupId}/accessList`, {
+            method: "POST",
+            body: JSON.stringify(entries),
+        });
     }
 
     async getProject(groupId: string): Promise<Group> {
