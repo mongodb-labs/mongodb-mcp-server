@@ -1,25 +1,14 @@
 import { describe, it } from "@jest/globals";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-
-// mock the StdioServerTransport
-jest.mock("@modelcontextprotocol/sdk/server/stdio");
-// mock Server class and its methods
-jest.mock("../../src/server.ts", () => {
-    return {
-        Server: jest.fn().mockImplementation(() => {
-            return {
-                connect: jest.fn().mockImplementation((transport) => {
-                    return new Promise((resolve) => {
-                        resolve(transport);
-                    });
-                }),
-            };
-        }),
-    };
-});
+import { State } from "../../src/state";
 
 describe("Server initialization", () => {
-    it("should create a server instance", async () => {
-        await expect(StdioServerTransport).toHaveBeenCalled();
+    it("should define a default state", async () => {
+        const state = new State();
+
+        expect(state.credentials).toEqual({
+            auth: {
+                status: "not_auth",
+            },
+        });
     });
 });

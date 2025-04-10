@@ -51,39 +51,40 @@ export interface ApiClientOptions {
 
 export class ApiClient {
     private token?: OAuthToken;
-    private saveToken?: saveTokenFunction;
-    private client = createClient<paths>({
+    private readonly saveToken?: saveTokenFunction;
+    private readonly client = createClient<paths>({
         baseUrl: config.apiBaseUrl,
         headers: {
             "User-Agent": config.userAgent,
             Accept: `application/vnd.atlas.${config.atlasApiVersion}+json`,
         },
     });
-    private authMiddleware = (apiClient: ApiClient): Middleware => ({
-        async onRequest({ request, schemaPath }) {
+
+    private readonly authMiddleware: Middleware = {
+        onRequest: async ({ request, schemaPath }) => {
             if (schemaPath.startsWith("/api/private/unauth") || schemaPath.startsWith("/api/oauth")) {
                 return undefined;
             }
-            if (await apiClient.validateToken()) {
-                request.headers.set("Authorization", `Bearer ${apiClient.token!.access_token}`);
+            if (this.token && (await this.validateToken())) {
+                request.headers.set("Authorization", `Bearer ${this.token.access_token}`);
                 return request;
             }
         },
-    });
-    private errorMiddleware = (): Middleware => ({
+    };
+    private readonly errorMiddleware: Middleware = {
         async onResponse({ response }) {
             if (!response.ok) {
                 throw await ApiClientError.fromResponse(response);
             }
         },
-    });
+    };
 
     constructor(options: ApiClientOptions) {
         const { token, saveToken } = options;
         this.token = token;
         this.saveToken = saveToken;
-        this.client.use(this.authMiddleware(this));
-        this.client.use(this.errorMiddleware());
+        this.client.use(this.authMiddleware);
+        this.client.use(this.errorMiddleware);
     }
 
     static fromState(state: State): ApiClient {
@@ -173,7 +174,7 @@ export class ApiClient {
         }
     }
 
-    async refreshToken(token?: OAuthToken): Promise<OAuthToken | null> {
+    async refreshToken(token: OAuthToken): Promise<OAuthToken> {
         const endpoint = "api/private/unauth/account/device/token";
         const url = new URL(endpoint, config.apiBaseUrl);
         const response = await fetch(url, {
@@ -184,7 +185,7 @@ export class ApiClient {
             },
             body: new URLSearchParams({
                 client_id: config.clientId,
-                refresh_token: (token || this.token)?.refresh_token || "",
+                refresh_token: token.refresh_token,
                 grant_type: "refresh_token",
                 scope: "openid profile offline_access",
             }).toString(),
@@ -207,7 +208,7 @@ export class ApiClient {
         return await this.storeToken(tokenToStore);
     }
 
-    async revokeToken(token?: OAuthToken): Promise<void> {
+    async revokeToken(token: OAuthToken): Promise<void> {
         const endpoint = "api/private/unauth/account/device/token";
         const url = new URL(endpoint, config.apiBaseUrl);
         const response = await fetch(url, {
@@ -219,7 +220,7 @@ export class ApiClient {
             },
             body: new URLSearchParams({
                 client_id: config.clientId,
-                token: (token || this.token)?.access_token || "",
+                token: token.access_token || "",
                 token_type_hint: "refresh_token",
             }).toString(),
         });
@@ -235,9 +236,8 @@ export class ApiClient {
         return;
     }
 
-    private checkTokenExpiry(token?: OAuthToken): boolean {
+    private checkTokenExpiry(token: OAuthToken): boolean {
         try {
-            token = token || this.token;
             if (!token || !token.access_token) {
                 return false;
             }
@@ -252,13 +252,17 @@ export class ApiClient {
         }
     }
 
-    async validateToken(token?: OAuthToken): Promise<boolean> {
-        if (this.checkTokenExpiry(token)) {
+    async validateToken(): Promise<boolean> {
+        if (!this.token) {
+            return false;
+        }
+
+        if (this.checkTokenExpiry(this.token)) {
             return true;
         }
 
         try {
-            await this.refreshToken(token);
+            await this.refreshToken(this.token);
             return true;
         } catch {
             return false;
@@ -266,7 +270,7 @@ export class ApiClient {
     }
 
     async getIpInfo() {
-        if (!(await this.validateToken())) {
+        if (!this.token || !(await this.validateToken())) {
             throw new Error("Not Authenticated");
         }
 
@@ -276,7 +280,7 @@ export class ApiClient {
             method: "GET",
             headers: {
                 Accept: "application/json",
-                Authorization: `Bearer ${this.token!.access_token}`,
+                Authorization: `Bearer ${this.token.access_token}`,
                 "User-Agent": config.userAgent,
             },
         });
