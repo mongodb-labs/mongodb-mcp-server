@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "types": ["node"],
     "sourceMap": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": ["src/**/*.ts"]
 }

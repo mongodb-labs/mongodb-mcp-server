@@ -1,10 +1,9 @@
 import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
 import os from "os";
-
 import argv from "yargs-parser";
 
+import packageJson from "../package.json" with { type: "json" };
+import fs from "fs";
 const localDataPath = getLocalDataPath();
 
 // If we decide to support non-string config options, we'll need to extend the mechanism for parsing
@@ -27,12 +26,6 @@ const mergedUserConfig = {
     ...getEnvConfig(),
     ...getCliConfig(),
 };
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const packageMetadata = fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf8");
-const packageJson = JSON.parse(packageMetadata);
 
 const config = {
     ...mergedUserConfig,
