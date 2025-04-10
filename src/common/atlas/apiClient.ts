@@ -64,7 +64,7 @@ export class ApiClient {
                 return undefined;
             }
             if (await apiClient.validateToken()) {
-                request.headers.set("Authorization", `Bearer ${apiClient.token?.access_token}`);
+                request.headers.set("Authorization", `Bearer ${apiClient.token!.access_token}`);
                 return request;
             }
         },
@@ -253,7 +253,9 @@ export class ApiClient {
     }
 
     async getIpInfo() {
-        await this.validateToken();
+        if (!(await this.validateToken())) {
+            throw new Error("Not Authenticated");
+        }
 
         const endpoint = "api/private/ipinfo";
         const url = new URL(endpoint, config.apiBaseUrl);
@@ -261,7 +263,7 @@ export class ApiClient {
             method: "GET",
             headers: {
                 Accept: "application/json",
-                Authorization: `Bearer ${this.token?.access_token}`,
+                Authorization: `Bearer ${this.token!.access_token}`,
                 "User-Agent": config.userAgent,
             },
         });

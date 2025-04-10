@@ -39,7 +39,7 @@ export class CreateAccessListTool extends AtlasToolBase {
         }));
 
         if (currentIpAddress) {
-            const currentIp = await this.apiClient!.getIpInfo();
+            const currentIp = await this.apiClient.getIpInfo();
             const input = {
                 groupId: projectId,
                 ipAddress: currentIp.currentIpv4Address,
