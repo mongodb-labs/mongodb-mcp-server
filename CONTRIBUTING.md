@@ -63,7 +63,7 @@ When adding new features or fixing bugs, please ensure that you also add tests t
 
 ## Running Tests
 
-The tests can be found in the `__tests__` directory. 
+The tests can be found in the `__tests__` directory.
 
 You can run tests using the following npm scripts:
 
@@ -75,7 +75,6 @@ To run a specific test file or directory:
 npm test -- path/to/test/file.test.ts
 npm test -- path/to/directory
 ```
-
 
 ## Troubleshooting
 
