@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { config } from "../../config.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { AtlasToolBase } from "./atlasTool.js";
 import { ToolArgs } from "../tool.js";
@@ -15,16 +14,15 @@ export class ListClustersTool extends AtlasToolBase {
     protected async execute({ projectId }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         await this.ensureAuthenticated();
 
-        const selectedProjectId = projectId || config.projectID;
-        if (!selectedProjectId) {
+        if (!projectId) {
             const data = await this.apiClient.listClustersForAllProjects();
 
             return this.formatAllClustersTable(data);
         } else {
-            const project = await this.apiClient.getProject(selectedProjectId);
+            const project = await this.apiClient.getProject(projectId);
 
             if (!project?.id) {
-                throw new Error(`Project with ID "${selectedProjectId}" not found.`);
+                throw new Error(`Project with ID "${projectId}" not found.`);
             }
 
             const data = await this.apiClient.listClusters(project.id || "");

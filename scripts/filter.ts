@@ -24,6 +24,10 @@ function filterOpenapi(openapi: OpenAPIV3_1.Document): OpenAPIV3_1.Document {
         "listClusters",
         "createCluster",
         "listClustersForAllProjects",
+        "createDatabaseUser",
+        "listDatabaseUsers",
+        "listProjectIpAccessLists",
+        "createProjectIpAccessList",
     ];
 
     const filteredPaths = {};

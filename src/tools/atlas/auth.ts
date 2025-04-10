@@ -1,8 +1,9 @@
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { log } from "../../logger.js";
 import { saveState } from "../../state.js";
 import { AtlasToolBase } from "./atlasTool.js";
 import { isAuthenticated } from "../../common/atlas/auth.js";
+import logger from "../../logger.js";
+import { mongoLogId } from "mongodb-log-writer";
 
 export class AuthTool extends AtlasToolBase {
     protected name = "atlas-auth";
@@ -15,7 +16,7 @@ export class AuthTool extends AtlasToolBase {
 
     async execute(): Promise<CallToolResult> {
         if (await this.isAuthenticated()) {
-            log("INFO", "Already authenticated!");
+            logger.debug(mongoLogId(1_000_001), "auth", "Already authenticated!");
             return {
                 content: [{ type: "text", text: "You are already authenticated!" }],
             };
@@ -40,13 +41,13 @@ export class AuthTool extends AtlasToolBase {
             };
         } catch (error: unknown) {
             if (error instanceof Error) {
-                log("error", `Authentication error: ${error}`);
+                logger.error(mongoLogId(1_000_002), "auth", `Authentication error: ${error}`);
                 return {
                     content: [{ type: "text", text: `Authentication failed: ${error.message}` }],
                 };
             }
 
-            log("error", `Unknown authentication error: ${error}`);
+            logger.error(mongoLogId(1_000_003), "auth", `Unknown authentication error: ${error}`);
             return {
                 content: [{ type: "text", text: "Authentication failed due to an unknown error." }],
             };

@@ -43,9 +43,38 @@ npm run build
 
 ### Tool List
 
-- `auth` - Authenticate to MongoDB Atlas
-- `list-clusters` - Lists MongoDB Atlas clusters
-- `list-projects` - Lists MongoDB Atlas projects
+#### MongoDB Atlas Tools
+
+- `atlas-auth` - Authenticate to MongoDB Atlas
+- `atlas-list-clusters` - Lists MongoDB Atlas clusters
+- `atlas-list-projects` - Lists MongoDB Atlas projects
+- `atlas-inspect-cluster` - Inspect a specific MongoDB Atlas cluster
+- `atlas-create-free-cluster` - Create a free MongoDB Atlas cluster
+- `atlas-create-access-list` - Configure IP/CIDR access list for MongoDB Atlas clusters
+- `atlas-inspect-access-list` - Inspect IP/CIDR ranges with access to MongoDB Atlas clusters
+
+#### MongoDB Database Tools
+
+- `connect` - Connect to a MongoDB instance
+- `find` - Run a find query against a MongoDB collection
+- `aggregate` - Run an aggregation against a MongoDB collection
+- `count` - Get the number of documents in a MongoDB collection
+- `insert-one` - Insert a single document into a MongoDB collection
+- `insert-many` - Insert multiple documents into a MongoDB collection
+- `create-index` - Create an index for a MongoDB collection
+- `update-one` - Update a single document in a MongoDB collection
+- `update-many` - Update multiple documents in a MongoDB collection
+- `rename-collection` - Rename a MongoDB collection
+- `delete-one` - Delete a single document from a MongoDB collection
+- `delete-many` - Delete multiple documents from a MongoDB collection
+- `drop-collection` - Remove a collection from a MongoDB database
+- `drop-database` - Remove a MongoDB database
+- `list-databases` - List all databases for a MongoDB connection
+- `list-collections` - List all collections for a given database
+- `collection-indexes` - Describe the indexes for a collection
+- `collection-schema` - Describe the schema for a collection
+- `collection-storage-size` - Get the size of a collection in MB
+- `db-stats` - Return statistics about a MongoDB database
 
 ## 👩‍💻 Client Integration (Use the server!)
 

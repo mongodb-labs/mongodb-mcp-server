@@ -1,8 +1,9 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z, ZodNever, ZodRawShape } from "zod";
-import { log } from "../logger.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { State } from "../state.js";
+import logger from "../logger.js";
+import { mongoLogId } from "mongodb-log-writer";
 
 export type ToolArgs<Args extends ZodRawShape> = z.objectOutputType<Args, ZodNever>;
 
@@ -21,10 +22,15 @@ export abstract class ToolBase {
         const callback = async (args: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> => {
             try {
                 // TODO: add telemetry here
+                logger.debug(
+                    mongoLogId(1_000_006),
+                    "tool",
+                    `Executing ${this.name} with args: ${JSON.stringify(args)}`
+                );
 
                 return await this.execute(args);
             } catch (error) {
-                log("error", `Error executing ${this.name}: ${error}`);
+                logger.error(mongoLogId(1_000_000), "tool", `Error executing ${this.name}: ${error}`);
 
                 // If the error is authentication related, suggest using auth tool
                 if (error instanceof Error && error.message.includes("Not authenticated")) {
