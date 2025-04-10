@@ -69,6 +69,12 @@ export class ConnectTool extends MongoDBToolBase {
         const provider = await NodeDriverServiceProvider.connect(connectionString, {
             productDocsLink: "https://docs.mongodb.com/todo-mcp",
             productName: "MongoDB MCP",
+            readConcern: config.connectOptions.readConcern,
+            readPreference: config.connectOptions.readPreference,
+            writeConcern: {
+                w: config.connectOptions.writeConcern,
+            },
+            timeoutMS: config.connectOptions.timeoutMS,
         });
 
         this.state.serviceProvider = provider;
