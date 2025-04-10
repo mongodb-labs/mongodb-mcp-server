@@ -12,6 +12,7 @@ export class Server {
     state: State = defaultState;
     apiClient: ApiClient | undefined = undefined;
     initialized: boolean = false;
+    private server?: McpServer;
 
     private async init() {
         if (this.initialized) {
@@ -36,7 +37,8 @@ export class Server {
         this.initialized = true;
     }
 
-    private createMcpServer(): McpServer {
+    async connect(transport: Transport) {
+        await this.init();
         const server = new McpServer({
             name: "MongoDB Atlas",
             version: config.version,
@@ -47,15 +49,19 @@ export class Server {
         registerAtlasTools(server, this.state, this.apiClient!);
         registerMongoDBTools(server, this.state);
 
-        return server;
-    }
-
-    async connect(transport: Transport) {
-        await this.init();
-        const server = this.createMcpServer();
         await server.connect(transport);
         await initializeLogger(server);
+        this.server = server;
 
         logger.info(mongoLogId(1_000_004), "server", `Server started with transport ${transport.constructor.name}`);
+    }
+
+    async close(): Promise<void> {
+        try {
+            await this.state.serviceProvider?.close(true);
+        } catch {
+            // Ignore errors during service provider close
+        }
+        await this.server?.close();
     }
 }

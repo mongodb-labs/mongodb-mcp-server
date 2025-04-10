@@ -15,12 +15,12 @@ interface Credentials {
 
 export class State {
     private entry = new AsyncEntry("mongodb-mcp", "credentials");
-    credentials: Credentials = {
+    public credentials: Credentials = {
         auth: {
             status: "not_auth",
         },
     };
-    serviceProvider?: NodeDriverServiceProvider;
+    public serviceProvider?: NodeDriverServiceProvider;
 
     public async persistCredentials(): Promise<void> {
         await this.entry.setPassword(JSON.stringify(this.credentials));
