@@ -21,14 +21,14 @@ export class Server {
 
         this.apiClient = new ApiClient({
             token: this.state?.auth.token,
-            saveToken: (token) => {
+            saveToken: async (token) => {
                 if (!this.state) {
                     throw new Error("State is not initialized");
                 }
                 this.state.auth.code = undefined;
                 this.state.auth.token = token;
                 this.state.auth.status = "issued";
-                saveState(this.state);
+                await saveState(this.state);
             },
         });
 

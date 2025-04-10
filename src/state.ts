@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs/promises";
 import config from "./config.js";
 import { OauthDeviceCode, OAuthToken } from "./common/atlas/apiClient.js";
 
@@ -8,37 +8,26 @@ export interface State {
         code?: OauthDeviceCode;
         token?: OAuthToken;
     };
+    connectionString?: string;
 }
 
 export async function saveState(state: State): Promise<void> {
-    return new Promise((resolve, reject) => {
-        fs.writeFile(config.stateFile, JSON.stringify(state), function (err) {
-            if (err) {
-                return reject(err);
-            }
-
-            return resolve();
-        });
-    });
+    await fs.writeFile(config.stateFile, JSON.stringify(state), { encoding: "utf-8" });
 }
 
-export async function loadState() {
-    return new Promise<State>((resolve, reject) => {
-        fs.readFile(config.stateFile, "utf-8", (err, data) => {
-            if (err) {
-                if (err.code === "ENOENT") {
-                    // File does not exist, return default state
-                    const defaultState: State = {
-                        auth: {
-                            status: "not_auth",
-                        },
-                    };
-                    return resolve(defaultState);
-                } else {
-                    return reject(err);
-                }
-            }
-            return resolve(JSON.parse(data) as State);
-        });
-    });
+export async function loadState(): Promise<State> {
+    try {
+        const data = await fs.readFile(config.stateFile, "utf-8");
+        return JSON.parse(data) as State;
+    } catch (err: unknown) {
+        if (err && typeof err === "object" && "code" in err && err.code === "ENOENT") {
+            return {
+                auth: {
+                    status: "not_auth",
+                },
+            };
+        }
+
+        throw err;
+    }
 }

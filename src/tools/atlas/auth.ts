@@ -11,7 +11,7 @@ export class AuthTool extends AtlasToolBase {
     protected argsShape = {};
 
     private async isAuthenticated(): Promise<boolean> {
-        return isAuthenticated(this.state!, this.apiClient);
+        return isAuthenticated(this.state, this.apiClient);
     }
 
     async execute(): Promise<CallToolResult> {
@@ -25,11 +25,11 @@ export class AuthTool extends AtlasToolBase {
         try {
             const code = await this.apiClient.authenticate();
 
-            this.state!.auth.status = "requested";
-            this.state!.auth.code = code;
-            this.state!.auth.token = undefined;
+            this.state.auth.status = "requested";
+            this.state.auth.code = code;
+            this.state.auth.token = undefined;
 
-            await saveState(this.state!);
+            await saveState(this.state);
 
             return {
                 content: [

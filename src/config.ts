@@ -5,6 +5,8 @@ import os from "os";
 
 import argv from "yargs-parser";
 
+const localDataPath = getLocalDataPath();
+
 // If we decide to support non-string config options, we'll need to extend the mechanism for parsing
 // env variables.
 interface UserConfig extends Record<string, string> {
@@ -19,7 +21,7 @@ const cliConfig = argv(process.argv.slice(2)) as unknown as Partial<UserConfig>;
 const defaults: UserConfig = {
     apiBaseUrl: "https://cloud.mongodb.com/",
     clientId: "0oabtxactgS3gHIR0297",
-    stateFile: path.join(getLocalDataPath(), "state.json"),
+    stateFile: path.join(localDataPath, "state.json"),
     projectId: "",
 };
 
@@ -36,21 +38,27 @@ const config = {
     atlasApiVersion: `2025-03-12`,
     version: packageJson.version,
     userAgent: `AtlasMCP/${packageJson.version} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
-    localDataPath: getLocalDataPath(),
+    localDataPath,
 };
 
 export default config;
 
 function getLocalDataPath(): string {
+    let result: string | undefined;
+
     if (process.platform === "win32") {
         const appData = process.env.APPDATA;
         const localAppData = process.env.LOCALAPPDATA ?? process.env.APPDATA;
         if (localAppData && appData) {
-            return path.join(localAppData, "mongodb", "mongodb-mcp");
+            result = path.join(localAppData, "mongodb", "mongodb-mcp");
         }
     }
 
-    return path.join(os.homedir(), ".mongodb", "mongodb-mcp");
+    result ??= path.join(os.homedir(), ".mongodb", "mongodb-mcp");
+
+    fs.mkdirSync(result, { recursive: true });
+
+    return result;
 }
 
 // Gets the config supplied by the user as environment variables. The variable names
@@ -75,7 +83,7 @@ function getEnvConfig(): Partial<UserConfig> {
 // Gets the config supplied by the user as a JSON file. The file is expected to be located in the local data path
 // and named `config.json`.
 function getFileConfig(): Partial<UserConfig> {
-    const configPath = path.join(getLocalDataPath(), "config.json");
+    const configPath = path.join(localDataPath, "config.json");
 
     try {
         const config = fs.readFileSync(configPath, "utf8");
