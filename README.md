@@ -55,37 +55,20 @@ npm run build
 
 #### MongoDB Database Tools
 
-##### Connection
-
 - `connect` - Connect to a MongoDB instance
-
-##### Read Operations
-
 - `find` - Run a find query against a MongoDB collection
 - `aggregate` - Run an aggregation against a MongoDB collection
 - `count` - Get the number of documents in a MongoDB collection
-
-##### Create Operations
-
 - `insert-one` - Insert a single document into a MongoDB collection
 - `insert-many` - Insert multiple documents into a MongoDB collection
 - `create-index` - Create an index for a MongoDB collection
-
-##### Update Operations
-
 - `update-one` - Update a single document in a MongoDB collection
 - `update-many` - Update multiple documents in a MongoDB collection
 - `rename-collection` - Rename a MongoDB collection
-
-##### Delete Operations
-
 - `delete-one` - Delete a single document from a MongoDB collection
 - `delete-many` - Delete multiple documents from a MongoDB collection
 - `drop-collection` - Remove a collection from a MongoDB database
 - `drop-database` - Remove a MongoDB database
-
-##### Metadata Operations
-
 - `list-databases` - List all databases for a MongoDB connection
 - `list-collections` - List all collections for a given database
 - `collection-indexes` - Describe the indexes for a collection
