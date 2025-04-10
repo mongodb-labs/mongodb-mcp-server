@@ -20,6 +20,7 @@ import { UpdateManyTool } from "./update/updateMany.js";
 import { RenameCollectionTool } from "./update/renameCollection.js";
 import { DropDatabaseTool } from "./delete/dropDatabase.js";
 import { DropCollectionTool } from "./delete/dropCollection.js";
+import { ExplainTool } from "./metadata/explain.js";
 
 export function registerMongoDBTools(server: McpServer, state: State) {
     const tools = [
@@ -43,6 +44,7 @@ export function registerMongoDBTools(server: McpServer, state: State) {
         RenameCollectionTool,
         DropDatabaseTool,
         DropCollectionTool,
+        ExplainTool,
     ];
 
     for (const tool of tools) {
