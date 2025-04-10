@@ -1,13 +1,6 @@
 import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
 import os from "os";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const packageMetadata = fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf8");
-const packageJson = JSON.parse(packageMetadata);
+import packageJson from "../package.json" with { type: "json" };
 
 export const config = {
     atlasApiVersion: `2025-03-12`,
