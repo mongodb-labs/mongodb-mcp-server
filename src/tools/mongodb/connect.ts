@@ -5,6 +5,7 @@ import { DbOperationType, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 import { ErrorCodes, MongoDBError } from "../../errors.js";
 import config from "../../config.js";
+import { connectToMongoDB } from "../../common/mongodb/connect.js";
 
 export class ConnectTool extends MongoDBToolBase {
     protected name = "connect";
@@ -58,27 +59,10 @@ export class ConnectTool extends MongoDBToolBase {
             throw new MongoDBError(ErrorCodes.InvalidParams, "Invalid connection options");
         }
 
-        await this.connect(connectionString);
+        await connectToMongoDB(connectionString, this.state);
 
         return {
             content: [{ type: "text", text: `Successfully connected to ${connectionString}.` }],
         };
-    }
-
-    private async connect(connectionString: string): Promise<void> {
-        const provider = await NodeDriverServiceProvider.connect(connectionString, {
-            productDocsLink: "https://docs.mongodb.com/todo-mcp",
-            productName: "MongoDB MCP",
-            readConcern: config.connectOptions.readConcern,
-            readPreference: config.connectOptions.readPreference,
-            writeConcern: {
-                w: config.connectOptions.writeConcern,
-            },
-            timeoutMS: config.connectOptions.timeoutMS,
-        });
-
-        this.state.serviceProvider = provider;
-        this.state.credentials.connectionString = connectionString;
-        await this.state.persistCredentials();
     }
 }
