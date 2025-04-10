@@ -1,12 +1,11 @@
 import { jest, describe, it, expect, beforeEach } from "@jest/globals";
-import {runServer} from "../../src/index";
+import { runServer } from "../../src/index";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio";
 
-
 // mock the StdioServerTransport
-jest.mock('@modelcontextprotocol/sdk/server/stdio.js');
+jest.mock("@modelcontextprotocol/sdk/server/stdio.js");
 // mock Server class and its methods
-jest.mock('../../src/server.ts', () => {
+jest.mock("../../src/server.ts", () => {
     return {
         Server: jest.fn().mockImplementation(() => {
             return {
@@ -19,7 +18,6 @@ jest.mock('../../src/server.ts', () => {
         }),
     };
 });
-
 
 describe("Server initialization", () => {
     it("should create a server instance", async () => {
