@@ -64,9 +64,15 @@ export class ApiClient {
             if (!response.ok) {
                 try {
                     const text = await response.text();
-                    throw new ApiClientError(`Error calling Atlas API: [${response.status} ${response.statusText}] ${text}`, response);
+                    throw new ApiClientError(
+                        `Error calling Atlas API: [${response.status} ${response.statusText}] ${text}`,
+                        response
+                    );
                 } catch {
-                    throw new ApiClientError(`Error calling Atlas API: ${response.status} ${response.statusText}`, response);
+                    throw new ApiClientError(
+                        `Error calling Atlas API: ${response.status} ${response.statusText}`,
+                        response
+                    );
                 }
             }
         },
