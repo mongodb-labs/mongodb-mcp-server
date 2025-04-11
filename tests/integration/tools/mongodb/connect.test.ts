@@ -1,5 +1,4 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { Server } from "../../../../src/server.js";
 import { runMongoDB, setupIntegrationTest, validateToolResponse } from "../../helpers.js";
 import runner from "mongodb-runner";
 
