@@ -5,7 +5,6 @@ import argv from "yargs-parser";
 import packageJson from "../package.json" with { type: "json" };
 import fs from "fs";
 import { ReadConcernLevel, ReadPreferenceMode, W } from "mongodb";
-import { log } from "console";
 
 // If we decide to support non-string config options, we'll need to extend the mechanism for parsing
 // env variables.

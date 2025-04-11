@@ -1,8 +1,6 @@
 import { MongoLogId, MongoLogManager, MongoLogWriter } from "mongodb-log-writer";
-import path from "path";
 import config from "./config.js";
 import redact from "mongodb-redact";
-import fs from "fs/promises";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { LoggingMessageNotification } from "@modelcontextprotocol/sdk/types.js";
 
