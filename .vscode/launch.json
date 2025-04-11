@@ -9,13 +9,9 @@
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/scripts/apply.ts",
-      "args": [
-        "--spec",
-        "${workspaceFolder}/scripts/bundledSpec.json",
-        "--template",
-        "${workspaceFolder}/scripts/apiClient.ts.template"
-      ],
+      "program": "${workspaceFolder}/dist/index.js",
+      "preLaunchTask": "tsc: build - tsconfig.json",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
     }
   ]
 }
