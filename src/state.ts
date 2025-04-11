@@ -13,20 +13,21 @@ export class State {
     serviceProvider?: NodeDriverServiceProvider;
 
     public async persistCredentials(): Promise<void> {
-        await this.entry.setPassword(JSON.stringify(this.credentials));
+        try {
+            await this.entry.setPassword(JSON.stringify(this.credentials));
+        } catch (err) {
+            logger.error(mongoLogId(1_000_008), "state", `Failed to save state: ${err}`);
+        }
     }
 
-    public async loadCredentials(): Promise<boolean> {
+    public async loadCredentials(): Promise<void> {
         try {
             const data = await this.entry.getPassword();
             if (data) {
                 this.credentials = JSON.parse(data);
             }
-
-            return true;
         } catch (err: unknown) {
             logger.error(mongoLogId(1_000_007), "state", `Failed to load state: ${err}`);
-            return false;
         }
     }
 }

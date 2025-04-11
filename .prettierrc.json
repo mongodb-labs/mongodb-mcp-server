@@ -18,6 +18,13 @@
         "tabWidth": 2,
         "printWidth": 80
       }
+    },
+    {
+      "files": "*.yaml",
+      "options": {
+        "tabWidth": 2,
+        "printWidth": 80
+      }
     }
   ]
 }
