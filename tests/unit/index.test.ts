@@ -1,6 +1,4 @@
 import { describe, it } from "@jest/globals";
-import { runServer } from "../../src/index";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { State } from "../../src/state";
 
 // mock the StdioServerTransport
