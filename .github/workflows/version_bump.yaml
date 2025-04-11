@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to bump to'
+        description: "Version to bump to"
         required: true
-        default: 'patch'
+        default: "patch"
 jobs:
   bump-version:
     runs-on: ubuntu-latest
@@ -27,11 +27,11 @@ jobs:
       - name: Create PR
         uses: peter-evans/create-pull-request@v4
         with:
-          title: 'Bump version to ${{ github.event.inputs.version }}'
-          body: 'Bump version to ${{ github.event.inputs.version }}'
+          title: "Bump version to ${{ github.event.inputs.version }}"
+          body: "Bump version to ${{ github.event.inputs.version }}"
           base: main
           branch: ci/version-bump-${{ github.event.inputs.version }}
-          commit-message: 'Bump version to ${{ github.event.inputs.version }}'
-          author: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
-          committer: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
+          commit-message: "Bump version to ${{ github.event.inputs.version }}"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          committer: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
           labels: version-bump
