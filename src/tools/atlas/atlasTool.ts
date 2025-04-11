@@ -10,7 +10,7 @@ export abstract class AtlasToolBase extends ToolBase {
         super(state);
     }
 
-    protected async ensureAuthenticated(): Promise<void> {
+    protected ensureAuthenticated(): void {
         if (!this.apiClient) {
             throw new Error(
                 "Not authenticated make sure to configure MCP server with MDB_MCP_API_CLIENT_ID and MDB_MCP_API_CLIENT_SECRET environment variables."

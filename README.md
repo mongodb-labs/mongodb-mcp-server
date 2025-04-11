@@ -162,12 +162,11 @@ The MongoDB MCP Server can be configured using multiple methods, with the follow
 
 ### Configuration Options
 
-| Option             | Description                                                                 |
-| ------------------ | --------------------------------------------------------------------------- |
-| `apiClientId`      | Atlas API client ID for authentication                                      |
-| `apiClientSecret`  | Atlas API client secret for authentication                                  |
-| `stateFile`        | Path to store application state (default ~/.mongodb/mongodb-mcp/state.json) |
-| `connectionString` | MongoDB connection string for direct database connections                   |
+| Option             | Description                                                                                                           |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `apiClientId`      | Atlas API client ID for authentication                                                                                |
+| `apiClientSecret`  | Atlas API client secret for authentication                                                                            |
+| `connectionString` | MongoDB connection string for direct database connections (optional users may choose to inform it on every tool call) |
 
 ### Atlas API Access
 
