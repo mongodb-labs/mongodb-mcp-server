@@ -33,7 +33,7 @@ export abstract class MongoDBToolBase extends ToolBase {
         return provider;
     }
 
-    protected handleError(error: unknown): CallToolResult | undefined {
+    protected handleError(error: unknown): Promise<CallToolResult> | CallToolResult {
         if (error instanceof MongoDBError && error.code === ErrorCodes.NotConnectedToMongoDB) {
             return {
                 content: [
@@ -46,10 +46,11 @@ export abstract class MongoDBToolBase extends ToolBase {
                         text: "Please use the 'connect' tool to connect to a MongoDB instance.",
                     },
                 ],
+                isError: true,
             };
         }
 
-        return undefined;
+        return super.handleError(error);
     }
 
     protected async connectToMongoDB(connectionString: string, state: State): Promise<void> {

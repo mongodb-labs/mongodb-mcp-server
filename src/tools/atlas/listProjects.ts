@@ -7,7 +7,7 @@ export class ListProjectsTool extends AtlasToolBase {
     protected argsShape = {};
 
     protected async execute(): Promise<CallToolResult> {
-        await this.ensureAuthenticated();
+        this.ensureAuthenticated();
 
         const data = await this.apiClient!.listProjects();
 
