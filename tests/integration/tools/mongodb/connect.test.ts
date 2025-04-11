@@ -6,28 +6,27 @@ import runner from "mongodb-runner";
 import defaultState from "../../../../src/state.js";
 import config from "../../../../src/config.js";
 
-let client: Client;
-let server: Server;
-
-let loadCredentialsMock: jest.SpyInstance | undefined;
-let cluster: runner.MongoCluster;
-
-beforeAll(async () => {
-    jest.setTimeout(30000);
-    cluster = await runMongoDB();
-});
-
-afterEach(async () => {
-    loadCredentialsMock?.mockRestore();
-    await client?.close();
-    await server?.close();
-});
-
-afterAll(async () => {
-    await cluster.close();
-});
-
 describe("Connect tool", () => {
+    let client: Client;
+    let server: Server;
+
+    let loadCredentialsMock: jest.SpyInstance | undefined;
+    let cluster: runner.MongoCluster;
+
+    beforeAll(async () => {
+        cluster = await runMongoDB();
+    }, 60_000);
+
+    afterEach(async () => {
+        loadCredentialsMock?.mockRestore();
+        await client?.close();
+        await server?.close();
+    });
+
+    afterAll(async () => {
+        await cluster.close();
+    });
+
     describe("with default config", () => {
         beforeEach(async () => {
             loadCredentialsMock = jest.spyOn(defaultState, "loadCredentials").mockImplementation(async () => true);

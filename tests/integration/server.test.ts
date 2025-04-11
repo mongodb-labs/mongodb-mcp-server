@@ -2,19 +2,19 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { Server } from "../../src/server.js";
 import { setupIntegrationTest } from "./helpers.js";
 
-let client: Client;
-let server: Server;
-
-beforeEach(async () => {
-    ({ client, server } = await setupIntegrationTest());
-});
-
-afterEach(async () => {
-    await client?.close();
-    await server?.close();
-});
-
 describe("Server integration test", () => {
+    let client: Client;
+    let server: Server;
+
+    beforeEach(async () => {
+        ({ client, server } = await setupIntegrationTest());
+    });
+
+    afterEach(async () => {
+        await client?.close();
+        await server?.close();
+    });
+
     describe("list capabilities", () => {
         it("should return positive number of tools", async () => {
             const tools = await client.listTools();
