@@ -82,7 +82,7 @@ export class ExplainTool extends MongoDBToolBase {
         return {
             content: [
                 {
-                    text: `Here is some information about the winning plan chosen by the query optimizer for running the given \`${method}\` operation in \`${database}\`. This information can be used to understand how the query was executed and to optimize the query performance.`,
+                    text: `Here is some information about the winning plan chosen by the query optimizer for running the given \`${method}\` operation in \`${database}.${collection}\`. This information can be used to understand how the query was executed and to optimize the query performance.`,
                     type: "text",
                 },
                 {
