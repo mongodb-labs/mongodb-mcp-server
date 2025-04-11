@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 import { runServer } from "../../src/index";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 
 // mock the StdioServerTransport
 jest.mock("@modelcontextprotocol/sdk/server/stdio");

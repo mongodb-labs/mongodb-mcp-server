@@ -11,35 +11,31 @@ import { mongoLogId } from "mongodb-log-writer";
 export class Server {
     state: State = defaultState;
     apiClient?: ApiClient;
+    private server?: McpServer;
 
-    private createMcpServer(): McpServer {
-        const server = new McpServer({
+    async connect(transport: Transport) {
+        this.server = new McpServer({
             name: "MongoDB Atlas",
             version: config.version,
         });
 
-        server.server.registerCapabilities({ logging: {} });
+        this.server.server.registerCapabilities({ logging: {} });
 
-        if (config.apiClientId && config.apiClientSecret) {
-            this.apiClient = new ApiClient({
-                credentials: {
-                    clientId: config.apiClientId!,
-                    clientSecret: config.apiClientSecret,
-                },
-            });
-        }
+        registerAtlasTools(this.server, this.state, this.apiClient);
+        registerMongoDBTools(this.server, this.state);
 
-        registerAtlasTools(server, this.state, this.apiClient);
-        registerMongoDBTools(server, this.state);
-
-        return server;
+        await this.server.connect(transport);
+        await initializeLogger(this.server);
+        
+        logger.info(mongoLogId(1_000_004), "server", `Server started with transport ${transport.constructor.name}`);
     }
 
-    async connect(transport: Transport) {
-        const server = this.createMcpServer();
-        await server.connect(transport);
-        await initializeLogger(server);
-
-        logger.info(mongoLogId(1_000_004), "server", `Server started with transport ${transport.constructor.name}`);
+    async close(): Promise<void> {
+        try {
+            await this.state.serviceProvider?.close(true);
+        } catch {
+            // Ignore errors during service provider close
+        }
+        await this.server?.close();
     }
 }

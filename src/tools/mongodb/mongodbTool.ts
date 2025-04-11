@@ -57,7 +57,9 @@ export abstract class MongoDBToolBase extends ToolBase {
         const provider = await NodeDriverServiceProvider.connect(connectionString, {
             productDocsLink: "https://docs.mongodb.com/todo-mcp",
             productName: "MongoDB MCP",
-            readConcern: config.connectOptions.readConcern,
+            readConcern: {
+                level: config.connectOptions.readConcern,
+            },
             readPreference: config.connectOptions.readPreference,
             writeConcern: {
                 w: config.connectOptions.writeConcern,
