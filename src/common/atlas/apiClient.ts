@@ -3,7 +3,6 @@ import createClient, { Client, FetchOptions, Middleware } from "openapi-fetch";
 import { AccessToken, ClientCredentials } from "simple-oauth2";
 
 import { paths, operations } from "./openapi.js";
-import { State } from "../../state.js";
 
 const ATLAS_API_VERSION = "2025-03-12";
 
@@ -70,7 +69,8 @@ export class ApiClient {
                 // ignore not availble tokens, API will return 401
             }
         },
-    };
+    });
+
     private readonly errorMiddleware: Middleware = {
         async onResponse({ response }) {
             if (!response.ok) {
@@ -79,7 +79,7 @@ export class ApiClient {
         },
     };
 
-    constructor(options?: ApiClientOptions) {
+    constructor(options: ApiClientOptions) {
         const defaultOptions = {
             baseUrl: "https://cloud.mongodb.com/",
             userAgent: `AtlasMCP/${config.version} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
@@ -110,7 +110,7 @@ export class ApiClient {
             });
             this.client.use(this.authMiddleware(this));
         }
-        this.client.use(this.errorMiddleware());
+        this.client.use(this.errorMiddleware);
     }
 
     public async getIpInfo(): Promise<{

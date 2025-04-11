@@ -11,21 +11,15 @@ import { Server } from "./server.js";
 
 try {
     const state = new State();
-    await state.loadCredentials();
-
-    const apiClient = ApiClient.fromState(state);
-
     const mcpServer = new McpServer({
         name: "MongoDB Atlas",
         version: config.version,
     });
-
     const transport = new StdioServerTransport();
 
-    const server = new Server({
+    const server = new Seriver({
         mcpServer,
         state,
-        apiClient,
         transport,
     });
 

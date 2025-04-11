@@ -1,14 +1,20 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import defaultState, { State } from "./state.js";
+import { State } from "./state.js";
 import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { registerAtlasTools } from "./tools/atlas/tools.js";
 import { registerMongoDBTools } from "./tools/mongodb/index.js";
 import logger, { initializeLogger } from "./logger.js";
 import { mongoLogId } from "mongodb-log-writer";
+import { ApiClient } from "./common/atlas/apiClient.js";
 
 export class Server {
-    state: State = defaultState;
-    private server?: McpServer;
+    public readonly state: State;
+    private readonly mcpServer: McpServer;
+
+    constructor({ mcpServer, state, transport }: { mcpServer: McpServer; state: State; transport: Transport }) {
+        this.mcpServer = server;
+        this.state = new State();
+    }
 
     async connect(transport: Transport) {
         this.server = new McpServer({
