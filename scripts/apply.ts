@@ -1,10 +1,6 @@
-import fs from "fs";
+import fs from "fs/promises";
 import { OpenAPIV3_1 } from "openapi-types";
 import argv from "yargs-parser";
-import { promisify } from "util";
-
-const readFileAsync = promisify(fs.readFile);
-const writeFileAsync = promisify(fs.writeFile);
 
 function findParamFromRef(ref: string, openapi: OpenAPIV3_1.Document): OpenAPIV3_1.ParameterObject {
     const paramParts = ref.split("/");
@@ -28,7 +24,7 @@ async function main() {
         process.exit(1);
     }
 
-    const specFile = (await readFileAsync(spec, "utf8")) as string;
+    const specFile = (await fs.readFile(spec, "utf8")) as string;
 
     const operations: {
         path: string;
@@ -81,13 +77,13 @@ async function main() {
         })
         .join("\n");
 
-    const templateFile = (await readFileAsync(file, "utf8")) as string;
+    const templateFile = (await fs.readFile(file, "utf8")) as string;
     const output = templateFile.replace(
         /\/\/ DO NOT EDIT\. This is auto-generated code\.\n.*\/\/ DO NOT EDIT\. This is auto-generated code\./g,
         operationOutput
     );
 
-    await writeFileAsync(file, output, "utf8");
+    await fs.writeFile(file, output, "utf8");
 }
 
 main().catch((error) => {

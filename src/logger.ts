@@ -1,10 +1,9 @@
-import fs from "fs";
+import fs from "fs/promises";
 import { MongoLogId, MongoLogManager, MongoLogWriter } from "mongodb-log-writer";
 import config from "./config.js";
 import redact from "mongodb-redact";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { LoggingMessageNotification } from "@modelcontextprotocol/sdk/types.js";
-import { promisify } from "util";
 
 export type LogLevel = LoggingMessageNotification["params"]["level"];
 
@@ -99,10 +98,8 @@ class ProxyingLogger extends LoggerBase {
 const logger = new ProxyingLogger();
 export default logger;
 
-const mkdirAsync = promisify(fs.mkdir);
-
 export async function initializeLogger(server: McpServer): Promise<void> {
-    await mkdirAsync(config.logPath, { recursive: true });
+    await fs.mkdir(config.logPath, { recursive: true });
 
     const manager = new MongoLogManager({
         directory: config.logPath,
