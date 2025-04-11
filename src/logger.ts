@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs/promises";
 import { MongoLogId, MongoLogManager, MongoLogWriter } from "mongodb-log-writer";
 import config from "./config.js";
 import redact from "mongodb-redact";
@@ -98,20 +98,8 @@ class ProxyingLogger extends LoggerBase {
 const logger = new ProxyingLogger();
 export default logger;
 
-async function mkdirPromise(path: fs.PathLike, options?: fs.Mode | fs.MakeDirectoryOptions) {
-    return new Promise<string | undefined>((resolve, reject) => {
-        fs.mkdir(path, options, (err, resultPath) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(resultPath);
-            }
-        });
-    });
-}
-
 export async function initializeLogger(server: McpServer): Promise<void> {
-    await mkdirPromise(config.logPath, { recursive: true });
+    await fs.mkdir(config.logPath, { recursive: true });
 
     const manager = new MongoLogManager({
         directory: config.logPath,
