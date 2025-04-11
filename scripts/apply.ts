@@ -1,4 +1,4 @@
-import fs, { writeFile } from "fs";
+import fs from "fs";
 import { OpenAPIV3_1 } from "openapi-types";
 import argv from "yargs-parser";
 import { promisify } from "util";
@@ -21,14 +21,14 @@ function findParamFromRef(ref: string, openapi: OpenAPIV3_1.Document): OpenAPIV3
 }
 
 async function main() {
-    const {spec, file} = argv(process.argv.slice(2));
+    const { spec, file } = argv(process.argv.slice(2));
 
     if (!spec || !file) {
         console.error("Please provide both --spec and --file arguments.");
         process.exit(1);
     }
 
-    const specFile = await readFileAsync(spec, "utf8") as string;
+    const specFile = (await readFileAsync(spec, "utf8")) as string;
 
     const operations: {
         path: string;
@@ -42,7 +42,7 @@ async function main() {
     for (const path in openapi.paths) {
         for (const method in openapi.paths[path]) {
             const operation: OpenAPIV3_1.OperationObject = openapi.paths[path][method];
-            
+
             if (!operation.operationId || !operation.tags?.length) {
                 continue;
             }
@@ -63,24 +63,29 @@ async function main() {
             operations.push({
                 path,
                 method: method.toUpperCase(),
-                operationId: operation.operationId || '',
+                operationId: operation.operationId || "",
                 requiredParams,
                 tag: operation.tags[0],
             });
         }
     }
-    
-    const operationOutput = operations.map((operation) => {
-        const { operationId, method, path, requiredParams } = operation;
-        return `async ${operationId}(options${requiredParams ? '' : '?'}: FetchOptions<operations["${operationId}"]>) {
+
+    const operationOutput = operations
+        .map((operation) => {
+            const { operationId, method, path, requiredParams } = operation;
+            return `async ${operationId}(options${requiredParams ? "" : "?"}: FetchOptions<operations["${operationId}"]>) {
     const { data } = await this.client.${method}("${path}", options);
     return data;
 }
 `;
-    }).join("\n");
+        })
+        .join("\n");
 
-    const templateFile = await readFileAsync(file, "utf8") as string;
-    const output = templateFile.replace(/\/\/ DO NOT EDIT\. This is auto-generated code\.\n.*\/\/ DO NOT EDIT\. This is auto-generated code\./g, operationOutput);
+    const templateFile = (await readFileAsync(file, "utf8")) as string;
+    const output = templateFile.replace(
+        /\/\/ DO NOT EDIT\. This is auto-generated code\.\n.*\/\/ DO NOT EDIT\. This is auto-generated code\./g,
+        operationOutput
+    );
 
     await writeFileAsync(file, output, "utf8");
 }
