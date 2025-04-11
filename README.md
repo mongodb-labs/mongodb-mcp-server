@@ -86,8 +86,7 @@ npm run build
 
 Prerequisites:
 
-- Use VSCode Insiders (https://code.visualstudio.com/insiders/)
-- Setup copilot in VSCode Insiders
+- Node.js v20.x
 
 Step 1: Add the mcp server to VSCode configuration
 
@@ -104,8 +103,8 @@ It should look like this
   "servers": {
     "mongodb-mcp-server": {
       "type": "stdio",
-      "command": "/Users/<user>/workplace/atlas-mcp-server/dist/index.js",
-      "args": []
+      "command": "npx",
+      "args": ["-y", "@mongodb-js/mongodb-mcp-server"]
     }
   }
 }
@@ -141,7 +140,8 @@ Paste the mcp server configuration into the file
 {
   "mcpServers": {
     "Demo": {
-      "command": "path/to/this/repo/atlas-mc-server/dist/index.js"
+      "command": "npx",
+      "args": ["-y", "@mongodb-js/mongodb-mcp-server"]
     }
   }
 }
