@@ -116,7 +116,7 @@ export class ApiClient {
         const accessToken = await this.getAccessToken();
 
         const endpoint = "api/private/ipinfo";
-        const url = new URL(endpoint, this.options.baseUrl || config.apiBaseUrl);
+        const url = new URL(endpoint, this.options.baseUrl);
         const response = await fetch(url, {
             method: "GET",
             headers: {
