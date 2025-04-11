@@ -1,5 +1,5 @@
 import { describe, it } from "@jest/globals";
-import { State } from "../../src/state";
+import { Session } from "../../src/session";
 
 // mock the StdioServerTransport
 jest.mock("@modelcontextprotocol/sdk/server/stdio");
@@ -20,7 +20,7 @@ jest.mock("../../src/server.ts", () => {
 
 describe("Server initialization", () => {
     it("should define a default state", async () => {
-        const state = new State();
+        const state = new Session();
 
         expect(state.credentials).toEqual({
             auth: {

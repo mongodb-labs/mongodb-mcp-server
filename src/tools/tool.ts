@@ -1,6 +1,7 @@
 import { McpServer, ToolCallback } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z, ZodNever, ZodRawShape } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+import { State } from "../session.js";
 import logger from "../logger.js";
 import { mongoLogId } from "mongodb-log-writer";
 
@@ -15,7 +16,7 @@ export abstract class ToolBase {
 
     protected abstract execute(...args: Parameters<ToolCallback<typeof this.argsShape>>): Promise<CallToolResult>;
 
-    protected constructor() {}
+    protected constructor(protected state: State) {}
 
     public register(server: McpServer): void {
         const callback: ToolCallback<typeof this.argsShape> = async (...args) => {

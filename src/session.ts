@@ -2,7 +2,8 @@ import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver
 import { ApiClient } from "./common/atlas/apiClient.js";
 import config from "./config.js";
 
-export class State {
+export class Session {
+    serviceProvider?: NodeDriverServiceProvider;
     apiClient?: ApiClient;
 
     ensureApiClient(): asserts this is { apiClient: ApiClient } {

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { ToolBase } from "../tool.js";
+import { State } from "../../state.js";
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { ErrorCodes, MongoDBError } from "../../errors.js";
@@ -13,22 +14,23 @@ export const DbOperationArgs = {
 export type DbOperationType = "metadata" | "read" | "create" | "update" | "delete";
 
 export abstract class MongoDBToolBase extends ToolBase {
-    constructor(private serviceProvider: NodeDriverServiceProvider | undefined) {
-        super();
+    constructor(state: State) {
+        super(state);
     }
 
     protected abstract operationType: DbOperationType;
 
     protected async ensureConnected(): Promise<NodeDriverServiceProvider> {
-        if (!this.serviceProvider && config.connectionString) {
-            this.serviceProvider = await this.connectToMongoDB(config.connectionString);
+        const provider = this.state.serviceProvider;
+        if (!provider && config.connectionString) {
+            await this.connectToMongoDB(config.connectionString, this.state);
         }
 
-        if (!this.serviceProvider) {
+        if (!provider) {
             throw new MongoDBError(ErrorCodes.NotConnectedToMongoDB, "Not connected to MongoDB");
         }
 
-        return this.serviceProvider;
+        return provider;
     }
 
     protected handleError(error: unknown): Promise<CallToolResult> | CallToolResult {
@@ -51,8 +53,8 @@ export abstract class MongoDBToolBase extends ToolBase {
         return super.handleError(error);
     }
 
-    protected async connectToMongoDB(connectionString: string): Promise<NodeDriverServiceProvider> {
-        return NodeDriverServiceProvider.connect(connectionString, {
+    protected async connectToMongoDB(connectionString: string, state: State): Promise<void> {
+        const provider = await NodeDriverServiceProvider.connect(connectionString, {
             productDocsLink: "https://docs.mongodb.com/todo-mcp",
             productName: "MongoDB MCP",
             readConcern: {
@@ -64,5 +66,7 @@ export abstract class MongoDBToolBase extends ToolBase {
             },
             timeoutMS: config.connectOptions.timeoutMS,
         });
+
+        state.serviceProvider = provider;
     }
 }

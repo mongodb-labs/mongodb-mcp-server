@@ -6,11 +6,11 @@ import { mongoLogId } from "mongodb-log-writer";
 import { ApiClient } from "./common/atlas/apiClient.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import config from "./config.js";
-import { State } from "./state.js";
+import { Session } from "./session.js";
 import { Server } from "./server.js";
 
 try {
-    const state = new State();
+    const state = new Session();
     const mcpServer = new McpServer({
         name: "MongoDB Atlas",
         version: config.version,
