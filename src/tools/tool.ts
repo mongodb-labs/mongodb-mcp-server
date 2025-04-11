@@ -32,30 +32,7 @@ export abstract class ToolBase {
             } catch (error) {
                 logger.error(mongoLogId(1_000_000), "tool", `Error executing ${this.name}: ${error}`);
 
-                // If the error is authentication related, suggest using auth tool
-                if (error instanceof Error && error.message.includes("Not authenticated")) {
-                    return {
-                        content: [
-                            { type: "text", text: "You need to authenticate before accessing Atlas data." },
-                            {
-                                type: "text",
-                                text: "Please use the 'auth' tool to log in to your MongoDB Atlas account.",
-                            },
-                        ],
-                    };
-                }
-
-                return (
-                    this.handleError(error) || {
-                        content: [
-                            {
-                                type: "text",
-                                text: `Error running ${this.name}: ${error instanceof Error ? error.message : String(error)}`,
-                            },
-                        ],
-                        isError: true,
-                    }
-                );
+                return await this.handleError(error);
             }
         };
 
@@ -70,8 +47,15 @@ export abstract class ToolBase {
     }
 
     // This method is intended to be overridden by subclasses to handle errors
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected handleError(error: unknown): CallToolResult | undefined {
-        return undefined;
+    protected handleError(error: unknown): Promise<CallToolResult> | CallToolResult {
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: `Error running ${this.name}: ${error instanceof Error ? error.message : String(error)}`,
+                },
+            ],
+            isError: true,
+        };
     }
 }

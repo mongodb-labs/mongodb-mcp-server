@@ -174,6 +174,7 @@ The MongoDB MCP Server can be configured using multiple methods, with the follow
 To use the Atlas API tools, you'll need to create a service account in MongoDB Atlas:
 
 1. **Create a Service Account:**
+
    - Log in to MongoDB Atlas at [cloud.mongodb.com](https://cloud.mongodb.com)
    - Navigate to Access Manager > Organization Access
    - Click Add New > Applications > Service Accounts
@@ -182,10 +183,12 @@ To use the Atlas API tools, you'll need to create a service account in MongoDB A
    - Click "Create"
 
 2. **Save Client Credentials:**
+
    - After creation, you'll be shown the Client ID and Client Secret
    - **Important:** Copy and save the Client Secret immediately as it won't be displayed again
 
 3. **Add Access List Entry (Optional but recommended):**
+
    - Add your IP address to the API access list
 
 4. **Configure the MCP Server:**
