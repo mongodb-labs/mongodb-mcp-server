@@ -23,8 +23,8 @@ try {
     const transport = new StdioServerTransport();
 
     await server.connect(transport);
-} catch (error) {
-    logger.emergency(mongoLogId(1_000_004), "server", `Fatal error running server: ${error}`);
+} catch (error: unknown) {
+    logger.emergency(mongoLogId(1_000_004), "server", `Fatal error running server: ${error as string}`);
 
     process.exit(1);
 }
