@@ -1,18 +1,16 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { Server } from "../../src/server.js";
 import { setupIntegrationTest } from "./helpers.js";
 
 describe("Server integration test", () => {
     let client: Client;
-    let server: Server;
+    let teardown: () => Promise<void>;
 
     beforeEach(async () => {
-        ({ client, server } = await setupIntegrationTest());
+        ({ client, teardown } = await setupIntegrationTest());
     });
 
     afterEach(async () => {
-        await client?.close();
-        await server?.close();
+        await teardown();
     });
 
     describe("list capabilities", () => {
