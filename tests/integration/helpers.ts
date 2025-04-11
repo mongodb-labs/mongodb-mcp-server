@@ -6,7 +6,7 @@ import path from "path";
 import fs from "fs/promises";
 import defaultState from "../../src/state.js";
 
-export async function setupIntegrationTest({ mockStateStore = true }: { mockStateStore: boolean }): Promise<{
+export async function setupIntegrationTest({ mockStateStore = true }: { mockStateStore?: boolean } = {}): Promise<{
     client: Client;
     server: Server;
     teardown: () => Promise<void>;
