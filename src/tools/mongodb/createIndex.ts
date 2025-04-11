@@ -15,7 +15,7 @@ export class CreateIndexTool extends MongoDBToolBase {
     protected operationType: DbOperationType = "create";
 
     protected async execute({ database, collection, keys }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const indexes = await provider.createIndexes(database, collection, [
             {
                 key: keys,

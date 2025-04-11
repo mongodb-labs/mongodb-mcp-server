@@ -241,13 +241,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "AWS";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "AWS";
-        };
+        }  ;
         AWSCloudProviderSettings: Omit<components["schemas"]["ClusterProviderSettings"], "providerName"> & {
             autoScaling?: components["schemas"]["CloudProviderAWSAutoScaling"];
             /**
@@ -346,13 +340,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "AWS";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "AWS";
-        };
+        }  ;
         /**
          * AWS
          * @description Collection of settings that configures how a cluster might scale its cluster tier and whether the cluster can scale down. Cluster tier auto-scaling is unavailable for clusters using Low CPU or NVME storage classes.
@@ -643,13 +631,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "AWS";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "AWS";
-        };
+        }  ;
         /**
          * AWS Regional Replication Specifications
          * @description Details that explain how MongoDB Cloud replicates data in one region on the specified MongoDB database.
@@ -665,13 +647,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "AWS";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "AWS";
-        };
+        }  ;
         /**
          * Automatic Scaling Settings
          * @description Options that determine how this cluster handles resource scaling.
@@ -919,13 +895,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "AZURE";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "AZURE";
-        };
+        }  ;
         AzureCloudProviderSettings: Omit<components["schemas"]["ClusterProviderSettings"], "providerName"> & {
             autoScaling?: components["schemas"]["CloudProviderAzureAutoScaling"];
             /**
@@ -1022,13 +992,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "AZURE";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "AZURE";
-        };
+        }  ;
         /**
          * Azure
          * @description Collection of settings that configures how a cluster might scale its cluster tier and whether the cluster can scale down. Cluster tier auto-scaling is unavailable for clusters using Low CPU or NVME storage classes.
@@ -1246,13 +1210,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "AZURE";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "AZURE";
-        };
+        }  ;
         /**
          * Azure Regional Replication Specifications
          * @description Details that explain how MongoDB Cloud replicates data in one region on the specified MongoDB database.
@@ -1268,13 +1226,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "AZURE";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "AZURE";
-        };
+        }  ;
         /** @description Bad request detail. */
         BadRequestDetail: {
             /** @description Describes all violations in a client request. */
@@ -1310,49 +1262,49 @@ export interface components {
                   | "M400_NVME"
               )
             | (
-                  | "M10"
-                  | "M20"
-                  | "M30"
-                  | "M40"
-                  | "M50"
-                  | "M60"
-                  | "M80"
+                   
+                   
+                   
+                   
+                   
+                   
+                   
                   | "M90"
-                  | "M200"
-                  | "R40"
-                  | "R50"
-                  | "R60"
-                  | "R80"
-                  | "R200"
-                  | "R300"
-                  | "R400"
-                  | "M60_NVME"
-                  | "M80_NVME"
-                  | "M200_NVME"
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
                   | "M300_NVME"
-                  | "M400_NVME"
+                   
                   | "M600_NVME"
               )
             | (
-                  | "M10"
-                  | "M20"
-                  | "M30"
-                  | "M40"
-                  | "M50"
-                  | "M60"
-                  | "M80"
-                  | "M140"
-                  | "M200"
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
                   | "M250"
-                  | "M300"
+                   
                   | "M400"
-                  | "R40"
-                  | "R50"
-                  | "R60"
-                  | "R80"
-                  | "R200"
-                  | "R300"
-                  | "R400"
+                   
+                   
+                   
+                   
+                   
+                   
+                   
                   | "R600"
               );
         BasicDBObject: {
@@ -1832,13 +1784,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "GCP";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "GCP";
-        };
+        }  ;
         /** @description Range of instance sizes to which your cluster can scale. */
         CloudProviderAWSAutoScaling: {
             compute?: components["schemas"]["AWSComputeAutoScaling"];
@@ -2258,14 +2204,14 @@ export interface components {
                 | (
                       | "US_CENTRAL"
                       | "US_EAST"
-                      | "US_EAST_2"
+                       
                       | "US_NORTH_CENTRAL"
                       | "US_WEST"
                       | "US_SOUTH_CENTRAL"
                       | "EUROPE_NORTH"
                       | "EUROPE_WEST"
                       | "US_WEST_CENTRAL"
-                      | "US_WEST_2"
+                       
                       | "US_WEST_3"
                       | "CANADA_EAST"
                       | "CANADA_CENTRAL"
@@ -2313,9 +2259,9 @@ export interface components {
                       | "US_EAST_4_AW"
                       | "US_EAST_5"
                       | "US_EAST_5_AW"
-                      | "US_WEST_2"
+                       
                       | "US_WEST_2_AW"
-                      | "US_WEST_3"
+                       
                       | "US_WEST_3_AW"
                       | "US_WEST_4"
                       | "US_WEST_4_AW"
@@ -2426,14 +2372,14 @@ export interface components {
                 | (
                       | "US_CENTRAL"
                       | "US_EAST"
-                      | "US_EAST_2"
+                       
                       | "US_NORTH_CENTRAL"
                       | "US_WEST"
                       | "US_SOUTH_CENTRAL"
                       | "EUROPE_NORTH"
                       | "EUROPE_WEST"
                       | "US_WEST_CENTRAL"
-                      | "US_WEST_2"
+                       
                       | "US_WEST_3"
                       | "CANADA_EAST"
                       | "CANADA_CENTRAL"
@@ -2481,9 +2427,9 @@ export interface components {
                       | "US_EAST_4_AW"
                       | "US_EAST_5"
                       | "US_EAST_5_AW"
-                      | "US_WEST_2"
+                       
                       | "US_WEST_2_AW"
-                      | "US_WEST_3"
+                       
                       | "US_WEST_3_AW"
                       | "US_WEST_4"
                       | "US_WEST_4_AW"
@@ -2756,13 +2702,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "FLEX";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "FLEX";
-        };
+        }  ;
         /** @description Range of instance sizes to which your cluster can scale. */
         ClusterFreeAutoScaling: {
             compute?: components["schemas"]["FreeComputeAutoScalingRules"];
@@ -2795,13 +2735,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "TENANT";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "TENANT";
-        };
+        }  ;
         /**
          * Cloud Service Provider Settings for a Cluster
          * @description Group of cloud provider settings that configure the provisioned MongoDB hosts.
@@ -3007,13 +2941,7 @@ export interface components {
              * @enum {string}
              */
             type: "DAILY";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            type: "DAILY";
-        };
+        }  ;
         DataLakeAtlasStoreInstance: Omit<components["schemas"]["DataLakeStoreSettings"], "provider"> & {
             /** @description Human-readable label of the MongoDB Cloud cluster on which the store is based. */
             clusterName?: string;
@@ -3027,13 +2955,7 @@ export interface components {
              * @enum {string}
              */
             provider: "atlas";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            provider: "atlas";
-        };
+        }  ;
         /** @description MongoDB Cloud cluster read concern, which determines the consistency and isolation properties of the data read from an Atlas cluster. */
         DataLakeAtlasStoreReadConcern: {
             /**
@@ -3140,13 +3062,7 @@ export interface components {
              * @enum {string}
              */
             provider: "azure";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            provider: "azure";
-        };
+        }  ;
         DataLakeDLSAWSStore: Omit<components["schemas"]["DataLakeStoreSettings"], "provider"> & {
             /**
              * AWS Regions
@@ -3194,13 +3110,7 @@ export interface components {
              * @enum {string}
              */
             provider: "dls:aws";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            provider: "dls:aws";
-        };
+        }  ;
         DataLakeDLSAzureStore: Omit<components["schemas"]["DataLakeStoreSettings"], "provider"> & {
             /**
              * Azure Regions
@@ -3263,13 +3173,7 @@ export interface components {
              * @enum {string}
              */
             provider: "dls:azure";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            provider: "dls:azure";
-        };
+        }  ;
         DataLakeDLSGCPStore: Omit<components["schemas"]["DataLakeStoreSettings"], "provider"> & {
             /**
              * GCP Regions
@@ -3319,13 +3223,7 @@ export interface components {
              * @enum {string}
              */
             provider: "dls:gcp";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            provider: "dls:gcp";
-        };
+        }  ;
         DataLakeGoogleCloudStorageStore: Omit<components["schemas"]["DataLakeStoreSettings"], "provider"> & {
             /** @description Human-readable label that identifies the Google Cloud Storage bucket. */
             bucket?: string;
@@ -3388,13 +3286,7 @@ export interface components {
              * @enum {string}
              */
             provider: "gcs";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            provider: "gcs";
-        };
+        }  ;
         DataLakeHTTPStore: Omit<components["schemas"]["DataLakeStoreSettings"], "provider"> & {
             /**
              * @description Flag that validates the scheme in the specified URLs. If `true`, allows insecure `HTTP` scheme, doesn't verify the server's certificate chain and hostname, and accepts any certificate with any hostname presented by the server. If `false`, allows secure `HTTPS` scheme only.
@@ -3411,13 +3303,7 @@ export interface components {
              * @enum {string}
              */
             provider: "http";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            provider: "http";
-        };
+        }  ;
         /**
          * Partition Field
          * @description Partition Field in the Data Lake Storage provider for a Data Lake Pipeline.
@@ -3497,13 +3383,7 @@ export interface components {
              * @enum {string}
              */
             provider: "s3";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            provider: "s3";
-        };
+        }  ;
         /** @description Group of settings that define where the data is stored. */
         DataLakeStoreSettings: {
             /** @description Human-readable label that identifies the data store. The **databases.[n].collections.[n].dataSources.[n].storeName** field references this values as part of the mapping configuration. To use MongoDB Cloud as a data store, the data lake requires a serverless instance or an `M10` or higher cluster. */
@@ -3626,13 +3506,7 @@ export interface components {
              * @enum {string}
              */
             type: "DEFAULT";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            type: "DEFAULT";
-        };
+        }  ;
         DiskBackupSnapshotAWSExportBucketRequest: Omit<
             WithRequired<components["schemas"]["DiskBackupSnapshotExportBucketRequest"], "cloudProvider">,
             "cloudProvider"
@@ -3886,13 +3760,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "GCP";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "GCP";
-        };
+        }  ;
         /**
          * GCP
          * @description Collection of settings that configures how a cluster might scale its cluster tier and whether the cluster can scale down. Cluster tier auto-scaling is unavailable for clusters using Low CPU or NVME storage classes.
@@ -4075,13 +3943,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "GCP";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "GCP";
-        };
+        }  ;
         /**
          * GCP Regional Replication Specifications
          * @description Details that explain how MongoDB Cloud replicates data in one region on the specified MongoDB database.
@@ -4097,13 +3959,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "GCP";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "GCP";
-        };
+        }  ;
         Group: {
             /**
              * Format: int64
@@ -4191,13 +4047,7 @@ export interface components {
              * @enum {string}
              */
             orgMembershipStatus: "ACTIVE";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            orgMembershipStatus: "ACTIVE";
-        };
+        }  ;
         GroupPendingUserResponse: Omit<
             WithRequired<
                 components["schemas"]["GroupUserResponse"],
@@ -4226,13 +4076,7 @@ export interface components {
              * @enum {string}
              */
             orgMembershipStatus: "PENDING";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            orgMembershipStatus: "PENDING";
-        };
+        }  ;
         GroupRoleAssignment: {
             /**
              * @description Unique 24-hexadecimal digit string that identifies the project to which these roles belong.
@@ -4871,13 +4715,7 @@ export interface components {
              * @enum {string}
              */
             type: "MONTHLY";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            type: "MONTHLY";
-        };
+        }  ;
         NetworkPermissionEntry: {
             /** @description Unique string of the Amazon Web Services (AWS) security group that you want to add to the project's IP access list. Your IP access list entry can be one **awsSecurityGroup**, one **cidrBlock**, or one **ipAddress**. You must configure Virtual Private Connection (VPC) peering for your project before you can add an AWS security group to an IP access list. You cannot set AWS security groups as temporary access list entries. Don't set this parameter if you set **cidrBlock** or **ipAddress**. */
             awsSecurityGroup?: string;
@@ -4976,13 +4814,7 @@ export interface components {
              * @enum {string}
              */
             orgMembershipStatus: "ACTIVE";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            orgMembershipStatus: "ACTIVE";
-        };
+        }  ;
         OrgGroup: {
             /** @description Settings that describe the clusters in each project that the API key is authorized to view. */
             readonly clusters?: components["schemas"]["CloudCluster"][];
@@ -5024,13 +4856,7 @@ export interface components {
              * @enum {string}
              */
             orgMembershipStatus: "PENDING";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            orgMembershipStatus: "PENDING";
-        };
+        }  ;
         OrgUserResponse: {
             /**
              * @description Unique 24-hexadecimal digit string that identifies the MongoDB Cloud user.
@@ -5605,13 +5431,7 @@ export interface components {
              * @enum {string}
              */
             type: "AWSLambda";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            type: "AWSLambda";
-        };
+        }  ;
         StreamsClusterConnection: Omit<components["schemas"]["StreamsConnection"], "type"> & {
             /** @description Name of the cluster configured for this connection. */
             clusterName?: string;
@@ -5622,13 +5442,7 @@ export interface components {
              * @enum {string}
              */
             type: "Cluster";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            type: "Cluster";
-        };
+        }  ;
         /** @description Settings that define a connection to an external data store. */
         StreamsConnection: {
             /** @description List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships. */
@@ -5661,13 +5475,7 @@ export interface components {
              * @enum {string}
              */
             type: "Https";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            type: "Https";
-        };
+        }  ;
         /** @description User credentials required to connect to a Kafka Cluster. Includes the authentication type, as well as the parameters for that authentication mode. */
         StreamsKafkaAuthentication: {
             /** @description List of one or more Uniform Resource Locators (URLs) that point to API sub-resources, related API resources, or both. RFC 5988 outlines these relationships. */
@@ -5710,13 +5518,7 @@ export interface components {
              * @enum {string}
              */
             type: "Kafka";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            type: "Kafka";
-        };
+        }  ;
         /** @description Networking Access Type can either be 'PUBLIC' (default) or VPC. VPC type is in public preview, please file a support ticket to enable VPC Network Access. */
         StreamsKafkaNetworking: {
             access?: components["schemas"]["StreamsKafkaNetworkingAccess"];
@@ -5759,26 +5561,14 @@ export interface components {
              * @enum {string}
              */
             type: "S3";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            type: "S3";
-        };
+        }  ;
         StreamsSampleConnection: Omit<components["schemas"]["StreamsConnection"], "type"> & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
             type: "Sample";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            type: "Sample";
-        };
+        }  ;
         /**
          * Synonym Mapping Status Detail
          * @description Contains the status of the index's synonym mappings on each search host. This field (and its subfields) only appear if the index has synonyms defined.
@@ -5863,13 +5653,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "TENANT";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "TENANT";
-        };
+        }  ;
         /**
          * Tenant Regional Replication Specifications
          * @description Details that explain how MongoDB Cloud replicates data in one region on the specified MongoDB database.
@@ -5888,13 +5672,7 @@ export interface components {
              * @enum {string}
              */
             providerName: "TENANT";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            providerName: "TENANT";
-        };
+        }  ;
         /** Text Search Host Status Detail */
         TextSearchHostStatusDetail: {
             /** @description Hostname that corresponds to the status detail. */
@@ -6403,13 +6181,7 @@ export interface components {
              * @enum {string}
              */
             type: "WEEKLY";
-        } & {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            type: "WEEKLY";
-        };
+        }  ;
         /**
          * htmlStrip
          * @description Filter that strips out HTML constructs.

@@ -1,9 +1,10 @@
 import { z } from "zod";
 import { ToolBase } from "../tool.js";
-import { State } from "../../state.js";
+import { Session } from "../../session.js";
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { ErrorCodes, MongoDBError } from "../../errors.js";
+import config from "../../config.js";
 
 export const DbOperationArgs = {
     database: z.string().describe("Database name"),
@@ -13,14 +14,18 @@ export const DbOperationArgs = {
 export type DbOperationType = "metadata" | "read" | "create" | "update" | "delete";
 
 export abstract class MongoDBToolBase extends ToolBase {
-    constructor(state: State) {
-        super(state);
+    constructor(session: Session) {
+        super(session);
     }
 
     protected abstract operationType: DbOperationType;
 
-    protected ensureConnected(): NodeDriverServiceProvider {
-        const provider = this.state.serviceProvider;
+    protected async ensureConnected(): Promise<NodeDriverServiceProvider> {
+        const provider = this.session.serviceProvider;
+        if (!provider && config.connectionString) {
+            await this.connectToMongoDB(config.connectionString);
+        }
+
         if (!provider) {
             throw new MongoDBError(ErrorCodes.NotConnectedToMongoDB, "Not connected to MongoDB");
         }
@@ -28,7 +33,7 @@ export abstract class MongoDBToolBase extends ToolBase {
         return provider;
     }
 
-    protected handleError(error: unknown): CallToolResult | undefined {
+    protected handleError(error: unknown): Promise<CallToolResult> | CallToolResult {
         if (error instanceof MongoDBError && error.code === ErrorCodes.NotConnectedToMongoDB) {
             return {
                 content: [
@@ -41,9 +46,27 @@ export abstract class MongoDBToolBase extends ToolBase {
                         text: "Please use the 'connect' tool to connect to a MongoDB instance.",
                     },
                 ],
+                isError: true,
             };
         }
 
-        return undefined;
+        return super.handleError(error);
+    }
+
+    protected async connectToMongoDB(connectionString: string): Promise<void> {
+        const provider = await NodeDriverServiceProvider.connect(connectionString, {
+            productDocsLink: "https://docs.mongodb.com/todo-mcp",
+            productName: "MongoDB MCP",
+            readConcern: {
+                level: config.connectOptions.readConcern,
+            },
+            readPreference: config.connectOptions.readPreference,
+            writeConcern: {
+                w: config.connectOptions.writeConcern,
+            },
+            timeoutMS: config.connectOptions.timeoutMS,
+        });
+
+        this.session.serviceProvider = provider;
     }
 }

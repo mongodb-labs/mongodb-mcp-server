@@ -1,28 +1,11 @@
 import config from "../../config.js";
-import createClient, { FetchOptions, Middleware } from "openapi-fetch";
+import createClient, { Client, FetchOptions, Middleware } from "openapi-fetch";
+import { AccessToken, ClientCredentials } from "simple-oauth2";
 
 import { paths, operations } from "./openapi.js";
 import { State } from "../../state.js";
 
-export interface OAuthToken {
-    access_token: string;
-    refresh_token: string;
-    scope: string;
-    id_token: string;
-    token_type: string;
-    expires_in: number;
-    expiry: Date;
-}
-
-export interface OauthDeviceCode {
-    user_code: string;
-    verification_uri: string;
-    device_code: string;
-    expires_in: string;
-    interval: string;
-}
-
-export type saveTokenFunction = (token: OAuthToken) => void | Promise<void>;
+const ATLAS_API_VERSION = "2025-03-12";
 
 export class ApiClientError extends Error {
     response?: Response;
@@ -45,29 +28,46 @@ export class ApiClientError extends Error {
 }
 
 export interface ApiClientOptions {
-    token?: OAuthToken;
-    saveToken?: saveTokenFunction;
+    credentials?: {
+        clientId: string;
+        clientSecret: string;
+    };
+    baseUrl?: string;
+    userAgent?: string;
 }
 
 export class ApiClient {
-    private token?: OAuthToken;
-    private readonly saveToken?: saveTokenFunction;
-    private readonly client = createClient<paths>({
-        baseUrl: config.apiBaseUrl,
-        headers: {
-            "User-Agent": config.userAgent,
-            Accept: `application/vnd.atlas.${config.atlasApiVersion}+json`,
-        },
-    });
+    private options: {
+        baseUrl: string;
+        userAgent: string;
+        credentials?: {
+            clientId: string;
+            clientSecret: string;
+        };
+    };
+    private client: Client<paths>;
+    private oauth2Client?: ClientCredentials;
+    private accessToken?: AccessToken;
 
-    private readonly authMiddleware: Middleware = {
+    private getAccessToken = async () => {
+        if (this.oauth2Client && (!this.accessToken || this.accessToken.expired())) {
+            this.accessToken = await this.oauth2Client.getToken({});
+        }
+        return this.accessToken?.token.access_token as string | undefined;
+    };
+
+    private authMiddleware: Middleware = {
         onRequest: async ({ request, schemaPath }) => {
             if (schemaPath.startsWith("/api/private/unauth") || schemaPath.startsWith("/api/oauth")) {
                 return undefined;
             }
-            if (this.token && (await this.validateToken())) {
-                request.headers.set("Authorization", `Bearer ${this.token.access_token}`);
+
+            try {
+                const accessToken = await this.getAccessToken();
+                request.headers.set("Authorization", `Bearer ${accessToken}`);
                 return request;
+            } catch {
+                // ignore not availble tokens, API will return 401
             }
         },
     };
@@ -80,208 +80,52 @@ export class ApiClient {
     };
 
     constructor(options: ApiClientOptions) {
-        const { token, saveToken } = options;
-        this.token = token;
-        this.saveToken = saveToken;
-        this.client.use(this.authMiddleware);
+        const defaultOptions = {
+            baseUrl: "https://cloud.mongodb.com/",
+            userAgent: `AtlasMCP/${config.version} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
+        };
+
+        this.options = {
+            ...defaultOptions,
+            ...options,
+        };
+
+        this.client = createClient<paths>({
+            baseUrl: this.options.baseUrl,
+            headers: {
+                "User-Agent": this.options.userAgent,
+                Accept: `application/vnd.atlas.${ATLAS_API_VERSION}+json`,
+            },
+        });
+        if (this.options.credentials?.clientId && this.options.credentials?.clientSecret) {
+            this.oauth2Client = new ClientCredentials({
+                client: {
+                    id: this.options.credentials.clientId,
+                    secret: this.options.credentials.clientSecret,
+                },
+                auth: {
+                    tokenHost: this.options.baseUrl,
+                    tokenPath: "/api/oauth/token",
+                },
+            });
+            this.client.use(this.authMiddleware);
+        }
         this.client.use(this.errorMiddleware);
     }
 
-    static fromState(state: State): ApiClient {
-        return new ApiClient({
-            token: state.credentials.auth.token,
-            saveToken: async (token) => {
-                state.credentials.auth.code = undefined;
-                state.credentials.auth.token = token;
-                state.credentials.auth.status = "issued";
-                await state.persistCredentials();
-            },
-        });
-    }
-
-    async storeToken(token: OAuthToken): Promise<OAuthToken> {
-        this.token = token;
-
-        if (this.saveToken) {
-            await this.saveToken(token);
-        }
-
-        return token;
-    }
-
-    async authenticate(): Promise<OauthDeviceCode> {
-        const endpoint = "api/private/unauth/account/device/authorize";
-
-        const authUrl = new URL(endpoint, config.apiBaseUrl);
-
-        const response = await fetch(authUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                Accept: "application/json",
-            },
-            body: new URLSearchParams({
-                client_id: config.clientId,
-                scope: "openid profile offline_access",
-                grant_type: "urn:ietf:params:oauth:grant-type:device_code",
-            }).toString(),
-        });
-
-        if (!response.ok) {
-            throw await ApiClientError.fromResponse(response, `failed to initiate authentication`);
-        }
-
-        return (await response.json()) as OauthDeviceCode;
-    }
-
-    async retrieveToken(device_code: string): Promise<OAuthToken> {
-        const endpoint = "api/private/unauth/account/device/token";
-        const url = new URL(endpoint, config.apiBaseUrl);
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams({
-                client_id: config.clientId,
-                device_code: device_code,
-                grant_type: "urn:ietf:params:oauth:grant-type:device_code",
-            }).toString(),
-        });
-
-        if (response.ok) {
-            const tokenData = await response.json();
-            const buf = Buffer.from(tokenData.access_token.split(".")[1], "base64").toString();
-            const jwt = JSON.parse(buf);
-            const expiry = new Date(jwt.exp * 1000);
-            return await this.storeToken({ ...tokenData, expiry });
-        }
-        try {
-            const errorResponse = await response.json();
-            if (errorResponse.errorCode === "DEVICE_AUTHORIZATION_PENDING") {
-                throw await ApiClientError.fromResponse(response, "Authentication pending. Try again later.");
-            } else {
-                throw await ApiClientError.fromResponse(
-                    response,
-                    "Device code expired. Please restart the authentication process."
-                );
-            }
-        } catch {
-            throw await ApiClientError.fromResponse(
-                response,
-                "Failed to retrieve token. Please check your device code."
-            );
-        }
-    }
-
-    async refreshToken(token: OAuthToken): Promise<OAuthToken> {
-        const endpoint = "api/private/unauth/account/device/token";
-        const url = new URL(endpoint, config.apiBaseUrl);
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                Accept: "application/json",
-            },
-            body: new URLSearchParams({
-                client_id: config.clientId,
-                refresh_token: token.refresh_token,
-                grant_type: "refresh_token",
-                scope: "openid profile offline_access",
-            }).toString(),
-        });
-
-        if (!response.ok) {
-            throw await ApiClientError.fromResponse(response, "Failed to refresh token");
-        }
-        const data = await response.json();
-
-        const buf = Buffer.from(data.access_token.split(".")[1], "base64").toString();
-        const jwt = JSON.parse(buf);
-        const expiry = new Date(jwt.exp * 1000);
-
-        const tokenToStore = {
-            ...data,
-            expiry,
-        };
-
-        return await this.storeToken(tokenToStore);
-    }
-
-    async revokeToken(token: OAuthToken): Promise<void> {
-        const endpoint = "api/private/unauth/account/device/token";
-        const url = new URL(endpoint, config.apiBaseUrl);
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                Accept: "application/json",
-                "User-Agent": config.userAgent,
-            },
-            body: new URLSearchParams({
-                client_id: config.clientId,
-                token: token.access_token || "",
-                token_type_hint: "refresh_token",
-            }).toString(),
-        });
-
-        if (!response.ok) {
-            throw await ApiClientError.fromResponse(response);
-        }
-
-        if (!token && this.token) {
-            this.token = undefined;
-        }
-
-        return;
-    }
-
-    private checkTokenExpiry(token: OAuthToken): boolean {
-        try {
-            if (!token || !token.access_token) {
-                return false;
-            }
-            if (!token.expiry) {
-                return false;
-            }
-            const expiryDelta = 10 * 1000; // 10 seconds in milliseconds
-            const expiryWithDelta = new Date(token.expiry.getTime() - expiryDelta);
-            return expiryWithDelta.getTime() > Date.now();
-        } catch {
-            return false;
-        }
-    }
-
-    async validateToken(): Promise<boolean> {
-        if (!this.token) {
-            return false;
-        }
-
-        if (this.checkTokenExpiry(this.token)) {
-            return true;
-        }
-
-        try {
-            await this.refreshToken(this.token);
-            return true;
-        } catch {
-            return false;
-        }
-    }
-
-    async getIpInfo() {
-        if (!this.token || !(await this.validateToken())) {
-            throw new Error("Not Authenticated");
-        }
+    public async getIpInfo(): Promise<{
+        currentIpv4Address: string;
+    }> {
+        const accessToken = await this.getAccessToken();
 
         const endpoint = "api/private/ipinfo";
-        const url = new URL(endpoint, config.apiBaseUrl);
+        const url = new URL(endpoint, this.options.baseUrl);
         const response = await fetch(url, {
             method: "GET",
             headers: {
                 Accept: "application/json",
-                Authorization: `Bearer ${this.token.access_token}`,
-                "User-Agent": config.userAgent,
+                Authorization: `Bearer ${accessToken}`,
+                "User-Agent": this.options.userAgent,
             },
         });
 
@@ -289,10 +133,9 @@ export class ApiClient {
             throw await ApiClientError.fromResponse(response);
         }
 
-        const responseBody = await response.json();
-        return responseBody as {
+        return (await response.json()) as Promise<{
             currentIpv4Address: string;
-        };
+        }>;
     }
 
     async listProjects(options?: FetchOptions<operations["listProjects"]>) {

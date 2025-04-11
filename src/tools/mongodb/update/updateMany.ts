@@ -35,7 +35,7 @@ export class UpdateManyTool extends MongoDBToolBase {
         update,
         upsert,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const result = await provider.updateMany(database, collection, filter, update, {
             upsert,
         });
@@ -49,7 +49,7 @@ export class UpdateManyTool extends MongoDBToolBase {
                 message += ` Modified ${result.modifiedCount} document(s).`;
             }
             if (result.upsertedCount > 0) {
-                message += ` Upserted ${result.upsertedCount} document(s) (with id: ${result.upsertedId}).`;
+                message += ` Upserted ${result.upsertedCount} document(s) (with id: ${result.upsertedId?.toString()}).`;
             }
         }
 
