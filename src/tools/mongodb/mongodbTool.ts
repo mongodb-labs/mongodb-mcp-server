@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { ToolBase } from "../tool.js";
-import { State } from "../../state.js";
+import { Session } from "../../session.js";
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { ErrorCodes, MongoDBError } from "../../errors.js";
@@ -14,16 +14,16 @@ export const DbOperationArgs = {
 export type DbOperationType = "metadata" | "read" | "create" | "update" | "delete";
 
 export abstract class MongoDBToolBase extends ToolBase {
-    constructor(state: State) {
-        super(state);
+    constructor(session: Session) {
+        super(session);
     }
 
     protected abstract operationType: DbOperationType;
 
     protected async ensureConnected(): Promise<NodeDriverServiceProvider> {
-        const provider = this.state.serviceProvider;
+        const provider = this.session.serviceProvider;
         if (!provider && config.connectionString) {
-            await this.connectToMongoDB(config.connectionString, this.state);
+            await this.connectToMongoDB(config.connectionString);
         }
 
         if (!provider) {
@@ -53,7 +53,7 @@ export abstract class MongoDBToolBase extends ToolBase {
         return super.handleError(error);
     }
 
-    protected async connectToMongoDB(connectionString: string, state: State): Promise<void> {
+    protected async connectToMongoDB(connectionString: string): Promise<void> {
         const provider = await NodeDriverServiceProvider.connect(connectionString, {
             productDocsLink: "https://docs.mongodb.com/todo-mcp",
             productName: "MongoDB MCP",
@@ -67,6 +67,6 @@ export abstract class MongoDBToolBase extends ToolBase {
             timeoutMS: config.connectOptions.timeoutMS,
         });
 
-        state.serviceProvider = provider;
+        this.session.serviceProvider = provider;
     }
 }

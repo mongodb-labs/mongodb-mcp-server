@@ -6,7 +6,7 @@ export class Session {
     serviceProvider?: NodeDriverServiceProvider;
     apiClient?: ApiClient;
 
-    ensureApiClient(): asserts this is { apiClient: ApiClient } {
+    ensureAuthenticated(): asserts this is { apiClient: ApiClient } {
         if (!this.apiClient) {
             if (!config.apiClientId || !config.apiClientSecret) {
                 throw new Error(

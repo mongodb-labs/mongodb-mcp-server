@@ -9,28 +9,22 @@ import { mongoLogId } from "mongodb-log-writer";
 export class Server {
     public readonly session: Session;
     private readonly mcpServer: McpServer;
-    private readonly transport: Transport;
 
-    constructor({ mcpServer, transport, session }: { mcpServer: McpServer; session: Session; transport: Transport }) {
+    constructor({ mcpServer, session }: { mcpServer: McpServer; session: Session }) {
         this.mcpServer = mcpServer;
-        this.transport = transport;
         this.session = session;
     }
 
-    async connect() {
+    async connect(transport: Transport) {
         this.mcpServer.server.registerCapabilities({ logging: {} });
 
         this.registerTools();
 
         await initializeLogger(this.mcpServer);
 
-        await this.mcpServer.connect(this.transport);
+        await this.mcpServer.connect(transport);
 
-        logger.info(
-            mongoLogId(1_000_004),
-            "server",
-            `Server started with transport ${this.transport.constructor.name}`
-        );
+        logger.info(mongoLogId(1_000_004), "server", `Server started with transport ${transport.constructor.name}`);
     }
 
     async close(): Promise<void> {

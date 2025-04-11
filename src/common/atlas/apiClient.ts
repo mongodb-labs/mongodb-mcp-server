@@ -55,21 +55,21 @@ export class ApiClient {
         return this.accessToken?.token.access_token as string | undefined;
     };
 
-    private authMiddleware = (apiClient: ApiClient): Middleware => ({
-        async onRequest({ request, schemaPath }) {
+    private authMiddleware: Middleware = {
+        onRequest: async ({ request, schemaPath }) => {
             if (schemaPath.startsWith("/api/private/unauth") || schemaPath.startsWith("/api/oauth")) {
                 return undefined;
             }
 
             try {
-                const accessToken = await apiClient.getAccessToken();
+                const accessToken = await this.getAccessToken();
                 request.headers.set("Authorization", `Bearer ${accessToken}`);
                 return request;
             } catch {
                 // ignore not availble tokens, API will return 401
             }
         },
-    });
+    };
 
     private readonly errorMiddleware: Middleware = {
         async onResponse({ response }) {
@@ -108,7 +108,7 @@ export class ApiClient {
                     tokenPath: "/api/oauth/token",
                 },
             });
-            this.client.use(this.authMiddleware(this));
+            this.client.use(this.authMiddleware);
         }
         this.client.use(this.errorMiddleware);
     }
