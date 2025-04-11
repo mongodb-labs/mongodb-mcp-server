@@ -60,7 +60,6 @@
   "dependencies": {
     "@mongodb-js/devtools-connect": "^3.7.2",
     "@mongosh/service-provider-node-driver": "^3.6.0",
-    "@napi-rs/keyring": "^1.1.6",
     "@types/express": "^5.0.1",
     "bson": "^6.10.3",
     "mongodb": "^6.15.0",
