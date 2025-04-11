@@ -12,14 +12,14 @@ export class ListClustersTool extends AtlasToolBase {
     };
 
     protected async execute({ projectId }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        this.state.ensureApiClient();
+        this.session.ensureAuthenticated();
 
         if (!projectId) {
-            const data = await this.state.apiClient.listClustersForAllProjects();
+            const data = await this.session.apiClient.listClustersForAllProjects();
 
             return this.formatAllClustersTable(data);
         } else {
-            const project = await this.state.apiClient.getProject({
+            const project = await this.session.apiClient.getProject({
                 params: {
                     path: {
                         groupId: projectId,
@@ -31,7 +31,7 @@ export class ListClustersTool extends AtlasToolBase {
                 throw new Error(`Project with ID "${projectId}" not found.`);
             }
 
-            const data = await this.state.apiClient.listClusters({
+            const data = await this.session.apiClient.listClusters({
                 params: {
                     path: {
                         groupId: project.id || "",
@@ -47,8 +47,8 @@ export class ListClustersTool extends AtlasToolBase {
         if (!clusters?.results?.length) {
             throw new Error("No clusters found.");
         }
-        const rows = clusters
-            .results!.map((result) => {
+        const rows = clusters.results
+            .map((result) => {
                 return (result.clusters || []).map((cluster) => {
                     return { ...result, ...cluster, clusters: undefined };
                 });
@@ -75,8 +75,8 @@ ${rows}`,
         if (!clusters?.results?.length) {
             throw new Error("No clusters found.");
         }
-        const rows = clusters
-            .results!.map((cluster) => {
+        const rows = clusters.results
+            .map((cluster) => {
                 const connectionString = cluster.connectionStrings?.standard || "N/A";
                 const mongoDBVersion = cluster.mongoDBVersion || "N/A";
                 return `${cluster.name} | ${cluster.stateName} | ${mongoDBVersion} | ${connectionString}`;

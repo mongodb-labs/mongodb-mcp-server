@@ -4,6 +4,8 @@ import { Server } from "../../src/server.js";
 import runner, { MongoCluster } from "mongodb-runner";
 import path from "path";
 import fs from "fs/promises";
+import { Session } from "../../src/session.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
 export async function setupIntegrationTest(): Promise<{
     client: Client;
@@ -29,7 +31,13 @@ export async function setupIntegrationTest(): Promise<{
         }
     );
 
-    const server = new Server();
+    const server = new Server({
+        mcpServer: new McpServer({
+            name: "test-server",
+            version: "1.2.3",
+        }),
+        session: new Session(),
+    });
     await server.connect(serverTransport);
     await client.connect(clientTransport);
 

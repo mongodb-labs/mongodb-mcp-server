@@ -1,8 +1,8 @@
 import { ToolBase } from "../tool.js";
-import { State } from "../../state.js";
+import { Session } from "../../session.js";
 
 export abstract class AtlasToolBase extends ToolBase {
-    constructor(state: State) {
-        super(state);
+    constructor(protected readonly session: Session) {
+        super(session);
     }
 }

@@ -33,7 +33,8 @@ export class CollectionSchemaTool extends MongoDBToolBase {
         let result = "| Field | Type | Confidence |\n";
         result += "|-------|------|-------------|\n";
         for (const field of fields) {
-            result += `| ${field.name} | \`${field.type}\` | ${(field.probability * 100).toFixed(0)}% |\n`;
+            const fieldType = Array.isArray(field.type) ? field.type.join(", ") : field.type;
+            result += `| ${field.name} | \`${fieldType}\` | ${(field.probability * 100).toFixed(0)}% |\n`;
         }
         return result;
     }

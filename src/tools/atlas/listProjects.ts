@@ -7,17 +7,17 @@ export class ListProjectsTool extends AtlasToolBase {
     protected argsShape = {};
 
     protected async execute(): Promise<CallToolResult> {
-        this.state.ensureApiClient();
+        this.session.ensureAuthenticated();
 
-        const data = await this.state.apiClient.listProjects();
+        const data = await this.session.apiClient.listProjects();
 
         if (!data?.results?.length) {
             throw new Error("No projects found in your MongoDB Atlas account.");
         }
 
         // Format projects as a table
-        const rows = data!
-            .results!.map((project) => {
+        const rows = data.results
+            .map((project) => {
                 const createdAt = project.created ? new Date(project.created).toLocaleString() : "N/A";
                 return `${project.name} | ${project.id} | ${createdAt}`;
             })

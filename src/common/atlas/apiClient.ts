@@ -35,28 +35,29 @@ export class ApiClient {
         return this.accessToken?.token.access_token as string | undefined;
     };
 
-    private authMiddleware = (apiClient: ApiClient): Middleware => ({
-        async onRequest({ request, schemaPath }) {
+    private authMiddleware: Middleware = {
+        onRequest: async ({ request, schemaPath }) => {
             if (schemaPath.startsWith("/api/private/unauth") || schemaPath.startsWith("/api/oauth")) {
                 return undefined;
             }
 
             try {
-                const accessToken = await apiClient.getAccessToken();
+                const accessToken = await this.getAccessToken();
                 request.headers.set("Authorization", `Bearer ${accessToken}`);
                 return request;
             } catch {
                 // ignore not availble tokens, API will return 401
             }
         },
-    });
-    private errorMiddleware = (): Middleware => ({
+    };
+
+    private readonly errorMiddleware: Middleware = {
         async onResponse({ response }) {
             if (!response.ok) {
                 throw await ApiClientError.fromResponse(response);
             }
         },
-    });
+    };
 
     constructor(options?: ApiClientOptions) {
         this.options = {
@@ -85,12 +86,14 @@ export class ApiClient {
                     tokenPath: "/api/oauth/token",
                 },
             });
-            this.client.use(this.authMiddleware(this));
+            this.client.use(this.authMiddleware);
         }
-        this.client.use(this.errorMiddleware());
+        this.client.use(this.errorMiddleware);
     }
 
-    async getIpInfo() {
+    public async getIpInfo(): Promise<{
+        currentIpv4Address: string;
+    }> {
         const accessToken = await this.getAccessToken();
 
         const endpoint = "api/private/ipinfo";
@@ -108,10 +111,9 @@ export class ApiClient {
             throw await ApiClientError.fromResponse(response);
         }
 
-        const responseBody = await response.json();
-        return responseBody as {
+        return (await response.json()) as Promise<{
             currentIpv4Address: string;
-        };
+        }>;
     }
 
     // DO NOT EDIT. This is auto-generated code.

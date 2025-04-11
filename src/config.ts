@@ -60,7 +60,10 @@ function getLogPath(): string {
 // to SNAKE_UPPER_CASE.
 function getEnvConfig(): Partial<UserConfig> {
     function setValue(obj: Record<string, unknown>, path: string[], value: string): void {
-        const currentField = path.shift()!;
+        const currentField = path.shift();
+        if (!currentField) {
+            return;
+        }
         if (path.length === 0) {
             const numberValue = Number(value);
             if (!isNaN(numberValue)) {

@@ -29,7 +29,7 @@ export class InsertOneTool extends MongoDBToolBase {
         return {
             content: [
                 {
-                    text: `Inserted document with ID \`${result.insertedId}\` into collection \`${collection}\``,
+                    text: `Inserted document with ID \`${result.insertedId.toString()}\` into collection \`${collection}\``,
                     type: "text",
                 },
             ],

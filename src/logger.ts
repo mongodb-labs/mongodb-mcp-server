@@ -44,7 +44,7 @@ abstract class LoggerBase {
 class ConsoleLogger extends LoggerBase {
     log(level: LogLevel, id: MongoLogId, context: string, message: string): void {
         message = redact(message);
-        console.error(`[${level.toUpperCase()}] ${id} - ${context}: ${message}`);
+        console.error(`[${level.toUpperCase()}] ${id.__value} - ${context}: ${message}`);
     }
 }
 
@@ -60,7 +60,7 @@ class Logger extends LoggerBase {
         message = redact(message);
         const mongoDBLevel = this.mapToMongoDBLogLevel(level);
         this.logWriter[mongoDBLevel]("MONGODB-MCP", id, context, message);
-        this.server.server.sendLoggingMessage({
+        void this.server.server.sendLoggingMessage({
             level,
             data: `[${context}]: ${message}`,
         });
