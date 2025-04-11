@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { DbOperationType, MongoDBToolBase } from "../mongodbTool.js";
-import { ToolArgs } from "../../tool.js";
+import { MongoDBToolBase } from "../mongodbTool.js";
+import { ToolArgs, OperationType } from "../../tool.js";
 
 export class AggregateTool extends MongoDBToolBase {
     protected name = "aggregate";
@@ -12,7 +12,7 @@ export class AggregateTool extends MongoDBToolBase {
         pipeline: z.array(z.object({}).passthrough()).describe("An array of aggregation stages to execute"),
         limit: z.number().optional().default(10).describe("The maximum number of documents to return"),
     };
-    protected operationType: DbOperationType = "read";
+    protected operationType: OperationType = "read";
 
     protected async execute({
         database,

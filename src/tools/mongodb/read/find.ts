@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { DbOperationType, MongoDBToolBase } from "../mongodbTool.js";
-import { ToolArgs } from "../../tool.js";
+import { MongoDBToolBase } from "../mongodbTool.js";
+import { ToolArgs, OperationType } from "../../tool.js";
 import { SortDirection } from "mongodb";
 
 export class FindTool extends MongoDBToolBase {
@@ -28,7 +28,7 @@ export class FindTool extends MongoDBToolBase {
                 "A document, describing the sort order, matching the syntax of the sort argument of cursor.sort()"
             ),
     };
-    protected operationType: DbOperationType = "read";
+    protected operationType: OperationType = "read";
 
     protected async execute({
         database,

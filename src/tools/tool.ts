@@ -4,11 +4,19 @@ import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { State } from "../state.js";
 import logger from "../logger.js";
 import { mongoLogId } from "mongodb-log-writer";
+import config from "../config.js";
 
 export type ToolArgs<Args extends ZodRawShape> = z.objectOutputType<Args, ZodNever>;
 
+export type OperationType = "metadata" | "read" | "create" | "delete" | "update" | "cluster";
+export type ToolCategory = "mongodb" | "atlas";
+
 export abstract class ToolBase {
     protected abstract name: string;
+
+    protected abstract category: ToolCategory;
+
+    protected abstract operationType: OperationType;
 
     protected abstract description: string;
 
@@ -21,6 +29,11 @@ export abstract class ToolBase {
     public register(server: McpServer): void {
         const callback = async (args: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> => {
             try {
+                const preventionResult = this.verifyAllowed();
+                if (preventionResult) {
+                    return preventionResult;
+                }
+
                 // TODO: add telemetry here
                 logger.debug(
                     mongoLogId(1_000_006),
@@ -43,6 +56,35 @@ export abstract class ToolBase {
         } else {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             server.tool(this.name, this.description, callback as any);
+        }
+    }
+
+    // Checks if a tool is allowed to run based on the config
+    private verifyAllowed(): CallToolResult | undefined {
+        let errorClarification: string | undefined;
+        if (config.disabledTools.includes(this.category)) {
+            errorClarification = `its category, \`${this.category}\`,`;
+        } else if (config.disabledTools.includes(this.operationType)) {
+            errorClarification = `its operation type, \`${this.operationType}\`,`;
+        } else if (config.disabledTools.includes(this.name)) {
+            errorClarification = `it`;
+        }
+
+        if (errorClarification) {
+            logger.debug(
+                mongoLogId(1_000_010),
+                "tool",
+                `Prevented execution of ${this.name} because ${errorClarification} is disabled in the config`
+            );
+            return {
+                content: [
+                    {
+                        type: "text",
+                        text: `Cannot execute tool \`${this.name}\` because ${errorClarification} is disabled in the config.`,
+                    },
+                ],
+                isError: true,
+            };
         }
     }
 
