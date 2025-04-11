@@ -68,7 +68,5 @@ export abstract class MongoDBToolBase extends ToolBase {
         });
 
         state.serviceProvider = provider;
-        state.credentials.connectionString = connectionString;
-        await state.persistCredentials();
     }
 }

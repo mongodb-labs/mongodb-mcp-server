@@ -11,9 +11,9 @@ export class InspectAccessListTool extends AtlasToolBase {
     };
 
     protected async execute({ projectId }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        this.ensureAuthenticated();
+        this.state.ensureApiClient();
 
-        const accessList = await this.apiClient!.listProjectIpAccessLists({
+        const accessList = await this.state.apiClient.listProjectIpAccessLists({
             params: {
                 path: {
                     groupId: projectId,

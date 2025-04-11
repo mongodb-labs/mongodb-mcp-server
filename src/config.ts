@@ -3,17 +3,15 @@ import os from "os";
 import argv from "yargs-parser";
 
 import packageJson from "../package.json" with { type: "json" };
-import fs from "fs";
 import { ReadConcernLevel, ReadPreferenceMode, W } from "mongodb";
-const { localDataPath, configPath } = getLocalDataPath();
 
 // If we decide to support non-string config options, we'll need to extend the mechanism for parsing
 // env variables.
 interface UserConfig {
-    apiBaseUrl: string;
+    apiBaseUrl?: string;
     apiClientId?: string;
     apiClientSecret?: string;
-    stateFile: string;
+    logPath: string;
     connectionString?: string;
     connectOptions: {
         readConcern: ReadConcernLevel;
@@ -24,8 +22,7 @@ interface UserConfig {
 }
 
 const defaults: UserConfig = {
-    apiBaseUrl: "https://cloud.mongodb.com/",
-    stateFile: path.join(localDataPath, "state.json"),
+    logPath: getLogPath(),
     connectOptions: {
         readConcern: "local",
         readPreference: "secondaryPreferred",
@@ -36,43 +33,26 @@ const defaults: UserConfig = {
 
 const mergedUserConfig = {
     ...defaults,
-    ...getFileConfig(),
     ...getEnvConfig(),
     ...getCliConfig(),
 };
 
 const config = {
     ...mergedUserConfig,
-    atlasApiVersion: `2025-03-12`,
     version: packageJson.version,
-    userAgent: `AtlasMCP/${packageJson.version} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
-    localDataPath,
 };
 
 export default config;
 
-function getLocalDataPath(): { localDataPath: string; configPath: string } {
-    let localDataPath: string | undefined;
-    let configPath: string | undefined;
+function getLogPath(): string {
+    const localDataPath =
+        process.platform === "win32"
+            ? path.join(process.env.LOCALAPPDATA || process.env.APPDATA || os.homedir(), "mongodb")
+            : path.join(os.homedir(), ".mongodb");
 
-    if (process.platform === "win32") {
-        const appData = process.env.APPDATA;
-        const localAppData = process.env.LOCALAPPDATA ?? process.env.APPDATA;
-        if (localAppData && appData) {
-            localDataPath = path.join(localAppData, "mongodb", "mongodb-mcp");
-            configPath = path.join(localDataPath, "mongodb-mcp.conf");
-        }
-    }
+    const logPath = path.join(localDataPath, "mongodb-mcp", ".app-logs");
 
-    localDataPath ??= path.join(os.homedir(), ".mongodb", "mongodb-mcp");
-    configPath ??= "/etc/mongodb-mcp.conf";
-
-    fs.mkdirSync(localDataPath, { recursive: true });
-
-    return {
-        localDataPath,
-        configPath,
-    };
+    return logPath;
 }
 
 // Gets the config supplied by the user as environment variables. The variable names
@@ -123,17 +103,6 @@ function getEnvConfig(): Partial<UserConfig> {
 
 function SNAKE_CASE_toCamelCase(str: string): string {
     return str.toLowerCase().replace(/([-_][a-z])/g, (group) => group.toUpperCase().replace("_", ""));
-}
-
-// Gets the config supplied by the user as a JSON file. The file is expected to be located in the local data path
-// and named `config.json`.
-function getFileConfig(): Partial<UserConfig> {
-    try {
-        const config = fs.readFileSync(configPath, "utf8");
-        return JSON.parse(config) as Partial<UserConfig>;
-    } catch {
-        return {};
-    }
 }
 
 // Reads the cli args and parses them into a UserConfig object.
