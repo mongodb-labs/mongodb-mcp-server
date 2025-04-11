@@ -27,13 +27,12 @@ export abstract class ToolBase {
     protected constructor(protected session: Session) {}
 
     public register(server: McpServer): void {
+        if (!this.verifyAllowed()) {
+            return;
+        }
+
         const callback: ToolCallback<typeof this.argsShape> = async (...args) => {
             try {
-                const preventionResult = this.verifyAllowed();
-                if (preventionResult) {
-                    return preventionResult;
-                }
-
                 // TODO: add telemetry here
                 logger.debug(
                     mongoLogId(1_000_006),
@@ -53,7 +52,7 @@ export abstract class ToolBase {
     }
 
     // Checks if a tool is allowed to run based on the config
-    private verifyAllowed(): CallToolResult | undefined {
+    private verifyAllowed(): boolean {
         let errorClarification: string | undefined;
         if (config.disabledTools.includes(this.category)) {
             errorClarification = `its category, \`${this.category}\`,`;
@@ -67,18 +66,13 @@ export abstract class ToolBase {
             logger.debug(
                 mongoLogId(1_000_010),
                 "tool",
-                `Prevented execution of ${this.name} because ${errorClarification} is disabled in the config`
+                `Prevented registration of ${this.name} because ${errorClarification} is disabled in the config`
             );
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: `Cannot execute tool \`${this.name}\` because ${errorClarification} is disabled in the config.`,
-                    },
-                ],
-                isError: true,
-            };
+
+            return false;
         }
+
+        return true;
     }
 
     // This method is intended to be overridden by subclasses to handle errors
