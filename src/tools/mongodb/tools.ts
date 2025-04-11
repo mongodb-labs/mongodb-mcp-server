@@ -18,6 +18,7 @@ import { UpdateManyTool } from "./update/updateMany.js";
 import { RenameCollectionTool } from "./update/renameCollection.js";
 import { DropDatabaseTool } from "./delete/dropDatabase.js";
 import { DropCollectionTool } from "./delete/dropCollection.js";
+import { ExplainTool } from "./metadata/explain.js";
 
 export const MongoDbTools = [
     ConnectTool,
@@ -40,4 +41,5 @@ export const MongoDbTools = [
     RenameCollectionTool,
     DropDatabaseTool,
     DropCollectionTool,
+    ExplainTool,
 ];
