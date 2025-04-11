@@ -5,7 +5,6 @@ import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { ErrorCodes, MongoDBError } from "../../errors.js";
 import config from "../../config.js";
-import { connectToMongoDB } from "../../common/mongodb/connect.js";
 
 export const DbOperationArgs = {
     database: z.string().describe("Database name"),
@@ -24,7 +23,7 @@ export abstract class MongoDBToolBase extends ToolBase {
     protected async ensureConnected(): Promise<NodeDriverServiceProvider> {
         const provider = this.state.serviceProvider;
         if (!provider && config.connectionString) {
-            await connectToMongoDB(config.connectionString, this.state);
+            await this.connectToMongoDB(config.connectionString, this.state);
         }
 
         if (!provider) {
@@ -51,5 +50,22 @@ export abstract class MongoDBToolBase extends ToolBase {
         }
 
         return undefined;
+    }
+
+    protected async connectToMongoDB(connectionString: string, state: State): Promise<void> {
+        const provider = await NodeDriverServiceProvider.connect(connectionString, {
+            productDocsLink: "https://docs.mongodb.com/todo-mcp",
+            productName: "MongoDB MCP",
+            readConcern: config.connectOptions.readConcern,
+            readPreference: config.connectOptions.readPreference,
+            writeConcern: {
+                w: config.connectOptions.writeConcern,
+            },
+            timeoutMS: config.connectOptions.timeoutMS,
+        });
+
+        state.serviceProvider = provider;
+        state.credentials.connectionString = connectionString;
+        await state.persistCredentials();
     }
 }

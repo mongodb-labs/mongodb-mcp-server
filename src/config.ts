@@ -9,7 +9,7 @@ const { localDataPath, configPath } = getLocalDataPath();
 
 // If we decide to support non-string config options, we'll need to extend the mechanism for parsing
 // env variables.
-interface UserConfig extends Record<string, unknown> {
+interface UserConfig {
     apiBaseUrl: string;
     clientId: string;
     stateFile: string;
@@ -106,15 +106,16 @@ function getEnvConfig(): Partial<UserConfig> {
     }
 
     const result: Record<string, unknown> = {};
-    for (const [key, value] of Object.entries(process.env).filter(
+    const mcpVariables = Object.entries(process.env).filter(
         ([key, value]) => value !== undefined && key.startsWith("MDB_MCP_")
-    )) {
+    ) as [string, string][];
+    for (const [key, value] of mcpVariables) {
         const fieldPath = key
             .replace("MDB_MCP_", "")
             .split(".")
             .map((part) => SNAKE_CASE_toCamelCase(part));
 
-        setValue(result, fieldPath, value!);
+        setValue(result, fieldPath, value);
     }
 
     return result;
