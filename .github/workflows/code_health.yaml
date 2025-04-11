@@ -23,6 +23,11 @@ jobs:
     run-tests:
         runs-on: ubuntu-latest
         steps:
+            - name: Install keyring deps
+              run: |
+                  sudo apt update -y
+                  sudo apt install -y gnome-keyring libdbus-1-dev
+
             - uses: GitHubSecurityLab/actions-permissions/monitor@v1
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
