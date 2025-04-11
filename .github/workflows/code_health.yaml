@@ -6,6 +6,21 @@ on:
       - main
   pull_request:
 jobs:
+  check-npm:
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: "npm"
+      - name: Check NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm whoami
+
   check-style:
     runs-on: ubuntu-latest
     steps:
@@ -42,9 +57,5 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
-      - name: Check NPM
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm whoami
       - name: Run tests
         run: npm test
