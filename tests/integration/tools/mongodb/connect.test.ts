@@ -14,6 +14,10 @@ describe("Connect tool", () => {
         cluster = await runMongoDB();
     }, 60_000);
 
+    beforeEach(async () => {
+        ({ client, teardown: serverClientTeardown } = await setupIntegrationTest());
+    });
+
     afterEach(async () => {
         await serverClientTeardown?.();
     });
@@ -23,10 +27,6 @@ describe("Connect tool", () => {
     });
 
     describe("with default config", () => {
-        beforeEach(async () => {
-            ({ client, teardown: serverClientTeardown } = await setupIntegrationTest());
-        });
-
         it("should have correct metadata", async () => {
             const tools = await client.listTools();
             const connectTool = tools.tools.find((tool) => tool.name === "connect");
@@ -84,8 +84,6 @@ describe("Connect tool", () => {
     describe("with connection string in config", () => {
         beforeEach(async () => {
             config.connectionString = cluster.connectionString;
-
-            ({ client, teardown: serverClientTeardown } = await setupIntegrationTest());
         });
 
         it("uses the connection string from config", async () => {
