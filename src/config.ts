@@ -3,13 +3,12 @@ import os from "os";
 import argv from "yargs-parser";
 
 import packageJson from "../package.json" with { type: "json" };
-import fs from "fs";
 import { ReadConcernLevel, ReadPreferenceMode, W } from "mongodb";
 
 // If we decide to support non-string config options, we'll need to extend the mechanism for parsing
 // env variables.
 interface UserConfig {
-    apiBaseUrl: string;
+    apiBaseUrl?: string;
     apiClientId?: string;
     apiClientSecret?: string;
     logPath: string;
@@ -23,7 +22,6 @@ interface UserConfig {
 }
 
 const defaults: UserConfig = {
-    apiBaseUrl: "https://cloud.mongodb.com/",
     logPath: getLogPath(),
     connectOptions: {
         readConcern: "local",
@@ -41,17 +39,16 @@ const mergedUserConfig = {
 
 const config = {
     ...mergedUserConfig,
-    atlasApiVersion: `2025-03-12`,
     version: packageJson.version,
-    userAgent: `AtlasMCP/${packageJson.version} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
 };
 
 export default config;
 
 function getLogPath(): string {
-    const localDataPath = (process.platform === "win32") ?
-        path.join(process.env.LOCALAPPDATA || process.env.APPDATA || os.homedir(), "mongodb")
-        : path.join(os.homedir(), ".mongodb");
+    const localDataPath =
+        process.platform === "win32"
+            ? path.join(process.env.LOCALAPPDATA || process.env.APPDATA || os.homedir(), "mongodb")
+            : path.join(os.homedir(), ".mongodb");
 
     const logPath = path.join(localDataPath, "mongodb-mcp", ".app-logs");
 

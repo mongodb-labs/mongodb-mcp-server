@@ -1,5 +1,4 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { ApiClient } from "./common/atlas/apiClient.js";
 import defaultState, { State } from "./state.js";
 import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { registerAtlasTools } from "./tools/atlas/tools.js";
@@ -10,7 +9,6 @@ import { mongoLogId } from "mongodb-log-writer";
 
 export class Server {
     state: State = defaultState;
-    apiClient?: ApiClient;
     private server?: McpServer;
 
     async connect(transport: Transport) {
@@ -21,12 +19,12 @@ export class Server {
 
         this.server.server.registerCapabilities({ logging: {} });
 
-        registerAtlasTools(this.server, this.state, this.apiClient);
+        registerAtlasTools(this.server, this.state);
         registerMongoDBTools(this.server, this.state);
 
         await this.server.connect(transport);
         await initializeLogger(this.server);
-        
+
         logger.info(mongoLogId(1_000_004), "server", `Server started with transport ${transport.constructor.name}`);
     }
 
