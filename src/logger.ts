@@ -4,6 +4,7 @@ import config from "./config.js";
 import redact from "mongodb-redact";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { LoggingMessageNotification } from "@modelcontextprotocol/sdk/types.js";
+import { promisify } from "util";
 
 export type LogLevel = LoggingMessageNotification["params"]["level"];
 
@@ -98,20 +99,10 @@ class ProxyingLogger extends LoggerBase {
 const logger = new ProxyingLogger();
 export default logger;
 
-async function mkdirPromise(path: fs.PathLike, options?: fs.Mode | fs.MakeDirectoryOptions) {
-    return new Promise<string | undefined>((resolve, reject) => {
-        fs.mkdir(path, options, (err, resultPath) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(resultPath);
-            }
-        });
-    });
-}
+const mkdirAsync = promisify(fs.mkdir);
 
 export async function initializeLogger(server: McpServer): Promise<void> {
-    await mkdirPromise(config.logPath, { recursive: true });
+    await mkdirAsync(config.logPath, { recursive: true });
 
     const manager = new MongoLogManager({
         directory: config.logPath,
