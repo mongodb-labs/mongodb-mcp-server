@@ -10,14 +10,14 @@ const { localDataPath, configPath } = getLocalDataPath();
 // env variables.
 interface UserConfig extends Record<string, string | undefined> {
     apiBaseUrl: string;
-    clientId: string;
+    apiClientId?: string;
+    apiClientSecret?: string;
     stateFile: string;
     connectionString?: string;
 }
 
 const defaults: UserConfig = {
     apiBaseUrl: "https://cloud.mongodb.com/",
-    clientId: "0oabtxactgS3gHIR0297",
     stateFile: path.join(localDataPath, "state.json"),
 };
 

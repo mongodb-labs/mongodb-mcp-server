@@ -6,7 +6,7 @@ import { DatabaseUserRole, UserScope } from "../../common/atlas/openapi.js";
 
 export class ListDBUsersTool extends AtlasToolBase {
     protected name = "atlas-list-db-users";
-    protected description = "List MongoDB Atlas users";
+    protected description = "List MongoDB Atlas database users";
     protected argsShape = {
         projectId: z.string().describe("Atlas project ID to filter DB users"),
     };

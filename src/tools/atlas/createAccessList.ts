@@ -39,7 +39,7 @@ export class CreateAccessListTool extends AtlasToolBase {
         }));
 
         if (currentIpAddress) {
-            const currentIp = await this.apiClient.getIpInfo();
+            const currentIp = await this.apiClient!.getIpInfo();
             const input = {
                 groupId: projectId,
                 ipAddress: currentIp.currentIpv4Address,
@@ -56,7 +56,7 @@ export class CreateAccessListTool extends AtlasToolBase {
 
         const inputs = [...ipInputs, ...cidrInputs];
 
-        await this.apiClient.createProjectIpAccessList({
+        await this.apiClient!.createProjectIpAccessList({
             params: {
                 path: {
                     groupId: projectId,

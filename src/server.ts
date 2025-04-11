@@ -10,7 +10,7 @@ import { mongoLogId } from "mongodb-log-writer";
 
 export class Server {
     state: State = defaultState;
-    apiClient: ApiClient | undefined = undefined;
+    apiClient?: ApiClient;
     initialized: boolean = false;
 
     private async init() {
@@ -20,18 +20,14 @@ export class Server {
 
         await this.state.loadCredentials();
 
-        this.apiClient = new ApiClient({
-            token: this.state.credentials.auth.token,
-            saveToken: async (token) => {
-                if (!this.state) {
-                    throw new Error("State is not initialized");
-                }
-                this.state.credentials.auth.code = undefined;
-                this.state.credentials.auth.token = token;
-                this.state.credentials.auth.status = "issued";
-                await this.state.persistCredentials();
-            },
-        });
+        if (config.apiClientId && config.apiClientSecret) {
+            this.apiClient = new ApiClient({
+                credentials: {
+                    clientId: config.apiClientId!,
+                    clientSecret: config.apiClientSecret,
+                },
+            });
+        }
 
         this.initialized = true;
     }
@@ -44,7 +40,7 @@ export class Server {
 
         server.server.registerCapabilities({ logging: {} });
 
-        registerAtlasTools(server, this.state, this.apiClient!);
+        registerAtlasTools(server, this.state, this.apiClient);
         registerMongoDBTools(server, this.state);
 
         return server;
