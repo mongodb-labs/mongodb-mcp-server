@@ -4,23 +4,12 @@ import { Server } from "../../src/server.js";
 import runner, { MongoCluster } from "mongodb-runner";
 import path from "path";
 import fs from "fs/promises";
-import defaultState from "../../src/state.js";
 
-export async function setupIntegrationTest({ mockStateStore = true }: { mockStateStore?: boolean } = {}): Promise<{
+export async function setupIntegrationTest(): Promise<{
     client: Client;
     server: Server;
     teardown: () => Promise<void>;
 }> {
-    let loadCredentialsMock: jest.SpyInstance | undefined;
-    let saveCredentialsMock: jest.SpyInstance | undefined;
-    if (mockStateStore) {
-        // Mock the load/persist credentials method to avoid state loading/restore messing up with the tests
-        loadCredentialsMock = jest.spyOn(defaultState, "loadCredentials").mockImplementation(() => Promise.resolve());
-        saveCredentialsMock = jest
-            .spyOn(defaultState, "persistCredentials")
-            .mockImplementation(() => Promise.resolve());
-    }
-
     const clientTransport = new InMemoryTransport();
     const serverTransport = new InMemoryTransport();
 
@@ -50,9 +39,6 @@ export async function setupIntegrationTest({ mockStateStore = true }: { mockStat
         teardown: async () => {
             await client.close();
             await server.close();
-
-            loadCredentialsMock?.mockRestore();
-            saveCredentialsMock?.mockRestore();
         },
     };
 }

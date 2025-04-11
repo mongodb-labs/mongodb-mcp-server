@@ -33,7 +33,7 @@ export class CreateDBUserTool extends AtlasToolBase {
         roles,
         clusters,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        this.ensureAuthenticated();
+        this.state.ensureApiClient();
 
         const input = {
             groupId: projectId,
@@ -53,7 +53,7 @@ export class CreateDBUserTool extends AtlasToolBase {
                 : undefined,
         } as CloudDatabaseUser;
 
-        await this.apiClient!.createDatabaseUser({
+        await this.state.apiClient.createDatabaseUser({
             params: {
                 path: {
                     groupId: projectId,

@@ -7,9 +7,9 @@ export class ListProjectsTool extends AtlasToolBase {
     protected argsShape = {};
 
     protected async execute(): Promise<CallToolResult> {
-        this.ensureAuthenticated();
+        this.state.ensureApiClient();
 
-        const data = await this.apiClient!.listProjects();
+        const data = await this.state.apiClient.listProjects();
 
         if (!data?.results?.length) {
             throw new Error("No projects found in your MongoDB Atlas account.");

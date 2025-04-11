@@ -1,33 +1,26 @@
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
-import { AsyncEntry } from "@napi-rs/keyring";
-import logger from "./logger.js";
-import { mongoLogId } from "mongodb-log-writer";
-
-interface Credentials {
-    connectionString?: string;
-}
+import { ApiClient } from "./common/atlas/apiClient.js";
+import config from "./config.js";
 
 export class State {
-    private entry = new AsyncEntry("mongodb-mcp", "credentials");
-    credentials: Credentials = {};
     serviceProvider?: NodeDriverServiceProvider;
+    apiClient?: ApiClient;
 
-    public async persistCredentials(): Promise<void> {
-        try {
-            await this.entry.setPassword(JSON.stringify(this.credentials));
-        } catch (err) {
-            logger.error(mongoLogId(1_000_008), "state", `Failed to save state: ${err as string}`);
-        }
-    }
-
-    public async loadCredentials(): Promise<void> {
-        try {
-            const data = await this.entry.getPassword();
-            if (data) {
-                this.credentials = JSON.parse(data) as Credentials;
+    ensureApiClient(): asserts this is { apiClient: ApiClient } {
+        if (!this.apiClient) {
+            if (!config.apiClientId || !config.apiClientSecret) {
+                throw new Error(
+                    "Not authenticated make sure to configure MCP server with MDB_MCP_API_CLIENT_ID and MDB_MCP_API_CLIENT_SECRET environment variables."
+                );
             }
-        } catch (err: unknown) {
-            logger.error(mongoLogId(1_000_007), "state", `Failed to load state: ${err as string}`);
+
+            this.apiClient = new ApiClient({
+                baseUrl: config.apiBaseUrl,
+                credentials: {
+                    clientId: config.apiClientId,
+                    clientSecret: config.apiClientSecret,
+                },
+            });
         }
     }
 }

@@ -20,7 +20,7 @@ export class ConnectTool extends MongoDBToolBase {
     protected async execute({
         connectionStringOrClusterName,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        connectionStringOrClusterName ??= config.connectionString || this.state.credentials.connectionString;
+        connectionStringOrClusterName ??= config.connectionString;
         if (!connectionStringOrClusterName) {
             return {
                 content: [
