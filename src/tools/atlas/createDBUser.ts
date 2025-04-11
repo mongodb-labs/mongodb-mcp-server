@@ -6,7 +6,7 @@ import { CloudDatabaseUser, DatabaseUserRole } from "../../common/atlas/openapi.
 
 export class CreateDBUserTool extends AtlasToolBase {
     protected name = "atlas-create-db-user";
-    protected description = "Create an MongoDB Atlas user";
+    protected description = "Create an MongoDB Atlas database user";
     protected argsShape = {
         projectId: z.string().describe("Atlas project ID"),
         username: z.string().describe("Username for the new user"),
@@ -33,7 +33,7 @@ export class CreateDBUserTool extends AtlasToolBase {
         roles,
         clusters,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        await this.ensureAuthenticated();
+        this.ensureAuthenticated();
 
         const input = {
             groupId: projectId,

@@ -6,6 +6,13 @@
   "printWidth": 120,
   "overrides": [
     {
+      "files": "*.ts",
+      "options": {
+        "insertPragma": false,
+        "proseWrap": "preserve"
+      }
+    },
+    {
       "files": "*.json",
       "options": {
         "tabWidth": 2,
@@ -14,6 +21,13 @@
     },
     {
       "files": "*.md",
+      "options": {
+        "tabWidth": 2,
+        "printWidth": 80
+      }
+    },
+    {
+      "files": "*.yaml",
       "options": {
         "tabWidth": 2,
         "printWidth": 80

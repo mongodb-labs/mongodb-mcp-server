@@ -1,4 +1,4 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer, ToolCallback } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z, ZodNever, ZodRawShape } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { State } from "../state.js";
@@ -14,12 +14,12 @@ export abstract class ToolBase {
 
     protected abstract argsShape: ZodRawShape;
 
-    protected abstract execute(args: ToolArgs<typeof this.argsShape>): Promise<CallToolResult>;
+    protected abstract execute(...args: Parameters<ToolCallback<typeof this.argsShape>>): Promise<CallToolResult>;
 
     protected constructor(protected state: State) {}
 
     public register(server: McpServer): void {
-        const callback = async (args: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> => {
+        const callback: ToolCallback<typeof this.argsShape> = async (...args) => {
             try {
                 // TODO: add telemetry here
                 logger.debug(
@@ -28,50 +28,27 @@ export abstract class ToolBase {
                     `Executing ${this.name} with args: ${JSON.stringify(args)}`
                 );
 
-                return await this.execute(args);
-            } catch (error) {
-                logger.error(mongoLogId(1_000_000), "tool", `Error executing ${this.name}: ${error}`);
+                return await this.execute(...args);
+            } catch (error: unknown) {
+                logger.error(mongoLogId(1_000_000), "tool", `Error executing ${this.name}: ${error as string}`);
 
-                // If the error is authentication related, suggest using auth tool
-                if (error instanceof Error && error.message.includes("Not authenticated")) {
-                    return {
-                        content: [
-                            { type: "text", text: "You need to authenticate before accessing Atlas data." },
-                            {
-                                type: "text",
-                                text: "Please use the 'auth' tool to log in to your MongoDB Atlas account.",
-                            },
-                        ],
-                    };
-                }
-
-                return (
-                    this.handleError(error) || {
-                        content: [
-                            {
-                                type: "text",
-                                text: `Error running ${this.name}: ${error instanceof Error ? error.message : String(error)}`,
-                            },
-                        ],
-                        isError: true,
-                    }
-                );
+                return await this.handleError(error);
             }
         };
 
-        if (this.argsShape) {
-            // Not sure why typescript doesn't like the type signature of callback.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            server.tool(this.name, this.description, this.argsShape, callback as any);
-        } else {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            server.tool(this.name, this.description, callback as any);
-        }
+        server.tool(this.name, this.description, this.argsShape, callback);
     }
 
     // This method is intended to be overridden by subclasses to handle errors
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected handleError(error: unknown): CallToolResult | undefined {
-        return undefined;
+    protected handleError(error: unknown): Promise<CallToolResult> | CallToolResult {
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: `Error running ${this.name}: ${error instanceof Error ? error.message : String(error)}`,
+                },
+            ],
+            isError: true,
+        };
     }
 }

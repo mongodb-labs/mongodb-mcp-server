@@ -8,7 +8,7 @@ import logger, { initializeLogger } from "./logger.js";
 import { mongoLogId } from "mongodb-log-writer";
 
 export class Server {
-    readonly state: State;
+    private readonly state: State;
     private readonly apiClient: ApiClient;
     private readonly mcpServer: McpServer;
     private readonly transport: Transport;
@@ -53,6 +53,46 @@ export class Server {
         } catch {
             // Ignore errors during service provider close
         }
-        await this.mcpServer.close();
+
+        await this.state.loadCredentials();
+
+        if (config.apiClientId && config.apiClientSecret) {
+            this.apiClient = new ApiClient({
+                credentials: {
+                    clientId: config.apiClientId,
+                    clientSecret: config.apiClientSecret,
+                },
+            });
+        }
+
+        this.initialized = true;
+    }
+
+    async connect(transport: Transport) {
+        await this.init();
+        const server = new McpServer({
+            name: "MongoDB Atlas",
+            version: config.version,
+        });
+
+        server.server.registerCapabilities({ logging: {} });
+
+        registerAtlasTools(server, this.state, this.apiClient);
+        registerMongoDBTools(server, this.state);
+
+        await server.connect(transport);
+        await initializeLogger(server);
+        this.server = server;
+
+        logger.info(mongoLogId(1_000_004), "server", `Server started with transport ${transport.constructor.name}`);
+    }
+
+    async close(): Promise<void> {
+        try {
+            await this.state.serviceProvider?.close(true);
+        } catch {
+            // Ignore errors during service provider close
+        }
+        await this.server?.close();
     }
 }

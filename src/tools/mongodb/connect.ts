@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
 import { DbOperationType, MongoDBToolBase } from "./mongodbTool.js";
 import { ToolArgs } from "../tool.js";
 import { ErrorCodes, MongoDBError } from "../../errors.js";
@@ -58,21 +57,10 @@ export class ConnectTool extends MongoDBToolBase {
             throw new MongoDBError(ErrorCodes.InvalidParams, "Invalid connection options");
         }
 
-        await this.connect(connectionString);
+        await this.connectToMongoDB(connectionString, this.state);
 
         return {
             content: [{ type: "text", text: `Successfully connected to ${connectionString}.` }],
         };
-    }
-
-    private async connect(connectionString: string): Promise<void> {
-        const provider = await NodeDriverServiceProvider.connect(connectionString, {
-            productDocsLink: "https://docs.mongodb.com/todo-mcp",
-            productName: "MongoDB MCP",
-        });
-
-        this.state.serviceProvider = provider;
-        this.state.credentials.connectionString = connectionString;
-        await this.state.persistCredentials();
     }
 }

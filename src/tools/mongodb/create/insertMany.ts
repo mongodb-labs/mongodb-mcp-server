@@ -21,7 +21,7 @@ export class InsertManyTool extends MongoDBToolBase {
         collection,
         documents,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const result = await provider.insertMany(database, collection, documents);
 
         return {

@@ -1,42 +1,33 @@
-import { OauthDeviceCode, OAuthToken } from "./common/atlas/apiClient.js";
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
 import { AsyncEntry } from "@napi-rs/keyring";
 import logger from "./logger.js";
 import { mongoLogId } from "mongodb-log-writer";
 
 interface Credentials {
-    auth: {
-        status: "not_auth" | "requested" | "issued";
-        code?: OauthDeviceCode;
-        token?: OAuthToken;
-    };
     connectionString?: string;
 }
 
 export class State {
     private entry = new AsyncEntry("mongodb-mcp", "credentials");
-    credentials: Credentials = {
-        auth: {
-            status: "not_auth",
-        },
-    };
+    credentials: Credentials = {};
     serviceProvider?: NodeDriverServiceProvider;
 
     public async persistCredentials(): Promise<void> {
-        await this.entry.setPassword(JSON.stringify(this.credentials));
+        try {
+            await this.entry.setPassword(JSON.stringify(this.credentials));
+        } catch (err) {
+            logger.error(mongoLogId(1_000_008), "state", `Failed to save state: ${err as string}`);
+        }
     }
 
-    public async loadCredentials(): Promise<boolean> {
+    public async loadCredentials(): Promise<void> {
         try {
             const data = await this.entry.getPassword();
             if (data) {
-                this.credentials = JSON.parse(data);
+                this.credentials = JSON.parse(data) as Credentials;
             }
-
-            return true;
         } catch (err: unknown) {
-            logger.error(mongoLogId(1_000_007), "state", `Failed to load state: ${err}`);
-            return false;
+            logger.error(mongoLogId(1_000_007), "state", `Failed to load state: ${err as string}`);
         }
     }
 }

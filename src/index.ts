@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import logger from "./logger.js";
 import { mongoLogId } from "mongodb-log-writer";

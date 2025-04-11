@@ -23,13 +23,13 @@ export class InsertOneTool extends MongoDBToolBase {
         collection,
         document,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const result = await provider.insertOne(database, collection, document);
 
         return {
             content: [
                 {
-                    text: `Inserted document with ID \`${result.insertedId}\` into collection \`${collection}\``,
+                    text: `Inserted document with ID \`${result.insertedId.toString()}\` into collection \`${collection}\``,
                     type: "text",
                 },
             ],

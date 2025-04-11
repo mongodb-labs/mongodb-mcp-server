@@ -9,7 +9,7 @@ export class CollectionIndexesTool extends MongoDBToolBase {
     protected operationType: DbOperationType = "read";
 
     protected async execute({ database, collection }: ToolArgs<typeof DbOperationArgs>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const indexes = await provider.getIndexes(database, collection);
 
         return {

@@ -10,13 +10,13 @@ export class CollectionStorageSizeTool extends MongoDBToolBase {
     protected operationType: DbOperationType = "metadata";
 
     protected async execute({ database, collection }: ToolArgs<typeof DbOperationArgs>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
-        const [{ value }] = await provider
+        const provider = await this.ensureConnected();
+        const [{ value }] = (await provider
             .aggregate(database, collection, [
                 { $collStats: { storageStats: {} } },
                 { $group: { _id: null, value: { $sum: "$storageStats.storageSize" } } },
             ])
-            .toArray();
+            .toArray()) as [{ value: number }];
 
         return {
             content: [

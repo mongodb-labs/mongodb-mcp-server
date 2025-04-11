@@ -20,7 +20,7 @@ export class RenameCollectionTool extends MongoDBToolBase {
         newName,
         dropTarget,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const result = await provider.renameCollection(database, collection, newName, {
             dropTarget,
         });
