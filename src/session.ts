@@ -23,4 +23,15 @@ export class Session {
             });
         }
     }
+
+    async close(): Promise<void> {
+        if (this.serviceProvider) {
+            try {
+                await this.serviceProvider.close(true);
+            } catch (error) {
+                console.error("Error closing service provider:", error);
+            }
+            this.serviceProvider = undefined;
+        }
+    }
 }

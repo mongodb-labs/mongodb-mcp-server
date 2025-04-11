@@ -28,12 +28,8 @@ export class Server {
     }
 
     async close(): Promise<void> {
-        try {
-            await this.session.serviceProvider?.close(true);
-        } catch {
-            // Ignore errors during service provider close
-        }
-        await this.mcpServer?.close();
+        await this.session.close();
+        await this.mcpServer.close();
     }
 
     private registerTools() {
