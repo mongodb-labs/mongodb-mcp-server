@@ -100,11 +100,8 @@ const logger = new ProxyingLogger();
 export default logger;
 
 export async function initializeLogger(server: McpServer): Promise<void> {
-    const logDir = path.join(config.localDataPath, ".app-logs");
-    await fs.mkdir(logDir, { recursive: true });
-
     const manager = new MongoLogManager({
-        directory: path.join(config.localDataPath, ".app-logs"),
+        directory: config.logPath,
         retentionDays: 30,
         onwarn: console.warn,
         onerror: console.error,

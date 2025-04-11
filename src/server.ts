@@ -11,14 +11,14 @@ import { mongoLogId } from "mongodb-log-writer";
 export class Server {
     state: State = defaultState;
     apiClient?: ApiClient;
-    initialized: boolean = false;
 
-    private async init() {
-        if (this.initialized) {
-            return;
-        }
+    private createMcpServer(): McpServer {
+        const server = new McpServer({
+            name: "MongoDB Atlas",
+            version: config.version,
+        });
 
-        await this.state.loadCredentials();
+        server.server.registerCapabilities({ logging: {} });
 
         if (config.apiClientId && config.apiClientSecret) {
             this.apiClient = new ApiClient({
@@ -29,17 +29,6 @@ export class Server {
             });
         }
 
-        this.initialized = true;
-    }
-
-    private createMcpServer(): McpServer {
-        const server = new McpServer({
-            name: "MongoDB Atlas",
-            version: config.version,
-        });
-
-        server.server.registerCapabilities({ logging: {} });
-
         registerAtlasTools(server, this.state, this.apiClient);
         registerMongoDBTools(server, this.state);
 
@@ -47,7 +36,6 @@ export class Server {
     }
 
     async connect(transport: Transport) {
-        await this.init();
         const server = this.createMcpServer();
         await server.connect(transport);
         await initializeLogger(server);

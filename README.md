@@ -157,8 +157,6 @@ The MongoDB MCP Server can be configured using multiple methods, with the follow
 
 1. Command-line arguments
 2. Environment variables
-3. Configuration file
-4. Default values
 
 ### Configuration Options
 
@@ -167,6 +165,12 @@ The MongoDB MCP Server can be configured using multiple methods, with the follow
 | `apiClientId`      | Atlas API client ID for authentication                                                                                |
 | `apiClientSecret`  | Atlas API client secret for authentication                                                                            |
 | `connectionString` | MongoDB connection string for direct database connections (optional users may choose to inform it on every tool call) |
+| `logPath`          | Folder to store logs                                                                                                  |
+
+**Default Log Path:**
+
+- Windows: `%LOCALAPPDATA%\mongodb\mongodb-mcp\.app-logs`
+- macOS/Linux: `~/.mongodb/mongodb-mcp/.app-logs`
 
 ### Atlas API Access
 
@@ -195,23 +199,6 @@ To use the Atlas API tools, you'll need to create a service account in MongoDB A
 
 ### Configuration Methods
 
-#### Configuration File
-
-Create a JSON configuration file at one of these locations:
-
-- Linux/macOS: `/etc/mongodb-mcp.conf`
-- Windows: `%LOCALAPPDATA%\mongodb\mongodb-mcp\mongodb-mcp.conf`
-
-Example configuration file:
-
-```json
-{
-  "apiClientId": "your-atlas-client-id",
-  "apiClientSecret": "your-atlas-client-secret",
-  "connectionString": "mongodb+srv://username:password@cluster.mongodb.net/myDatabase"
-}
-```
-
 #### Environment Variables
 
 Set environment variables with the prefix `MDB_MCP_` followed by the option name in uppercase with underscores:
@@ -223,6 +210,8 @@ export MDB_MCP_API_CLIENT_SECRET="your-atlas-client-secret"
 
 # Set a custom MongoDB connection string
 export MDB_MCP_CONNECTION_STRING="mongodb+srv://username:password@cluster.mongodb.net/myDatabase"
+
+export MDB_MCP_LOG_PATH="/path/to/logs"
 ```
 
 #### Command-Line Arguments
@@ -230,7 +219,7 @@ export MDB_MCP_CONNECTION_STRING="mongodb+srv://username:password@cluster.mongod
 Pass configuration options as command-line arguments when starting the server:
 
 ```shell
-node dist/index.js --apiClientId="your-atlas-client-id" --apiClientSecret="your-atlas-client-secret" --connectionString="mongodb+srv://username:password@cluster.mongodb.net/myDatabase"
+node dist/index.js --apiClientId="your-atlas-client-id" --apiClientSecret="your-atlas-client-secret" --connectionString="mongodb+srv://username:password@cluster.mongodb.net/myDatabase" --logPath=/path/to/logs
 ```
 
 ## 🤝 Contributing
