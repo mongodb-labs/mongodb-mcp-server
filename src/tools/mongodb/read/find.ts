@@ -1,32 +1,33 @@
 import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { DbOperationType, MongoDBToolBase } from "../mongodbTool.js";
+import { DbOperationArgs, DbOperationType, MongoDBToolBase } from "../mongodbTool.js";
 import { ToolArgs } from "../../tool.js";
 import { SortDirection } from "mongodb";
+
+export const FindArgs = {
+    filter: z
+        .object({})
+        .passthrough()
+        .optional()
+        .describe("The query filter, matching the syntax of the query argument of db.collection.find()"),
+    projection: z
+        .object({})
+        .passthrough()
+        .optional()
+        .describe("The projection, matching the syntax of the projection argument of db.collection.find()"),
+    limit: z.number().optional().default(10).describe("The maximum number of documents to return"),
+    sort: z
+        .record(z.string(), z.custom<SortDirection>())
+        .optional()
+        .describe("A document, describing the sort order, matching the syntax of the sort argument of cursor.sort()"),
+};
 
 export class FindTool extends MongoDBToolBase {
     protected name = "find";
     protected description = "Run a find query against a MongoDB collection";
     protected argsShape = {
-        collection: z.string().describe("Collection name"),
-        database: z.string().describe("Database name"),
-        filter: z
-            .object({})
-            .passthrough()
-            .optional()
-            .describe("The query filter, matching the syntax of the query argument of db.collection.find()"),
-        projection: z
-            .object({})
-            .passthrough()
-            .optional()
-            .describe("The projection, matching the syntax of the projection argument of db.collection.find()"),
-        limit: z.number().optional().default(10).describe("The maximum number of documents to return"),
-        sort: z
-            .record(z.string(), z.custom<SortDirection>())
-            .optional()
-            .describe(
-                "A document, describing the sort order, matching the syntax of the sort argument of cursor.sort()"
-            ),
+        ...DbOperationArgs,
+        ...FindArgs,
     };
     protected operationType: DbOperationType = "read";
 

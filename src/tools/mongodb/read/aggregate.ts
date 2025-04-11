@@ -1,16 +1,19 @@
 import { z } from "zod";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { DbOperationType, MongoDBToolBase } from "../mongodbTool.js";
+import { DbOperationArgs, DbOperationType, MongoDBToolBase } from "../mongodbTool.js";
 import { ToolArgs } from "../../tool.js";
+
+export const AggregateArgs = {
+    pipeline: z.array(z.object({}).passthrough()).describe("An array of aggregation stages to execute"),
+    limit: z.number().optional().default(10).describe("The maximum number of documents to return"),
+};
 
 export class AggregateTool extends MongoDBToolBase {
     protected name = "aggregate";
     protected description = "Run an aggregation against a MongoDB collection";
     protected argsShape = {
-        collection: z.string().describe("Collection name"),
-        database: z.string().describe("Database name"),
-        pipeline: z.array(z.object({}).passthrough()).describe("An array of aggregation stages to execute"),
-        limit: z.number().optional().default(10).describe("The maximum number of documents to return"),
+        ...DbOperationArgs,
+        ...AggregateArgs,
     };
     protected operationType: DbOperationType = "read";
 
@@ -18,9 +21,10 @@ export class AggregateTool extends MongoDBToolBase {
         database,
         collection,
         pipeline,
+        limit,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
         const provider = this.ensureConnected();
-        const documents = await provider.aggregate(database, collection, pipeline).toArray();
+        const documents = await provider.aggregate(database, collection, pipeline).limit(limit).toArray();
 
         const content: Array<{ text: string; type: "text" }> = [
             {
