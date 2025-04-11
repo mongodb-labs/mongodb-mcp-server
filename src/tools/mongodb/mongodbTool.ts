@@ -66,6 +66,5 @@ export abstract class MongoDBToolBase extends ToolBase {
         });
 
         state.serviceProvider = provider;
-        state.connectionString = connectionString;
     }
 }

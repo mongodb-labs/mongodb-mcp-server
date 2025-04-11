@@ -49,21 +49,11 @@ const config = {
 export default config;
 
 function getLogPath(): string {
-    let localDataPath: string | undefined;
+    const localDataPath = (process.platform === "win32") ?
+        path.join(process.env.LOCALAPPDATA || process.env.APPDATA || os.homedir(), "mongodb")
+        : path.join(os.homedir(), ".mongodb");
 
-    if (process.platform === "win32") {
-        const appData = process.env.APPDATA;
-        const localAppData = process.env.LOCALAPPDATA ?? process.env.APPDATA;
-        if (localAppData && appData) {
-            localDataPath = path.join(localAppData, "mongodb", "mongodb-mcp");
-        }
-    }
-
-    localDataPath ??= path.join(os.homedir(), ".mongodb", "mongodb-mcp");
-
-    const logPath = path.join(localDataPath, ".app-logs");
-
-    fs.mkdirSync(logPath, { recursive: true });
+    const logPath = path.join(localDataPath, "mongodb-mcp", ".app-logs");
 
     return logPath;
 }
