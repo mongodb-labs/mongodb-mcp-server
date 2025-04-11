@@ -16,8 +16,8 @@ export class ListProjectsTool extends AtlasToolBase {
         }
 
         // Format projects as a table
-        const rows = data!
-            .results!.map((project) => {
+        const rows = data.results
+            .map((project) => {
                 const createdAt = project.created ? new Date(project.created).toLocaleString() : "N/A";
                 return `${project.name} | ${project.id} | ${createdAt}`;
             })

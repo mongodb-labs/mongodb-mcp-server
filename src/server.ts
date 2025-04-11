@@ -24,7 +24,7 @@ export class Server {
         if (config.apiClientId && config.apiClientSecret) {
             this.apiClient = new ApiClient({
                 credentials: {
-                    clientId: config.apiClientId!,
+                    clientId: config.apiClientId,
                     clientSecret: config.apiClientSecret,
                 },
             });

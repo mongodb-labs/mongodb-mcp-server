@@ -16,7 +16,7 @@ export class State {
         try {
             await this.entry.setPassword(JSON.stringify(this.credentials));
         } catch (err) {
-            logger.error(mongoLogId(1_000_008), "state", `Failed to save state: ${err}`);
+            logger.error(mongoLogId(1_000_008), "state", `Failed to save state: ${err as string}`);
         }
     }
 
@@ -24,10 +24,10 @@ export class State {
         try {
             const data = await this.entry.getPassword();
             if (data) {
-                this.credentials = JSON.parse(data);
+                this.credentials = JSON.parse(data) as Credentials;
             }
         } catch (err: unknown) {
-            logger.error(mongoLogId(1_000_007), "state", `Failed to load state: ${err}`);
+            logger.error(mongoLogId(1_000_007), "state", `Failed to load state: ${err as string}`);
         }
     }
 }

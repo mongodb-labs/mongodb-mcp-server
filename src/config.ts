@@ -130,7 +130,7 @@ function SNAKE_CASE_toCamelCase(str: string): string {
 function getFileConfig(): Partial<UserConfig> {
     try {
         const config = fs.readFileSync(configPath, "utf8");
-        return JSON.parse(config);
+        return JSON.parse(config) as Partial<UserConfig>;
     } catch {
         return {};
     }

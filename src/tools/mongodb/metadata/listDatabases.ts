@@ -16,7 +16,7 @@ export class ListDatabasesTool extends MongoDBToolBase {
         return {
             content: dbs.map((db) => {
                 return {
-                    text: `Name: ${db.name}, Size: ${db.sizeOnDisk} bytes`,
+                    text: `Name: ${db.name}, Size: ${db.sizeOnDisk.toString()} bytes`,
                     type: "text",
                 };
             }),

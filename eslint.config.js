@@ -4,10 +4,31 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 
+const files = ["src/**/*.ts", "scripts/**/*.ts", "tests/**/*.test.ts", "eslint.config.js", "jest.config.js"];
+
 export default defineConfig([
-    { files: ["src/**/*.ts"], plugins: { js }, extends: ["js/recommended"] },
-    { files: ["src/**/*.ts"], languageOptions: { globals: globals.node } },
-    tseslint.configs.recommended,
+    { files, plugins: { js }, extends: ["js/recommended"] },
+    { files, languageOptions: { globals: globals.node } },
+    tseslint.configs.recommendedTypeChecked,
+    {
+        languageOptions: {
+            parserOptions: {
+                projectService: true,
+                tsconfigRootDir: import.meta.dirname,
+            },
+        },
+    },
+    {
+        files,
+        rules: {
+            "@typescript-eslint/switch-exhaustiveness-check": "error",
+        },
+    },
+    // Ignore features specific to TypeScript resolved rules
+    tseslint.config({
+        // TODO: Configure tests and scripts to work with this.
+        ignores: ["eslint.config.js", "jest.config.js", "tests/**/*.ts", "scripts/**/*.ts"],
+    }),
+    globalIgnores(["node_modules", "dist", "src/common/atlas/openapi.d.ts"]),
     eslintConfigPrettier,
-    globalIgnores(["node_modules", "dist"]),
 ]);
