@@ -43,7 +43,7 @@ export class ExplainTool extends MongoDBToolBase {
         collection,
         method: methods,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        const provider = this.ensureConnected();
+        const provider = await this.ensureConnected();
         const method = methods[0];
 
         if (!method) {
@@ -60,7 +60,7 @@ export class ExplainTool extends MongoDBToolBase {
             case "find": {
                 const { filter, ...rest } = method.arguments;
                 result = await provider
-                    .find(database, collection, filter, { ...rest })
+                    .find(database, collection, filter as Document, { ...rest })
                     .explain(ExplainTool.defaultVerbosity);
                 break;
             }
@@ -72,14 +72,12 @@ export class ExplainTool extends MongoDBToolBase {
                 })) as unknown as Document;
                 break;
             }
-            default:
-                throw new Error(`Unsupported method: ${method}`);
         }
 
         return {
             content: [
                 {
-                    text: `Here is some information about the winning plan chosen by the query optimizer for running the given \`${method}\` operation in \`${database}.${collection}\`. This information can be used to understand how the query was executed and to optimize the query performance.`,
+                    text: `Here is some information about the winning plan chosen by the query optimizer for running the given \`${method.name}\` operation in \`${database}.${collection}\`. This information can be used to understand how the query was executed and to optimize the query performance.`,
                     type: "text",
                 },
                 {
