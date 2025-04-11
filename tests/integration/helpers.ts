@@ -6,16 +6,20 @@ import path from "path";
 import fs from "fs/promises";
 import defaultState from "../../src/state.js";
 
-export async function setupIntegrationTest(): Promise<{
+export async function setupIntegrationTest({ mockStateStore = true }: { mockStateStore: boolean }): Promise<{
     client: Client;
     server: Server;
     teardown: () => Promise<void>;
 }> {
-    // Mock the load/persist credentials method to avoid state loading/restore messing up with the tests
-    const loadCredentialsMock = jest.spyOn(defaultState, "loadCredentials").mockImplementation(() => Promise.resolve());
-    const saveCredentialsMock = jest
-        .spyOn(defaultState, "persistCredentials")
-        .mockImplementation(() => Promise.resolve());
+    let loadCredentialsMock: jest.SpyInstance | undefined;
+    let saveCredentialsMock: jest.SpyInstance | undefined;
+    if (mockStateStore) {
+        // Mock the load/persist credentials method to avoid state loading/restore messing up with the tests
+        loadCredentialsMock = jest.spyOn(defaultState, "loadCredentials").mockImplementation(() => Promise.resolve());
+        saveCredentialsMock = jest
+            .spyOn(defaultState, "persistCredentials")
+            .mockImplementation(() => Promise.resolve());
+    }
 
     const clientTransport = new InMemoryTransport();
     const serverTransport = new InMemoryTransport();
@@ -47,8 +51,8 @@ export async function setupIntegrationTest(): Promise<{
             await client.close();
             await server.close();
 
-            loadCredentialsMock.mockRestore();
-            saveCredentialsMock.mockRestore();
+            loadCredentialsMock?.mockRestore();
+            saveCredentialsMock?.mockRestore();
         },
     };
 }
