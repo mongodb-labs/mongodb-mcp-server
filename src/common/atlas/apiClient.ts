@@ -1,31 +1,10 @@
 import config from "../../config.js";
 import createClient, { Client, FetchOptions, Middleware } from "openapi-fetch";
 import { AccessToken, ClientCredentials } from "simple-oauth2";
-
+import { ApiClientError } from "./apiClientError.js";
 import { paths, operations } from "./openapi.js";
-import { State } from "../../state.js";
 
 const ATLAS_API_VERSION = "2025-03-12";
-
-export class ApiClientError extends Error {
-    response?: Response;
-
-    constructor(message: string, response: Response | undefined = undefined) {
-        super(message);
-        this.name = "ApiClientError";
-        this.response = response;
-    }
-
-    static async fromResponse(response: Response, message?: string): Promise<ApiClientError> {
-        message ||= `error calling Atlas API`;
-        try {
-            const text = await response.text();
-            return new ApiClientError(`${message}: [${response.status} ${response.statusText}] ${text}`, response);
-        } catch {
-            return new ApiClientError(`${message}: ${response.status} ${response.statusText}`, response);
-        }
-    }
-}
 
 export interface ApiClientOptions {
     credentials?: {
@@ -71,6 +50,7 @@ export class ApiClient {
             }
         },
     };
+
     private readonly errorMiddleware: Middleware = {
         async onResponse({ response }) {
             if (!response.ok) {
@@ -79,15 +59,13 @@ export class ApiClient {
         },
     };
 
-    constructor(options: ApiClientOptions) {
-        const defaultOptions = {
-            baseUrl: "https://cloud.mongodb.com/",
-            userAgent: `AtlasMCP/${config.version} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
-        };
-
+    constructor(options?: ApiClientOptions) {
         this.options = {
-            ...defaultOptions,
             ...options,
+            baseUrl: options?.baseUrl || "https://cloud.mongodb.com/",
+            userAgent:
+                options?.userAgent ||
+                `AtlasMCP/${config.version} (${process.platform}; ${process.arch}; ${process.env.HOSTNAME || "unknown"})`,
         };
 
         this.client = createClient<paths>({
@@ -138,38 +116,39 @@ export class ApiClient {
         }>;
     }
 
+    // DO NOT EDIT. This is auto-generated code.
+    async listClustersForAllProjects(options?: FetchOptions<operations["listClustersForAllProjects"]>) {
+        const { data } = await this.client.GET("/api/atlas/v2/clusters", options);
+        return data;
+    }
+
     async listProjects(options?: FetchOptions<operations["listProjects"]>) {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups`, options);
+        const { data } = await this.client.GET("/api/atlas/v2/groups", options);
         return data;
     }
 
-    async listProjectIpAccessLists(options: FetchOptions<operations["listProjectIpAccessLists"]>) {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/accessList`, options);
-        return data;
-    }
-
-    async createProjectIpAccessList(options: FetchOptions<operations["createProjectIpAccessList"]>) {
-        const { data } = await this.client.POST(`/api/atlas/v2/groups/{groupId}/accessList`, options);
+    async createProject(options: FetchOptions<operations["createProject"]>) {
+        const { data } = await this.client.POST("/api/atlas/v2/groups", options);
         return data;
     }
 
     async getProject(options: FetchOptions<operations["getProject"]>) {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}`, options);
+        const { data } = await this.client.GET("/api/atlas/v2/groups/{groupId}", options);
+        return data;
+    }
+
+    async listProjectIpAccessLists(options: FetchOptions<operations["listProjectIpAccessLists"]>) {
+        const { data } = await this.client.GET("/api/atlas/v2/groups/{groupId}/accessList", options);
+        return data;
+    }
+
+    async createProjectIpAccessList(options: FetchOptions<operations["createProjectIpAccessList"]>) {
+        const { data } = await this.client.POST("/api/atlas/v2/groups/{groupId}/accessList", options);
         return data;
     }
 
     async listClusters(options: FetchOptions<operations["listClusters"]>) {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/clusters`, options);
-        return data;
-    }
-
-    async listClustersForAllProjects(options?: FetchOptions<operations["listClustersForAllProjects"]>) {
-        const { data } = await this.client.GET(`/api/atlas/v2/clusters`, options);
-        return data;
-    }
-
-    async getCluster(options: FetchOptions<operations["getCluster"]>) {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/clusters/{clusterName}`, options);
+        const { data } = await this.client.GET("/api/atlas/v2/groups/{groupId}/clusters", options);
         return data;
     }
 
@@ -178,13 +157,19 @@ export class ApiClient {
         return data;
     }
 
-    async createDatabaseUser(options: FetchOptions<operations["createDatabaseUser"]>) {
-        const { data } = await this.client.POST("/api/atlas/v2/groups/{groupId}/databaseUsers", options);
+    async getCluster(options: FetchOptions<operations["getCluster"]>) {
+        const { data } = await this.client.GET("/api/atlas/v2/groups/{groupId}/clusters/{clusterName}", options);
         return data;
     }
 
     async listDatabaseUsers(options: FetchOptions<operations["listDatabaseUsers"]>) {
-        const { data } = await this.client.GET(`/api/atlas/v2/groups/{groupId}/databaseUsers`, options);
+        const { data } = await this.client.GET("/api/atlas/v2/groups/{groupId}/databaseUsers", options);
         return data;
     }
+
+    async createDatabaseUser(options: FetchOptions<operations["createDatabaseUser"]>) {
+        const { data } = await this.client.POST("/api/atlas/v2/groups/{groupId}/databaseUsers", options);
+        return data;
+    }
+    // DO NOT EDIT. This is auto-generated code.
 }

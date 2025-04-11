@@ -41,4 +41,5 @@ export const MongoDbTools = [
     RenameCollectionTool,
     DropDatabaseTool,
     DropCollectionTool,
+    ExplainTool,
 ];
