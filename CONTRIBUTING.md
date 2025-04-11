@@ -172,6 +172,7 @@ When a version bump is merged to the main branch:
 ### Code Quality
 
 All pull requests automatically run through the "Code Health" workflow, which:
+
 - Verifies code style and formatting
 - Runs tests on multiple platforms (Ubuntu, macOS, Windows)
 
