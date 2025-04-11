@@ -1,5 +1,3 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { State } from "../../state.js";
 import { ConnectTool } from "./connect.js";
 import { ListCollectionsTool } from "./metadata/listCollections.js";
 import { CollectionIndexesTool } from "./collectionIndexes.js";
@@ -21,32 +19,25 @@ import { RenameCollectionTool } from "./update/renameCollection.js";
 import { DropDatabaseTool } from "./delete/dropDatabase.js";
 import { DropCollectionTool } from "./delete/dropCollection.js";
 
-export function registerMongoDBTools(server: McpServer, state: State) {
-    const tools = [
-        ConnectTool,
-        ListCollectionsTool,
-        ListDatabasesTool,
-        CollectionIndexesTool,
-        CreateIndexTool,
-        CollectionSchemaTool,
-        InsertOneTool,
-        FindTool,
-        InsertManyTool,
-        DeleteManyTool,
-        DeleteOneTool,
-        CollectionStorageSizeTool,
-        CountTool,
-        DbStatsTool,
-        AggregateTool,
-        UpdateOneTool,
-        UpdateManyTool,
-        RenameCollectionTool,
-        DropDatabaseTool,
-        DropCollectionTool,
-    ];
-
-    for (const tool of tools) {
-        const instance = new tool(state);
-        instance.register(server);
-    }
-}
+export const MongoDbTools = [
+    ConnectTool,
+    ListCollectionsTool,
+    ListDatabasesTool,
+    CollectionIndexesTool,
+    CreateIndexTool,
+    CollectionSchemaTool,
+    InsertOneTool,
+    FindTool,
+    InsertManyTool,
+    DeleteManyTool,
+    DeleteOneTool,
+    CollectionStorageSizeTool,
+    CountTool,
+    DbStatsTool,
+    AggregateTool,
+    UpdateOneTool,
+    UpdateManyTool,
+    RenameCollectionTool,
+    DropDatabaseTool,
+    DropCollectionTool,
+];

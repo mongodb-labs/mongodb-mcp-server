@@ -49,7 +49,7 @@ export class UpdateManyTool extends MongoDBToolBase {
                 message += ` Modified ${result.modifiedCount} document(s).`;
             }
             if (result.upsertedCount > 0) {
-                message += ` Upserted ${result.upsertedCount} document(s) (with id: ${result.upsertedId}).`;
+                message += ` Upserted ${result.upsertedCount} document(s) (with id: ${result.upsertedId?.toString()}).`;
             }
         }
 

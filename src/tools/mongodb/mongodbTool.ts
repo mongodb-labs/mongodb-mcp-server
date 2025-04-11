@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { ToolBase, ToolCategory } from "../tool.js";
-import { State } from "../../state.js";
+import { Session } from "../../session.js";
 import { NodeDriverServiceProvider } from "@mongosh/service-provider-node-driver";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { ErrorCodes, MongoDBError } from "../../errors.js";
@@ -12,16 +12,16 @@ export const DbOperationArgs = {
 };
 
 export abstract class MongoDBToolBase extends ToolBase {
-    constructor(state: State) {
-        super(state);
+    constructor(session: Session) {
+        super(session);
     }
 
     protected category: ToolCategory = "mongodb";
 
     protected async ensureConnected(): Promise<NodeDriverServiceProvider> {
-        const provider = this.state.serviceProvider;
+        const provider = this.session.serviceProvider;
         if (!provider && config.connectionString) {
-            await this.connectToMongoDB(config.connectionString, this.state);
+            await this.connectToMongoDB(config.connectionString);
         }
 
         if (!provider) {
@@ -51,7 +51,7 @@ export abstract class MongoDBToolBase extends ToolBase {
         return super.handleError(error);
     }
 
-    protected async connectToMongoDB(connectionString: string, state: State): Promise<void> {
+    protected async connectToMongoDB(connectionString: string): Promise<void> {
         const provider = await NodeDriverServiceProvider.connect(connectionString, {
             productDocsLink: "https://docs.mongodb.com/todo-mcp",
             productName: "MongoDB MCP",
@@ -65,6 +65,6 @@ export abstract class MongoDBToolBase extends ToolBase {
             timeoutMS: config.connectOptions.timeoutMS,
         });
 
-        state.serviceProvider = provider;
+        this.session.serviceProvider = provider;
     }
 }

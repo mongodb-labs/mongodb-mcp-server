@@ -57,7 +57,7 @@ export class ConnectTool extends MongoDBToolBase {
             throw new MongoDBError(ErrorCodes.InvalidParams, "Invalid connection options");
         }
 
-        await this.connectToMongoDB(connectionString, this.state);
+        await this.connectToMongoDB(connectionString);
 
         return {
             content: [{ type: "text", text: `Successfully connected to ${connectionString}.` }],

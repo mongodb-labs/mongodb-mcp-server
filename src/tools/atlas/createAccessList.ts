@@ -27,7 +27,7 @@ export class CreateAccessListTool extends AtlasToolBase {
         comment,
         currentIpAddress,
     }: ToolArgs<typeof this.argsShape>): Promise<CallToolResult> {
-        this.state.ensureApiClient();
+        this.session.ensureAuthenticated();
 
         if (!ipAddresses?.length && !cidrBlocks?.length && !currentIpAddress) {
             throw new Error("One of  ipAddresses, cidrBlocks, currentIpAddress must be provided.");
@@ -40,7 +40,7 @@ export class CreateAccessListTool extends AtlasToolBase {
         }));
 
         if (currentIpAddress) {
-            const currentIp = await this.state.apiClient.getIpInfo();
+            const currentIp = await this.session.apiClient.getIpInfo();
             const input = {
                 groupId: projectId,
                 ipAddress: currentIp.currentIpv4Address,
@@ -57,7 +57,7 @@ export class CreateAccessListTool extends AtlasToolBase {
 
         const inputs = [...ipInputs, ...cidrInputs];
 
-        await this.state.apiClient.createProjectIpAccessList({
+        await this.session.apiClient.createProjectIpAccessList({
             params: {
                 path: {
                     groupId: projectId,
