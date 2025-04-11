@@ -3,7 +3,6 @@ import { ApiClient } from "../../common/atlas/apiClient.js";
 import { Session } from "../../session.js";
 
 export abstract class AtlasToolBase extends ToolBase {
-    private apiClient?: ApiClient;
 
     constructor(protected readonly session: Session) {
         super(session);
