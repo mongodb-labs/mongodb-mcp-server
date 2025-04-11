@@ -53,11 +53,8 @@ export class ExplainTool extends MongoDBToolBase {
         let result: Document;
         switch (method.name) {
             case "aggregate": {
-                const { pipeline, limit } = method.arguments;
-                result = await provider
-                    .aggregate(database, collection, pipeline)
-                    .limit(limit)
-                    .explain(ExplainTool.defaultVerbosity);
+                const { pipeline } = method.arguments;
+                result = await provider.aggregate(database, collection, pipeline).explain(ExplainTool.defaultVerbosity);
                 break;
             }
             case "find": {
