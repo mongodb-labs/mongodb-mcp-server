@@ -22,8 +22,8 @@ export class Server {
         registerAtlasTools(this.server, this.state);
         registerMongoDBTools(this.server, this.state);
 
-        await this.server.connect(transport);
         await initializeLogger(this.server);
+        await this.server.connect(transport);
 
         logger.info(mongoLogId(1_000_004), "server", `Server started with transport ${transport.constructor.name}`);
     }
