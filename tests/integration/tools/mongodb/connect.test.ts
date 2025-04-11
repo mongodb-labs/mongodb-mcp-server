@@ -3,12 +3,10 @@ import { Server } from "../../../../src/server.js";
 import { runMongoDB, setupIntegrationTest, validateToolResponse } from "../../helpers.js";
 import runner from "mongodb-runner";
 
-import defaultState from "../../../../src/state.js";
 import config from "../../../../src/config.js";
 
 describe("Connect tool", () => {
     let client: Client;
-    let server: Server;
     let serverClientTeardown: () => Promise<void>;
 
     let cluster: runner.MongoCluster;
@@ -27,7 +25,7 @@ describe("Connect tool", () => {
 
     describe("with default config", () => {
         beforeEach(async () => {
-            ({ client, server, teardown: serverClientTeardown } = await setupIntegrationTest());
+            ({ client, teardown: serverClientTeardown } = await setupIntegrationTest());
         });
 
         it("should have correct metadata", async () => {
@@ -88,7 +86,7 @@ describe("Connect tool", () => {
         beforeEach(async () => {
             config.connectionString = cluster.connectionString;
 
-            ({ client, server, teardown: serverClientTeardown } = await setupIntegrationTest());
+            ({ client, teardown: serverClientTeardown } = await setupIntegrationTest());
         });
 
         it("uses the connection string from config", async () => {
