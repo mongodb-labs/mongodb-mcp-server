@@ -5,8 +5,7 @@ import { ApiClient } from "./common/atlas/apiClient.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import config from "./config.js";
 import { State } from "./state.js";
-import { registerAtlasTools } from "./tools/atlas/tools.js";
-import { registerMongoDBTools } from "./tools/mongodb/index.js";
+import { Server } from "./server.js";
 
 try {
     const state = new State();
@@ -14,18 +13,21 @@ try {
 
     const apiClient = ApiClient.fromState(state);
 
-    const mcp = new McpServer({
+    const mcpServer = new McpServer({
         name: "MongoDB Atlas",
         version: config.version,
     });
 
-    mcp.server.registerCapabilities({ logging: {} });
-
-    registerAtlasTools(mcp, state, apiClient);
-    registerMongoDBTools(mcp, state);
-
     const transport = new StdioServerTransport();
-    await mcp.server.connect(transport);
+
+    const server = new Server({
+        mcpServer,
+        state,
+        apiClient,
+        transport,
+    });
+
+    await server.registerAndConnect();
 } catch (error) {
     logger.emergency(mongoLogId(1_000_004), "server", `Fatal error running server: ${error}`);
 
